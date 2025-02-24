@@ -100,6 +100,16 @@ $(document).on(':passagedisplay', function(ev) {
      </div>
 </footer>
 
+:: footerend[nobr]
+<footer>
+    <<button "Back">>
+        <<goto $prevpass>>
+    <</button>>
+
+    <div id="nextButtonContainer">
+     </div>
+</footer>
+
 :: footergrid[nobr]
 <footer class="grid-item footer">
     <<button "Back">>
@@ -119,7 +129,10 @@ $(document).on(':passagedisplay', function(ev) {
 
 <<set $playerchoices to {
     chosenmonsters: [],
+    finalmonster: [],
+    originalactions: [],
     chosenactions: [],
+    changedactions:[],
     wildcards:0,
 }>>
 <<audio ":all" stop>>
@@ -133,7 +146,7 @@ $(document).on(':passagedisplay', function(ev) {
     <</button>>
 </main>
 
-
+<<include "wallet">>
 
 :: _templateIntro[nobr]
 <<addclass "body" "light">>
@@ -204,9 +217,9 @@ $(document).on(':passagedisplay', function(ev) {
     <</button>>
 
 :: intro3 [nobr]
-<<set $prevpass to "intro1">>
+<<set $prevpass to "intro2">>
 <<set $pass to "intro3">>
-<<set $nextpass to "intro4">>
+<<set $nextpass to "playercards">>
 
 <<include "_templateIntro">>
 
@@ -230,40 +243,17 @@ $(document).on(':passagedisplay', function(ev) {
 
 
 
-  <<button "Move on">>
+<<button "Let's Play">>
         <<goto $nextpass>>
     <</button>>
 
-:: intro4 [nobr]
-<<set $prevpass to "intro1">>
-<<set $pass to "intro4">>
-<<set $nextpass to "playercards">>
-
-<<include "_templateIntro">>
 
 
-:: intro4-text [nobr]
-<p>You will play as neighbours on a single street - High Street - it’s the most common street name in the UK. </p>
-<p>High Street could be anywhere in the country. There are some houses, a block of flats, and a couple of shops.</p>
-<br/>
-<p>If there are multiple tables playing, each represents a different High Street in a different part of the UK. </p>
-<p>You will all face the same disaster. </p>
-<br/>
-<p>As the residents of High Street, the disaster you will face is a monster attack. </p>
-<p>The aim of the game is to prepare well, respond well and recover well from this attack. </p>
-<br/>
-<p>Stronger Together explores how community resilience plays out in the face of disasters.</p>
-<p>It’s more broadly about community connection, and how we can be stronger together. </p>
-
-
-
-  <<button "Let's Play">>
-        <<goto $nextpass>>
-    <</button>>
+  
 
 
 :: playercards [nobr]
-<<set $prevpass to "intro4">>
+<<set $prevpass to "intro3">>
 <<set $pass to "playercards">>
 <<set $nextpass to "monstercards">>
 
@@ -294,7 +284,6 @@ $(document).on(':passagedisplay', function(ev) {
         <p>Then, take five minutes to introduce yourself to your street. </p>
         <p>Share your name: it can be your real name, or an imaginary one. </p>
         <p>Share your skills & facts. </p>
-      <div id="nextButtonContainer"> </div>
     </div>
 
  
@@ -315,12 +304,44 @@ $(document).on(':passagedisplay', function(ev) {
 		<<if $seconds gt 0>>
 			<<replace "#countdown">><span class="secs">$seconds</span> <span class="extra">seconds</span><</replace>>
 		<<else>>
-			<<replace "#countdown">><strong>Too Late</strong><</replace>>
+			<<replace "#countdown">><strong>Times up</strong><</replace>>
       <<timed 1.5s>>
        <<replace "#nextButtonContainer">>
         <<button "Move On">>
             <<goto $nextpass>>
             <</button>>
+        <</replace>>
+        <</timed>>
+  
+			<<stop>>
+		<</if>>
+	<</repeat>>
+<</silently>>
+
+:: 3mtimer [nobr]
+  /* <<audio "30s" "play" loop>> */
+<<set $seconds to 5>>
+<span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
+
+
+<<silently>>
+	<<repeat 1s>>
+		<<set $seconds to $seconds - 1>>
+		<<if $seconds gt 0>>
+			<<replace "#countdown">><span class="secs">$seconds</span> <span class="extra">seconds</span><</replace>>
+		<<else>>
+			<<replace "#countdown">><strong>Times up</strong><</replace>>
+      <<timed 1.5s>>
+       <<replace "#nextButtonContainer">>
+        <<if $pass is "questions">>
+             <<button "End">>
+            <<goto $nextpass>>
+             <</button>>
+         <<else>>
+            <<button "Move On">>
+            <<goto $nextpass>>
+             <</button>>
+            <</if>>
         <</replace>>
         <</timed>>
   
@@ -555,6 +576,7 @@ $(document).on(':passagedisplay', function(ev) {
 
      <<link "Choose">>
     <<set $playerchoices.chosenactions.push($actionsoptions[_i].id)>>
+     <<set $playerchoices.originalactions.push($actionsoptions[_i].id)>>
     <<timed 0.1s>>
      <<include "checkChosenActions">>   
     <</timed>>       
@@ -661,6 +683,8 @@ There’s some extra help available. ",
     <</button>>
     </div>
 </main>
+<<include "wallet">>
+<<include "footer">>
 
 
 :: diceresults [nobr]
@@ -737,9 +761,10 @@ There’s some extra help available. ",
 <</if>>
 
 :: saveResultsOfDiceRoll
-
+<<set $playerchoices.wildcards to $diceoptions[$diceroll].wildcards>>
 <<set $updatedChosenActions to []>> <!-- New array to hold filtered values -->
 <<if _failedActions>>
+ <<set $playerchoices.changedactions to _failedActions>>
 <<for _i to 0; _i lt $playerchoices.chosenactions.length; _i++>>
     <<if !_failedActions.includes($playerchoices.chosenactions[_i])>> <!-- Check if the action is not in _failedActions -->
         <<set $updatedChosenActions.push($playerchoices.chosenactions[_i])>> <!-- Add it to the new array if it's not a failed action -->
@@ -758,7 +783,14 @@ There’s some extra help available. ",
 <h2>Wallet</h2>
 <span>Monsters: $playerchoices.chosenmonsters</span>
 <br/>
-<span>Actions: $playerchoices.chosenactions</span>
+<span>Final Monster: $playerchoices.finalmonster</span>
+<br/>
+<span>Original Actions: $playerchoices.originalactions</span>
+<br/>
+<span>Chosen Actions: $playerchoices.chosenactions</span>
+<br/>
+<span>Changed Actions: $playerchoices.changedactions</span>
+
 <br/>
 <span>Wildcards: $playerchoices.wildcards</span>
 
@@ -766,7 +798,7 @@ There’s some extra help available. ",
 :: forecast [nobr]
 <<set $prevpass to "diceresults">>
 <<set $pass to "forecast">>
-<<set $nextpass to "">>
+<<set $nextpass to "story">>
 
 <main>
 <div class="explanation">
@@ -776,7 +808,484 @@ There’s some extra help available. ",
 
 <p>Select the monster below. </p>
 </div>
+<<include "choosefinalmonster">>
+<br/>
+/* <<include "wallet">> */
+</main>
+
+<<include "footergrid">>
+
+:: choosefinalmonster [nobr]
+ <<set $img1 to "assets/img/" + $playerchoices.chosenmonsters[0] + "_Card.png" >>
+ <<set $img2 to "assets/img/" + $playerchoices.chosenmonsters[1] + "_Card.png" >>
+
+
+<div class="cards-selection">
+    <div class="card-selection-item arcard" id="card1">
+        <<link [img[$img1]]>>
+            <<if $playerchoices.finalmonster == $playerchoices.chosenmonsters[0]>>
+                <<set $playerchoices.finalmonster to "">> <!-- Deselect if already selected -->
+              
+            <<else>>
+                <<set $playerchoices.finalmonster to $playerchoices.chosenmonsters[0]>> <!-- Select this, deselect the other -->
+                  <<removeclass "#card2" "chosen">>
+            <</if>>
+
+                <<include "checkFinalMonsterChoice">>
+
+        <</link>>
+    </div>
+    
+    <div class="card-selection-item arcard" id="card2">
+        <<link [img[$img2]]>>
+            <<if $playerchoices.finalmonster == $playerchoices.chosenmonsters[1]>>
+                <<set $playerchoices.finalmonster to "">> <!-- Deselect if already selected -->
+            <<else>>
+                <<set $playerchoices.finalmonster to $playerchoices.chosenmonsters[1]>> <!-- Select this, deselect the other -->
+                <<removeclass "#card1" "chosen">>
+            <</if>>
+
+                <<include "checkFinalMonsterChoice">>
+      
+        <</link>>
+    </div>
+</div>
+  <<include "checkFinalMonsterChoice">>
+
+
+:: checkFinalMonsterChoice [nobr]
+ <<timed 0.1s>> 
+    <<for _i to 0; _i lt 2; _i++>>
+    <<if $playerchoices.finalmonster === $playerchoices.chosenmonsters[0]>>
+        <<set _id to "#card1" >>
+        <<addclass _id "chosen">>
+    <<elseif $playerchoices.finalmonster === $playerchoices.chosenmonsters[1]>>
+        <<set _id to "#card2" >>
+        <<addclass _id "chosen">>
+    <</if>>
+<</for>>  
+<</timed>>
+
+
+    <<timed 0.1s>>
+    <<replace "#nextButtonContainer">>
+         <span>Choose 1 Monster</span>
+        <</replace>>
+    <</timed>>
+<<if $playerchoices.finalmonster != "">>
+    <<timed 0.1s>>
+        <<replace "#nextButtonContainer">>
+            <<button "Confirm and move on">>
+                <<goto $nextpass>>
+            <</button>>
+        <</replace>>
+    <</timed>>
+<</if>>
+
+
+:: story [nobr]
+<<set $prevpass to "forecast">>
+<<set $pass to "story">>
+<<set $nextpass to "pullwildcards">>
+
+
+<main>
+<h2>Now the monster is closing in on High Street. </h2>
+<h3>We’re going to uncover how this attack plays out. </h3>
+<br/><br/>
+/* CONNECT 5 = id 12 */
+<<if $playerchoices.chosenactions.includes(12)>>
+    <p>You signed up for alerts, so everyone was warned about the monster in good time. The alerts included up to date guidance, and no neighbours were caught out by outdated methods. </p>
+ <</if>>
+<<if !$playerchoices.chosenactions.includes(12) && !$playerchoices.changedactions.includes(12)>>
+    <p>You didn’t sign up for alerts, so not everyone was warned about the monster in good time. Without up to date guidance, many households used outdated methods to keep the monster at bay, putting them in further danger. </p>
+ <</if>>
+<<if $playerchoices.changedactions.includes(12)>>
+    <p>You weren’t able to sign up for alerts, so not everyone was warned about the monster in good time, or given the most up to date guidance. But! You can use your skills and resources to help. </p>
+    <p>Pick one player who will take a single action to share updated guidance, to ensure everyone knows how to react. </p>
+ <</if>>
+
+/* CRYSTAL & PREPARE 1 = id 1 */
+<<if $playerchoices.finalmonster is "Crystal" && $playerchoices.chosenactions.includes(1)>>
+    <p>You laid out some salts to guide Crystal down your street. She leaves no residue, so when your neighbours venture out, there are no slips or falls.  </p>
+ <</if>>
+<<if $playerchoices.finalmonster is "Crystal" && !$playerchoices.chosenactions.includes(1) && !$playerchoices.changedactions.includes(1)>>
+    <p>You didn’t lay out grit to guide Crystal down your street. The streets are slippy and icy. A couple of neighbours who do venture out slip and fall, resulting in a broken wrist and two sprained ankles.</p>
+ <</if>>
+<<if $playerchoices.finalmonster is "Crystal" && $playerchoices.changedactions.includes(1)>>
+<p>You weren’t able to lay out grit to guide Crystal down your street. But! You can use your skills and resources to help. </p>
+<p>Pick one player who will take a single action to guide your neighbours safely down the street. </p>
+ <</if>>
+
+/* INFERNO & PREPARE 2 = id 2 */
+<<if $playerchoices.finalmonster is "Inferno" && $playerchoices.chosenactions.includes(2)>>
+    <p>You gathered drinks and ice in preparation for Inferno’s visit. As the temperature creeps up, you’re able to make sure everyone is cool and hydrated, minimising the health impact of Inferno’s attack. </p>
+ <</if>>
+<<if $playerchoices.finalmonster is "Inferno" && !$playerchoices.chosenactions.includes(2) && !$playerchoices.changedactions.includes(2)>>
+    <p>You didn’t gather drinks and ice in preparation for Inferno’s visit. As the temperature creeps up, some neighbours, especially those with existing health conditions, begin to suffer. Two people are left dehydrated, and one neighbour faints and has to be taken to hospital. </p>
+ <</if>>
+<<if $playerchoices.finalmonster is "Inferno" && $playerchoices.changedactions.includes(2)>>
+<p> You weren’t able to gather drinks and ice in preparation for Inferno’s visit. As the temperature creeps up, you’ll need to use your skills and resources to keep your neighbours safe. </p>
+<p>Pick one player who will take a single action to care for their neighbors in the extreme heat. </p>
+ <</if>>
+
+/* GALE & PREPARE 3 = id 3 */
+<<if $playerchoices.finalmonster is "Gale" && $playerchoices.chosenactions.includes(3)>>
+    <p>You cleared away or secured objects outside before Gale’s arrival. While she bangs at the doors of sheds, and pulls at the cables you’ve tied, nothing escapes. Neighbours are kept safe from flying debris.  </p>
+ <</if>>
+<<if $playerchoices.finalmonster is "Gale" && !$playerchoices.chosenactions.includes(3) && !$playerchoices.changedactions.includes(3)>>
+    <p>You didn’t clear away or secure objects outside before Gale’s arrival. She bangs at the doors of sheds, and lifts chairs and even a trampoline into the air. One neighbour is hit by a flying parasol and has to go to hospital.  </p>
+ <</if>>
+<<if $playerchoices.finalmonster is "Gale" && $playerchoices.changedactions.includes(3)>>
+<p>You weren’t able to clear away or secure outside objects before Gale’s arrival. As she swirls down ready to lift objects into the air, you’ll have to rely on your own skills and resources. </p>
+<p>Pick one player who will take a single action to protect neighbours from flying debris. </p>
+
+ <</if>>
+
+ /* DRENCH & PREPARE 4 = id 4 */
+<<if $playerchoices.finalmonster is "Drench" && $playerchoices.chosenactions.includes(4)>>
+    <p>You set up barriers, blocks and absorbent pads to keep out or soak up Drench. When she arrives, the barriers, blocks and pads keep homes water free, with no risk of disease or electric shock. </p>
+ <</if>>
+<<if $playerchoices.finalmonster is "Drench" && !$playerchoices.chosenactions.includes(4) && !$playerchoices.changedactions.includes(4)>>
+    <p>You didn’t set up barriers, blocks and absorbent pads to keep out or soak up Drench. When she arrives, she rushes into homes. Two neighbours end up with respiratory infections from the floodwater, and a family is stuck upstairs in their house, unable to go down because of the risk of electric shock.  </p>
+ <</if>>
+<<if $playerchoices.finalmonster is "Drench" && $playerchoices.changedactions.includes(4)>>
+<p>You weren’t able to set up barriers, blocks and absorbent pads to keep out or soak up Drench. As she rushes in, you’ll have to rely on your own skills and resources. </p>
+<p>Pick one player who will take a single action to protect neighbours from disease and electric shock due to floodwater. </p>
+
+ <</if>>
+
+/* CONNECT 1 = id 8 */
+<<if $playerchoices.chosenactions.includes(8)>>
+<p> You set up a messaging group to keep in touch with neighbours, which connected you to someone on the street you hadn’t met. </p>
+<p>Turn over one of the face down household cards. </p>
+<p>You are able to include this neighbour in your preparations, involving their skills and providing support if needed. </p>
+
+ <</if>>
+<<if !$playerchoices.chosenactions.includes(8) && !$playerchoices.changedactions.includes(8)>>
+<p>You didn’t set up a messaging group to keep in touch with neighbours, so you didn’t meet someone on the street who is rarely home to answer the door. </p>
+<p>Turn over one of the face down household cards. </p>
+<p>You were not able to include this neighbour in your preparations, or involve their skills or provide support, even if it was needed. </p>
+
+ <</if>>
+<<if $playerchoices.changedactions.includes(8)>>
+<p>You weren’t able to set up a messaging group to keep in touch with neighbours, so you didn’t meet someone on the street who is rarely home to answer the door. </p>
+<p>Turn over one of the face down household cards. </p>
+<p>However, you do have your own skills and resources. Pick one player who will take a single action to provide support to this neighbour. 
+t neighbours from disease and electric shock due to floodwater. </p>
+ <</if>>
+
+/* CONNECT 2 = id 9 */
+<<if $playerchoices.chosenactions.includes(9)>>
+<p>You went doorknocking along the street which connected you to one of your neighbours who you hadn’t met, who doesn’t use WhatsApp. </p>
+<p>Turn over one of the face down household cards. </p>
+<p>You are able to include this neighbour in your preparations, involving their skills and providing support if needed. </p>
+ <</if>>
+<<if !$playerchoices.chosenactions.includes(9) && !$playerchoices.changedactions.includes(9)>>
+<p>You didn’t go doorknocking down your street, so you didn’t meet a neighbour who does not use WhatsApp. </p>
+<p>Turn over one of the face down household cards. </p>
+<p>You were not able to include this neighbour in your preparations, or involve their skills or provide support, even if it was needed.</p>
+ <</if>>
+<<if $playerchoices.changedactions.includes(9)>>
+<p>You weren’t able to go door knocking down your street, so you didn’t meet a neighbour who does not use WhatsApp. </p>
+<p>Turn over one of the face down household cards. </p>
+<p>However, you do have your own skills and resources. Pick one player who will take a single action to provide support to this neighbour.  
+</p>
+ <</if>>
+
+/* PREPARE 5 = id 5 */
+<<if $playerchoices.chosenactions.includes(5)>>
+<p>You moved precious belongings in your home to a safe place. As the monster rushes in, belongings sit on high shelves and in attics. Safe and out of reach.</p>
+ <</if>>
+<<if !$playerchoices.chosenactions.includes(5) && !$playerchoices.changedactions.includes(5)>>
+<p>You didn’t move precious belongings in your home to a safe place. As the monster rushes in, belongings are swept away with them. One resident loses all their family photographs, and another is left trying to work out how to afford a new computer. </p>
+ <</if>>
+<<if $playerchoices.changedactions.includes(5)>>
+<p>You weren’t able to move precious belongings in your home to a safe place. As the monster arrives, you’ll have to rely on your own skills and resources. </p>
+<p>Pick one player who will take a single action to protect precious belongings from monster attack.</p>
+ <</if>>
+
+/* PREPARE 6 = id 6 */
+<<if $playerchoices.chosenactions.includes(6)>>
+<p>You prepared an emergency kit. When the monster attacks the electricity supply, leading to a 24h outage, you’re ready. You have food, water and a first aid kit, and a wind up radio to stay entertained. </p>
+ <</if>>
+<<if !$playerchoices.chosenactions.includes(6) && !$playerchoices.changedactions.includes(6)>>
+<p>You didn’t prepare an emergency kit. When the monster attacks the electricity supply, leading to a 24h outage, you’re unprepared. You can’t regulate your temperature, struggle to find edible food, and all you have is each other for entertainment. </p>
+ <</if>>
+<<if $playerchoices.changedactions.includes(6)>>
+<p>You weren’t able to prepare an emergency kit. When the monster attacks the electricity supply, leading to a 24h outage, you have to rely on your own skills and resources. </p>
+<p>Pick one player who will take a single action to care for the street during the outage. </p>
+ <</if>>
+
+/* PREPARE 7 = id 7 */
+<<if $playerchoices.chosenactions.includes(7)>>
+<p>You made a plan and created a ‘grab bag’. When the monster forces you to evacuate, you have all you need with you: food, water and a phone charger so you can stay in touch with the rest of the street.  </p>
+ <</if>>
+<<if !$playerchoices.chosenactions.includes(7) && !$playerchoices.changedactions.includes(7)>>
+<p>You didn’t make a plan and or create a ‘grab bag’. When the monster forces you to evacuate, you forget some key items, including your phone charger. When your neighbour calls asking for help, your phone has no battery. It doesn’t ring.</p>
+ <</if>>
+<<if $playerchoices.changedactions.includes(7)>>
+<p>You weren’t able to make a plan and or create a ‘grab bag’. When the monster forces you to evacuate, you’re stuck. You do however have your skills and resources. </p>
+<p>Pick one player who will take a single action to care for the street during the evacuation.</p>
+ <</if>>
+
+/* CONNECT 3 = id 10 */
+<<if $playerchoices.chosenactions.includes(10)>>
+<p>You connected to the community centre, so that when resources run low, you have somewhere to turn to. Several households begin to run out of food, but the community centre’s food bank makes sure everyone is well fed.  </p>
+ <</if>>
+<<if !$playerchoices.chosenactions.includes(10) && !$playerchoices.changedactions.includes(10)>>
+<p>You didn’t connect to the community centre, so that when resources run low, there is nowhere to turn. Several households begin to run out of food, and are left hungry. </p>
+ <</if>>
+<<if $playerchoices.changedactions.includes(10)>>
+<p>You weren’t able to connect to the community centre. When resources run low, there is nowhere to turn. Several households begin to run out of food, and all you have are your own skills and resources.</p>
+<p>Pick one player who will take a single action to provide support to their neighbours. </p>
+ <</if>>
+
+/* CONNECT 4 = id 11 */
+<<if $playerchoices.chosenactions.includes(11)>>
+<p>You connected to the local school or faith space. When several of the houses are attacked badly by the monster, they become unsafe to stay in. Households retreat to the safe space until the worst of the attack is over. </p>
+ <</if>>
+<<if !$playerchoices.chosenactions.includes(11) && !$playerchoices.changedactions.includes(11)>>
+<p>You didn’t connect to the local school or faith space. When several of the houses are attacked badly by the monster, they become unsafe to stay in. There is nowhere else for the neighbours to go, so they have to stay inside, hoping they can wait it out. </p>
+ <</if>>
+<<if $playerchoices.changedactions.includes(11)>>
+<p>You weren’t able to connect to the local school or faith space. When several of the houses are attacked badly by the monster, they become unsafe to stay in. All you have are your own skills and resources. </p>
+<p>Pick one player who will take a single action to provide support to the stranded households. </p>
+
+ <</if>>
+ <<button "Move On">>
+<<goto $nextpass>>
+    <</button>>
 <<include "wallet">>
 </main>
 
 <<include "footergrid">>
+
+:: pullwildcards [nobr]
+<<set $prevpass to "story">>
+<<set $pass to "pullwildcards">>
+<<set $nextpass to "aftermath">>
+<<set $wildcardoptions to [
+    "Local firefighters come to clear debris off the streets.", 
+    "An emergency first aid van sets up on the street, knocking on doors and providing support where needed.", 
+    "Free care packages with water, food and emergency supplies are dropped at each house.",
+    "Your councillor sends around insurance experts, to ensure households can get good claims against economic damage."
+]>>
+<<set $wildcardsdrawn to []>> 
+<<set $remainingwildcards to $playerchoices.wildcards>>
+
+<main>
+    <<if $remainingwildcards > 0 >>
+        <p>Your helpful councillor has sent some extra support:  
+        Pull <<print $remainingwildcards>> wildcard(s).</p>
+
+        <div id="wildcardDisplay"></div>
+        <div id="remainingwildcardsText">
+            <p>Remaining wildcards: <<print $remainingwildcards>></p>
+        </div>
+
+        <div id="drawButtonContainer">
+            <<button "Draw Wildcard">>
+                <<set _drawnCard to "">>
+
+                <<for _tries to 0; _tries lt 10; _tries++>> 
+                    <<set _randomIndex to random(0, $wildcardoptions.length - 1)>>
+                    <<set _potentialCard to $wildcardoptions[_randomIndex]>>
+                    <<if not $wildcardsdrawn.includes(_potentialCard)>>
+                        <<set _drawnCard to _potentialCard>>
+                        <<set $wildcardsdrawn.push(_drawnCard)>>
+                        <<set $remainingwildcards to $remainingwildcards - 1>>
+                        <<break>>
+                    <</if>>
+                <</for>>
+
+                <<replace "#wildcardDisplay">>
+                    <p><strong>Wildcard:</strong> <<print _drawnCard>></p>
+                <</replace>>
+
+                <<replace "#remainingwildcardsText">>
+                    <p>Remaining wildcards: <<print $remainingwildcards>></p>
+                <</replace>>
+
+                <<if $remainingwildcards == 0>>
+                    <<replace "#drawButtonContainer">>
+                        <<button "Move On">>
+                            <<goto $nextpass>>
+                        <</button>>
+                    <</replace>>
+                <</if>>
+            <</button>>
+        </div>
+
+    <<else>>
+        <<button "Move On">>
+            <<goto $nextpass>>
+        <</button>>
+    <</if>>
+</main>
+<<include "footer">>
+
+:: aftermath [nobr]
+<<set $prevpass to "pullwildcards">>
+<<set $pass to "aftermath">>
+<<set $nextpass to "recovery">>
+
+<main>
+<h3>The monster attack is over. </h3>
+
+<p>As they retreat you are left with some consequences to contend with.</p>
+
+/* If Connect 5 is not selected */
+<<if !$playerchoices.chosenactions.includes(12)>>
+    <p>Neighbours feel low and upset having used outdated methods to try and keep the monster at bay. Their approaches just made the attack worse.</p>
+ <</if>>
+
+/* If monster is CRYSTAL And If Prepare 1 is not selected  */
+ <<if $playerchoices.finalmonster is "Crystal" && !$playerchoices.chosenactions.includes(1)>>
+<p>Due to slips and falls, some neighbours have been injured: there is one broken wrist and two sprained ankles.</p>
+<</if>>
+
+/* If monster is INFERNO And If Prepare 2 is not selected  */
+<<if $playerchoices.finalmonster is "Inferno" && !$playerchoices.chosenactions.includes(2)>>
+<p>Due to excessive heat, some neighbours have been injured: two are recovering from dehydration, and one is still in hospital, having fainted. </p>
+<</if>>
+
+/* If monster is GALE And If Prepare 3 is not selected  */
+<<if $playerchoices.finalmonster is "Gale" && !$playerchoices.chosenactions.includes(3)>>
+<p>Due to flying debris, some neighbours have been injured: one hit by a flying parasol is still in hospital. </p>
+<</if>>
+
+/* If monster is DRENCH And If Prepare 4 is not selected  */
+<<if $playerchoices.finalmonster is "Drench" && !$playerchoices.chosenactions.includes(4)>>
+<p>Due to floodwater, some neighbours have been injured: two still have respiratory infections from the floodwater, and a family remains traumatised from being stuck on the top floor of their house for several days. </p>
+<</if>>
+
+/* If Connect 1 is not selected  */
+<<if !$playerchoices.chosenactions.includes(8)>>
+<p>A neighbour who does not answer the door was not included the plans for the monster attack and wasn’t able to access support. </p>
+<</if>>
+
+/* If Connect 2 is not selected  */
+<<if !$playerchoices.chosenactions.includes(9)>>
+<p>A neighbour who doesn’t have WhatsApp was not included in the plans for the monster attack, and wasn’t able to access support. </p>
+<</if>>
+
+/* If Prepare 5 is not selected  */
+<<if !$playerchoices.chosenactions.includes(5)>>
+<p>The monster has stolen belongings and caused damage: one neighbour lost all their family photographs, and another is trying to work out how to afford a new computer. </p>
+<</if>>
+
+/* If Prepare 6 is not selected  */
+<<if !$playerchoices.chosenactions.includes(6)>>
+<p>Neighbours are still in shock from 24h without power, without emergency supplies to help them through.  </p>
+<</if>>
+
+/* If Prepare 7 is not selected  */
+<<if !$playerchoices.chosenactions.includes(7)>>
+<p>A neighbour, who was stranded, is left panicked and scared, having tried to call for help, but no one picked up.</p>
+<</if>>
+
+/* If Connect 3 is not selected  */
+<<if !$playerchoices.chosenactions.includes(10)>>
+<p>Households are still hungry and left emotionally impacted after days with very little food.</p> 
+    <</if>>
+
+/* If Connect 4 is not selected  */
+<<if !$playerchoices.chosenactions.includes(11)>>
+<p>Households are still scared having had to wait out the attack in unsafe properties with nowhere else to retreat to. </p>
+<</if>>
+
+<<button "Next">>
+    <<goto $nextpass>>
+    <</button>>
+</main>
+
+
+:: recovery [nobr]
+<<set $prevpass to "aftermath">>
+<<set $pass to "recovery">>
+<<set $nextpass to "outro">>
+
+<main>
+    <p>There is a lot to recover from. </p>
+    <p>But! You have each other, your skills, your resources and connections. </p>
+    <p>You will use these to help High Street begin its recovery. </p>
+    
+    <p>Select three of the areas, and decide how you will use your skills & resources to help High Street. </p>
+    <p>Perhaps you will use your construction skills to help repair a broken roof, or make a round of incredible sandwiches to lift everyone’s mood? </p>
+    
+    <p>Take three minutes to discuss the three actions you will take, using only what you have at your disposal (on your character cards). </p>
+    <p>When you’re ready, share what you will do. </p>
+    
+    <<timed 5s>>
+        <<include "3mtimer">>
+        <</timed>>
+    
+</main>
+<<include "footergrid">>
+
+
+:: outro [nobr]
+<<set $prevpass to "recovery">>
+<<set $pass to "outro">>
+<<set $nextpass to "questions">>
+
+<main>
+  <p> Now, the monster has left an impact, but thanks to your skills, your passions, and your connections, High Street has come together and is on the way to recovery. </p>
+
+<p>There are still challenges and obstacles, & areas which need care & attention, but what you should remember is: </p>
+
+<p>You faced this monster as a street, and when you came together, you didn’t only keep the street safe, you looked after each other too. </p>
+
+<p>Well done, and no matter what remains, know that High Street is on the road to recovery, and we are Stronger Together.</p>
+
+    
+ <<button "Move on">>
+    <<goto $nextpass>>
+    <</button>>
+    
+</main>
+<<include "footergrid">>
+
+
+:: questions [nobr]
+<<set $prevpass to "outro">>
+<<set $pass to "questions">>
+<<set $nextpass to "end">>
+
+<main>
+<p>That’s the end of the game! </p>
+<p>There is now time to debrief and discuss. Talk through the three questions below. </p>
+
+<h3>Question 1</h3>
+<p>Today, you came together to face the monster. </p>
+<p>Some things went well, others less well, but you stuck it out: you were resilient. </p>
+<p>If you were going to give your high street an award - a blue plaque - to hang on the wall and commemorate this street and your response to the attack - what would it say? </p>
+<br/>
+<h3>Question 2</h3>
+<p>If you were to play again, how would you play differently? </p>
+<br/>
+<h3>Question 3 </h3>
+<p>How did the game make you think about community resilience on your own street? </p>
+
+  
+    <<timed 5s>>
+        <<include "timer">>
+        <</timed>>
+    
+</main>
+<<include "footergrid">>
+
+
+:: end [nobr]
+<<set $prevpass to "questions">>
+<<set $pass to "end">>
+<<set $nextpass to "end">>
+<main>
+<h3>Thanks for playing!</h3>
+<br/>
+<<button "Restart">>
+     <<script>>Engine.restart()<</script>>
+    <</button>>
+</main>
+<<include "footerend">>
