@@ -1,0 +1,782 @@
+:: StoryTitle
+Agile Rabbit
+
+
+:: StoryData
+{
+	"ifid": "6F5BF6DD-A217-4F2F-BEF5-C4EF4361C877",
+	"format": "SugarCube",
+	"format-version": "2.36.1",
+	"start": "landing",
+	"zoom": 1
+}
+
+
+
+:: Story Stylesheet [stylesheet]
+@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+@import url("styles/generics.css");
+@import url("styles/styles.css");
+
+
+
+:: UserScript [script]
+
+:: Story JavaScript [script]
+$('#ui-bar').remove();
+$(document.head).find('#style-ui-bar').remove();
+
+
+/* Google Tag */
+setup.JSLoaded = false;
+ var lockID = LoadScreen.lock();  // Lock loading screen
+ importScripts("https://www.googletagmanager.com/gtag/js?id=G-C6NP1M5W57")
+     .then(function() {
+
+         setup.JSLoaded = true;
+         window.dataLayer = window.dataLayer || [];
+         window.gtag = function (){ dataLayer.push(arguments); };
+         gtag('js', new Date());
+         gtag('config', 'G-C6NP1M5W57');
+          //  console.log("Sending to GA");
+         LoadScreen.unlock(lockID);  // Unlock loading screen
+     }).catch(function(error) {
+         console.log("Error: Could not load 'gtag.js'.");
+      LoadScreen.unlock(lockID);  // Unlock loading screen
+     }
+ );
+
+/* Track Passage Views using SugarCube's passage display events */
+$(document).on(':passagedisplay', function(ev) {
+    var passageName = ev.passage.title;
+    // console.log("sending", passageName, "to GA")
+    // Send passage view event to Google Analytics
+    if (setup.JSLoaded) {
+        gtag('event', 'Passage View', {
+            event_label: passageName,
+            event_category: 'Passage',
+        });
+    }
+});
+
+
+ $(document).on('click', 'a', function (ev) {
+ // Get the destination of the clicked link var passage 
+ var passage = $(this).attr('data-passage');
+ // Send the click event to Google Analytics
+    if (setup.JSLoaded && passage) {
+      // console.log("sending", passage, "click to GA")
+        gtag('event', 'Navigation', {
+            event_label: passage,
+            event_category: 'GuestClick'
+        });
+    }
+ });
+
+:: StoryInit
+<<cacheaudio "timer" "assets/sound/timer.mp3">>
+
+
+:: header[nobr]
+<header>
+</header>
+
+
+
+
+:: footer[nobr]
+<footer>
+    <<button "Back">>
+        <<goto $prevpass>>
+    <</button>>
+    <<button "Next">>
+        <<goto $nextpass>>
+    <</button>>
+    <div id="nextButtonContainer">
+     </div>
+</footer>
+
+:: footergrid[nobr]
+<footer class="grid-item footer">
+    <<button "Back">>
+        <<goto $prevpass>>
+    <</button>>
+
+    <div id="nextButtonContainer">
+     </div>
+</footer>
+
+
+
+:: landing [nobr] 
+<<set $prevpass to "landing">>
+<<set $pass to "landing">>
+<<set $nextpass to "intro1">>
+
+<<set $playerchoices to {
+    chosenmonsters: [],
+    chosenactions: [],
+    wildcards:0,
+}>>
+<<audio ":all" stop>>
+
+<main>
+<p>Welcome to Stronger Together</p>
+<p>A card game about community resilience </p>
+
+  <<button "Enter">>
+        <<goto $nextpass>>
+    <</button>>
+</main>
+
+
+
+:: _templateIntro[nobr]
+<<addclass "body" "light">>
+
+<<include "headerIntro">>
+<main class="talking">
+    <div id="msgMount"></div>
+        <<if $pass>>
+            <<set $uniqueContent to $pass+"-text">>
+            <<include $uniqueContent>>
+        <<else>>
+            No content provided.
+        <</if>>
+     <div id="nextButtonContainer">
+     </div>
+</main>
+<<include "footer">>
+
+:: headerIntro [nobr]
+<header class="intro">
+  <h2>Stronger Together</h2>
+
+</header>
+
+:: intro1 [nobr]
+<<set $prevpass to "landing">>
+<<set $pass to "intro1">>
+<<set $nextpass to "intro2">>
+
+<<include "_templateIntro">>
+
+
+:: intro1-text [nobr]
+<p>Before you begin: </p>
+
+<p>Lay out your game board as below</p>
+
+[Game Board Image]
+
+<p>Choose someone to play your facilitator, they’ll read out instructions & deal out game resources.</p>
+<p>The facilitator can play the game, or sit on the outside, up to you. </p>
+
+<p>When you’re ready to play: </p>
+
+  <<button "Begin">>
+        <<goto $nextpass>>
+    <</button>>
+
+
+:: intro2 [nobr]
+<<set $prevpass to "intro1">>
+<<set $pass to "intro2">>
+<<set $nextpass to "intro3">>
+
+<<include "_templateIntro">>
+
+
+:: intro2-text [nobr]
+<p>This is Stronger Together.</p>
+<p>A card game offering a 30 minute introduction to community resilience. </p>
+<p>It’s designed for communities of all and any kinds to play together. </p>
+<br/>
+<p>By community resilience we mean communities using resources, connections, skills and expertise, to help themselves prepare for, respond to and recover from disasters. This isn’t a game about a group of politicians around a table. It's about how communities themselves might embrace what they already have, and come together for their people and their place.</p>
+
+
+  <<button "Move on">>
+        <<goto $nextpass>>
+    <</button>>
+
+:: intro3 [nobr]
+<<set $prevpass to "intro1">>
+<<set $pass to "intro3">>
+<<set $nextpass to "intro4">>
+
+<<include "_templateIntro">>
+
+
+:: intro3-text [nobr]
+<p>
+    You will play as neighbours on a single street - High Street - it’s the most common street name in the UK. 
+    High Street could be anywhere in the country. There are some houses, a block of flats, and a couple of shops.
+</p>
+<br/>
+<p>
+    If there are multiple tables playing, each represents a different High Street in a different part of the UK. 
+    You will all face the same disaster. 
+</p>
+<br/>
+<p>As the residents of High Street, the disaster you will face is a monster attack. </p>
+<p>The aim of the game is to prepare well, respond well and recover well from this attack. </p>
+<br/>
+<p>Stronger Together explores how community resilience plays out in the face of disasters.</p>
+<p>It’s more broadly about community connection, and how we can be stronger together. </p>
+
+
+
+  <<button "Move on">>
+        <<goto $nextpass>>
+    <</button>>
+
+:: intro4 [nobr]
+<<set $prevpass to "intro1">>
+<<set $pass to "intro4">>
+<<set $nextpass to "playercards">>
+
+<<include "_templateIntro">>
+
+
+:: intro4-text [nobr]
+<p>You will play as neighbours on a single street - High Street - it’s the most common street name in the UK. </p>
+<p>High Street could be anywhere in the country. There are some houses, a block of flats, and a couple of shops.</p>
+<br/>
+<p>If there are multiple tables playing, each represents a different High Street in a different part of the UK. </p>
+<p>You will all face the same disaster. </p>
+<br/>
+<p>As the residents of High Street, the disaster you will face is a monster attack. </p>
+<p>The aim of the game is to prepare well, respond well and recover well from this attack. </p>
+<br/>
+<p>Stronger Together explores how community resilience plays out in the face of disasters.</p>
+<p>It’s more broadly about community connection, and how we can be stronger together. </p>
+
+
+
+  <<button "Let's Play">>
+        <<goto $nextpass>>
+    <</button>>
+
+
+:: playercards [nobr]
+<<set $prevpass to "intro4">>
+<<set $pass to "playercards">>
+<<set $nextpass to "monstercards">>
+
+<main class="grid-wrapper">
+   <div class="info-container">
+        <div class="inline-img-container"><div class="inline-img-wrapper arcard">
+        <h3>Player Cards</h3><img src="assets/img/Player_Card_1.png" alt="Player Card 1"/></div></div>
+         <div class="grid-item cards">
+      <<timed 3s>>
+        <<include "timer">>
+     <</timed>> 
+   </div>
+  </div>
+    <div class="grid-item explanation">
+        <p>Each of you will play a character: a neighbour on High Street. </p>
+        <p>We’ll start by getting to know them. </p>
+        <br/>
+        <p>Deal out the Player Cards, one to each player. </p>
+        
+
+        
+        <p>Place the remaining cards face down in an empty doorway space on the game board. </p>
+        <br/>
+        <p>On your card you’ll find some information about the person you are playing - facts and skills. </p>
+        <p>You can add to this card by writing in one skill of your own. </p>
+        
+        <br/>
+        <p>Then, take five minutes to introduce yourself to your street. </p>
+        <p>Share your name: it can be your real name, or an imaginary one. </p>
+        <p>Share your skills & facts. </p>
+      <div id="nextButtonContainer"> </div>
+    </div>
+
+ 
+    </main>
+    <<include "footergrid">>
+
+
+
+:: timer [nobr]
+  /* <<audio "30s" "play" loop>> */
+<<set $seconds to 5>>
+<span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
+
+
+<<silently>>
+	<<repeat 1s>>
+		<<set $seconds to $seconds - 1>>
+		<<if $seconds gt 0>>
+			<<replace "#countdown">><span class="secs">$seconds</span> <span class="extra">seconds</span><</replace>>
+		<<else>>
+			<<replace "#countdown">><strong>Too Late</strong><</replace>>
+      <<timed 1.5s>>
+       <<replace "#nextButtonContainer">>
+        <<button "Move On">>
+            <<goto $nextpass>>
+            <</button>>
+        <</replace>>
+        <</timed>>
+  
+			<<stop>>
+		<</if>>
+	<</repeat>>
+<</silently>>
+
+
+:: monstercards [nobr]
+<<set $prevpass to "playercards">>
+<<set $pass to "monstercards">>
+<<set $nextpass to "chosenMonsterForecast">>
+
+<main class="">
+    <div class="explanation">
+      <p> As you settle into your new homes and characters disaster looms on the horizon: a monster is coming. </p>
+<p>There are four possible monsters that might strike. </p>
+<br/>
+<p>Before you decide how to prepare for the monster attack, you’re going to get a forecast. </p>
+<p>Shuffle the monster cards and draw 2. </p>
+<p>Select the cards you drew below. </p>
+
+   
+    </div>
+<h2>Chosen Monsters: <span id="chosenMonsterMount"><<print $playerchoices.chosenmonsters>></span></h2>
+<p id="errorMsg" style="color: red;"></p> <!-- Error message area -->
+<br/>
+<div class="cards-selection">
+
+<!-- Gale -->
+<div id="galeChoice" class="card-selection-item arcard">
+
+    <<link [img[assets/img/Gale_Card.png]]>>
+        <<if $playerchoices.chosenmonsters.includes("Gale")>>
+            <<set $playerchoices.chosenmonsters.delete("Gale")>>
+            <<toggleclass "#galeChoice" "chosen">>
+            <<replace "#errorMsg">><<print "">><</replace>> <!-- Clear error message -->
+        <<elseif $playerchoices.chosenmonsters.length < 2>> 
+            <<set $playerchoices.chosenmonsters.push("Gale")>>
+            <<toggleclass "#galeChoice" "chosen">>
+            <<replace "#errorMsg">><<print "">><</replace>> <!-- Clear error message -->
+        <<else>>
+            <<replace "#errorMsg">><<print "You can only choose 2 monsters!">><</replace>>
+        <</if>>
+<<include "checkChosenMonsterCards">>
+    <</link>>
+</div>
+
+<!-- Inferno -->
+<div id="infernoChoice" class="card-selection-item arcard">
+    <<link [img[assets/img/Inferno_Card.png]]>>
+        <<if $playerchoices.chosenmonsters.includes("Inferno")>>
+            <<set $playerchoices.chosenmonsters.delete("Inferno")>>
+            <<toggleclass "#infernoChoice" "chosen">>
+            <<replace "#errorMsg">><<print "">><</replace>> <!-- Clear error message -->
+        <<elseif $playerchoices.chosenmonsters.length < 2>> 
+            <<set $playerchoices.chosenmonsters.push("Inferno")>>
+            <<toggleclass "#infernoChoice" "chosen">>
+            <<replace "#errorMsg">><<print "">><</replace>> <!-- Clear error message -->
+        <<else>>
+            <<replace "#errorMsg">><<print "You can only choose 2 monsters!">><</replace>>
+        <</if>>
+<<include "checkChosenMonsterCards">>
+    <</link>>
+</div>
+
+<!-- Drench -->
+<div id="drenchChoice" class="card-selection-item arcard">
+    <<link [img[assets/img/Drench_Card.png]]>>
+        <<if $playerchoices.chosenmonsters.includes("Drench")>>
+            <<set $playerchoices.chosenmonsters.delete("Drench")>>
+            <<toggleclass "#drenchChoice" "chosen">>
+            <<replace "#errorMsg">><<print "">><</replace>> <!-- Clear error message -->
+        <<elseif $playerchoices.chosenmonsters.length < 2>> 
+            <<set $playerchoices.chosenmonsters.push("Drench")>>
+            <<toggleclass "#drenchChoice" "chosen">>
+            <<replace "#errorMsg">><<print "">><</replace>> <!-- Clear error message -->
+        <<else>>
+            <<replace "#errorMsg">><<print "You can only choose 2 monsters!">><</replace>>
+        <</if>>
+<<include "checkChosenMonsterCards">>
+    <</link>>
+</div>
+
+<!-- Crystal -->
+<div id="crystalChoice" class="card-selection-item arcard">
+    <<link [img[assets/img/Crystal_Card.png]]>>
+        <<if $playerchoices.chosenmonsters.includes("Crystal")>>
+            <<set $playerchoices.chosenmonsters.delete("Crystal")>>
+            <<toggleclass "#crystalChoice" "chosen">>
+            <<replace "#errorMsg">><<print "">><</replace>> <!-- Clear error message -->
+        <<elseif $playerchoices.chosenmonsters.length < 2>> 
+            <<set $playerchoices.chosenmonsters.push("Crystal")>>
+            <<toggleclass "#crystalChoice" "chosen">>
+            <<replace "#errorMsg">><<print "">><</replace>> <!-- Clear error message -->
+        <<else>>
+            <<replace "#errorMsg">><<print "You can only choose 2 monsters!">><</replace>>
+        <</if>>
+<<include "checkChosenMonsterCards">>
+    <</link>>
+</div>
+
+</div>
+<br/>
+<p>The monster attack will be one of these two cards, but it’s a 50 / 50 chance. </p>
+
+    </main>
+    <<include "footergrid">>
+ <<include "checkChosenMonsterCards">>
+
+
+:: checkChosenMonsterCards [nobr]
+<<if $playerchoices.chosenmonsters.includes("Gale")>>
+    <<addclass "#galeChoice" "chosen">>
+    <</if>>
+<<if $playerchoices.chosenmonsters.includes("Drench")>>
+    <<addclass "#drenchChoice" "chosen">>
+    <</if>>
+<<if $playerchoices.chosenmonsters.includes("Inferno")>>
+    <<addclass "#infernoChoice" "chosen">>
+    <</if>>
+<<if $playerchoices.chosenmonsters.includes("Crystal")>>
+    <<addclass "#crystalChoice" "chosen">>
+    <</if>>
+
+<<if $playerchoices.chosenmonsters.length === 2>>
+    <<timed 0.1s>>
+    <<replace "#nextButtonContainer">>
+            <<button "Confirm and move on">>
+                <<goto $nextpass>>
+            <</button>>
+        <</replace>>
+    <</timed>>
+    <</if>>
+
+<<timed 0.1s>>
+<<replace "#chosenMonsterMount">>
+    $playerchoices.chosenmonsters
+    <</replace>>
+<</timed>>
+
+
+:: chosenMonsterForecast [nobr]
+<<set $prevpass to "monstercards">>
+<<set $pass to "chosenMonsterForecast">>
+<<set $nextpass to "actions">>
+<main class="">
+    <div class="explanation">
+<p>Now you know what might be coming, there is a chance to prepare. </p>
+<p>There are different actions you might take to get ready for the monster attack. </p>
+
+<p>Prepare actions, focussed on physical preparation. </p>
+ <p>Connect actions, focussed on connecting to the street and the local community. </p>
+
+<p>Lay out the Prepare and Connect actions on the table ahead of you. </p>
+<p>You need to choose FIVE actions to prepare for the monster attack. </p>
+
+
+<p>A reminder of the forecast: </p>
+<br/>
+<<include "chosenmonstersdisplay">>
+    </div>
+<br/>
+<p>Take five minutes to choose your actions.</p>
+<p>Put your chosen actions on your game board. </p>
+<p>Put the remaining action cards face down in a discard pile. </p>
+<br/>
+  <div class="grid-item cards">
+    <<timed 5s>>
+      <<include "timer">>
+    <</timed>>
+    </div>
+</main>
+
+<<include "footer">>
+
+:: chosenmonstersdisplay [nobr]
+ <<set $img1 to "assets/img/" + $playerchoices.chosenmonsters[0] + "_Card.png" >>
+ <<set $img2 to "assets/img/" + $playerchoices.chosenmonsters[1] + "_Card.png" >>
+
+<div class="cards-selection">
+    <div class="card-selection-item arcard">
+        [img[$img1]]
+    </div>
+    <div class="card-selection-item arcard">
+        [img[$img2]]
+    </div>
+</div>
+
+
+:: actions [nobr]
+<<set $prevpass to "chosenMonsterForecast">>
+<<set $pass to "actions">>
+<<set $nextpass to "predice">>
+<<set $actionsoptions to [
+    {type: "prepare", actionnum: 1, text: "Lay out some salt.", id:1},
+    {type: "prepare", actionnum: 2, text: "Gather drinks and ice." , id:2},
+    {type: "prepare", actionnum: 3, text: "Clear away or secure objects.", id:3},
+    {type: "prepare", actionnum: 4, text: "Set up barriers, blocks, and absorbent pads.", id:4},
+    {type: "prepare", actionnum: 5, text: "Gather together an emergency kit.", id:5},
+    {type: "prepare", actionnum: 6, text: "Have a plan.", id:6},
+    {type: "prepare", actionnum: 7, text: "Move precious belongings.", id:7},
+    {type: "connect", actionnum: 1, text: "Set up a messaging group.", id:8},
+    {type: "connect", actionnum: 2, text: "Go door-knocking.", id:9},
+    {type: "connect", actionnum: 3, text: "Connect to the community centre.", id:10},
+    {type: "connect", actionnum: 4, text: "Connect to the local school or faith space.", id:11},
+    {type: "connect", actionnum: 5, text: "Sign up for alerts and warnings.", id:12}
+]>>
+
+
+<main class="">
+    <div class="explanation">
+    <p>Take a moment to read out your choices.</p> 
+<p>Then tell us what you’ve selected here </p>
+    </div>
+    <<include "actionslist">>
+    <br/>
+    5 Chosen Actions: <div id="chosenActionsMount"></div>
+</main>
+<<include "footergrid">>
+
+:: actionslist [nobr]
+<div class="actions-list">
+<<for _i to 0; _i lt $actionsoptions.length; _i++>>
+  <<capture _i>>
+    <<set $text to ($actionsoptions[_i].text)>>
+    
+<div sc-eval:class="'actions-item actions-item' + ($actionsoptions[_i].id)" sc-eval:id="'action' + [_i]" sc-eval:data-id="'action' + [_i]">
+   <h3>$actionsoptions[_i].type</h3> $text
+   <br/>
+
+     <<link "Choose">>
+    <<set $playerchoices.chosenactions.push($actionsoptions[_i].id)>>
+    <<timed 0.1s>>
+     <<include "checkChosenActions">>   
+    <</timed>>       
+     <</link>>
+           </div>
+       <</capture>>
+   <</for>>
+</div>
+
+
+:: checkChosenActions [nobr]
+
+  <<for _i to 0; _i lt $actionsoptions.length; _i++>>
+    <<if $playerchoices.chosenactions.includes($actionsoptions[_i].id)>>
+        <<set $class to ".actions-item" + (_i+1) >>
+        <<addclass $class "chosen">>
+    <</if>>
+<</for>>  
+
+<<if $playerchoices.chosenactions.length < 5>>
+    <<replace "#nextButtonContainer">>
+           <span>Choose 5 actions</span>
+        <</replace>>
+<<elseif $playerchoices.chosenactions.length === 5>>
+    <<timed 0.1s>>
+    <<replace "#nextButtonContainer">>
+            <<button "Confirm and move on">>
+                <<goto $nextpass>>
+            <</button>>
+        <</replace>>
+    <</timed>>
+    <</if>>
+
+<<timed 0.1s>>
+<<replace "#chosenActionsMount">>
+    $playerchoices.chosenactions
+    <</replace>>
+<</timed>>
+
+:: predice [nobr]
+
+<<set $prevpass to "actions">>
+<<set $pass to "predice">>
+<<set $nextpass to "diceresults">>
+<<set $diceoptions to [
+    {num:1, 
+    text1: "Things are pretty bad. 
+Local resources are depleted, minimal thought and effort has gone into preparing for disaster. 
+Because of poor planning and lack of investment not everything you try and do will be successful", 
+    text2:"Two of your actions will be unsuccessful, and can’t go ahead. You’ll need to come together as a community to use your own skills and resources in its place.",
+     wildcards: 0, 
+    changedactions: 2},
+     {num:2, 
+    text1: "Things aren’t great. 
+Local resources are depleted, minimal thought and effort has gone into preparing for disaster. 
+Because of poor planning and lack of investment not everything you try and do will be successful", 
+    text2: "One of your actions will be unsuccessful, and can’t go ahead. You’ll need to come together as a community to use your own skills and resources in its place.", 
+     wildcards: 0, 
+    changedactions: 1},
+     {num:3, 
+    text1: "Things are okay.
+Everyone is getting by, the local council are doing their best to stumble on.", 
+    text2: "You won’t lose access to any of your preparations, but there is no extra help coming either. ", 
+     wildcards: 0, 
+    changedactions: 0},
+     {num:4, 
+    text1: "Things are alright. 
+Everyone is getting by, the council is doing their best to keep it all afloat. ", 
+     text2: "You won’t lose access to any of your preparations, and there is a little extra support. 
+Thanks to your local councillor, you can draw a green wildcard later. ", 
+     wildcards: 1, 
+    changedactions: 0},
+     {num:5, 
+    text1: "You are fortunate. 
+The local council has had the time, money and resources to put some time into disaster preparation. 
+There’s some extra help available.", 
+    text2:"Thanks to your engaged local councilor, you can  draw two green wildcards later. ",
+     wildcards: 2, 
+    changedactions: 0},
+    {num:6, 
+    text1: "You are very fortunate. 
+The local council has had the time, money and resources to put some time into disaster preparation. 
+There’s some extra help available. ", 
+     text2: "Thanks to your very engaged local councilor, you can also  draw three green wildcards later. ", 
+     wildcards: 3, 
+    changedactions: 0}
+]
+  >>
+<<set $diceroll to "">>
+
+<main>
+    <div class="explanation">
+  <p>  We’ve told you very little about the High Street you live on. </p>
+<br/>
+<p>    But we do all know that the world is unfair. </p>
+<p>    Life on different High Streets vary wildly across the UK. </p>
+<br/>
+   <p> Before the monster arrives, we’re going to find out just how unfair things are: how fortunate this High Street is. </p>
+  <p>  To do this we’ll roll a die. </p>
+
+  <<button "Roll">>
+<<set $diceroll to random(0,5) >>
+<<goto $nextpass>>
+    <</button>>
+    </div>
+</main>
+
+
+:: diceresults [nobr]
+<<set $prevpass to "predice">>
+<<set $pass to "diceresults">>
+<<set $nextpass to "forecast">>
+
+<main>
+<div id="mount"></div>
+   <div>
+        $diceoptions[$diceroll].text1
+        <br/>
+        <div id="proposedChangeMount"></div>
+        <br/>
+        $diceoptions[$diceroll].text2
+   </div>
+    <br/>    <br/>    <br/>
+<div>
+    <p>Are you happy with your fortune?</p>
+    <p>In the real world fortune is very hard to change. </p>
+    <p>But since this is a game... Would you like to roll again? </p>
+    <<button "Roll again">>
+        <<set _failedActions to []>> 
+        <<set $diceroll to random(0,5) >>
+        <<goto "diceresults">>
+        <</button>>
+    
+</div>
+/* <<include "wallet">> */
+<<include "checkForUnsucessfulActions">>
+</main>
+
+<<include "footergrid">>
+ <<timed 0.1s>>
+    <<replace "#nextButtonContainer">>
+            <<button "Confirm and move on">>
+                /* <<goto $nextpass>> */
+                <<include "saveResultsOfDiceRoll">>
+            <</button>>
+        <</replace>>
+    <</timed>>
+
+
+
+:: checkForUnsucessfulActions [nobr]
+
+<<if $diceoptions[$diceroll].changedactions > 0>>
+    <<set _failedActions to []>> 
+
+    /* Select up to two failed actions randomly */
+    <<for _i to 0; _i lt Math.min(2, $diceoptions[$diceroll].changedactions); _i++>>
+        <<set _failedIndex to random(0, $playerchoices.chosenactions.length - 1)>>
+        <<set _failedActionID to $playerchoices.chosenactions[_failedIndex]>>
+        <<set _failedActions.push(_failedActionID)>>
+    <</for>>
+
+    /* Loop through all actions and check for matches */
+    <<timed 0.1s>>
+        <<replace "#proposedChangeMount">>
+            <h3>Unsuccessful actions:</h3>
+            <div class="actions-list">
+                <<for _i to 0; _i lt $actionsoptions.length; _i++>>
+                    <<if _failedActions.includes($actionsoptions[_i].id)>>
+                        <div class="actions-item">
+                            <h3>$actionsoptions[_i].type</h3> 
+                            <p>$actionsoptions[_i].text</p>
+                             <p>$actionsoptions[_i].id</p>
+                        </div>
+                    <</if>>
+                <</for>>
+            </div>
+        <</replace>>
+    <</timed>>
+<</if>>
+
+:: saveResultsOfDiceRoll
+
+<<set $updatedChosenActions to []>> <!-- New array to hold filtered values -->
+<<if _failedActions>>
+<<for _i to 0; _i lt $playerchoices.chosenactions.length; _i++>>
+    <<if !_failedActions.includes($playerchoices.chosenactions[_i])>> <!-- Check if the action is not in _failedActions -->
+        <<set $updatedChosenActions.push($playerchoices.chosenactions[_i])>> <!-- Add it to the new array if it's not a failed action -->
+    <</if>>
+<</for>>
+<</if>>
+
+<!-- Replace the original chosenactions with the filtered version -->
+<<set $playerchoices.chosenactions = $updatedChosenActions>>
+<<timed 0.5s>>
+    <<goto $nextpass>>
+    <</timed>>
+
+
+:: wallet [nobr]
+<h2>Wallet</h2>
+<span>Monsters: $playerchoices.chosenmonsters</span>
+<br/>
+<span>Actions: $playerchoices.chosenactions</span>
+<br/>
+<span>Wildcards: $playerchoices.wildcards</span>
+
+
+:: forecast [nobr]
+<<set $prevpass to "diceresults">>
+<<set $pass to "forecast">>
+<<set $nextpass to "">>
+
+<main>
+<div class="explanation">
+<p>Now, the monster attack is moments away. We can finally see which monster is coming. </p>
+
+<p>Shuffle the two forecast cards. Choose one to reveal the monster. </p>
+
+<p>Select the monster below. </p>
+</div>
+<<include "wallet">>
+</main>
+
+<<include "footergrid">>

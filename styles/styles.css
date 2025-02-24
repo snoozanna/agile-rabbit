@@ -1,0 +1,489 @@
+/* GENERAL STYLES */
+
+:root {  
+  --color-one:  #37254d;
+  /* --color-one: black; */
+  --color-two: #f7ece2;
+  /* --color-two: rgb(46, 236, 153); */
+  --color-three: rgb(222, 110, 75);
+  --color-four: #0f8461;
+  --color-five: rgb(229, 99, 153);
+  --color-six: #6aa4bc;
+  --color-seven: rgb(150, 64, 6);
+  --color-eight: #d2cccd;
+  --color-alarm: rgb(152 0 0);
+  --neon-green: #39FF14;
+  --main-bg-color: var(--color-seven);
+  --font-chapter: "Bungee", sans-serif;
+  --font-headings: "SpecialElite", monospace;
+  --font-body: "Sora", sans-serif;
+  --font-story: "Lora", serif;
+  --padding: 2rem;
+  --box-shadow:  0.5rem 0.5rem black;
+}
+
+
+/* GET RID OF TWINE STYLES */
+
+#passages {
+  max-width: 100%;
+  width: 100%;
+}
+
+.passage{
+  width: 100%; 
+  /* height: 100%;  */
+}
+
+#story a.link-external:after {
+  content: "";
+}
+
+#story a.link-external:after {
+  content: "";
+}
+
+#story {
+  margin: 0;
+  width: 100%;
+  height:100%;
+}
+
+body[data-tags~="t8n-dissolve"] .transition-in {
+  position: absolute;
+  opacity: 0;
+}
+body[data-tags~="t8n-dissolve"] .passage {
+  transition: 1s;
+  -webkit-transition: 1s;
+}
+body[data-tags~="t8n-dissolve"] .transition-out {
+  position: absolute;
+  opacity: 0;
+}
+
+.hide{
+  display: none!important
+}
+
+@media screen and (max-width: 700px) {
+  #passages {
+height: 100%;
+  font-size: 1.8rem;
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#story {
+height: 100%;
+width: 100%;
+}
+
+#passage-prestart{
+  height: 100%
+}
+
+main {
+  height: 100%;
+
+}
+
+a:active {
+  background-color: #f2647d;
+}
+
+input[type=text] {
+    min-width: 14em;
+}
+
+}
+
+/* BUTTONS & LINKS  */
+
+button,
+.inline-btn-wrapper > a {
+  background-color: var(--color-yellow);
+  color: black;
+  border: black 2px solid;
+  border-radius: 3px;
+  font-family: var(--font-headings);
+  text-transform: uppercase;
+  padding: 5px;
+  font-size: 1.8rem;
+  /* box-shadow:0.5rem 0.5rem var(--color-four) */
+}
+
+button:hover {
+  background-color: var(--color-five);
+  border: var(--color-two) 1px solid;
+  color: var(--color-two);
+}
+
+button:focus,
+.inline-btn-wrapper > a {
+  transform: translate(2px, 2px);
+  box-shadow: var(--accent-color-shadow) 1px 1px;
+}
+
+a {
+  color: var(--accent-color-secondary);
+}
+
+a:active {
+  background-color: var(--color-five);
+}
+
+a:hover {
+  color: var(--color-two);
+}
+
+
+.hide{
+  display: none;
+}
+
+/* STRUCTURAL */
+
+header, footer, main{
+width: 100%;
+padding: 2rem;
+}
+
+main {
+  height: 100%;
+margin-block-end: 10rem;
+}
+
+body {
+background-color: var(--main-bg-color);
+  /* background-color: #a14506; */
+font-family: var(--font-body);
+font-size: 10px;
+min-height: 100vh;
+display:flex;
+color: var(--color-two);
+justify-content:center;
+align-items: center;
+overflow: scroll;
+}
+
+/* light  */
+
+body.light{
+background-color: var(--color-six);
+color:black;
+}
+
+body.green{
+background-color: var(--color-four);
+color:black;
+}
+
+body.grey{
+background-color: var(--color-eight);
+color:black;
+}
+
+body.gold{
+background-color: #c1944fd4;
+color:black;
+}
+
+body.light > #story > #passages > .passage > footer > button, 
+body.light > #story > #passages > .passage > button, 
+body.light > #story > #passages > .passage > footer > #nextButtonContainer > button, 
+body.light > #story > #passages > .passage > main > #nextButtonContainer > button, 
+body.light > #story > #passages > .passage > footer > .button-wrapper > button{
+border: black 2px solid;
+color:black;
+font-weight: 700;
+box-shadow:var(--box-shadow);
+}
+
+body.light > #story > #passages > .passage > footer > .button-wrapper > button, 
+body.light > #story > #passages > .passage > footer  > button{
+background-color: var(--color-four);
+
+}
+
+
+
+
+/* FOOTER  */
+footer{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+position: fixed;
+padding: 2rem;
+bottom: 0;
+left: 0;
+width: 100%;
+z-index: 99;
+}
+
+
+/* TYPOGRAPHY  */
+
+h1, h2, h3{
+font-family: var(--font-headings);
+font-weight: 600;
+/* color:white; */
+}
+
+h1{
+font-size: 3rem;
+}
+h2{
+font-size: 2.5rem;
+}
+
+h3{
+font-size: 2rem;
+}
+p{
+font-size: 1.8rem;
+}
+
+h2.octo-title, h3.octo-title, .octo-title{
+font-family: var(--font-chapter);
+}
+
+p.octo-welcome-text{
+font-family: var(--font-chapter);
+font-size: 3rem;
+text-align: center
+}
+
+
+h2.fancy {
+font-family: var(--font-chapter);
+font-size: 4rem;
+font-weight: bold;
+background: linear-gradient(90deg, #ffd700, #ffecb3, #b8860b, #ffd700);
+background-size: 200% auto;
+background-clip: text;
+color: transparent;
+animation: goldShimmer 2s linear forwards;
+position: relative;
+overflow: hidden;
+}
+
+@keyframes goldShimmer {
+0% {
+  background-position: 0% 50%;
+}
+100% {
+  background-position: 200% 50%;
+}
+}
+
+h2.fancy::before {
+content: "";
+position: absolute;
+top: 0;
+left: -30px;
+width: 150%;
+height: 100%;
+background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, var(--main-bg-color) 70%);
+animation: goldSparkle 3s forwards;
+}
+
+@keyframes goldSparkle {
+0% {
+  left: -30%;
+}
+100% {
+  left: 100%;
+}
+}
+
+/* INPUT  */
+
+input[type="text"] {
+text-align: center;
+ color: black;
+background-color: white;
+  border-radius: 0.5rem;
+  margin-top: 2rem;
+}
+input[type="text"]:hover {
+text-align: center;
+color: white;	
+  background-color: black;
+}
+input[type="text"]:focus{
+text-align: center;
+color: white;	
+  background-color: black;
+}
+
+.biginput input[type="text"] {
+text-align: center;
+ color: #9900ff;
+background-color: black;
+font-size: 35px;
+}
+.biginput input[type="text"]:hover {
+text-align: center;
+color: black;	
+  background-color: #9900ff;
+font-size: 35px;
+}
+.biginput input[type="text"]:focus{
+text-align: center;
+color: #9900ff;	
+  background-color: black;
+font-size: 35px;
+}
+
+
+/* TIMER  */
+
+
+#countdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#countdown > .secs {
+  font-family: var(--font-headings);
+  font-size: 7rem;
+  line-height: 5rem;
+}
+
+#countdown > .extra {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.3rem;
+}
+
+
+header.timer{
+  /* position: fixed; */
+  top:0;
+  left:0;
+  display: flex;
+  justify-content: space-between;
+  /* padding: 4rem; */
+  background-color: black;
+  width: 100%;
+}
+
+main.timer{
+  display: flex;
+  align-items: flex-start;
+justify-content: space-between;
+}
+
+main.timermap{
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+#countdown.timermap > .secs{
+  font-size: 12rem;
+  line-height: 10rem;
+}
+
+/* GRID LAYOUT */
+.grid-wrapper{
+  height: 100%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "explanation cards"
+    "explanation cards"
+    "footer footer";
+}
+
+.grid-item.footer{
+  grid-area: footer;
+}
+
+.grid-item.explanation{
+  grid-area: explanation;
+}
+
+.grid-item.cards{
+  grid-area: cards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 1000px) {
+  .grid-wrapper{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* CARDS */
+.inline-img-container{
+  width:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inline-img-wrapper{
+  margin-block-end: 2rem;
+  transform-origin: center;
+}
+.arcard{
+  max-width:15rem;
+  transform: rotate(-4deg);
+}
+
+.cards-selection{
+  display: flex;
+  flex-wrap: wrap;
+  gap:2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.cards-selection > .card-selection-item{
+max-width: 45%;
+}
+
+.cards-selection > .card-selection-item.chosen, .actions-item.chosen{
+  border: 5px solid rgb(237, 121, 227);
+}
+
+
+/* ACTIONS */
+.actions-list{
+  display: flex;
+    flex-wrap: wrap;
+    gap:1rem;
+}
+
+.actions-item{
+  width: 48%;
+    border: solid white 2px;
+    padding: 1rem;
+    font-size: 1.5rem;
+}
+
+.actions-item > h3{
+  text-transform: uppercase;
+}
+
+.actions-item > a{
+  text-decoration: underline;
+}
