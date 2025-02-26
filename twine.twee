@@ -1285,7 +1285,7 @@ t neighbours from disease and electric shock due to floodwater. </p>
 
     <<else>>
 
-            <<goto $nextpass>>
+
 
     <</if>>
 </main>
