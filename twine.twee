@@ -97,9 +97,9 @@ $(document).on(':passagedisplay', function(ev) {
         <<set $showWallet to true>>
         <<include "wallet">>
         <</link>> */
-       <<link [img[assets/img/for-black.png]]>>
+       /* <<link [img[assets/img/for-black.png]]>>
         <<goto $nextpass>>
-    <</link>>
+    <</link>> */
    
 </footer>
 
@@ -134,9 +134,9 @@ $(document).on(':passagedisplay', function(ev) {
         <<set $showWallet to true>>
         <<goto "wallet">>
         <</link>> */
-           <<link [img[assets/img/for-black.png]]>>
+           /* <<link [img[assets/img/for-black.png]]>>
         <<goto $nextpass>>
-    <</link>>
+    <</link>> */
     <div id="nextButtonContainer">
      </div>
 </footer>
@@ -144,7 +144,7 @@ $(document).on(':passagedisplay', function(ev) {
 :: footersimpleappears[nobr]
 <<set $showWallet to false>>
 <footer class="grid-item footer">
-/* <div/> */
+<div/>
   /* <<link [img[assets/img/back-black.png]]>>
         <<goto $prevpass>>
     <</link>> */
@@ -376,7 +376,8 @@ $(document).on(':passagedisplay', function(ev) {
         <p>You can add to this card by writing in one skill of your own. </p>
         
         <br/>
-        <p>Then, take five minutes to introduce yourself to your street. </p>
+        <span class="accent">Then, take five minutes to introduce yourself to your street. </span>
+        <br/> <br/>
         <p>Share your name: it can be your real name, or an imaginary one. </p>
         <p>Share your skills & facts. </p>
     </div>
