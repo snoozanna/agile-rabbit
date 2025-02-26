@@ -308,6 +308,11 @@ animation: goldSparkle 3s forwards;
 }
 }
 
+span.accent{
+  font-family: var(--font-headings);
+  font-weight: 700;
+}
+
 /* INPUT  */
 
 input[type="text"] {
@@ -575,3 +580,9 @@ flex-direction: column;
    }
  }
  
+
+ /* CONSEQUENCES  */
+
+ ul.consequences-list{
+  list-style-type: square;
+ }
