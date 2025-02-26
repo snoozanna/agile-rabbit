@@ -141,6 +141,23 @@ $(document).on(':passagedisplay', function(ev) {
      </div>
 </footer>
 
+:: footersimpleappears[nobr]
+<<set $showWallet to false>>
+<footer class="grid-item footer">
+/* <div/> */
+  <<link [img[assets/img/back-black.png]]>>
+        <<goto $prevpass>>
+    <</link>>
+  /* <<link "W">>
+        <<set $showWallet to true>>
+        <<goto "wallet">>
+        <</link>> */
+         
+    <div id="nextButtonContainer">
+     </div>
+</footer>
+
+
 
 
 :: landing [nobr] 
@@ -707,7 +724,7 @@ $(document).on(':passagedisplay', function(ev) {
         <</button>>
     /* 5 Chosen Actions: <div id="chosenActionsMount"></div> */
 </main>
-<<include "footeroptionappears">>
+<<include "footersimpleappears">>
 <<include "wallet">>
 
 :: actionslist [nobr]
@@ -756,11 +773,7 @@ $(document).on(':passagedisplay', function(ev) {
     <</timed>>
     <</if>>
 
-<<timed 0.1s>>
-<<replace "#chosenActionsMount">>
-    $playerchoices.chosenactions
-    <</replace>>
-<</timed>>
+
 
 :: predice [nobr]
 
@@ -831,7 +844,7 @@ There’s some extra help available. ",
     </div>
 </main>
 <<include "wallet">>
-<<include "footer">>
+<<include "footersimpleappears">>
 
 :: rolling [nobr]
 <main class="maindice">
@@ -874,7 +887,7 @@ There’s some extra help available. ",
 <<include "checkForUnsucessfulActions">>
 </main>
 
-<<include "footeroptionappears">>
+<<include "footersimpleappears">>
  <<timed 0.1s>>
     <<replace "#nextButtonContainer">>
             <<button "Confirm and move on">>
@@ -928,10 +941,11 @@ There’s some extra help available. ",
         <<set $updatedChosenActions.push($playerchoices.chosenactions[_i])>> <!-- Add it to the new array if it's not a failed action -->
     <</if>>
 <</for>>
-<</if>>
-
 <!-- Replace the original chosenactions with the filtered version -->
 <<set $playerchoices.chosenactions = $updatedChosenActions>>
+<</if>>
+
+
 <<timed 0.5s>>
     <<goto $nextpass>>
     <</timed>>
@@ -968,7 +982,7 @@ There’s some extra help available. ",
 /* <<include "wallet">> */
 </main>
 
-<<include "footeroptionappears">>
+<<include "footersimpleappears">>
 
 :: choosefinalmonster [nobr]
  <<set $img1 to "assets/img/" + "Demo_" + $playerchoices.chosenmonsters[0] + ".png" >>
@@ -1218,7 +1232,7 @@ t neighbours from disease and electric shock due to floodwater. </p>
 <<include "wallet">>
 </main>
 
-<<include "footeroptionappears">>
+<<include "footersimpleappears">>
 
 :: pullwildcards [nobr]
 <<set $prevpass to "story">>
@@ -1285,7 +1299,11 @@ t neighbours from disease and electric shock due to floodwater. </p>
 
     <<else>>
 
-
+<<if previous() is "aftermath">>
+<<goto $prevpass>>
+<<else >>
+    <<goto $nextpass>>
+<</if>>
 
     <</if>>
 </main>
@@ -1394,7 +1412,7 @@ t neighbours from disease and electric shock due to floodwater. </p>
     <</replace>>
 <</timed>>
 </main>
-<<include "footeroptionappears">>
+<<include "footersimpleappears">>
 
 
 :: recovery [nobr]

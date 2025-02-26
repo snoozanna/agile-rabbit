@@ -104,7 +104,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://6F5BF6DD-A217-4F2F-BEF5-C4EF4361C877// --><tw-storydata name="Agile Rabbit" startnode="7" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="6F5BF6DD-A217-4F2F-BEF5-C4EF4361C877" zoom="1" format="SugarCube" format-version="2.37.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
+	<!-- UUID://6F5BF6DD-A217-4F2F-BEF5-C4EF4361C877// --><tw-storydata name="Agile Rabbit" startnode="8" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="6F5BF6DD-A217-4F2F-BEF5-C4EF4361C877" zoom="1" format="SugarCube" format-version="2.37.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Caudex:ital,wght@0,400;0,700;1,400;1,700&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
@@ -201,7 +201,20 @@ $(document).on(':passagedisplay', function(ev) {
     &lt;&lt;/link&gt;&gt;
     &lt;div id=&quot;nextButtonContainer&quot;&gt;
      &lt;/div&gt;
-&lt;/footer&gt;</tw-passagedata><tw-passagedata pid="7" name="landing" tags="nobr" position="850,100" size="100,100">&lt;&lt;set $prevpass to &quot;landing&quot;&gt;&gt;
+&lt;/footer&gt;</tw-passagedata><tw-passagedata pid="7" name="footersimpleappears" tags="nobr" position="850,100" size="100,100">&lt;&lt;set $showWallet to false&gt;&gt;
+&lt;footer class=&quot;grid-item footer&quot;&gt;
+/* &lt;div/&gt; */
+  &lt;&lt;link [img[assets/img/back-black.png]]&gt;&gt;
+        &lt;&lt;goto $prevpass&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+  /* &lt;&lt;link &quot;W&quot;&gt;&gt;
+        &lt;&lt;set $showWallet to true&gt;&gt;
+        &lt;&lt;goto &quot;wallet&quot;&gt;&gt;
+        &lt;&lt;/link&gt;&gt; */
+         
+    &lt;div id=&quot;nextButtonContainer&quot;&gt;
+     &lt;/div&gt;
+&lt;/footer&gt;</tw-passagedata><tw-passagedata pid="8" name="landing" tags="nobr" position="975,100" size="100,100">&lt;&lt;set $prevpass to &quot;landing&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;landing&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;intro1&quot;&gt;&gt;
 
@@ -229,7 +242,7 @@ $(document).on(':passagedisplay', function(ev) {
     &lt;&lt;/button&gt;&gt;
 &lt;/main&gt;
 
-/* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="8" name="_templateIntro" tags="nobr" position="975,100" size="100,100">&lt;&lt;addclass &quot;body&quot; &quot;light&quot;&gt;&gt;
+/* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="9" name="_templateIntro" tags="nobr" position="1100,100" size="100,100">&lt;&lt;addclass &quot;body&quot; &quot;light&quot;&gt;&gt;
 
 &lt;&lt;include &quot;headerIntro&quot;&gt;&gt;
 &lt;main class=&quot;talking&quot;&gt;
@@ -242,14 +255,14 @@ $(document).on(':passagedisplay', function(ev) {
         &lt;&lt;/if&gt;&gt;
   
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="headerIntro" tags="nobr" position="1100,100" size="100,100">&lt;header class=&quot;intro&quot;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="headerIntro" tags="nobr" position="1225,100" size="100,100">&lt;header class=&quot;intro&quot;&gt;
   &lt;h2&gt;Stronger Together&lt;/h2&gt;
 
-&lt;/header&gt;</tw-passagedata><tw-passagedata pid="10" name="intro1" tags="nobr" position="1225,100" size="100,100">&lt;&lt;set $prevpass to &quot;landing&quot;&gt;&gt;
+&lt;/header&gt;</tw-passagedata><tw-passagedata pid="11" name="intro1" tags="nobr" position="100,225" size="100,100">&lt;&lt;set $prevpass to &quot;landing&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro1&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;intro2&quot;&gt;&gt;
 
-&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="intro1-text" tags="nobr" position="100,225" size="100,100">&lt;p&gt;Before you begin: &lt;/p&gt;
+&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="intro1-text" tags="nobr" position="225,225" size="100,100">&lt;p&gt;Before you begin: &lt;/p&gt;
 
 &lt;p&gt;Lay out your game board as below&lt;/p&gt;
 
@@ -269,11 +282,11 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="intro2" tags="nobr" position="225,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro1&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="intro2" tags="nobr" position="350,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro1&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro2&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;intro3&quot;&gt;&gt;
 
-&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="intro2-text" tags="nobr" position="350,225" size="100,100">&lt;p&gt;This is Stronger Together.&lt;/p&gt;
+&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="intro2-text" tags="nobr" position="475,225" size="100,100">&lt;p&gt;This is Stronger Together.&lt;/p&gt;
 &lt;p&gt;A card game offering a 30 minute introduction to community resilience. &lt;/p&gt;
 &lt;p&gt;It’s designed for communities of all and any kinds to play together. &lt;/p&gt;
 &lt;br/&gt;
@@ -285,11 +298,11 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="intro3" tags="nobr" position="475,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro2&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="intro3" tags="nobr" position="600,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro2&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro3&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;intro3b&quot;&gt;&gt;
 
-&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="intro3-text" tags="nobr" position="600,225" size="100,100">&lt;p&gt;
+&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="intro3-text" tags="nobr" position="725,225" size="100,100">&lt;p&gt;
     You will play as neighbours on a single street - High Street - it’s the most common street name in the UK. 
     High Street could be anywhere in the country. There are some houses, a block of flats, and a couple of shops.
 &lt;/p&gt;
@@ -305,11 +318,11 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="intro3b" tags="nobr" position="725,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro3&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="intro3b" tags="nobr" position="850,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro3&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro3b&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;playercards&quot;&gt;&gt;
 
-&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="intro3b-text" tags="nobr" position="850,225" size="100,100">&lt;p&gt;As the residents of High Street, the disaster you will face is a monster attack. &lt;/p&gt;
+&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="intro3b-text" tags="nobr" position="975,225" size="100,100">&lt;p&gt;As the residents of High Street, the disaster you will face is a monster attack. &lt;/p&gt;
 &lt;p&gt;The aim of the game is to prepare well, respond well and recover well from this attack. &lt;/p&gt;
 &lt;br/&gt;
 &lt;p&gt;Stronger Together explores how community resilience plays out in the face of disasters.&lt;/p&gt;
@@ -323,7 +336,7 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="playercards" tags="nobr" position="975,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro3&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="playercards" tags="nobr" position="1100,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro3&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;playercards&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;playercards-b&quot;&gt;&gt;
 
@@ -359,7 +372,7 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="playercards-b" tags="nobr" position="1100,225" size="100,100">&lt;&lt;set $prevpass to &quot;playercards&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="playercards-b" tags="nobr" position="1225,225" size="100,100">&lt;&lt;set $prevpass to &quot;playercards&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;playercards-b&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;monstercards-intro&quot;&gt;&gt;
 
@@ -388,7 +401,7 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="timer" tags="nobr" position="1225,225" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="timer" tags="nobr" position="100,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
 &lt;&lt;set $seconds to 10&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;$seconds&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;seconds&lt;/span&gt;&lt;/span&gt;
 
@@ -413,7 +426,7 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="3mtimer" tags="nobr" position="100,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
+        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="3mtimer" tags="nobr" position="225,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
 &lt;&lt;set $seconds to 5&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;$seconds&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;seconds&lt;/span&gt;&lt;/span&gt;
 
@@ -442,7 +455,7 @@ $(document).on(':passagedisplay', function(ev) {
 			&lt;&lt;stop&gt;&gt;
 		&lt;&lt;/if&gt;&gt;
 	&lt;&lt;/repeat&gt;&gt;
-&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="monstercards-intro" tags="nobr" position="225,350" size="100,100">&lt;&lt;set $prevpass to &quot;playercards&quot;&gt;&gt;
+&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="monstercards-intro" tags="nobr" position="350,350" size="100,100">&lt;&lt;set $prevpass to &quot;playercards&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;monstercards-intro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;monstercards&quot;&gt;&gt;
 
@@ -463,7 +476,7 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="monstercards" tags="nobr" position="350,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-intro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="monstercards" tags="nobr" position="475,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-intro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;monstercards&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
 
@@ -559,7 +572,7 @@ $(document).on(':passagedisplay', function(ev) {
 
     &lt;/main&gt;
     &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;
- &lt;&lt;include &quot;checkChosenMonsterCards&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="checkChosenMonsterCards" tags="nobr" position="475,350" size="100,100">&lt;&lt;if $playerchoices.chosenmonsters.includes(&quot;Gale&quot;)&gt;&gt;
+ &lt;&lt;include &quot;checkChosenMonsterCards&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="checkChosenMonsterCards" tags="nobr" position="600,350" size="100,100">&lt;&lt;if $playerchoices.chosenmonsters.includes(&quot;Gale&quot;)&gt;&gt;
     &lt;&lt;addclass &quot;#galeChoice&quot; &quot;chosen&quot;&gt;&gt;
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;if $playerchoices.chosenmonsters.includes(&quot;Drench&quot;)&gt;&gt;
@@ -586,7 +599,7 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;replace &quot;#chosenMonsterMount&quot;&gt;&gt;
     $playerchoices.chosenmonsters
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="chosenMonsterForecast-intro" tags="nobr" position="600,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="chosenMonsterForecast-intro" tags="nobr" position="725,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;chosenMonsterForecast&quot;&gt;&gt;
 &lt;&lt;timed 5s&gt;&gt;
@@ -610,7 +623,7 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="chosenMonsterForecast" tags="nobr" position="725,350" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="chosenMonsterForecast" tags="nobr" position="850,350" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;chosenMonsterForecast&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;actions&quot;&gt;&gt;
 &lt;&lt;timed 5s&gt;&gt;
@@ -635,15 +648,15 @@ $(document).on(':passagedisplay', function(ev) {
  
 &lt;/main&gt;
 
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="headertimer" tags="nobr" position="850,350" size="100,100">&lt;header class=&quot;timer&quot;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="28" name="headertimer" tags="nobr" position="975,350" size="100,100">&lt;header class=&quot;timer&quot;&gt;
 
       &lt;&lt;include &quot;timer&quot;&gt;&gt;
 
-&lt;/header&gt;</tw-passagedata><tw-passagedata pid="28" name="3headertimer" tags="nobr" position="975,350" size="100,100">&lt;header class=&quot;timer&quot;&gt;
+&lt;/header&gt;</tw-passagedata><tw-passagedata pid="29" name="3headertimer" tags="nobr" position="1100,350" size="100,100">&lt;header class=&quot;timer&quot;&gt;
 
       &lt;&lt;include &quot;3mtimer&quot;&gt;&gt;
 
-&lt;/header&gt;</tw-passagedata><tw-passagedata pid="29" name="chosenmonstersdisplay" tags="nobr" position="1100,350" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;.png&quot;&gt;&gt;
+&lt;/header&gt;</tw-passagedata><tw-passagedata pid="30" name="chosenmonstersdisplay" tags="nobr" position="1225,350" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;.png&quot;&gt;&gt;
  &lt;&lt;set $img2 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[1] + &quot;.png&quot; &gt;&gt;
 
 &lt;div class=&quot;cards-selection&quot;&gt;
@@ -653,7 +666,7 @@ $(document).on(':passagedisplay', function(ev) {
     &lt;div class=&quot;card-selection-item arcard&quot;&gt;
         [img[$img2]]
     &lt;/div&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="30" name="actions" tags="nobr" position="1225,350" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast&quot;&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="31" name="actions" tags="nobr" position="100,475" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;actions&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;predice&quot;&gt;&gt;
 &lt;&lt;set $actionsoptions to [
@@ -685,8 +698,8 @@ $(document).on(':passagedisplay', function(ev) {
         &lt;&lt;/button&gt;&gt;
     /* 5 Chosen Actions: &lt;div id=&quot;chosenActionsMount&quot;&gt;&lt;/div&gt; */
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;
-&lt;&lt;include &quot;wallet&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="actionslist" tags="nobr" position="100,475" size="100,100">&lt;div class=&quot;actions-list&quot;&gt;
+&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;
+&lt;&lt;include &quot;wallet&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="32" name="actionslist" tags="nobr" position="225,475" size="100,100">&lt;div class=&quot;actions-list&quot;&gt;
 &lt;&lt;for _i to 0; _i lt $actionsoptions.length; _i++&gt;&gt;
   &lt;&lt;capture _i&gt;&gt;
     &lt;&lt;set $text to ($actionsoptions[_i].text)&gt;&gt;
@@ -705,7 +718,7 @@ $(document).on(':passagedisplay', function(ev) {
            &lt;/div&gt;
        &lt;&lt;/capture&gt;&gt;
    &lt;&lt;/for&gt;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="32" name="checkChosenActions" tags="nobr" position="225,475" size="100,100">&lt;&lt;for _i to 0; _i lt $actionsoptions.length; _i++&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="33" name="checkChosenActions" tags="nobr" position="350,475" size="100,100">&lt;&lt;for _i to 0; _i lt $actionsoptions.length; _i++&gt;&gt;
     &lt;&lt;if $playerchoices.chosenactions.includes($actionsoptions[_i].id)&gt;&gt;
         &lt;&lt;set $class to &quot;.actions-item&quot; + (_i+1) &gt;&gt;
         &lt;&lt;addclass $class &quot;chosen&quot;&gt;&gt;
@@ -724,13 +737,7 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-    &lt;&lt;/if&gt;&gt;
-
-&lt;&lt;timed 0.1s&gt;&gt;
-&lt;&lt;replace &quot;#chosenActionsMount&quot;&gt;&gt;
-    $playerchoices.chosenactions
-    &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="33" name="predice" tags="nobr" position="350,475" size="100,100">&lt;&lt;set $prevpass to &quot;actions&quot;&gt;&gt;
+    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="34" name="predice" tags="nobr" position="475,475" size="100,100">&lt;&lt;set $prevpass to &quot;actions&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;predice&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;diceresults&quot;&gt;&gt;
 &lt;&lt;set $diceoptions to [
@@ -797,13 +804,13 @@ There’s some extra help available. &quot;,
     &lt;/div&gt;
 &lt;/main&gt;
 &lt;&lt;include &quot;wallet&quot;&gt;&gt;
-&lt;&lt;include &quot;footer&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="34" name="rolling" tags="nobr" position="475,475" size="100,100">&lt;main class=&quot;maindice&quot;&gt;
+&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="rolling" tags="nobr" position="600,475" size="100,100">&lt;main class=&quot;maindice&quot;&gt;
     &lt;div class=&quot;dice roll&quot;&gt;&lt;/div&gt;
     &lt;&lt;type 60ms&gt;&gt;
       &lt;h2&gt;  Rolling...&lt;/h2&gt;
     &lt;&lt;/type&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;timed 3.5s&gt;&gt;&lt;&lt;goto $nextpass&gt;&gt;&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="diceresults" tags="nobr" position="600,475" size="100,100">&lt;&lt;set $prevpass to &quot;predice&quot;&gt;&gt;
+&lt;&lt;timed 3.5s&gt;&gt;&lt;&lt;goto $nextpass&gt;&gt;&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="diceresults" tags="nobr" position="725,475" size="100,100">&lt;&lt;set $prevpass to &quot;predice&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;diceresults&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;forecast&quot;&gt;&gt;
 
@@ -833,7 +840,7 @@ There’s some extra help available. &quot;,
 &lt;&lt;include &quot;checkForUnsucessfulActions&quot;&gt;&gt;
 &lt;/main&gt;
 
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;
+&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;
  &lt;&lt;timed 0.1s&gt;&gt;
     &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
             &lt;&lt;button &quot;Confirm and move on&quot;&gt;&gt;
@@ -841,7 +848,7 @@ There’s some extra help available. &quot;,
                 &lt;&lt;include &quot;saveResultsOfDiceRoll&quot;&gt;&gt;
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-    &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="checkForUnsucessfulActions" tags="nobr" position="725,475" size="100,100">&lt;&lt;if $diceoptions[$diceroll].changedactions &gt; 0&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="checkForUnsucessfulActions" tags="nobr" position="850,475" size="100,100">&lt;&lt;if $diceoptions[$diceroll].changedactions &gt; 0&gt;&gt;
     &lt;&lt;set _failedActions to []&gt;&gt; 
 
     /* Select up to two failed actions randomly */
@@ -869,7 +876,7 @@ There’s some extra help available. &quot;,
             &lt;/div&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="saveResultsOfDiceRoll" tags="" position="850,475" size="100,100">&lt;&lt;set $playerchoices.wildcards to $diceoptions[$diceroll].wildcards&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="saveResultsOfDiceRoll" tags="" position="975,475" size="100,100">&lt;&lt;set $playerchoices.wildcards to $diceoptions[$diceroll].wildcards&gt;&gt;
 &lt;&lt;set $updatedChosenActions to []&gt;&gt; &lt;!-- New array to hold filtered values --&gt;
 &lt;&lt;if _failedActions&gt;&gt;
  &lt;&lt;set $playerchoices.changedactions to _failedActions&gt;&gt;
@@ -878,13 +885,14 @@ There’s some extra help available. &quot;,
         &lt;&lt;set $updatedChosenActions.push($playerchoices.chosenactions[_i])&gt;&gt; &lt;!-- Add it to the new array if it&#39;s not a failed action --&gt;
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;/for&gt;&gt;
-&lt;&lt;/if&gt;&gt;
-
 &lt;!-- Replace the original chosenactions with the filtered version --&gt;
 &lt;&lt;set $playerchoices.chosenactions = $updatedChosenActions&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+
 &lt;&lt;timed 0.5s&gt;&gt;
     &lt;&lt;goto $nextpass&gt;&gt;
-    &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="wallet" tags="nobr" position="975,475" size="100,100">&lt;div class=&quot;wallet&quot;&gt;
+    &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="39" name="wallet" tags="nobr" position="1100,475" size="100,100">&lt;div class=&quot;wallet&quot;&gt;
     &lt;h2&gt;Wallet&lt;/h2&gt;
     &lt;span&gt;Monsters: $playerchoices.chosenmonsters&lt;/span&gt;
     &lt;span&gt;Final Monster: $playerchoices.finalmonster&lt;/span&gt;
@@ -894,7 +902,7 @@ There’s some extra help available. &quot;,
     &lt;span&gt;Wildcards: $playerchoices.wildcards&lt;/span&gt;
     
 &lt;/div&gt;
-/* &lt;&lt;include &quot;footerwallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="39" name="forecast" tags="nobr" position="1100,475" size="100,100">&lt;&lt;set $prevpass to &quot;diceresults&quot;&gt;&gt;
+/* &lt;&lt;include &quot;footerwallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="40" name="forecast" tags="nobr" position="1225,475" size="100,100">&lt;&lt;set $prevpass to &quot;diceresults&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;forecast&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;story&quot;&gt;&gt;
 
@@ -911,7 +919,7 @@ There’s some extra help available. &quot;,
 /* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */
 &lt;/main&gt;
 
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="40" name="choosefinalmonster" tags="nobr" position="1225,475" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;.png&quot; &gt;&gt;
+&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="choosefinalmonster" tags="nobr" position="100,600" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;.png&quot; &gt;&gt;
  &lt;&lt;set $img2 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[1] + &quot;.png&quot; &gt;&gt;
 
 
@@ -945,7 +953,7 @@ There’s some extra help available. &quot;,
         &lt;&lt;/link&gt;&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-  &lt;&lt;include &quot;checkFinalMonsterChoice&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="checkFinalMonsterChoice" tags="nobr" position="100,600" size="100,100">&lt;&lt;timed 0.1s&gt;&gt; 
+  &lt;&lt;include &quot;checkFinalMonsterChoice&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="42" name="checkFinalMonsterChoice" tags="nobr" position="225,600" size="100,100">&lt;&lt;timed 0.1s&gt;&gt; 
     &lt;&lt;for _i to 0; _i lt 2; _i++&gt;&gt;
     &lt;&lt;if $playerchoices.finalmonster === $playerchoices.chosenmonsters[0]&gt;&gt;
         &lt;&lt;set _id to &quot;#card1&quot; &gt;&gt;
@@ -971,7 +979,7 @@ There’s some extra help available. &quot;,
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="42" name="story" tags="nobr" position="225,600" size="100,100">&lt;&lt;set $prevpass to &quot;forecast&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="story" tags="nobr" position="350,600" size="100,100">&lt;&lt;set $prevpass to &quot;forecast&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;story&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;pullwildcards&quot;&gt;&gt;
 
@@ -1150,7 +1158,7 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
 &lt;&lt;include &quot;wallet&quot;&gt;&gt;
 &lt;/main&gt;
 
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="pullwildcards" tags="nobr" position="350,600" size="100,100">&lt;&lt;set $prevpass to &quot;story&quot;&gt;&gt;
+&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="pullwildcards" tags="nobr" position="475,600" size="100,100">&lt;&lt;set $prevpass to &quot;story&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;pullwildcards&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;aftermath&quot;&gt;&gt;
 &lt;&lt;set $wildcardoptions to [
@@ -1214,11 +1222,15 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
 
     &lt;&lt;else&gt;&gt;
 
-
+&lt;&lt;if previous() is &quot;aftermath&quot;&gt;&gt;
+&lt;&lt;goto $prevpass&gt;&gt;
+&lt;&lt;else &gt;&gt;
+    &lt;&lt;goto $nextpass&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
     &lt;&lt;/if&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footer&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="aftermath" tags="nobr" position="475,600" size="100,100">&lt;&lt;set $prevpass to &quot;pullwildcards&quot;&gt;&gt;
+&lt;&lt;include &quot;footer&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="aftermath" tags="nobr" position="600,600" size="100,100">&lt;&lt;set $prevpass to &quot;pullwildcards&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;aftermath&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;recovery&quot;&gt;&gt;
 
@@ -1320,7 +1332,7 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="recovery" tags="nobr" position="600,600" size="100,100">&lt;&lt;set $prevpass to &quot;aftermath&quot;&gt;&gt;
+&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="recovery" tags="nobr" position="725,600" size="100,100">&lt;&lt;set $prevpass to &quot;aftermath&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;recovery&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;outro&quot;&gt;&gt;
 
@@ -1342,7 +1354,7 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
         &lt;&lt;/timed&gt;&gt;
     
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="outro" tags="nobr" position="725,600" size="100,100">&lt;&lt;set $prevpass to &quot;recovery&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="outro" tags="nobr" position="850,600" size="100,100">&lt;&lt;set $prevpass to &quot;recovery&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;outro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;outro2&quot;&gt;&gt;
 
@@ -1361,7 +1373,7 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="outro2" tags="nobr" position="850,600" size="100,100">&lt;&lt;set $prevpass to &quot;outro&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="outro2" tags="nobr" position="975,600" size="100,100">&lt;&lt;set $prevpass to &quot;outro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;outro2&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;questions-intro&quot;&gt;&gt;
 
@@ -1380,7 +1392,7 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="questions-intro" tags="nobr" position="975,600" size="100,100">&lt;&lt;set $prevpass to &quot;outro2&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="questions-intro" tags="nobr" position="1100,600" size="100,100">&lt;&lt;set $prevpass to &quot;outro2&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;questions-intro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;questions&quot;&gt;&gt;
 
@@ -1395,7 +1407,7 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="questions" tags="nobr" position="1100,600" size="100,100">&lt;&lt;set $prevpass to &quot;outro&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="questions" tags="nobr" position="1225,600" size="100,100">&lt;&lt;set $prevpass to &quot;outro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;questions&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;questions2&quot;&gt;&gt;
 
@@ -1414,7 +1426,7 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
         &lt;&lt;/timed&gt;&gt;
     
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="questions2" tags="nobr" position="1225,600" size="100,100">&lt;&lt;set $prevpass to &quot;questions&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="questions2" tags="nobr" position="100,725" size="100,100">&lt;&lt;set $prevpass to &quot;questions&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;questions2&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;end&quot;&gt;&gt;
 
@@ -1429,7 +1441,7 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
         &lt;&lt;/timed&gt;&gt;
     
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="end" tags="nobr" position="100,725" size="100,100">&lt;&lt;set $prevpass to &quot;questions2&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="end" tags="nobr" position="225,725" size="100,100">&lt;&lt;set $prevpass to &quot;questions2&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;end&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;end&quot;&gt;&gt;
 &lt;main&gt;
