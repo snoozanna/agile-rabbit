@@ -204,9 +204,9 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;/footer&gt;</tw-passagedata><tw-passagedata pid="7" name="footersimpleappears" tags="nobr" position="850,100" size="100,100">&lt;&lt;set $showWallet to false&gt;&gt;
 &lt;footer class=&quot;grid-item footer&quot;&gt;
 /* &lt;div/&gt; */
-  &lt;&lt;link [img[assets/img/back-black.png]]&gt;&gt;
+  /* &lt;&lt;link [img[assets/img/back-black.png]]&gt;&gt;
         &lt;&lt;goto $prevpass&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
+    &lt;&lt;/link&gt;&gt; */
   /* &lt;&lt;link &quot;W&quot;&gt;&gt;
         &lt;&lt;set $showWallet to true&gt;&gt;
         &lt;&lt;goto &quot;wallet&quot;&gt;&gt;
@@ -402,7 +402,7 @@ $(document).on(':passagedisplay', function(ev) {
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="timer" tags="nobr" position="100,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
-&lt;&lt;set $seconds to 10&gt;&gt;
+&lt;&lt;set $seconds to 300&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;$seconds&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;seconds&lt;/span&gt;&lt;/span&gt;
 
 
@@ -427,7 +427,7 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="3mtimer" tags="nobr" position="225,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
-&lt;&lt;set $seconds to 5&gt;&gt;
+&lt;&lt;set $seconds to 180&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;$seconds&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;seconds&lt;/span&gt;&lt;/span&gt;
 
 
@@ -440,7 +440,7 @@ $(document).on(':passagedisplay', function(ev) {
 			&lt;&lt;replace &quot;#countdown&quot;&gt;&gt;&lt;strong&gt;Times up&lt;/strong&gt;&lt;&lt;/replace&gt;&gt;
       &lt;&lt;timed 1.5s&gt;&gt;
        &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
-        &lt;&lt;if $pass is &quot;questions&quot;&gt;&gt;
+        &lt;&lt;if $pass is &quot;questions2&quot;&gt;&gt;
              &lt;&lt;button &quot;End&quot;&gt;&gt;
             &lt;&lt;goto $nextpass&gt;&gt;
              &lt;&lt;/button&gt;&gt;
@@ -1421,9 +1421,13 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
 &lt;p&gt;If you were to play again, how would you play differently? &lt;/p&gt;
 
   
-    &lt;&lt;timed 5s&gt;&gt;
-        &lt;&lt;include &quot;headertimer&quot;&gt;&gt;
-        &lt;&lt;/timed&gt;&gt;
+&lt;&lt;timed 20s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
     
 &lt;/main&gt;
 &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="questions2" tags="nobr" position="100,725" size="100,100">&lt;&lt;set $prevpass to &quot;questions&quot;&gt;&gt;
@@ -1436,9 +1440,13 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
 &lt;p&gt;How did the game make you think about community resilience on your own street? &lt;/p&gt;
 
   
-    &lt;&lt;timed 5s&gt;&gt;
-        &lt;&lt;include &quot;headertimer&quot;&gt;&gt;
-        &lt;&lt;/timed&gt;&gt;
+ &lt;&lt;timed 20s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
     
 &lt;/main&gt;
 &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="end" tags="nobr" position="225,725" size="100,100">&lt;&lt;set $prevpass to &quot;questions2&quot;&gt;&gt;

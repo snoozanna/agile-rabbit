@@ -145,9 +145,9 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $showWallet to false>>
 <footer class="grid-item footer">
 /* <div/> */
-  <<link [img[assets/img/back-black.png]]>>
+  /* <<link [img[assets/img/back-black.png]]>>
         <<goto $prevpass>>
-    <</link>>
+    <</link>> */
   /* <<link "W">>
         <<set $showWallet to true>>
         <<goto "wallet">>
@@ -395,7 +395,7 @@ $(document).on(':passagedisplay', function(ev) {
 
 :: timer [nobr]
   /* <<audio "30s" "play" loop>> */
-<<set $seconds to 10>>
+<<set $seconds to 300>>
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
 
@@ -423,7 +423,7 @@ $(document).on(':passagedisplay', function(ev) {
 
 :: 3mtimer [nobr]
   /* <<audio "30s" "play" loop>> */
-<<set $seconds to 5>>
+<<set $seconds to 180>>
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
 
@@ -436,7 +436,7 @@ $(document).on(':passagedisplay', function(ev) {
 			<<replace "#countdown">><strong>Times up</strong><</replace>>
       <<timed 1.5s>>
        <<replace "#nextButtonContainer">>
-        <<if $pass is "questions">>
+        <<if $pass is "questions2">>
              <<button "End">>
             <<goto $nextpass>>
              <</button>>
@@ -1518,9 +1518,13 @@ t neighbours from disease and electric shock due to floodwater. </p>
 <p>If you were to play again, how would you play differently? </p>
 
   
-    <<timed 5s>>
-        <<include "headertimer">>
-        <</timed>>
+<<timed 20s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
     
 </main>
 <<include "footeroptionappears">>
@@ -1536,9 +1540,13 @@ t neighbours from disease and electric shock due to floodwater. </p>
 <p>How did the game make you think about community resilience on your own street? </p>
 
   
-    <<timed 5s>>
-        <<include "headertimer">>
-        <</timed>>
+ <<timed 20s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
     
 </main>
 <<include "footeroptionappears">>
