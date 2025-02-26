@@ -135,7 +135,11 @@ $(document).on(':passagedisplay', function(ev) {
 }>>
 <<audio ":all" stop>>
 
-<main>
+<div class="desktop-message">
+  <p>Please view this on a phone.</p>
+</div>
+
+<main class="landing">
 <h1>Welcome to Stronger Together</h1>
 <br/>
 <h2>A card game about community resilience </h2>

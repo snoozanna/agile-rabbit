@@ -557,3 +557,21 @@ flex-direction: column;
     padding: 2rem;
 }
 
+
+/* PHONE ONLY */
+.desktop-message{
+  display: none;
+}
+
+@media screen and (min-width: 700px) {
+  main.landing{
+   display: none
+ }
+ .desktop-message {
+     display: initial;
+     font-size: 20px;
+     text-align: center;
+     margin-top: 20px;
+   }
+ }
+ 
