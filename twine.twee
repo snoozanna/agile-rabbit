@@ -16,9 +16,8 @@ Agile Rabbit
 :: Story Stylesheet [stylesheet]
 @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caudex:ital,wght@0,400;0,700;1,400;1,700&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 @import url("styles/generics.css");
 @import url("styles/styles.css");
 
@@ -90,31 +89,30 @@ $(document).on(':passagedisplay', function(ev) {
 
 :: footer[nobr]
 <footer>
-    <<button "Back">>
+    <<link [img[assets/img/back-black.png]]>>
         <<goto $prevpass>>
-    <</button>>
-    <<button "Next">>
+    <</link>>
+       <<link [img[assets/img/for-black.png]]>>
         <<goto $nextpass>>
-    <</button>>
-    <div id="nextButtonContainer">
-     </div>
+    <</link>>
+   
 </footer>
 
 :: footerend[nobr]
 <footer>
-    <<button "Back">>
+    <<link [img[assets/img/back-black.png]]>>
         <<goto $prevpass>>
-    <</button>>
+    <</link>>
 
     <div id="nextButtonContainer">
      </div>
 </footer>
 
-:: footergrid[nobr]
+:: footeroptionappears[nobr]
 <footer class="grid-item footer">
-    <<button "Back">>
+  <<link [img[assets/img/back-black.png]]>>
         <<goto $prevpass>>
-    <</button>>
+    <</link>>
 
     <div id="nextButtonContainer">
      </div>
@@ -138,15 +136,16 @@ $(document).on(':passagedisplay', function(ev) {
 <<audio ":all" stop>>
 
 <main>
-<p>Welcome to Stronger Together</p>
-<p>A card game about community resilience </p>
-
+<h1>Welcome to Stronger Together</h1>
+<br/>
+<h2>A card game about community resilience </h2>
+<br/>
   <<button "Enter">>
         <<goto $nextpass>>
     <</button>>
 </main>
 
-<<include "wallet">>
+/* <<include "wallet">> */
 
 :: _templateIntro[nobr]
 <<addclass "body" "light">>
@@ -160,10 +159,9 @@ $(document).on(':passagedisplay', function(ev) {
         <<else>>
             No content provided.
         <</if>>
-     <div id="nextButtonContainer">
-     </div>
+  
 </main>
-<<include "footer">>
+<<include "footeroptionappears">>
 
 :: headerIntro [nobr]
 <header class="intro">
@@ -184,17 +182,23 @@ $(document).on(':passagedisplay', function(ev) {
 
 <p>Lay out your game board as below</p>
 
-[Game Board Image]
+  <div class="inline-img-container">
+  <div class="inline-img-wrapper arcard">
+        <h3>Game Board</h3><img src="assets/img/Demo_Game_Board.png" alt="Demo Game Board"/>
+</div></div>
 
 <p>Choose someone to play your facilitator, they’ll read out instructions & deal out game resources.</p>
 <p>The facilitator can play the game, or sit on the outside, up to you. </p>
 
 <p>When you’re ready to play: </p>
 
-  <<button "Begin">>
-        <<goto $nextpass>>
-    <</button>>
-
+<<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Begin">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
 
 :: intro2 [nobr]
 <<set $prevpass to "intro1">>
@@ -211,10 +215,13 @@ $(document).on(':passagedisplay', function(ev) {
 <br/>
 <p>By community resilience we mean communities using resources, connections, skills and expertise, to help themselves prepare for, respond to and recover from disasters. This isn’t a game about a group of politicians around a table. It's about how communities themselves might embrace what they already have, and come together for their people and their place.</p>
 
-
-  <<button "Move on">>
-        <<goto $nextpass>>
-    <</button>>
+<<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
 
 :: intro3 [nobr]
 <<set $prevpass to "intro2">>
@@ -243,9 +250,13 @@ $(document).on(':passagedisplay', function(ev) {
 
 
 
-<<button "Let's Play">>
-        <<goto $nextpass>>
-    <</button>>
+<<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Let's Play">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
 
 
 
@@ -258,21 +269,24 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $nextpass to "monstercards">>
 
 <main class="grid-wrapper">
-   <div class="info-container">
-        <div class="inline-img-container"><div class="inline-img-wrapper arcard">
-        <h3>Player Cards</h3><img src="assets/img/Player_Card_1.png" alt="Player Card 1"/></div></div>
-         <div class="grid-item cards">
-      <<timed 3s>>
-        <<include "timer">>
-     <</timed>> 
-   </div>
-  </div>
+
+       
+       
+
     <div class="grid-item explanation">
         <p>Each of you will play a character: a neighbour on High Street. </p>
         <p>We’ll start by getting to know them. </p>
         <br/>
         <p>Deal out the Player Cards, one to each player. </p>
-        
+      <div class="info-container">
+         <div class="inline-img-container"><div class="inline-img-wrapper arcard">
+        <h3>Player Cards</h3><img src="assets/img/Demo_Player_Card.png" alt="Player Card"/></div></div>
+          <div class="grid-item cards">
+      <<timed 3s>>
+        <<include "timer">>
+     <</timed>> 
+   </div>
+     </div>
 
         
         <p>Place the remaining cards face down in an empty doorway space on the game board. </p>
@@ -288,13 +302,13 @@ $(document).on(':passagedisplay', function(ev) {
 
  
     </main>
-    <<include "footergrid">>
+    <<include "footeroptionappears">>
 
 
 
 :: timer [nobr]
   /* <<audio "30s" "play" loop>> */
-<<set $seconds to 5>>
+<<set $seconds to 10>>
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
 
@@ -375,7 +389,7 @@ $(document).on(':passagedisplay', function(ev) {
 <!-- Gale -->
 <div id="galeChoice" class="card-selection-item arcard">
 
-    <<link [img[assets/img/Gale_Card.png]]>>
+    <<link [img[assets/img/Demo_Gale.png]]>>
         <<if $playerchoices.chosenmonsters.includes("Gale")>>
             <<set $playerchoices.chosenmonsters.delete("Gale")>>
             <<toggleclass "#galeChoice" "chosen">>
@@ -393,7 +407,7 @@ $(document).on(':passagedisplay', function(ev) {
 
 <!-- Inferno -->
 <div id="infernoChoice" class="card-selection-item arcard">
-    <<link [img[assets/img/Inferno_Card.png]]>>
+    <<link [img[assets/img/Demo_Inferno.png]]>>
         <<if $playerchoices.chosenmonsters.includes("Inferno")>>
             <<set $playerchoices.chosenmonsters.delete("Inferno")>>
             <<toggleclass "#infernoChoice" "chosen">>
@@ -411,7 +425,7 @@ $(document).on(':passagedisplay', function(ev) {
 
 <!-- Drench -->
 <div id="drenchChoice" class="card-selection-item arcard">
-    <<link [img[assets/img/Drench_Card.png]]>>
+    <<link [img[assets/img/Demo_Drench.png]]>>
         <<if $playerchoices.chosenmonsters.includes("Drench")>>
             <<set $playerchoices.chosenmonsters.delete("Drench")>>
             <<toggleclass "#drenchChoice" "chosen">>
@@ -429,7 +443,7 @@ $(document).on(':passagedisplay', function(ev) {
 
 <!-- Crystal -->
 <div id="crystalChoice" class="card-selection-item arcard">
-    <<link [img[assets/img/Crystal_Card.png]]>>
+    <<link [img[assets/img/Demo_Crystal.png]]>>
         <<if $playerchoices.chosenmonsters.includes("Crystal")>>
             <<set $playerchoices.chosenmonsters.delete("Crystal")>>
             <<toggleclass "#crystalChoice" "chosen">>
@@ -450,7 +464,7 @@ $(document).on(':passagedisplay', function(ev) {
 <p>The monster attack will be one of these two cards, but it’s a 50 / 50 chance. </p>
 
     </main>
-    <<include "footergrid">>
+    <<include "footeroptionappears">>
  <<include "checkChosenMonsterCards">>
 
 
@@ -489,7 +503,10 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "monstercards">>
 <<set $pass to "chosenMonsterForecast">>
 <<set $nextpass to "actions">>
-<main class="">
+<<timed 5s>>
+    <<include "headertimer">>
+<</timed>>
+<main class="timer">
     <div class="explanation">
 <p>Now you know what might be coming, there is a chance to prepare. </p>
 <p>There are different actions you might take to get ready for the monster attack. </p>
@@ -510,18 +527,22 @@ $(document).on(':passagedisplay', function(ev) {
 <p>Put your chosen actions on your game board. </p>
 <p>Put the remaining action cards face down in a discard pile. </p>
 <br/>
-  <div class="grid-item cards">
-    <<timed 5s>>
-      <<include "timer">>
-    <</timed>>
-    </div>
+ 
 </main>
 
-<<include "footer">>
+<<include "footeroptionappears">>
+
+:: headertimer [nobr]
+<header class="timer">
+
+      <<include "timer">>
+
+</header>
+
 
 :: chosenmonstersdisplay [nobr]
- <<set $img1 to "assets/img/" + $playerchoices.chosenmonsters[0] + "_Card.png" >>
- <<set $img2 to "assets/img/" + $playerchoices.chosenmonsters[1] + "_Card.png" >>
+ <<set $img1 to "assets/img/" + "Demo_" + $playerchoices.chosenmonsters[0] + ".png">>
+ <<set $img2 to "assets/img/" + "Demo_" + $playerchoices.chosenmonsters[1] + ".png" >>
 
 <div class="cards-selection">
     <div class="card-selection-item arcard">
@@ -560,9 +581,13 @@ $(document).on(':passagedisplay', function(ev) {
     </div>
     <<include "actionslist">>
     <br/>
-    5 Chosen Actions: <div id="chosenActionsMount"></div>
+    <<button "Reset">>
+        <<set $playerchoices.chosenactions to []>>
+        <<goto "actions">>
+        <</button>>
+    /* 5 Chosen Actions: <div id="chosenActionsMount"></div> */
 </main>
-<<include "footergrid">>
+<<include "footeroptionappears">>
 
 :: actionslist [nobr]
 <div class="actions-list">
@@ -679,12 +704,22 @@ There’s some extra help available. ",
 
   <<button "Roll">>
 <<set $diceroll to random(0,5) >>
-<<goto $nextpass>>
+/* <<goto $nextpass>> */
+<<goto "rolling">>
     <</button>>
     </div>
 </main>
 <<include "wallet">>
 <<include "footer">>
+
+:: rolling [nobr]
+<main class="maindice">
+    <div class="dice roll"></div>
+    <<type 60ms>>
+      <h2>  Rolling...</h2>
+    <</type>>
+</main>
+<<timed 3.5s>><<goto $nextpass>><</timed>>
 
 
 :: diceresults [nobr]
@@ -693,8 +728,8 @@ There’s some extra help available. ",
 <<set $nextpass to "forecast">>
 
 <main>
-<div id="mount"></div>
-   <div>
+   <div class="result">
+   <h2>Result</h2>
         $diceoptions[$diceroll].text1
         <br/>
         <div id="proposedChangeMount"></div>
@@ -717,7 +752,7 @@ There’s some extra help available. ",
 <<include "checkForUnsucessfulActions">>
 </main>
 
-<<include "footergrid">>
+<<include "footeroptionappears">>
  <<timed 0.1s>>
     <<replace "#nextButtonContainer">>
             <<button "Confirm and move on">>
@@ -744,6 +779,7 @@ There’s some extra help available. ",
     /* Loop through all actions and check for matches */
     <<timed 0.1s>>
         <<replace "#proposedChangeMount">>
+            <br/>
             <h3>Unsuccessful actions:</h3>
             <div class="actions-list">
                 <<for _i to 0; _i lt $actionsoptions.length; _i++>>
@@ -751,7 +787,7 @@ There’s some extra help available. ",
                         <div class="actions-item">
                             <h3>$actionsoptions[_i].type</h3> 
                             <p>$actionsoptions[_i].text</p>
-                             <p>$actionsoptions[_i].id</p>
+                        
                         </div>
                     <</if>>
                 <</for>>
@@ -780,20 +816,16 @@ There’s some extra help available. ",
 
 
 :: wallet [nobr]
-<h2>Wallet</h2>
-<span>Monsters: $playerchoices.chosenmonsters</span>
-<br/>
-<span>Final Monster: $playerchoices.finalmonster</span>
-<br/>
-<span>Original Actions: $playerchoices.originalactions</span>
-<br/>
-<span>Chosen Actions: $playerchoices.chosenactions</span>
-<br/>
-<span>Changed Actions: $playerchoices.changedactions</span>
-
-<br/>
-<span>Wildcards: $playerchoices.wildcards</span>
-
+<div class="wallet">
+    <h2>Wallet</h2>
+    <span>Monsters: $playerchoices.chosenmonsters</span>
+    <span>Final Monster: $playerchoices.finalmonster</span>
+    <span>Original Actions: $playerchoices.originalactions</span>
+    <span>Chosen Actions: $playerchoices.chosenactions</span>
+    <span>Changed Actions: $playerchoices.changedactions</span>
+    <span>Wildcards: $playerchoices.wildcards</span>
+    
+</div>
 
 :: forecast [nobr]
 <<set $prevpass to "diceresults">>
@@ -813,11 +845,11 @@ There’s some extra help available. ",
 /* <<include "wallet">> */
 </main>
 
-<<include "footergrid">>
+<<include "footeroptionappears">>
 
 :: choosefinalmonster [nobr]
- <<set $img1 to "assets/img/" + $playerchoices.chosenmonsters[0] + "_Card.png" >>
- <<set $img2 to "assets/img/" + $playerchoices.chosenmonsters[1] + "_Card.png" >>
+ <<set $img1 to "assets/img/" + "Demo_" + $playerchoices.chosenmonsters[0] + ".png" >>
+ <<set $img2 to "assets/img/" + "Demo_" + $playerchoices.chosenmonsters[1] + ".png" >>
 
 
 <div class="cards-selection">
@@ -1053,13 +1085,17 @@ t neighbours from disease and electric shock due to floodwater. </p>
 <p>Pick one player who will take a single action to provide support to the stranded households. </p>
 
  <</if>>
- <<button "Move On">>
-<<goto $nextpass>>
-    <</button>>
+<<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
 <<include "wallet">>
 </main>
 
-<<include "footergrid">>
+<<include "footeroptionappears">>
 
 :: pullwildcards [nobr]
 <<set $prevpass to "story">>
@@ -1131,9 +1167,9 @@ t neighbours from disease and electric shock due to floodwater. </p>
 <<set $nextpass to "recovery">>
 
 <main>
-<h3>The monster attack is over. </h3>
+<h2>The monster attack is over. </h2>
 
-<p>As they retreat you are left with some consequences to contend with.</p>
+<h3>As they retreat you are left with some consequences to contend with.</h3>
 
 /* If Connect 5 is not selected */
 <<if !$playerchoices.chosenactions.includes(12)>>
@@ -1206,8 +1242,8 @@ t neighbours from disease and electric shock due to floodwater. </p>
 <<set $pass to "recovery">>
 <<set $nextpass to "outro">>
 
-<main>
-    <p>There is a lot to recover from. </p>
+<main class="timer">
+    <h2>There is a lot to recover from. </h2>
     <p>But! You have each other, your skills, your resources and connections. </p>
     <p>You will use these to help High Street begin its recovery. </p>
     
@@ -1218,11 +1254,11 @@ t neighbours from disease and electric shock due to floodwater. </p>
     <p>When you’re ready, share what you will do. </p>
     
     <<timed 5s>>
-        <<include "3mtimer">>
+        <<include "headertimer">>
         <</timed>>
     
 </main>
-<<include "footergrid">>
+<<include "footeroptionappears">>
 
 
 :: outro [nobr]
@@ -1240,12 +1276,15 @@ t neighbours from disease and electric shock due to floodwater. </p>
 <p>Well done, and no matter what remains, know that High Street is on the road to recovery, and we are Stronger Together.</p>
 
     
- <<button "Move on">>
-    <<goto $nextpass>>
-    <</button>>
-    
+<<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
 </main>
-<<include "footergrid">>
+<<include "footeroptionappears">>
 
 
 :: questions [nobr]
@@ -1253,10 +1292,10 @@ t neighbours from disease and electric shock due to floodwater. </p>
 <<set $pass to "questions">>
 <<set $nextpass to "end">>
 
-<main>
-<p>That’s the end of the game! </p>
+<main class="timer">
+<h2>That’s the end of the game! </h2>
 <p>There is now time to debrief and discuss. Talk through the three questions below. </p>
-
+<br/>
 <h3>Question 1</h3>
 <p>Today, you came together to face the monster. </p>
 <p>Some things went well, others less well, but you stuck it out: you were resilient. </p>
@@ -1270,11 +1309,11 @@ t neighbours from disease and electric shock due to floodwater. </p>
 
   
     <<timed 5s>>
-        <<include "timer">>
+        <<include "headertimer">>
         <</timed>>
     
 </main>
-<<include "footergrid">>
+<<include "footeroptionappears">>
 
 
 :: end [nobr]

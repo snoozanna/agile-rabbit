@@ -15,8 +15,8 @@
   --neon-green: #39FF14;
   --main-bg-color: var(--color-seven);
   --font-chapter: "Bungee", sans-serif;
-  --font-headings: "SpecialElite", monospace;
-  --font-body: "Sora", sans-serif;
+  --font-headings: "Quantico", serif;
+  --font-body: "Caudex", serif;
   --font-story: "Lora", serif;
   --padding: 2rem;
   --box-shadow:  0.5rem 0.5rem black;
@@ -104,15 +104,15 @@ input[type=text] {
 
 button,
 .inline-btn-wrapper > a {
-  background-color: var(--color-yellow);
-  color: black;
-  border: black 2px solid;
   border-radius: 3px;
   font-family: var(--font-headings);
   text-transform: uppercase;
   padding: 5px;
   font-size: 1.8rem;
-  /* box-shadow:0.5rem 0.5rem var(--color-four) */
+  background: var(--color-four);
+    color: whitesmoke;
+    font-weight: 800;
+    border: solid whitesmoke 2px;
 }
 
 button:hover {
@@ -154,6 +154,7 @@ padding: 2rem;
 main {
   height: 100%;
 margin-block-end: 10rem;
+
 }
 
 body {
@@ -163,10 +164,12 @@ font-family: var(--font-body);
 font-size: 10px;
 min-height: 100vh;
 display:flex;
-color: var(--color-two);
+/* color: var(--color-two); */
+color:black;
 justify-content:center;
 align-items: center;
 overflow: scroll;
+background: linear-gradient(135deg, #ff9a9e, #fad0c4);
 }
 
 /* light  */
@@ -191,7 +194,7 @@ background-color: #c1944fd4;
 color:black;
 }
 
-body.light > #story > #passages > .passage > footer > button, 
+/* body.light > #story > #passages > .passage > footer > button, 
 body.light > #story > #passages > .passage > button, 
 body.light > #story > #passages > .passage > footer > #nextButtonContainer > button, 
 body.light > #story > #passages > .passage > main > #nextButtonContainer > button, 
@@ -200,7 +203,7 @@ border: black 2px solid;
 color:black;
 font-weight: 700;
 box-shadow:var(--box-shadow);
-}
+} */
 
 body.light > #story > #passages > .passage > footer > .button-wrapper > button, 
 body.light > #story > #passages > .passage > footer  > button{
@@ -225,6 +228,10 @@ width: 100%;
 z-index: 99;
 }
 
+footer > a > img {
+  max-width: 25px;
+}
+
 
 /* TYPOGRAPHY  */
 
@@ -235,17 +242,17 @@ font-weight: 600;
 }
 
 h1{
-font-size: 3rem;
+font-size: 3.5rem;
 }
 h2{
-font-size: 2.5rem;
+font-size: 2.7rem;
 }
 
 h3{
-font-size: 2rem;
+font-size: 2.2rem;
 }
 p{
-font-size: 1.8rem;
+font-size: 2rem;
 }
 
 h2.octo-title, h3.octo-title, .octo-title{
@@ -365,20 +372,19 @@ font-size: 35px;
 
 
 header.timer{
-  /* position: fixed; */
-  top:0;
-  left:0;
+  position: fixed;
+  top: 0;
+  right: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   /* padding: 4rem; */
-  background-color: black;
-  width: 100%;
+  width: fit-content;
+  background: bisque;
+  z-index: 999;
 }
 
 main.timer{
-  display: flex;
-  align-items: flex-start;
-justify-content: space-between;
+  margin-block-start: 10rem;
 }
 
 main.timermap{
@@ -478,6 +484,8 @@ max-width: 45%;
     border: solid white 2px;
     padding: 1rem;
     font-size: 1.5rem;
+  background-color: lavender;
+  color:black
 }
 
 .actions-item > h3{
@@ -487,3 +495,65 @@ max-width: 45%;
 .actions-item > a{
   text-decoration: underline;
 }
+.actions-item > p{
+  font-size: 1.5rem;
+}
+
+
+/* WALLET  */
+.wallet{
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin: auto;
+  font-size: 1.3rem;
+  border: solid 2px white;
+  width: fit-content;
+  background: cadetblue;
+  color: black;
+}
+
+.wallet> h2{
+  font-size: 1.8rem;
+}
+
+/* DICE ROLL  */
+
+main.maindice{
+  display: flex;
+justify-content: center;
+align-items: center;
+gap:10rem;
+flex-direction: column;
+}
+
+@keyframes diceRoll {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(90deg) scale(1.2); }
+  50% { transform: rotate(180deg) scale(1); }
+  75% { transform: rotate(270deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.dice {
+  width: 100px;
+  height: 100px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.roll {
+  animation: diceRoll 4s ease-out infinite;
+}
+
+.result{
+  background: indianred;
+    color: white;
+    padding: 2rem;
+}
+
