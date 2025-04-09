@@ -465,6 +465,11 @@ justify-content: center;
   transform: rotate(-4deg);
 }
 
+.arcardbig{
+  max-width:25rem;
+  transform: rotate(-4deg);
+}
+
 .cards-selection{
   display: flex;
   flex-wrap: wrap;

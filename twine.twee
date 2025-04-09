@@ -326,7 +326,7 @@ $(document).on(':passagedisplay', function(ev) {
     <<replace "#line3">><<type 60ms>><p>...</p><</type>><</replace>>
 <</timed>>
 <<timed 7s>>
-    <<replace "#line4">><p>a monster attack.</p><</replace>>
+    <<replace "#line4">><h2>a monster attack.</h2><</replace>>
 <</timed>>
 <<timed 9s>>
     <<replace "#line5">>
@@ -337,7 +337,7 @@ $(document).on(':passagedisplay', function(ev) {
 <</timed>>
 
 
-<<timed 3s>>
+<<timed 9s>>
     <<replace "#nextButtonContainer">>
     <<button "Let's Play">>
             <<goto $nextpass>>
@@ -1057,7 +1057,7 @@ There’s some extra help available. ",
 
 <main>
 <div class="explanation">
-<p>Disaster looms.</p>
+<h2>Disaster looms.</h2>
 <br/>
 <p>The monster attack is moments away and we can finally see which monster is coming. </p>
 <br/>
@@ -1152,19 +1152,23 @@ There’s some extra help available. ",
 <h3>We’re going to uncover how this attack plays out. </h3>
 <br/>
  <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
+  <div class="inline-img-wrapper arcardbig">
   <img src="assets/img/alerts.png" alt="Sign Up for Alerts"/>
 </div></div>
 /* CONNECT 5 = id 12 */
 <<if $playerchoices.chosenactions.includes(12)>>
-    <p><span class="accent">You signed up for alerts</span>, so everyone was warned about the monster in good time. The alerts included up to date guidance, and no neighbours were caught out by outdated methods. </p>
+    <p>Everyone is warned about the monster in good time. The alert includes up to date guidance, and no neighbours are caught out by outdated methods.  </p>
  <</if>>
 <<if !$playerchoices.chosenactions.includes(12) && !$playerchoices.changedactions.includes(12)>>
-    <p><span class="accent">You didn’t sign up for alerts</span>, so not everyone was warned about the monster in good time. Without up to date guidance, many households used outdated methods to keep the monster at bay, putting them in further danger. </p>
+    <p>Not everyone is warned about the monster or given up to date guidance. Neighbours use outdated and unsuccessful methods to keep the monster at bay. Neighbourhood morale dips. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(12)>>
-    <p><span class="accent">You weren’t able to sign up for alerts</span>, so not everyone was warned about the monster in good time, or given the most up to date guidance. But! You can use your skills and resources to help. </p>
-    <p>Pick one player who will take a single action to share updated guidance, to ensure everyone knows how to react. </p>
+    <p>Not everyone is warned about the monster in good time, or given the most up to date guidance. You use your skills and resources to help. </p>
+<br/><br/>
+<i><p>Reminder: </p>
+<p>One neighbour will use their skills to take action. </p>
+<p>Facilitator, you will judge whether they have successfully filled the gap.</p>
+</p></i>
  <</if>>
 
 
@@ -1190,19 +1194,25 @@ There’s some extra help available. ",
 
 <main>
  <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
+  <div class="inline-img-wrapper arcardbig">
   <img src="assets/img/salts.png" alt="Lay down salts"/>
 </div></div>
 /* CRYSTAL & PREPARE 1 = id 1 */
 <<if $playerchoices.finalmonster is "Crystal" && $playerchoices.chosenactions.includes(1)>>
-    <p><span class="accent">You laid out some salts to guide Crystal down your street. </span>She leaves no residue, so when your neighbours venture out, there are no slips or falls.  </p>
+    <p>There is no mark of Crystal on the streets. Neighbours venture out, and no one slips or falls. Dot, the stray cat, is safe! </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Crystal" && !$playerchoices.chosenactions.includes(1) && !$playerchoices.changedactions.includes(1)>>
-    <p><span class="accent">You didn’t lay out grit to guide Crystal down your street.</span> The streets are slippy and icy. A couple of neighbours who do venture out slip and fall, resulting in a broken wrist and two sprained ankles.</p>
+    <p>The streets are slippy and icy. A couple of neighbours venture out and slip and fall, resulting in a broken wrist and two sprained ankles. Dot, the stray cat, is safe though!</p>
  <</if>>
 <<if $playerchoices.finalmonster is "Crystal" && $playerchoices.changedactions.includes(1)>>
-<p><span class="accent">You weren’t able to lay out grit to guide Crystal down your street.</span> But! You can use your skills and resources to help. </p>
-<p>Pick one player who will take a single action to guide your neighbours safely down the street. </p>
+<p>The streets are slippy and icy. Even Dot, the stray cat, is sliding about. You use your skills and resources to help. </p>
+<br/><br/>
+<i>
+    <p>Reminder: </p>
+    <p>One neighbour will use their skills to take action. </p>
+    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+</i>
+ 
  <</if>>
 
 <<timed 3s>>
@@ -1226,20 +1236,25 @@ There’s some extra help available. ",
 
 <main>
  <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
+  <div class="inline-img-wrapper arcardbig">
   <img src="assets/img/drinks.png" alt="Gather Drinks"/>
 </div></div>
 
 /* INFERNO & PREPARE 2 = id 2 */
 <<if $playerchoices.finalmonster is "Inferno" && $playerchoices.chosenactions.includes(2)>>
-    <p><span class="accent">You gathered drinks and ice in preparation for Inferno’s visit. </span>As the temperature creeps up, you’re able to make sure everyone is cool and hydrated, minimising the health impact of Inferno’s attack. </p>
+    <p>The temperature creeps up, and you make sure everyone is cool and hydrated. However, Dot, the stray cat, found some water and shade!  </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Inferno" && !$playerchoices.chosenactions.includes(2) && !$playerchoices.changedactions.includes(2)>>
-    <p><span class="accent">You didn’t gather drinks and ice in preparation for Inferno’s visit.</span> As the temperature creeps up, some neighbours, especially those with existing health conditions, begin to suffer. Two people are left dehydrated, and one neighbour faints and has to be taken to hospital. </p>
+    <p>The temperature creeps up, and some neighbours, especially those with existing health conditions, suffer. Two people are dehydrated, and one neighbour faints and is taken to hospital. However, Dot, the stray cat, found some water and shade!  </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Inferno" && $playerchoices.changedactions.includes(2)>>
-<p> <span class="accent">You weren’t able to gather drinks and ice in preparation for Inferno’s visit.</span> As the temperature creeps up, you’ll need to use your skills and resources to keep your neighbours safe. </p>
-<p>Pick one player who will take a single action to care for their neighbors in the extreme heat. </p>
+<p> As the temperature creeps up, neighbours grow concerned, even Dot, the stray cat, is parched. You use your skills and resources to keep your neighbours safe.</p> 
+<br/><br/>
+<i>
+<p>Reminder: </p>
+<p>One neighbour will use their skills to take action. </p>
+<p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+ </i>
  <</if>>
 
 <<timed 3s>>
@@ -1263,21 +1278,27 @@ There’s some extra help available. ",
 
 <main>
  <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
+  <div class="inline-img-wrapper arcardbig">
   <img src="assets/img/objects.png" alt="Secure objects"/>
 </div></div>
 
 
 /* GALE & PREPARE 3 = id 3 */
 <<if $playerchoices.finalmonster is "Gale" && $playerchoices.chosenactions.includes(3)>>
-    <p><span class="accent">You cleared away or secured objects outside before Gale’s arrival.</span> While she bangs at the doors of sheds, and pulls at the cables you’ve tied, nothing escapes. Neighbours are kept safe from flying debris.  </p>
+    <p>Gale bangs at the doors of sheds, and pulls at the cables you’ve tied, but nothing escapes. Neighbours and Dot, the stray cat, are safe from flying debris! </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Gale" && !$playerchoices.chosenactions.includes(3) && !$playerchoices.changedactions.includes(3)>>
-    <p><span class="accent">You didn’t clear away or secure objects outside before Gale’s arrival. </span>She bangs at the doors of sheds, and lifts chairs and even a trampoline into the air. One neighbour is hit by a flying parasol and has to go to hospital.  </p>
+    <p>Gale bangs at the doors of sheds, lifting chairs and a trampoline into the air. One neighbour is hit by a flying parasol and goes to hospital. Fortunately, Dot, the stray cat, dodges all of the debris!  </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Gale" && $playerchoices.changedactions.includes(3)>>
-<p><span class="accent">You weren’t able to clear away or secure outside objects before Gale’s arrival.</span> As she swirls down ready to lift objects into the air, you’ll have to rely on your own skills and resources. </p>
-<p>Pick one player who will take a single action to protect neighbours from flying debris. </p>
+<p>Gale swirls down, ready to lift objects into the air. Dot, the stray cat, digs her claws into a tree trunk and holds tight. You use your own skills and resources to protect your neighbours.</p> 
+<br/><br/>
+<i>
+    <p>Reminder: </p>
+    <p>One neighbour will use their skills to take action. </p>
+    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+</i>
+
 
  <</if>>
  
@@ -1303,20 +1324,26 @@ There’s some extra help available. ",
 
 <main>
  <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
+  <div class="inline-img-wrapper arcardbig">
   <img src="assets/img/barriers.png" alt="Set up barriers"/>
 </div></div>
  
  /* DRENCH & PREPARE 4 = id 4 */
 <<if $playerchoices.finalmonster is "Drench" && $playerchoices.chosenactions.includes(4)>>
-    <p><span class="accent">You set up barriers, blocks and absorbent pads to keep out or soak up Drench.</span> When she arrives, the barriers, blocks and pads keep homes water free, with no risk of disease or electric shock. </p>
+    <p>Drench arrives. The barriers, blocks and pads keep homes water free, with no risk of disease or electric shock. Dot, the stray cat, is safe and well!  </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Drench" && !$playerchoices.chosenactions.includes(4) && !$playerchoices.changedactions.includes(4)>>
-    <p><span class="accent">You didn’t set up barriers, blocks and absorbent pads to keep out or soak up Drench.</span> When she arrives, she rushes into homes. Two neighbours end up with respiratory infections from the floodwater, and a family is stuck upstairs in their house, unable to go down because of the risk of electric shock.  </p>
+    <p>Drench arrives and rushes into homes. Two neighbours get respiratory infections from the floodwater, and a family is stuck upstairs in their house, with risk of electric shock below. Dot, the stray cat, manages to find shelter though!  </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Drench" && $playerchoices.changedactions.includes(4)>>
-<p><span class="accent">You weren’t able to set up barriers, blocks and absorbent pads to keep out or soak up Drench. </span>As she rushes in, you’ll have to rely on your own skills and resources. </p>
-<p>Pick one player who will take a single action to protect neighbours from disease and electric shock due to floodwater. </p>
+<p>Drench rushes in. Dot, the stray cat, is seen perching on a high branch. You use your own skills and resources to protect your neighbours.</p> 
+<br/><br/>
+<i>
+    <p>Reminder: </p>
+    <p>One neighbour will use their skills to take action. </p>
+    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+</i>
+
 
  <</if>>
 
@@ -1337,27 +1364,40 @@ There’s some extra help available. ",
 
 <main>
  <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
+  <div class="inline-img-wrapper arcardbig">
   <img src="assets/img/messaging.png" alt="Set up messaging chat"/>
 </div></div>
 /* CONNECT 1 = id 8 */
 <<if $playerchoices.chosenactions.includes(8)>>
-<p> <span class="accent">You set up a messaging group</span> to keep in touch with neighbours, which connected you to someone on the street you hadn’t met. </p>
-<p>Turn over one of the face down household cards. </p>
-<p>You are able to include this neighbour in your preparations, involving their skills and providing support if needed. </p>
+<p>The messaging chat connects you to someone on the street you haven’t met. </p>
+
+<i><p>Turn over one of the face down neighbour cards. </p></i>
+
+<p>You include this neighbour in your preparations. You involve their skills and provide support to them. </p>
 
  <</if>>
 <<if !$playerchoices.chosenactions.includes(8) && !$playerchoices.changedactions.includes(8)>>
-<p><span class="accent">You didn’t set up a messaging group </span>to keep in touch with neighbours, so you didn’t meet someone on the street who is rarely home to answer the door. </p>
-<p>Turn over one of the face down household cards. </p>
-<p>You were not able to include this neighbour in your preparations, or involve their skills or provide support, even if it was needed. </p>
+<p>You don’t meet someone on the street who is rarely home to answer the door.</p> 
+
+<i><p>Turn over one of the face down neighbour cards. </p></i>
+
+<p>You don’t include this neighbour in your preparations. You can't involve their skills or provide support to them. </p>
+
 
  <</if>>
 <<if $playerchoices.changedactions.includes(8)>>
-<p><span class="accent">You weren’t able to set up a messaging group</span> to keep in touch with neighbours, so you didn’t meet someone on the street who is rarely home to answer the door. </p>
-<p>Turn over one of the face down household cards. </p>
-<p>However, you do have your own skills and resources. Pick one player who will take a single action to provide support to this neighbour. 
-t neighbours from disease and electric shock due to floodwater. </p>
+<p>You don’t meet someone on the street who is rarely home to answer the door. </p>
+
+<i><p>Turn over one of the face down neighbour cards. </p></i>
+
+<p>You use your own skills and resources. </p>
+<br/><br/>
+<i>
+    <p>Reminder: </p>
+    <p>One neighbour will use their skills to take action. </p>
+    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+</i>
+
  <</if>>
  
 
@@ -1378,26 +1418,40 @@ t neighbours from disease and electric shock due to floodwater. </p>
 
 <main>
 <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
+  <div class="inline-img-wrapper arcardbig">
   <img src="assets/img/door-knocking.png" alt="Door-knocking"/>
 </div></div>
 
 /* CONNECT 2 = id 9 */
 <<if $playerchoices.chosenactions.includes(9)>>
-<p><span class="accent">You went doorknocking </span>along the street which connected you to one of your neighbours who you hadn’t met, who doesn’t use WhatsApp. </p>
-<p>Turn over one of the face down household cards. </p>
-<p>You are able to include this neighbour in your preparations, involving their skills and providing support if needed. </p>
+<p>You meet a neighbour who doesn’t use messaging chats. </p>
+
+<i><p>Turn over one of the face down neighbour cards. </p></i>
+
+<p>You include this neighbour in your preparations. You involve their skills and provide support to them. </p>
+
  <</if>>
 <<if !$playerchoices.chosenactions.includes(9) && !$playerchoices.changedactions.includes(9)>>
-<p><span class="accent">You didn’t go doorknocking</span> down your street, so you didn’t meet a neighbour who does not use WhatsApp. </p>
-<p>Turn over one of the face down household cards. </p>
-<p>You were not able to include this neighbour in your preparations, or involve their skills or provide support, even if it was needed.</p>
+<p>You don’t meet a neighbour who doesn’t use messaging chats. </p>
+
+<i><p>Turn over one of the face down neighbour cards. </p></i>
+
+<p>You don’t include this neighbour in your preparations. You can't involve their skills or provide support to them. </p>
+
  <</if>>
 <<if $playerchoices.changedactions.includes(9)>>
-<p><span class="accent">You weren’t able to go door knocking</span> down your street, so you didn’t meet a neighbour who does not use WhatsApp. </p>
-<p>Turn over one of the face down household cards. </p>
-<p>However, you do have your own skills and resources. Pick one player who will take a single action to provide support to this neighbour.  
-</p>
+<p>You don’t meet a neighbour who doesn’t use messaging chats. </p>
+
+<i><p>Turn over one of the face down neighbour cards. </p></i>
+
+<p>You use your own skills and resources. </p>
+<br/><br/>
+<i>
+    <p>Reminder: </p>
+    <p>One neighbour will use their skills to take action. </p>
+    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+</i>
+
  <</if>>
 
 <<timed 3s>>
@@ -1418,20 +1472,26 @@ t neighbours from disease and electric shock due to floodwater. </p>
 <main>
 
 <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
+  <div class="inline-img-wrapper arcardbig">
   <img src="assets/img/belongings.png" alt="Move precious belongings"/>
 </div></div>
 
 /* PREPARE 5 = id 5 */
 <<if $playerchoices.chosenactions.includes(5)>>
-<p><span class="accent">You moved precious belongings in your home to a safe place.</span> As the monster rushes in, belongings sit on high shelves and in attics. Safe and out of reach.</p>
+<p>The monster rushes in, but can’t reach belongings that sit on high shelves and in attics. Nothing is damaged. Hooray!</p>
  <</if>>
 <<if !$playerchoices.chosenactions.includes(5) && !$playerchoices.changedactions.includes(5)>>
-<p><span class="accent">You didn’t move precious belongings in your home to a safe place.</span> As the monster rushes in, belongings are swept away with them. One resident loses all their family photographs, and another is left trying to work out how to afford a new computer. </p>
+<p>The monster rushes in, and belongings are swept away with them. A neighbour loses all their family photographs, another’s computer is broken. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(5)>>
-<p><span class="accent">You weren’t able to move precious belongings in your home to a safe place.</span> As the monster arrives, you’ll have to rely on your own skills and resources. </p>
-<p>Pick one player who will take a single action to protect precious belongings from monster attack.</p>
+<p>The monster arrives, but you haven’t been able to move your belongings to safety. You have to rely on your own skills and resources. </p>
+<br/><br/>
+<i>
+    <p>Reminder: </p>
+    <p>One neighbour will use their skills to take action. </p>
+    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+</i>
+
  <</if>>
 
 <<timed 3s>>
@@ -1451,19 +1511,25 @@ t neighbours from disease and electric shock due to floodwater. </p>
 
 <main>
 <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
+  <div class="inline-img-wrapper arcardbig">
   <img src="assets/img/emergency.png" alt="Prepare emergency kit"/>
 </div></div>
 /* PREPARE 6 = id 6 */
 <<if $playerchoices.chosenactions.includes(6)>>
-<p><span class="accent">You prepared an emergency kit. </span>When the monster attacks the electricity supply, leading to a 24h outage, you’re ready. You have food, water and a first aid kit, and a wind up radio to stay entertained. </p>
+<p>The monster attacks the electricity supply and there is a 24h outage. You’re prepared: you have food, water, a first aid kit, and a wind up radio to stay up to date. Phew!</p>
  <</if>>
 <<if !$playerchoices.chosenactions.includes(6) && !$playerchoices.changedactions.includes(6)>>
-<p><span class="accent">You didn’t prepare an emergency kit. </span>When the monster attacks the electricity supply, leading to a 24h outage, you’re unprepared. You can’t regulate your temperature, struggle to find edible food, and all you have is each other for entertainment. </p>
+<p>The monster attacks the electricity supply and there is a 24h outage. You’re unprepared: you can’t regulate your temperature and you struggle to find edible food. It is a shock. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(6)>>
-<p><span class="accent">You weren’t able to prepare an emergency kit.</span> When the monster attacks the electricity supply, leading to a 24h outage, you have to rely on your own skills and resources. </p>
-<p>Pick one player who will take a single action to care for the street during the outage. </p>
+<p>The monster attacks the electricity supply and there is a 24h outage. You use your own skills and resources. </p>
+<br/><br/>
+<i>
+    <p>Reminder: </p>
+    <p>One neighbour will use their skills to take action. </p>
+    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+</i>
+
  <</if>>
 
 <<timed 3s>>
@@ -1483,20 +1549,26 @@ t neighbours from disease and electric shock due to floodwater. </p>
 
 <main>
 <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
+  <div class="inline-img-wrapper arcardbig">
   <img src="assets/img/plan.png" alt="Make a plan"/>
 </div></div>
 
 /* PREPARE 7 = id 7 */
 <<if $playerchoices.chosenactions.includes(7)>>
-<p><span class="accent">You made a plan and created a ‘grab bag’.</span> When the monster forces you to evacuate, you have all you need with you: food, water and a phone charger so you can stay in touch with the rest of the street.  </p>
+<p>The monster forces you to evacuate. Thanks to your plan, you have all you need with you: food, water and a phone charger. Your neighbour calls for help, you pick up! </p>
  <</if>>
 <<if !$playerchoices.chosenactions.includes(7) && !$playerchoices.changedactions.includes(7)>>
-<p><span class="accent">You didn’t make a plan and or create a ‘grab bag’.</span> When the monster forces you to evacuate, you forget some key items, including your phone charger. When your neighbour calls asking for help, your phone has no battery. It doesn’t ring.</p>
+<p>The monster forces you to evacuate and you forget key items, including your phone charger. Your neighbour calls asking for help, but your phone has no battery. It doesn’t ring.</p>
  <</if>>
 <<if $playerchoices.changedactions.includes(7)>>
-<p><span class="accent">You weren’t able to make a plan and or create a ‘grab bag’.</span> When the monster forces you to evacuate, you’re stuck. You do however have your skills and resources. </p>
-<p>Pick one player who will take a single action to care for the street during the evacuation.</p>
+<p>The monster forces you to evacuate, and you’re stuck without a plan. You use your skills and resources. </p>
+<br/><br/>
+<i>
+    <p>Reminder: </p>
+    <p>One neighbour will use their skills to take action. </p>
+    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+</i>
+
  <</if>>
 
 <<timed 3s>>
@@ -1516,20 +1588,26 @@ t neighbours from disease and electric shock due to floodwater. </p>
 
 <main>
 <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
+  <div class="inline-img-wrapper arcardbig">
   <img src="assets/img/community.png" alt="Community Centre"/>
 </div></div>
 
 /* CONNECT 3 = id 10 */
 <<if $playerchoices.chosenactions.includes(10)>>
-<p><span class="accent">You connected to the community centre,</span> so that when resources run low, you have somewhere to turn to. Several households begin to run out of food, but the community centre’s food bank makes sure everyone is well fed.  </p>
+<p>Resources run low, and you turn to the community centre. Several neighbours run out of food. However, the community centre’s food bank makes sure everyone is well fed. </p>
  <</if>>
 <<if !$playerchoices.chosenactions.includes(10) && !$playerchoices.changedactions.includes(10)>>
-<p><span class="accent">You didn’t connect to the community centre,</span> so that when resources run low, there is nowhere to turn. Several households begin to run out of food, and are left hungry. </p>
+<p>Resources run low, and you have nowhere to turn. Several neighbours run out of food.They are left hungry. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(10)>>
-<p><span class="accent">You weren’t able to connect to the community centre.</span> When resources run low, there is nowhere to turn. Several households begin to run out of food, and all you have are your own skills and resources.</p>
-<p>Pick one player who will take a single action to provide support to their neighbours. </p>
+<p>Resources run low, there is nowhere to turn. Several neighbours run out of food. You use your own skills and resources. </p>
+<br/><br/>
+<i>
+    <p>Reminder: </p>
+    <p>One neighbour will use their skills to take action. </p>
+    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+</i>
+
  <</if>>
 
 <<timed 3s>>
@@ -1549,20 +1627,25 @@ t neighbours from disease and electric shock due to floodwater. </p>
 
 <main>
 <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
+  <div class="inline-img-wrapper arcardbig">
   <img src="assets/img/local.png" alt="Connect to local community centre or faith space"/>
 </div></div>
 
 /* CONNECT 4 = id 11 */
 <<if $playerchoices.chosenactions.includes(11)>>
-<p><span class="accent">You connected to the local school or faith space.</span> When several of the houses are attacked badly by the monster, they become unsafe to stay in. Households retreat to the safe space until the worst of the attack is over. </p>
+<p>Several houses are attacked badly by the monster, and become unsafe to stay in. Neighbours retreat to the safe space. Blankets are handed out. </p>
  <</if>>
 <<if !$playerchoices.chosenactions.includes(11) && !$playerchoices.changedactions.includes(11)>>
-<p><span class="accent">You didn’t connect to the local school or faith space.</span> When several of the houses are attacked badly by the monster, they become unsafe to stay in. There is nowhere else for the neighbours to go, so they have to stay inside, hoping they can wait it out. </p>
+<p>Several of the houses are attacked badly by the monster, and become unsafe to stay in. There is nowhere for the neighbours to go. It is terrifying and neighbours are scared and panicked. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(11)>>
-<p><span class="accent">You weren’t able to connect to the local school or faith space.</span> When several of the houses are attacked badly by the monster, they become unsafe to stay in. All you have are your own skills and resources. </p>
-<p>Pick one player who will take a single action to provide support to the stranded households. </p>
+<p>Several houses are attacked badly by the monster, and become unsafe to stay in. You use your own skills and resources. </p>
+<br/><br/>
+<i>
+    <p>Reminder: </p>
+    <p>One neighbour will use their skills to take action. </p>
+    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+</i>
 <</if>>
 
 <<timed 3s>>
@@ -1748,93 +1831,93 @@ t neighbours from disease and electric shock due to floodwater. </p>
   <div class="inline-img-wrapper arcard">
     <img src="assets/img/recovery.png" alt="Recovery"/>
 </div></div>
-<h2>The monster attack is over. </h2>
+<h2>The monster leaves High Street. </h2>
 
-<h3>As they retreat you are left with some consequences to contend with.</h3>
+<h3>You are left with some consequences to contend with.</h3>
 <br/>
 
 <ul class="consequences-list">
 /* If Connect 5 is not selected */
 <<if !$playerchoices.chosenactions.includes(12)>>
     <li>
-    <p>Neighbours feel low and upset having used outdated methods to try and keep the monster at bay. Their approaches just made the attack worse.</p>
+    <p>Neighbourhood morale is low. </p>
     </li>
  <</if>>
 
 /* If monster is CRYSTAL And If Prepare 1 is not selected  */
  <<if $playerchoices.finalmonster is "Crystal" && !$playerchoices.chosenactions.includes(1)>>
 <li>
-<p>Due to slips and falls, some neighbours have been injured: there is one broken wrist and two sprained ankles.</p>
+<p>One neighbour has a broken wrist and two have sprained ankles.</p>
 </li>
 <</if>>
 
 /* If monster is INFERNO And If Prepare 2 is not selected  */
 <<if $playerchoices.finalmonster is "Inferno" && !$playerchoices.chosenactions.includes(2)>>
 <li>
-<p>Due to excessive heat, some neighbours have been injured: two are recovering from dehydration, and one is still in hospital, having fainted. </p>
+<p>Two neighbours are recovering from dehydration, and one is still in hospital.</p>
 </li>
 <</if>>
 
 /* If monster is GALE And If Prepare 3 is not selected  */
 <<if $playerchoices.finalmonster is "Gale" && !$playerchoices.chosenactions.includes(3)>>
 <li>
-<p>Due to flying debris, some neighbours have been injured: one hit by a flying parasol is still in hospital. </p>
+<p> A neighbour hit by a flying parasol is still in hospital.  </p>
 </li>
 <</if>>
 
 /* If monster is DRENCH And If Prepare 4 is not selected  */
 <<if $playerchoices.finalmonster is "Drench" && !$playerchoices.chosenactions.includes(4)>>
 <li>
-<p>Due to floodwater, some neighbours have been injured: two still have respiratory infections from the floodwater, and a family remains traumatised from being stuck on the top floor of their house for several days. </p>
+<p>Two neighbours have respiratory infections and several are traumatised from being trapped in their homes. </p>
 </li>
 <</if>>
 
 /* If Connect 1 is not selected  */
 <<if !$playerchoices.chosenactions.includes(8)>>
 <li>
-<p>A neighbour who does not answer the door was not included the plans for the monster attack and wasn’t able to access support. </p>
+<p>Neighbours were not able to access support. </p>
 </li>
 <</if>>
 
 /* If Connect 2 is not selected  */
 <<if !$playerchoices.chosenactions.includes(9)>>
 <li>
-<p>A neighbour who doesn’t have WhatsApp was not included in the plans for the monster attack, and wasn’t able to access support. </p>
+<p>Neighbours were not able to access support. </p>
 </li>
 <</if>>
 
 /* If Prepare 5 is not selected  */
 <<if !$playerchoices.chosenactions.includes(5)>>
 <li>
-<p>The monster has stolen belongings and caused damage: one neighbour lost all their family photographs, and another is trying to work out how to afford a new computer. </p>
+<p>One neighbour lost all their family photographs, and another lost their computer. </p>
 </li>
 <</if>>
 
 /* If Prepare 6 is not selected  */
 <<if !$playerchoices.chosenactions.includes(6)>>
 <li>
-<p>Neighbours are still in shock from 24h without power, without emergency supplies to help them through.  </p>
+<p>Neighbours are still in shock.  </p>
 </li>
 <</if>>
 
 /* If Prepare 7 is not selected  */
 <<if !$playerchoices.chosenactions.includes(7)>>
 <li>
-<p>A neighbour, who was stranded, is left panicked and scared, having tried to call for help, but no one picked up.</p>
+<p>A neighbour, who was left stranded, feels abandoned. </p>
 </li>
 <</if>>
 
 /* If Connect 3 is not selected  */
 <<if !$playerchoices.chosenactions.includes(10)>>
 <li>
-<p>Households are still hungry and left emotionally impacted after days with very little food.</p>
+<p>Neighbours are emotionally impacted and managing health conditions from days without food. </p>
 </li> 
     <</if>>
 
 /* If Connect 4 is not selected  */
 <<if !$playerchoices.chosenactions.includes(11)>>
 <li>
-<p>Households are still scared having had to wait out the attack in unsafe properties with nowhere else to retreat to. </p>
+<p>Neighbours are still scared. </p>
 </li>
 <</if>>
 </ul>
