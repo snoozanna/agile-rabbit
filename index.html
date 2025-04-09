@@ -224,6 +224,7 @@ $(document).on(':passagedisplay', function(ev) {
     originalactions: [],
     chosenactions: [],
     changedactions:[],
+    chosenwildcards: [],
     wildcards:0,
 }&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
@@ -244,7 +245,7 @@ $(document).on(':passagedisplay', function(ev) {
 
 /* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="9" name="_templateIntro" tags="nobr" position="1100,100" size="100,100">&lt;&lt;addclass &quot;body&quot; &quot;light&quot;&gt;&gt;
 
-&lt;&lt;include &quot;headerIntro&quot;&gt;&gt;
+/* &lt;&lt;include &quot;headerIntro&quot;&gt;&gt; */
 &lt;main class=&quot;talking&quot;&gt;
     &lt;div id=&quot;msgMount&quot;&gt;&lt;/div&gt;
         &lt;&lt;if $pass&gt;&gt;
@@ -267,12 +268,12 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;p&gt;Lay out your game board as below&lt;/p&gt;
 
   &lt;div class=&quot;inline-img-container&quot;&gt;
-  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-        &lt;h3&gt;Game Board&lt;/h3&gt;&lt;img src=&quot;assets/img/Demo_Game_Board.png&quot; alt=&quot;Demo Game Board&quot;/&gt;
+  &lt;div class=&quot;inline-img-wrapper arcardhor&quot;&gt;
+        &lt;h3&gt;Game Board&lt;/h3&gt;&lt;img src=&quot;assets/img/board.jpg&quot; alt=&quot;Demo Game Board&quot;/&gt;
 &lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Choose someone to play your &lt;span class=&quot;accent&quot;&gt;facilitator&lt;/span&gt;, they’ll read out instructions &amp; deal out game resources.&lt;/p&gt;
-&lt;p&gt;The facilitator can play the game, or sit on the outside, up to you. &lt;/p&gt;
+&lt;p&gt;Choose someone to play your &lt;span class=&quot;accent&quot;&gt;facilitator&lt;/span&gt;, they’ll read out instructions &amp; deal out cards.&lt;/p&gt;
+&lt;p&gt;The facilitator can still play the game, or sit on the outside, totally up to you.&lt;/p&gt;
 
 &lt;p&gt;When you’re ready to play: &lt;/p&gt;
 
@@ -286,11 +287,19 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;set $pass to &quot;intro2&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;intro3&quot;&gt;&gt;
 
-&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="intro2-text" tags="nobr" position="475,225" size="100,100">&lt;p&gt;This is Stronger Together.&lt;/p&gt;
-&lt;p&gt;A card game offering a 30 minute introduction to community resilience. &lt;/p&gt;
-&lt;p&gt;It’s designed for communities of all and any kinds to play together. &lt;/p&gt;
+&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="intro2-text" tags="nobr" position="475,225" size="100,100">&lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcardhor&quot;&gt;
+    &lt;img src=&quot;assets/img/title.png&quot; alt=&quot;Stronger Together Logo&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
 &lt;br/&gt;
-&lt;p&gt;By community resilience we mean communities using resources, connections, skills and expertise, to help themselves prepare for, respond to and recover from disasters. This isn’t a game about a group of politicians around a table. It&#39;s about how communities themselves might embrace what they already have, and come together for their people and their place.&lt;/p&gt;
+&lt;p&gt;This is Stronger Together.&lt;/p&gt;
+&lt;p&gt;A card game offering a 30 minute introduction to community resilience. &lt;/p&gt;
+&lt;p&gt;It’s designed for communities of all kinds to play together. &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;By community resilience we mean communities using resources, connections, skills and expertise, to help themselves prepare for, respond to and recover from disasters. &lt;/p&gt;
+&lt;p&gt;This isn’t a game about a group of politicians around a table. &lt;/p&gt;
+&lt;p&gt;It&#39;s about how communities themselves might embrace what they already have, and come together for their people and their place.&lt;/p&gt;
+
 
 &lt;&lt;timed 3s&gt;&gt;
     &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
@@ -302,10 +311,9 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;set $pass to &quot;intro3&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;intro3b&quot;&gt;&gt;
 
-&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="intro3-text" tags="nobr" position="725,225" size="100,100">&lt;p&gt;
-    You will play as neighbours on a single street - High Street - it’s the most common street name in the UK. 
-    High Street could be anywhere in the country. There are some houses, a block of flats, and a couple of shops.
-&lt;/p&gt;
+&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="intro3-text" tags="nobr" position="725,225" size="100,100">&lt;p&gt;You will play as neighbours on a single street - High Street - it’s the most common street name in the UK. &lt;/p&gt;
+&lt;p&gt;High Street could be anywhere in the country. There are some houses, a block of flats, a couple of shops and a stray cat named Dot.&lt;/p&gt;
+
 &lt;br/&gt;
 &lt;p&gt;
     If there are multiple tables playing, each represents a different High Street in a different part of the UK. 
@@ -322,12 +330,30 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;set $pass to &quot;intro3b&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;playercards&quot;&gt;&gt;
 
-&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="intro3b-text" tags="nobr" position="975,225" size="100,100">&lt;p&gt;As the residents of High Street, the disaster you will face is a monster attack. &lt;/p&gt;
-&lt;p&gt;The aim of the game is to prepare well, respond well and recover well from this attack. &lt;/p&gt;
-&lt;br/&gt;
-&lt;p&gt;Stronger Together explores how community resilience plays out in the face of disasters.&lt;/p&gt;
-&lt;p&gt;It’s more broadly about community connection, and how we can be stronger together. &lt;/p&gt;
-
+&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="intro3b-text" tags="nobr" position="975,225" size="100,100">&lt;span id=&quot;line1&quot;&gt;&lt;/span&gt;
+&lt;span id=&quot;line2&quot;&gt;&lt;/span&gt;
+&lt;span id=&quot;line3&quot;&gt;&lt;/span&gt;
+&lt;span id=&quot;line4&quot;&gt;&lt;/span&gt;
+&lt;span id=&quot;line5&quot;&gt;&lt;/span&gt;
+&lt;&lt;timed 1s&gt;&gt;
+    &lt;&lt;replace &quot;#line1&quot;&gt;&gt;&lt;p&gt;As the residents of High Street, the disaster you will face is...&lt;/p&gt;&lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#line2&quot;&gt;&gt;&lt;&lt;type 60ms&gt;&gt;&lt;p&gt;...&lt;/p&gt;&lt;&lt;/type&gt;&gt;&lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;&lt;timed 5s&gt;&gt;
+    &lt;&lt;replace &quot;#line3&quot;&gt;&gt;&lt;&lt;type 60ms&gt;&gt;&lt;p&gt;...&lt;/p&gt;&lt;&lt;/type&gt;&gt;&lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;&lt;timed 7s&gt;&gt;
+    &lt;&lt;replace &quot;#line4&quot;&gt;&gt;&lt;p&gt;a monster attack.&lt;/p&gt;&lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;&lt;timed 9s&gt;&gt;
+    &lt;&lt;replace &quot;#line5&quot;&gt;&gt;
+        &lt;br/&gt;
+        &lt;p&gt;The aim of this game is to prepare, respond and recover well from this attack.&lt;/p&gt;
+        &lt;p&gt;Good luck!&lt;/p&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
 
 
 &lt;&lt;timed 3s&gt;&gt;
@@ -342,24 +368,22 @@ $(document).on(':passagedisplay', function(ev) {
 
 &lt;main class=&quot;grid-wrapper&quot;&gt;
 
-       
-       
-
     &lt;div class=&quot;grid-item explanation&quot;&gt;
-        &lt;p&gt;Each of you will play a character: a neighbour on High Street. &lt;/p&gt;
-        &lt;p&gt;We’ll start by getting to know them. &lt;/p&gt;
-        &lt;br/&gt;
-        &lt;p&gt;Deal out the &lt;span class=&quot;accent&quot;&gt;Player Cards&lt;/span&gt;, one to each player. &lt;/p&gt;
+        &lt;p&gt;You’ll play as a neighbour on High Street. &lt;/p&gt;
+&lt;p&gt;We’ll start by getting to know you. &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;Players, pick one of the &lt;span class=&quot;accent&quot;&gt;Player Cards&lt;/span&gt;, and turn it face up. &lt;/p&gt;
+&lt;br/&gt;
       &lt;div class=&quot;info-container&quot;&gt;
          &lt;div class=&quot;inline-img-container&quot;&gt;&lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-        &lt;h3&gt;Player Cards&lt;/h3&gt;&lt;img src=&quot;assets/img/Demo_Player_Card.png&quot; alt=&quot;Player Card&quot;/&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;h3&gt;Player Cards&lt;/h3&gt;&lt;img src=&quot;assets/img/Demo_Player_Card.jpg&quot; alt=&quot;Player Card&quot;/&gt;&lt;/div&gt;&lt;/div&gt;
           &lt;div class=&quot;grid-item cards&quot;&gt;
 
    &lt;/div&gt;
      &lt;/div&gt;
-
+&lt;br/&gt;
         
-        &lt;p&gt;Place the remaining cards face down in an empty doorway space on the game board. &lt;/p&gt;
+        &lt;p&gt;Leave the remaining cards face down.  &lt;/p&gt;
         
     &lt;/div&gt;
 
@@ -374,26 +398,37 @@ $(document).on(':passagedisplay', function(ev) {
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="playercards-b" tags="nobr" position="1225,225" size="100,100">&lt;&lt;set $prevpass to &quot;playercards&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;playercards-b&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;playercards-c&quot;&gt;&gt;
+
+&lt;main class=&quot;grid-wrapper&quot;&gt;
+&lt;br/&gt;
+    &lt;div class=&quot;grid-item explanation&quot;&gt;
+       
+      &lt;p&gt;Your card will tell you about who you’re playing, some interesting and peculiar facts and skills. &lt;/p&gt;
+&lt;p&gt;But there’s one missing... &lt;/p&gt;
+&lt;p&gt;for you to fill. &lt;/p&gt;
+&lt;p&gt;Fill in the blank with a fact or skill that&#39;s true for you. &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;/main&gt;
+    &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;
+ &lt;&lt;timed 5s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="playercards-c" tags="nobr" position="100,350" size="100,100">&lt;&lt;set $prevpass to &quot;playercards-b&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;playercards-c&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;monstercards-intro&quot;&gt;&gt;
 
 &lt;main class=&quot;grid-wrapper&quot;&gt;
-
-       
-       
-
+&lt;br/&gt;
     &lt;div class=&quot;grid-item explanation&quot;&gt;
-       
-        &lt;p&gt;On your card you’ll find some information about the person you are playing - facts and skills. &lt;/p&gt;
-        &lt;p&gt;You can add to this card by writing in one skill of your own. &lt;/p&gt;
-        
-        &lt;br/&gt;
-        &lt;span class=&quot;accent&quot;&gt;Then, take five minutes to introduce yourself to your street. &lt;/span&gt;
-        &lt;br/&gt; &lt;br/&gt;
-        &lt;p&gt;Share your name: it can be your real name, or an imaginary one. &lt;/p&gt;
-        &lt;p&gt;Share your skills &amp; facts. &lt;/p&gt;
-    &lt;/div&gt;
+&lt;p&gt;Take the time to introduce yourselves to your fellow neighbours on High Street. &lt;/p&gt;
+&lt;p&gt;Share your name: it can be your real name, or an imaginary one. &lt;/p&gt;
+&lt;p&gt;Share your interesting and peculiar skills &amp; facts. &lt;/p&gt;
 
- 
+    &lt;/div&gt;
     &lt;/main&gt;
     &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;
  &lt;&lt;timed 120s&gt;&gt;
@@ -402,7 +437,7 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="timer" tags="nobr" position="100,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="timer" tags="nobr" position="225,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
 &lt;&lt;set $seconds to 300&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;$seconds&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;seconds&lt;/span&gt;&lt;/span&gt;
 
@@ -427,7 +462,7 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="3mtimer" tags="nobr" position="225,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
+        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="3mtimer" tags="nobr" position="350,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
 &lt;&lt;set $seconds to 180&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;$seconds&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;seconds&lt;/span&gt;&lt;/span&gt;
 
@@ -456,14 +491,21 @@ $(document).on(':passagedisplay', function(ev) {
 			&lt;&lt;stop&gt;&gt;
 		&lt;&lt;/if&gt;&gt;
 	&lt;&lt;/repeat&gt;&gt;
-&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="monstercards-intro" tags="nobr" position="350,350" size="100,100">&lt;&lt;set $prevpass to &quot;playercards&quot;&gt;&gt;
+&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="monstercards-intro" tags="nobr" position="475,350" size="100,100">&lt;&lt;set $prevpass to &quot;playercards-c&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;monstercards-intro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;monstercards&quot;&gt;&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
-      &lt;p&gt; As you settle into your new homes and characters disaster looms on the horizon: a monster is coming. &lt;/p&gt;
-&lt;p&gt;There are four possible monsters that might strike. &lt;/p&gt;
+    &lt;p&gt; Excellent, you have now met your community. &lt;/p&gt;
+&lt;p&gt;But, as you settle into your new homes and characters, disaster looms on the horizon...&lt;/p&gt;
+&lt;p&gt;a monster is coming. &lt;/p&gt;
+
+&lt;p&gt;There are four possible monsters that might strike: Gale, Drench, Inferno and Crystal. &lt;/p&gt;
+  &lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+    &lt;img src=&quot;assets/img/monster.png&quot; alt=&quot;Monsters&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
 &lt;br/&gt;
 &lt;p&gt;Before you decide how to prepare for the monster attack, you’re going to get a forecast. &lt;/p&gt;
 
@@ -477,7 +519,7 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="monstercards" tags="nobr" position="475,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-intro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="monstercards" tags="nobr" position="600,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-intro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;monstercards&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
 
@@ -573,7 +615,7 @@ $(document).on(':passagedisplay', function(ev) {
 
     &lt;/main&gt;
     &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;
- &lt;&lt;include &quot;checkChosenMonsterCards&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="checkChosenMonsterCards" tags="nobr" position="600,350" size="100,100">&lt;&lt;if $playerchoices.chosenmonsters.includes(&quot;Gale&quot;)&gt;&gt;
+ &lt;&lt;include &quot;checkChosenMonsterCards&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="checkChosenMonsterCards" tags="nobr" position="725,350" size="100,100">&lt;&lt;if $playerchoices.chosenmonsters.includes(&quot;Gale&quot;)&gt;&gt;
     &lt;&lt;addclass &quot;#galeChoice&quot; &quot;chosen&quot;&gt;&gt;
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;if $playerchoices.chosenmonsters.includes(&quot;Drench&quot;)&gt;&gt;
@@ -600,12 +642,10 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;replace &quot;#chosenMonsterMount&quot;&gt;&gt;
     $playerchoices.chosenmonsters
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="chosenMonsterForecast-intro" tags="nobr" position="725,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="chosenMonsterForecast-intro" tags="nobr" position="850,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;chosenMonsterForecast&quot;&gt;&gt;
-&lt;&lt;timed 5s&gt;&gt;
-    &lt;&lt;include &quot;headertimer&quot;&gt;&gt;
-&lt;&lt;/timed&gt;&gt;
+
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;p&gt;Now you know what might be coming, there is a chance to prepare. &lt;/p&gt;
@@ -613,7 +653,14 @@ $(document).on(':passagedisplay', function(ev) {
 
 &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;Prepare&lt;/span&gt; actions, focussed on physical preparation. &lt;/p&gt;
  &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;Connect&lt;/span&gt; actions, focussed on connecting to the street and the local community. &lt;/p&gt;
-
+ &lt;br/&gt;
+  &lt;div class=&quot;inline-img-container cards-selection&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+    &lt;img src=&quot;assets/img/preparer.png&quot; alt=&quot;Prepare Card&quot;/&gt;
+&lt;/div&gt;
+ &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+    &lt;img src=&quot;assets/img/connect.png&quot; alt=&quot;Connect Card&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
  &lt;/div&gt;
 &lt;/main&gt;
 
@@ -624,40 +671,42 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="chosenMonsterForecast" tags="nobr" position="850,350" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="28" name="chosenMonsterForecast" tags="nobr" position="975,350" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;chosenMonsterForecast&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;actions&quot;&gt;&gt;
 &lt;&lt;timed 5s&gt;&gt;
     &lt;&lt;include &quot;headertimer&quot;&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
+
 &lt;main class=&quot;timer&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 
-&lt;p&gt;Lay out the Prepare and Connect actions on the table ahead of you. &lt;/p&gt;
+&lt;p&gt;Facilitator, lay out the &lt;span class=&quot;accent&quot;&gt;Prepare&lt;/span&gt; and &lt;span class=&quot;accent&quot;&gt;Connect&lt;/span&gt; actions on the table ahead of you. &lt;/p&gt;
 &lt;p&gt;You need to choose FIVE actions to prepare for the monster attack. &lt;/p&gt;
 
 
 &lt;p&gt;A reminder of the forecast: &lt;/p&gt;
 &lt;br/&gt;
-&lt;&lt;include &quot;chosenmonstersdisplay&quot;&gt;&gt;
+&lt;&lt;include &quot;chosenmonstersforecastdisplay&quot;&gt;&gt;
     &lt;/div&gt;
 &lt;br/&gt;
-&lt;p&gt;Take five minutes to choose your actions.&lt;/p&gt;
-&lt;p&gt;Put your chosen actions on your game board. &lt;/p&gt;
+&lt;p&gt;The clock is ticking.&lt;/p&gt;
+&lt;p&gt;You’ve got five minutes to choose your actions.&lt;/p&gt;
 &lt;p&gt;Put the remaining action cards face down in a discard pile. &lt;/p&gt;
+
 &lt;br/&gt;
  
 &lt;/main&gt;
 
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="28" name="headertimer" tags="nobr" position="975,350" size="100,100">&lt;header class=&quot;timer&quot;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="headertimer" tags="nobr" position="1100,350" size="100,100">&lt;header class=&quot;timer&quot;&gt;
 
       &lt;&lt;include &quot;timer&quot;&gt;&gt;
 
-&lt;/header&gt;</tw-passagedata><tw-passagedata pid="29" name="3headertimer" tags="nobr" position="1100,350" size="100,100">&lt;header class=&quot;timer&quot;&gt;
+&lt;/header&gt;</tw-passagedata><tw-passagedata pid="30" name="3headertimer" tags="nobr" position="1225,350" size="100,100">&lt;header class=&quot;timer&quot;&gt;
 
       &lt;&lt;include &quot;3mtimer&quot;&gt;&gt;
 
-&lt;/header&gt;</tw-passagedata><tw-passagedata pid="30" name="chosenmonstersdisplay" tags="nobr" position="1225,350" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;.png&quot;&gt;&gt;
+&lt;/header&gt;</tw-passagedata><tw-passagedata pid="31" name="chosenmonstersdisplay" tags="nobr" position="100,475" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;.png&quot;&gt;&gt;
  &lt;&lt;set $img2 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[1] + &quot;.png&quot; &gt;&gt;
 
 &lt;div class=&quot;cards-selection&quot;&gt;
@@ -667,7 +716,17 @@ $(document).on(':passagedisplay', function(ev) {
     &lt;div class=&quot;card-selection-item arcard&quot;&gt;
         [img[$img2]]
     &lt;/div&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="31" name="actions" tags="nobr" position="100,475" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast&quot;&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="32" name="chosenmonstersforecastdisplay" tags="nobr" position="225,475" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;forecast.png&quot;&gt;&gt;
+ &lt;&lt;set $img2 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[1] + &quot;forecast.png&quot; &gt;&gt;
+
+&lt;div class=&quot;cards-selection&quot;&gt;
+    &lt;div class=&quot;card-selection-item arcard&quot;&gt;
+        [img[$img1]]
+    &lt;/div&gt;
+    &lt;div class=&quot;card-selection-item arcard&quot;&gt;
+        [img[$img2]]
+    &lt;/div&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="33" name="actions" tags="nobr" position="350,475" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;actions&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;predice&quot;&gt;&gt;
 &lt;&lt;set $actionsoptions to [
@@ -699,8 +758,7 @@ $(document).on(':passagedisplay', function(ev) {
         &lt;&lt;/button&gt;&gt;
     /* 5 Chosen Actions: &lt;div id=&quot;chosenActionsMount&quot;&gt;&lt;/div&gt; */
 &lt;/main&gt;
-&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;
-&lt;&lt;include &quot;wallet&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="32" name="actionslist" tags="nobr" position="225,475" size="100,100">&lt;div class=&quot;actions-list&quot;&gt;
+&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="34" name="actionslist" tags="nobr" position="475,475" size="100,100">&lt;div class=&quot;actions-list&quot;&gt;
 &lt;&lt;for _i to 0; _i lt $actionsoptions.length; _i++&gt;&gt;
   &lt;&lt;capture _i&gt;&gt;
     &lt;&lt;set $text to ($actionsoptions[_i].text)&gt;&gt;
@@ -719,7 +777,7 @@ $(document).on(':passagedisplay', function(ev) {
            &lt;/div&gt;
        &lt;&lt;/capture&gt;&gt;
    &lt;&lt;/for&gt;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="33" name="checkChosenActions" tags="nobr" position="350,475" size="100,100">&lt;&lt;for _i to 0; _i lt $actionsoptions.length; _i++&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="35" name="checkChosenActions" tags="nobr" position="600,475" size="100,100">&lt;&lt;for _i to 0; _i lt $actionsoptions.length; _i++&gt;&gt;
     &lt;&lt;if $playerchoices.chosenactions.includes($actionsoptions[_i].id)&gt;&gt;
         &lt;&lt;set $class to &quot;.actions-item&quot; + (_i+1) &gt;&gt;
         &lt;&lt;addclass $class &quot;chosen&quot;&gt;&gt;
@@ -738,21 +796,23 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="34" name="predice" tags="nobr" position="475,475" size="100,100">&lt;&lt;set $prevpass to &quot;actions&quot;&gt;&gt;
+    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="predice" tags="nobr" position="725,475" size="100,100">&lt;&lt;set $prevpass to &quot;actions&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;predice&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;diceresults&quot;&gt;&gt;
 &lt;&lt;set $diceoptions to [
     {num:1, 
     text1: &quot;Things are pretty bad. 
 Local resources are depleted, minimal thought and effort has gone into preparing for disaster. 
-Because of poor planning and lack of investment not everything you try and do will be successful&quot;, 
+Because of poor planning and lack of investment not everything you try and do will be successful.
+Unfortunately, two of your actions will be unsuccessful, and can’t go ahead.&quot;, 
     text2:&quot;Two of your actions will be unsuccessful, and can’t go ahead. You’ll need to come together as a community to use your own skills and resources in its place.&quot;,
      wildcards: 0, 
     changedactions: 2},
      {num:2, 
     text1: &quot;Things aren’t great. 
 Local resources are depleted, minimal thought and effort has gone into preparing for disaster. 
-Because of poor planning and lack of investment not everything you try and do will be successful&quot;, 
+Because of poor planning and lack of investment not everything you try and do will be successful.
+Unfortunately, one of your actions will be unsuccessful, and can’t go ahead.&quot;, 
     text2: &quot;One of your actions will be unsuccessful, and can’t go ahead. You’ll need to come together as a community to use your own skills and resources in its place.&quot;, 
      wildcards: 0, 
     changedactions: 1},
@@ -765,22 +825,24 @@ Everyone is getting by, the local council are doing their best to stumble on.&qu
      {num:4, 
     text1: &quot;Things are alright. 
 Everyone is getting by, the council is doing their best to keep it all afloat. &quot;, 
-     text2: &quot;You won’t lose access to any of your preparations, and there is a little extra support. 
-Thanks to your local councillor, you can draw a green wildcard later. &quot;, 
+     text2: &quot;Thanks to your local councillor, there is a little extra support.&lt;br/&gt; 
+Facilitator, place one green wildcard face down on the table.  &quot;, 
      wildcards: 1, 
     changedactions: 0},
      {num:5, 
     text1: &quot;You are fortunate. 
 The local council has had the time, money and resources to put some time into disaster preparation. 
 There’s some extra help available.&quot;, 
-    text2:&quot;Thanks to your engaged local councilor, you can  draw two green wildcards later. &quot;,
+    text2:&quot;Thanks to your engaged local councilor, there’s some extra help available. &lt;br/&gt;
+Facilitator, place two green wildcards face down on the table. 
+&quot;,
      wildcards: 2, 
     changedactions: 0},
     {num:6, 
     text1: &quot;You are very fortunate. 
 The local council has had the time, money and resources to put some time into disaster preparation. 
 There’s some extra help available. &quot;, 
-     text2: &quot;Thanks to your very engaged local councilor, you can also  draw three green wildcards later. &quot;, 
+     text2: &quot;Thanks to your very engaged local councilor, there’s some extra help available. &lt;br/&gt;Facilitator, place  three green wildcards face down on the table. &quot;, 
      wildcards: 3, 
     changedactions: 0}
 ]
@@ -789,14 +851,18 @@ There’s some extra help available. &quot;,
 
 &lt;main&gt;
     &lt;div class=&quot;explanation&quot;&gt;
-  &lt;p&gt;  We’ve told you very little about the High Street you live on. &lt;/p&gt;
+      &lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+    &lt;img src=&quot;assets/img/fortunes.png&quot; alt=&quot;Fortune Card&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;You know little about the High Street you live on. &lt;/p&gt;
+&lt;p&gt;But we do all know that the world is unfair. &lt;/p&gt;
 &lt;br/&gt;
-&lt;p&gt;    But we do all know that the world is unfair. &lt;/p&gt;
-&lt;p&gt;    Life on different High Streets vary wildly across the UK. &lt;/p&gt;
+&lt;p&gt;Life on different High Streets vary wildly across the UK.&lt;/p&gt; 
 &lt;br/&gt;
-   &lt;p&gt; Before the monster arrives, we’re going to find out just how unfair things are: how fortunate this High Street is. &lt;/p&gt;
-  &lt;p&gt;  To do this we’ll roll a die. &lt;/p&gt;
-
+&lt;p&gt;Before the monster arrives, we’re going to find out just how unfair things are: how fortunate this High Street is. &lt;/p&gt;
+&lt;p&gt;To do this you’ll roll a… [virtual] die. &lt;/p&gt;
+&lt;br/&gt;
   &lt;&lt;button &quot;Roll&quot;&gt;&gt;
 &lt;&lt;set $diceroll to random(0,5) &gt;&gt;
 /* &lt;&lt;goto $nextpass&gt;&gt; */
@@ -804,14 +870,18 @@ There’s some extra help available. &quot;,
     &lt;&lt;/button&gt;&gt;
     &lt;/div&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;wallet&quot;&gt;&gt;
-&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="rolling" tags="nobr" position="600,475" size="100,100">&lt;main class=&quot;maindice&quot;&gt;
-    &lt;div class=&quot;dice roll&quot;&gt;&lt;/div&gt;
-    &lt;&lt;type 60ms&gt;&gt;
-      &lt;h2&gt;  Rolling...&lt;/h2&gt;
-    &lt;&lt;/type&gt;&gt;
+/* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */
+&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="rolling" tags="nobr" position="850,475" size="100,100">&lt;main class=&quot;maindice&quot;&gt;
+  &lt;div class=&quot;dice roll&quot;&gt;
+    &lt;div class=&quot;dot top-left&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot top-right&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot center&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot bottom-left&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot bottom-right&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;h2&gt;Rolling...&lt;/h2&gt;
 &lt;/main&gt;
-&lt;&lt;timed 3.5s&gt;&gt;&lt;&lt;goto $nextpass&gt;&gt;&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="diceresults" tags="nobr" position="725,475" size="100,100">&lt;&lt;set $prevpass to &quot;predice&quot;&gt;&gt;
+&lt;&lt;timed 3.5s&gt;&gt;&lt;&lt;goto $nextpass&gt;&gt;&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="diceresults" tags="nobr" position="975,475" size="100,100">&lt;&lt;set $prevpass to &quot;predice&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;diceresults&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;forecast&quot;&gt;&gt;
 
@@ -824,6 +894,14 @@ There’s some extra help available. &quot;,
         &lt;div id=&quot;proposedChangeMount&quot;&gt;&lt;/div&gt;
         &lt;br/&gt;
         $diceoptions[$diceroll].text2
+        &lt;br/&gt;
+    &lt;br/&gt;
+         &lt;&lt;if $diceoptions[$diceroll].wildcards isnot 0 &gt;&gt;
+        &lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+       &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
+            &lt;&lt;/if&gt;&gt;
    &lt;/div&gt;
     &lt;br/&gt;    &lt;br/&gt;   
 &lt;div&gt;
@@ -849,7 +927,7 @@ There’s some extra help available. &quot;,
                 &lt;&lt;include &quot;saveResultsOfDiceRoll&quot;&gt;&gt;
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-    &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="checkForUnsucessfulActions" tags="nobr" position="850,475" size="100,100">&lt;&lt;if $diceoptions[$diceroll].changedactions &gt; 0&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="39" name="checkForUnsucessfulActions" tags="nobr" position="1100,475" size="100,100">&lt;&lt;if $diceoptions[$diceroll].changedactions &gt; 0&gt;&gt;
     &lt;&lt;set _failedActions to []&gt;&gt; 
 
     /* Select up to two failed actions randomly */
@@ -863,7 +941,7 @@ There’s some extra help available. &quot;,
     &lt;&lt;timed 0.1s&gt;&gt;
         &lt;&lt;replace &quot;#proposedChangeMount&quot;&gt;&gt;
             &lt;br/&gt;
-            &lt;h3&gt;Unsuccessful actions:&lt;/h3&gt;
+            &lt;h3&gt;Unsuccessful action(s):&lt;/h3&gt;
             &lt;div class=&quot;actions-list&quot;&gt;
                 &lt;&lt;for _i to 0; _i lt $actionsoptions.length; _i++&gt;&gt;
                     &lt;&lt;if _failedActions.includes($actionsoptions[_i].id)&gt;&gt;
@@ -877,7 +955,7 @@ There’s some extra help available. &quot;,
             &lt;/div&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="saveResultsOfDiceRoll" tags="" position="975,475" size="100,100">&lt;&lt;set $playerchoices.wildcards to $diceoptions[$diceroll].wildcards&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="40" name="saveResultsOfDiceRoll" tags="" position="1225,475" size="100,100">&lt;&lt;set $playerchoices.wildcards to $diceoptions[$diceroll].wildcards&gt;&gt;
 &lt;&lt;set $updatedChosenActions to []&gt;&gt; &lt;!-- New array to hold filtered values --&gt;
 &lt;&lt;if _failedActions&gt;&gt;
  &lt;&lt;set $playerchoices.changedactions to _failedActions&gt;&gt;
@@ -893,7 +971,7 @@ There’s some extra help available. &quot;,
 
 &lt;&lt;timed 0.5s&gt;&gt;
     &lt;&lt;goto $nextpass&gt;&gt;
-    &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="39" name="wallet" tags="nobr" position="1100,475" size="100,100">&lt;div class=&quot;wallet&quot;&gt;
+    &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="wallet" tags="nobr" position="100,600" size="100,100">&lt;div class=&quot;wallet&quot;&gt;
     &lt;h2&gt;Wallet&lt;/h2&gt;
     &lt;span&gt;Monsters: $playerchoices.chosenmonsters&lt;/span&gt;
     &lt;span&gt;Final Monster: $playerchoices.finalmonster&lt;/span&gt;
@@ -903,16 +981,20 @@ There’s some extra help available. &quot;,
     &lt;span&gt;Wildcards: $playerchoices.wildcards&lt;/span&gt;
     
 &lt;/div&gt;
-/* &lt;&lt;include &quot;footerwallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="40" name="forecast" tags="nobr" position="1225,475" size="100,100">&lt;&lt;set $prevpass to &quot;diceresults&quot;&gt;&gt;
+/* &lt;&lt;include &quot;footerwallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="42" name="forecast" tags="nobr" position="225,600" size="100,100">&lt;&lt;set $prevpass to &quot;diceresults&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;forecast&quot;&gt;&gt;
-&lt;&lt;set $nextpass to &quot;story&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;story1&quot;&gt;&gt;
 
 &lt;main&gt;
 &lt;div class=&quot;explanation&quot;&gt;
-&lt;p&gt;Now, the monster attack is moments away. We can finally see which monster is coming. &lt;/p&gt;
-
-&lt;p&gt;Shuffle the two forecast cards. Choose one to reveal the monster. &lt;/p&gt;
-
+&lt;p&gt;Disaster looms.&lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;The monster attack is moments away and we can finally see which monster is coming. &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;Shuffle the two forecast cards. &lt;/p&gt;
+&lt;p&gt;Facilitator, hold them out. &lt;/p&gt;
+&lt;p&gt;One player, select a card to reveal the monster you will face. &lt;/p&gt;
+&lt;br/&gt;
 &lt;p&gt;Select the monster below. &lt;/p&gt;
 &lt;/div&gt;
 &lt;&lt;include &quot;choosefinalmonster&quot;&gt;&gt;
@@ -920,8 +1002,8 @@ There’s some extra help available. &quot;,
 /* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */
 &lt;/main&gt;
 
-&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="choosefinalmonster" tags="nobr" position="100,600" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;.png&quot; &gt;&gt;
- &lt;&lt;set $img2 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[1] + &quot;.png&quot; &gt;&gt;
+&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="choosefinalmonster" tags="nobr" position="350,600" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;forecast.png&quot; &gt;&gt;
+ &lt;&lt;set $img2 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[1] + &quot;forecast.png&quot; &gt;&gt;
 
 
 &lt;div class=&quot;cards-selection&quot;&gt;
@@ -954,7 +1036,7 @@ There’s some extra help available. &quot;,
         &lt;&lt;/link&gt;&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-  &lt;&lt;include &quot;checkFinalMonsterChoice&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="42" name="checkFinalMonsterChoice" tags="nobr" position="225,600" size="100,100">&lt;&lt;timed 0.1s&gt;&gt; 
+  &lt;&lt;include &quot;checkFinalMonsterChoice&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="checkFinalMonsterChoice" tags="nobr" position="475,600" size="100,100">&lt;&lt;timed 0.1s&gt;&gt; 
     &lt;&lt;for _i to 0; _i lt 2; _i++&gt;&gt;
     &lt;&lt;if $playerchoices.finalmonster === $playerchoices.chosenmonsters[0]&gt;&gt;
         &lt;&lt;set _id to &quot;#card1&quot; &gt;&gt;
@@ -980,15 +1062,18 @@ There’s some extra help available. &quot;,
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="story" tags="nobr" position="350,600" size="100,100">&lt;&lt;set $prevpass to &quot;forecast&quot;&gt;&gt;
-&lt;&lt;set $pass to &quot;story&quot;&gt;&gt;
-&lt;&lt;set $nextpass to &quot;pullwildcards&quot;&gt;&gt;
-
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="story1" tags="nobr" position="600,600" size="100,100">&lt;&lt;set $prevpass to &quot;forecast&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;story1&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;story2&quot;&gt;&gt;
 
 &lt;main&gt;
 &lt;h2&gt;Now the monster is closing in on High Street. &lt;/h2&gt;
 &lt;h3&gt;We’re going to uncover how this attack plays out. &lt;/h3&gt;
-&lt;br/&gt;&lt;br/&gt;
+&lt;br/&gt;
+ &lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+  &lt;img src=&quot;assets/img/alerts.png&quot; alt=&quot;Sign Up for Alerts&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
 /* CONNECT 5 = id 12 */
 &lt;&lt;if $playerchoices.chosenactions.includes(12)&gt;&gt;
     &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;You signed up for alerts&lt;/span&gt;, so everyone was warned about the monster in good time. The alerts included up to date guidance, and no neighbours were caught out by outdated methods. &lt;/p&gt;
@@ -1001,6 +1086,29 @@ There’s some extra help available. &quot;,
     &lt;p&gt;Pick one player who will take a single action to share updated guidance, to ensure everyone knows how to react. &lt;/p&gt;
  &lt;&lt;/if&gt;&gt;
 
+
+&lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;/main&gt;
+
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="story2" tags="nobr" position="725,600" size="100,100">&lt;&lt;set $prevpass to &quot;story1&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;story2&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;story3&quot;&gt;&gt;
+
+&lt;&lt;if $playerchoices.finalmonster isnot &quot;Crystal&quot;&gt;&gt;
+    &lt;&lt;goto$nextpass&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+
+&lt;main&gt;
+ &lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+  &lt;img src=&quot;assets/img/salts.png&quot; alt=&quot;Lay down salts&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
 /* CRYSTAL &amp; PREPARE 1 = id 1 */
 &lt;&lt;if $playerchoices.finalmonster is &quot;Crystal&quot; &amp;&amp; $playerchoices.chosenactions.includes(1)&gt;&gt;
     &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;You laid out some salts to guide Crystal down your street. &lt;/span&gt;She leaves no residue, so when your neighbours venture out, there are no slips or falls.  &lt;/p&gt;
@@ -1012,6 +1120,28 @@ There’s some extra help available. &quot;,
 &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;You weren’t able to lay out grit to guide Crystal down your street.&lt;/span&gt; But! You can use your skills and resources to help. &lt;/p&gt;
 &lt;p&gt;Pick one player who will take a single action to guide your neighbours safely down the street. &lt;/p&gt;
  &lt;&lt;/if&gt;&gt;
+
+&lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;/main&gt;
+
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="story3" tags="nobr" position="850,600" size="100,100">&lt;&lt;set $prevpass to &quot;story2&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;story2&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;story4&quot;&gt;&gt;
+&lt;&lt;if $playerchoices.finalmonster isnot &quot;Inferno&quot;&gt;&gt;
+    &lt;&lt;goto$nextpass&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+
+&lt;main&gt;
+ &lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+  &lt;img src=&quot;assets/img/drinks.png&quot; alt=&quot;Gather Drinks&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
 
 /* INFERNO &amp; PREPARE 2 = id 2 */
 &lt;&lt;if $playerchoices.finalmonster is &quot;Inferno&quot; &amp;&amp; $playerchoices.chosenactions.includes(2)&gt;&gt;
@@ -1025,6 +1155,29 @@ There’s some extra help available. &quot;,
 &lt;p&gt;Pick one player who will take a single action to care for their neighbors in the extreme heat. &lt;/p&gt;
  &lt;&lt;/if&gt;&gt;
 
+&lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;/main&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="story4" tags="nobr" position="975,600" size="100,100">&lt;&lt;set $prevpass to &quot;story3&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;story4&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;story5&quot;&gt;&gt;
+
+&lt;&lt;if $playerchoices.finalmonster isnot &quot;Gale&quot;&gt;&gt;
+    &lt;&lt;goto$nextpass&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+
+&lt;main&gt;
+ &lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+  &lt;img src=&quot;assets/img/objects.png&quot; alt=&quot;Secure objects&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
+
+
 /* GALE &amp; PREPARE 3 = id 3 */
 &lt;&lt;if $playerchoices.finalmonster is &quot;Gale&quot; &amp;&amp; $playerchoices.chosenactions.includes(3)&gt;&gt;
     &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;You cleared away or secured objects outside before Gale’s arrival.&lt;/span&gt; While she bangs at the doors of sheds, and pulls at the cables you’ve tied, nothing escapes. Neighbours are kept safe from flying debris.  &lt;/p&gt;
@@ -1037,7 +1190,30 @@ There’s some extra help available. &quot;,
 &lt;p&gt;Pick one player who will take a single action to protect neighbours from flying debris. &lt;/p&gt;
 
  &lt;&lt;/if&gt;&gt;
+ 
+&lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;/main&gt;
 
+&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="story5" tags="nobr" position="1100,600" size="100,100">&lt;&lt;set $prevpass to &quot;story4&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;story5&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;story6&quot;&gt;&gt;
+&lt;&lt;if $playerchoices.finalmonster isnot &quot;Drench&quot;&gt;&gt;
+    &lt;&lt;goto$nextpass&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+
+
+&lt;main&gt;
+ &lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+  &lt;img src=&quot;assets/img/barriers.png&quot; alt=&quot;Set up barriers&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
+ 
  /* DRENCH &amp; PREPARE 4 = id 4 */
 &lt;&lt;if $playerchoices.finalmonster is &quot;Drench&quot; &amp;&amp; $playerchoices.chosenactions.includes(4)&gt;&gt;
     &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;You set up barriers, blocks and absorbent pads to keep out or soak up Drench.&lt;/span&gt; When she arrives, the barriers, blocks and pads keep homes water free, with no risk of disease or electric shock. &lt;/p&gt;
@@ -1051,6 +1227,24 @@ There’s some extra help available. &quot;,
 
  &lt;&lt;/if&gt;&gt;
 
+&lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;/main&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="story6" tags="nobr" position="1225,600" size="100,100">&lt;&lt;set $prevpass to &quot;story5&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;story6&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;story7&quot;&gt;&gt;
+
+
+&lt;main&gt;
+ &lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+  &lt;img src=&quot;assets/img/messaging.png&quot; alt=&quot;Set up messaging chat&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
 /* CONNECT 1 = id 8 */
 &lt;&lt;if $playerchoices.chosenactions.includes(8)&gt;&gt;
 &lt;p&gt; &lt;span class=&quot;accent&quot;&gt;You set up a messaging group&lt;/span&gt; to keep in touch with neighbours, which connected you to someone on the street you hadn’t met. &lt;/p&gt;
@@ -1070,6 +1264,25 @@ There’s some extra help available. &quot;,
 &lt;p&gt;However, you do have your own skills and resources. Pick one player who will take a single action to provide support to this neighbour. 
 t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
  &lt;&lt;/if&gt;&gt;
+ 
+
+&lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;/main&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="story7" tags="nobr" position="100,725" size="100,100">&lt;&lt;set $prevp9ss to &quot;story6&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;story7&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;story8&quot;&gt;&gt;
+
+&lt;main&gt;
+&lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+  &lt;img src=&quot;assets/img/door-knocking.png&quot; alt=&quot;Door-knocking&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
 
 /* CONNECT 2 = id 9 */
 &lt;&lt;if $playerchoices.chosenactions.includes(9)&gt;&gt;
@@ -1089,6 +1302,25 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
 &lt;/p&gt;
  &lt;&lt;/if&gt;&gt;
 
+&lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;/main&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="story8" tags="nobr" position="225,725" size="100,100">&lt;&lt;set $prevp9ss to &quot;story7&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;story8&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;story9&quot;&gt;&gt;
+
+&lt;main&gt;
+
+&lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+  &lt;img src=&quot;assets/img/belongings.png&quot; alt=&quot;Move precious belongings&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
+
 /* PREPARE 5 = id 5 */
 &lt;&lt;if $playerchoices.chosenactions.includes(5)&gt;&gt;
 &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;You moved precious belongings in your home to a safe place.&lt;/span&gt; As the monster rushes in, belongings sit on high shelves and in attics. Safe and out of reach.&lt;/p&gt;
@@ -1101,6 +1333,23 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
 &lt;p&gt;Pick one player who will take a single action to protect precious belongings from monster attack.&lt;/p&gt;
  &lt;&lt;/if&gt;&gt;
 
+&lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;/main&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="story9" tags="nobr" position="350,725" size="100,100">&lt;&lt;set $prevp9ss to &quot;story8&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;story9&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;story10&quot;&gt;&gt;
+
+&lt;main&gt;
+&lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+  &lt;img src=&quot;assets/img/emergency.png&quot; alt=&quot;Prepare emergency kit&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
 /* PREPARE 6 = id 6 */
 &lt;&lt;if $playerchoices.chosenactions.includes(6)&gt;&gt;
 &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;You prepared an emergency kit. &lt;/span&gt;When the monster attacks the electricity supply, leading to a 24h outage, you’re ready. You have food, water and a first aid kit, and a wind up radio to stay entertained. &lt;/p&gt;
@@ -1112,6 +1361,24 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
 &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;You weren’t able to prepare an emergency kit.&lt;/span&gt; When the monster attacks the electricity supply, leading to a 24h outage, you have to rely on your own skills and resources. &lt;/p&gt;
 &lt;p&gt;Pick one player who will take a single action to care for the street during the outage. &lt;/p&gt;
  &lt;&lt;/if&gt;&gt;
+
+&lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;/main&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="story10" tags="nobr" position="475,725" size="100,100">&lt;&lt;set $prevp9ss to &quot;story9&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;story10&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;story11&quot;&gt;&gt;
+
+&lt;main&gt;
+&lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+  &lt;img src=&quot;assets/img/plan.png&quot; alt=&quot;Make a plan&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
 
 /* PREPARE 7 = id 7 */
 &lt;&lt;if $playerchoices.chosenactions.includes(7)&gt;&gt;
@@ -1125,17 +1392,23 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
 &lt;p&gt;Pick one player who will take a single action to care for the street during the evacuation.&lt;/p&gt;
  &lt;&lt;/if&gt;&gt;
 
-/* CONNECT 3 = id 10 */
-&lt;&lt;if $playerchoices.chosenactions.includes(10)&gt;&gt;
-&lt;p&gt;&lt;span class=&quot;accent&quot;&gt;You connected to the community centre,&lt;/span&gt; so that when resources run low, you have somewhere to turn to. Several households begin to run out of food, but the community centre’s food bank makes sure everyone is well fed.  &lt;/p&gt;
- &lt;&lt;/if&gt;&gt;
-&lt;&lt;if !$playerchoices.chosenactions.includes(10) &amp;&amp; !$playerchoices.changedactions.includes(10)&gt;&gt;
-&lt;p&gt;&lt;span class=&quot;accent&quot;&gt;You didn’t connect to the community centre,&lt;/span&gt; so that when resources run low, there is nowhere to turn. Several households begin to run out of food, and are left hungry. &lt;/p&gt;
- &lt;&lt;/if&gt;&gt;
-&lt;&lt;if $playerchoices.changedactions.includes(10)&gt;&gt;
-&lt;p&gt;&lt;span class=&quot;accent&quot;&gt;You weren’t able to connect to the community centre.&lt;/span&gt; When resources run low, there is nowhere to turn. Several households begin to run out of food, and all you have are your own skills and resources.&lt;/p&gt;
-&lt;p&gt;Pick one player who will take a single action to provide support to their neighbours. &lt;/p&gt;
- &lt;&lt;/if&gt;&gt;
+&lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;/main&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="story11" tags="nobr" position="600,725" size="100,100">&lt;&lt;set $prevp9ss to &quot;story10&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;story11&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;wildcards&quot;&gt;&gt;
+
+&lt;main&gt;
+&lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+  &lt;img src=&quot;assets/img/local.png&quot; alt=&quot;Connect to local community centre or faith space&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
 
 /* CONNECT 4 = id 11 */
 &lt;&lt;if $playerchoices.chosenactions.includes(11)&gt;&gt;
@@ -1147,8 +1420,8 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
 &lt;&lt;if $playerchoices.changedactions.includes(11)&gt;&gt;
 &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;You weren’t able to connect to the local school or faith space.&lt;/span&gt; When several of the houses are attacked badly by the monster, they become unsafe to stay in. All you have are your own skills and resources. &lt;/p&gt;
 &lt;p&gt;Pick one player who will take a single action to provide support to the stranded households. &lt;/p&gt;
+&lt;&lt;/if&gt;&gt;
 
- &lt;&lt;/if&gt;&gt;
 &lt;&lt;timed 3s&gt;&gt;
     &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
     &lt;&lt;button &quot;Move on&quot;&gt;&gt;
@@ -1156,10 +1429,77 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
-&lt;&lt;include &quot;wallet&quot;&gt;&gt;
 &lt;/main&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="wildcardlist" tags="nobr" position="725,725" size="100,100">&lt;div class=&quot;actions-list&quot;&gt;
+&lt;&lt;for _i to 0; _i lt $wildcardoptions.length; _i++&gt;&gt;
+  &lt;&lt;capture _i&gt;&gt;
+    &lt;&lt;set $text to ($wildcardoptions[_i].text)&gt;&gt;
+    
+&lt;div sc-eval:class=&quot;&#39;actions-item actions-item&#39; + ($actionsoptions[_i].id)&quot; sc-eval:id=&quot;&#39;action&#39; + [_i]&quot; sc-eval:data-id=&quot;&#39;action&#39; + [_i]&quot;&gt;
+   &lt;h3&gt;$wildcardoptions[_i].type&lt;/h3&gt; $text
+   &lt;br/&gt;
 
-&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="pullwildcards" tags="nobr" position="475,600" size="100,100">&lt;&lt;set $prevpass to &quot;story&quot;&gt;&gt;
+     &lt;&lt;link &quot;Choose&quot;&gt;&gt;
+    &lt;&lt;set $playerchoices.chosenwildcards.push($wildcardoptions[_i].id)&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+     &lt;&lt;include &quot;checkChosenWildcards&quot;&gt;&gt;   
+    &lt;&lt;/timed&gt;&gt;       
+     &lt;&lt;/link&gt;&gt;
+           &lt;/div&gt;
+       &lt;&lt;/capture&gt;&gt;
+   &lt;&lt;/for&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="57" name="checkChosenWildcards" tags="nobr" position="850,725" size="100,100">&lt;&lt;for _i to 0; _i lt $wildcardoptions.length; _i++&gt;&gt;
+    &lt;&lt;if $playerchoices.chosenwildcards.includes($wildcardoptions[_i].id)&gt;&gt;
+        &lt;&lt;set $class to &quot;.actions-item&quot; + (_i+1) &gt;&gt;
+        &lt;&lt;addclass $class &quot;chosen&quot;&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/for&gt;&gt;  
+    &lt;&lt;timed 5s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+            &lt;&lt;button &quot;Confirm and move on&quot;&gt;&gt;
+                &lt;&lt;goto $nextpass&gt;&gt;
+            &lt;&lt;/button&gt;&gt;
+        &lt;&lt;/replace&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="wildcards" tags="nobr" position="975,725" size="100,100">&lt;&lt;set $prevpass to &quot;story&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;wildcards&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;aftermath&quot;&gt;&gt;
+&lt;&lt;set $wildcardoptions to [
+    {type: &quot;wildcard&quot;, text: &quot;Local firefighters come to clear debris off the streets.&quot;, id:1},
+   {type: &quot;wildcard&quot;, text: &quot;An emergency first aid van sets up on the street, knocking on doors and providing support where needed.&quot;, id:2},
+    {type: &quot;wildcard&quot;, text: &quot;Free care packages with water, food and emergency supplies are dropped at each house.&quot;, id:3},
+     {type: &quot;wildcard&quot;, text: &quot;Your councillor sends around insurance experts, to ensure households can get good claims against economic damage.&quot;, id:4},
+]&gt;&gt;
+
+&lt;&lt;if previous() is &quot;story11&quot; &amp;&amp; $playerchoices.wildcards is 0&gt;&gt;
+
+    &lt;&lt;goto $nextpass&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
+
+&lt;main class=&quot;&quot;&gt;
+    &lt;div class=&quot;explanation&quot;&gt;
+  &lt;p&gt;Your helpful councillor has sent some extra support:  
+        Pull &lt;&lt;print $playerchoices.wildcards&gt;&gt; wildcard(s).&lt;/p&gt;
+        &lt;p&gt;Let us know which wildcards you selected below. &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;&lt;include &quot;wildcardlist&quot;&gt;&gt;
+    &lt;br/&gt;
+    &lt;&lt;button &quot;Reset&quot;&gt;&gt;
+        &lt;&lt;set $playerchoices.chosenwildcards to []&gt;&gt;
+        &lt;&lt;goto &quot;wildcards&quot;&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    /* 5 Chosen Actions: &lt;div id=&quot;chosenActionsMount&quot;&gt;&lt;/div&gt; */
+    &lt;br/&gt;    &lt;br/&gt;
+      &lt;h3&gt;Aren&#39;t you lucky?&lt;/h3&gt;
+          &lt;br/&gt;
+&lt;/main&gt;
+&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;
+
+&lt;&lt;if previous() is &quot;aftermath&quot;&gt;&gt;
+&lt;&lt;goto $prevpass&gt;&gt;
+&lt;&lt;else &gt;&gt;
+    &lt;&lt;goto $nextpass&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="pullwildcards" tags="nobr" position="1100,725" size="100,100">&lt;&lt;set $prevpass to &quot;story11&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;pullwildcards&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;aftermath&quot;&gt;&gt;
 &lt;&lt;set $wildcardoptions to [
@@ -1173,6 +1513,11 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
 
 &lt;main&gt;
     &lt;&lt;if $remainingwildcards &gt; 0 &gt;&gt;
+        &lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+       &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
+     
         &lt;p&gt;Your helpful councillor has sent some extra support:  
         Pull &lt;&lt;print $remainingwildcards&gt;&gt; wildcard(s).&lt;/p&gt;
 
@@ -1231,15 +1576,20 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
 
     &lt;&lt;/if&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footer&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="aftermath" tags="nobr" position="600,600" size="100,100">&lt;&lt;set $prevpass to &quot;pullwildcards&quot;&gt;&gt;
+&lt;&lt;include &quot;footer&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="aftermath" tags="nobr" position="1225,725" size="100,100">&lt;&lt;set $prevpass to &quot;pullwildcards&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;aftermath&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;recovery&quot;&gt;&gt;
 
 &lt;main&gt;
+ &lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+    &lt;img src=&quot;assets/img/recovery.png&quot; alt=&quot;Recovery&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
 &lt;h2&gt;The monster attack is over. &lt;/h2&gt;
 
 &lt;h3&gt;As they retreat you are left with some consequences to contend with.&lt;/h3&gt;
 &lt;br/&gt;
+
 &lt;ul class=&quot;consequences-list&quot;&gt;
 /* If Connect 5 is not selected */
 &lt;&lt;if !$playerchoices.chosenactions.includes(12)&gt;&gt;
@@ -1333,36 +1683,40 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="recovery" tags="nobr" position="725,600" size="100,100">&lt;&lt;set $prevpass to &quot;aftermath&quot;&gt;&gt;
+&lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="recovery" tags="nobr" position="100,850" size="100,100">&lt;&lt;set $prevpass to &quot;aftermath&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;recovery&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;outro&quot;&gt;&gt;
 
 &lt;main class=&quot;timer&quot;&gt;
-    &lt;h2&gt;There is a lot to recover from. &lt;/h2&gt;
-    &lt;p&gt;But! You have each other, your skills, your resources and connections. &lt;/p&gt;
-    &lt;p&gt;You will use these to help High Street begin its recovery. &lt;/p&gt;
-    &lt;br/&gt;
-    &lt;p&gt;Select three of the areas, and decide how you will use your skills &amp; resources to help High Street. &lt;/p&gt;
-    &lt;p&gt;Perhaps you will use your construction skills to help repair a broken roof, or make a round of incredible sandwiches to lift everyone’s mood? &lt;/p&gt;
-        &lt;br/&gt;
-    &lt;p&gt;You can click back to see the impacts to your street.&lt;/p&gt;
-        &lt;br/&gt;
-    &lt;p&gt;Take three minutes to discuss the three actions you will take, using only what you have at your disposal (on your character cards). &lt;/p&gt;
-    &lt;p&gt;When you’re ready, share what you will do. &lt;/p&gt;
+    &lt;h2&gt; The monster attack reverberates through High Street.&lt;/h2&gt;
+   
+&lt;p&gt;You’ll use your skills, resources and connections to help High Street begin its recovery. &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;Perhaps you will use your construction skills to help repair a broken roof, or make a round of incredible sandwiches to lift everyone’s mood? &lt;/p&gt;
+&lt;p&gt;Take some time to discuss the actions you will take, using only what you have at your disposal (on your character cards).&lt;/p&gt;
+&lt;p&gt;You don’t need to cover all of the impacts, perhaps focus on three if you need to. &lt;/p&gt; 
+&lt;br/&gt;
+&lt;p&gt;Facilitator, we recommend three minutes for this. &lt;/p&gt;
+&lt;p&gt;When you’re ready, share what you will do. &lt;/p&gt;
+
     
     &lt;&lt;timed 5s&gt;&gt;
         &lt;&lt;include &quot;3headertimer&quot;&gt;&gt;
         &lt;&lt;/timed&gt;&gt;
     
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="outro" tags="nobr" position="850,600" size="100,100">&lt;&lt;set $prevpass to &quot;recovery&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="62" name="outro" tags="nobr" position="225,850" size="100,100">&lt;&lt;set $prevpass to &quot;recovery&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;outro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;outro2&quot;&gt;&gt;
 
 &lt;main&gt;
-  &lt;p&gt; Now, the monster has left an impact, but thanks to your skills, your passions, and your connections, High Street has come together and is on the way to recovery. &lt;/p&gt;
+  &lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+    &lt;img src=&quot;assets/img/cat.png&quot; alt=&quot;Cat&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Dot, the stray cat, wanders down the street and watches as neighbours come together to repair roofs, share food and start the journey to recovery. &lt;/p&gt;
 
-&lt;p&gt;There are still challenges and obstacles, &amp; areas which need care &amp; attention, but what you should remember is: &lt;/p&gt;
+&lt;p&gt;There are still challenges and obstacles, &amp; areas which need care &amp; attention, but what you should remember is...&lt;/p&gt;
 
 
     
@@ -1374,15 +1728,18 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="outro2" tags="nobr" position="975,600" size="100,100">&lt;&lt;set $prevpass to &quot;outro&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="63" name="outro2" tags="nobr" position="350,850" size="100,100">&lt;&lt;set $prevpass to &quot;outro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;outro2&quot;&gt;&gt;
-&lt;&lt;set $nextpass to &quot;questions-intro&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;outro3&quot;&gt;&gt;
 
 &lt;main&gt;
 
-&lt;p&gt;You faced this monster as a street, and when you came together, you didn’t only keep the street safe, you looked after each other too. &lt;/p&gt;
+&lt;h2&gt;You faced this monster as a street. &lt;/h2&gt;
+&lt;p&gt;When you came together, you didn’t only keep the street safe, you looked after each other too. &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;Well done! &lt;/p&gt;
+&lt;p&gt;No matter what remains, know that High Street is on the road to recovery, and we are Stronger Together.&lt;/p&gt;
 
-&lt;p&gt;Well done, and no matter what remains, know that High Street is on the road to recovery, and we are Stronger Together.&lt;/p&gt;
 
     
 &lt;&lt;timed 3s&gt;&gt;
@@ -1393,32 +1750,49 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="questions-intro" tags="nobr" position="1100,600" size="100,100">&lt;&lt;set $prevpass to &quot;outro2&quot;&gt;&gt;
-&lt;&lt;set $pass to &quot;questions-intro&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="64" name="outro3" tags="nobr" position="475,850" size="100,100">&lt;&lt;set $prevpass to &quot;outro2&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;outro3&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;questions&quot;&gt;&gt;
 
-&lt;main class=&quot;timer&quot;&gt;
-    &lt;h2&gt;That’s the end of the game! &lt;/h2&gt;
-    &lt;p&gt;There is now time to debrief and discuss. Talk through the three questions below. &lt;/p&gt;
-    &lt;&lt;timed 3s&gt;&gt;
-        &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
-        &lt;&lt;button &quot;Move on&quot;&gt;&gt;
-                &lt;&lt;goto $nextpass&gt;&gt;
-            &lt;&lt;/button&gt;&gt;
-        &lt;&lt;/replace&gt;&gt;
-    &lt;&lt;/timed&gt;&gt;
+&lt;main&gt;
+
+&lt;h2&gt;That’s the end of the game! &lt;/h2&gt;
+&lt;p&gt;There is now time to debrief and discuss. Talk through the three questions below. &lt;/p&gt;
+&lt;p&gt;Facilitator, we recommend five minutes for this discussion. &lt;/p&gt;
+    
+&lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="questions" tags="nobr" position="1225,600" size="100,100">&lt;&lt;set $prevpass to &quot;outro&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="questions" tags="nobr" position="600,850" size="100,100">&lt;&lt;set $prevpass to &quot;outro3&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;questions&quot;&gt;&gt;
-&lt;&lt;set $nextpass to &quot;questions2&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;question2&quot;&gt;&gt;
 
 &lt;main class=&quot;timer&quot;&gt;
-&lt;h3&gt;Question 1&lt;/h3&gt;
+&lt;h2&gt;Question 1&lt;/h2&gt;
 &lt;p&gt;Today, you came together to face the monster. &lt;/p&gt;
-&lt;p&gt;Some things went well, others less well, but you stuck it out: you were resilient. &lt;/p&gt;
-&lt;p&gt;If you were going to give your high street an award - a blue plaque - to hang on the wall and commemorate this street and your response to the attack - what would it say? &lt;/p&gt;
-&lt;br/&gt;
-&lt;h3&gt;Question 2&lt;/h3&gt;
+&lt;p&gt;Some things went well, others less well, but you stuck it out: you were resilient.&lt;/p&gt; 
+&lt;p&gt;If you were going to give your High Street an award - a blue plaque, say - to hang on the wall and commemorate this street and your response to the attack - what would it say? &lt;/p&gt;
+
+&lt;&lt;timed 20s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+    
+&lt;/main&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="66" name="question2" tags="nobr" position="725,850" size="100,100">&lt;&lt;set $prevpass to &quot;questions&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;question2&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;question3&quot;&gt;&gt;
+
+&lt;main class=&quot;timer&quot;&gt;
+&lt;h2&gt;Question 2&lt;/h2&gt;
 &lt;p&gt;If you were to play again, how would you play differently? &lt;/p&gt;
 
   
@@ -1431,13 +1805,13 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
 &lt;&lt;/timed&gt;&gt;
     
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="questions2" tags="nobr" position="100,725" size="100,100">&lt;&lt;set $prevpass to &quot;questions&quot;&gt;&gt;
-&lt;&lt;set $pass to &quot;questions2&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="question3" tags="nobr" position="850,850" size="100,100">&lt;&lt;set $prevpass to &quot;question2&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;question3&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;end&quot;&gt;&gt;
 
 &lt;main class=&quot;timer&quot;&gt;
 
-&lt;h3&gt;Question 3 &lt;/h3&gt;
+&lt;h2&gt;Question 3 &lt;/h2&gt;
 &lt;p&gt;How did the game make you think about community resilience on your own street? &lt;/p&gt;
 
   
@@ -1450,11 +1824,16 @@ t neighbours from disease and electric shock due to floodwater. &lt;/p&gt;
 &lt;&lt;/timed&gt;&gt;
     
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="end" tags="nobr" position="225,725" size="100,100">&lt;&lt;set $prevpass to &quot;questions2&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="68" name="end" tags="nobr" position="975,850" size="100,100">&lt;&lt;set $prevpass to &quot;questions2&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;end&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;end&quot;&gt;&gt;
 &lt;main&gt;
 &lt;h3&gt;Thanks for playing!&lt;/h3&gt;
+&lt;br/&gt;
+  &lt;div class=&quot;inline-img-container&quot;&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+    &lt;img src=&quot;assets/img/cat.png&quot; alt=&quot;Cat&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;
 &lt;br/&gt;
 &lt;&lt;button &quot;Restart&quot;&gt;&gt;
      &lt;&lt;script&gt;&gt;Engine.restart()&lt;&lt;/script&gt;&gt;
