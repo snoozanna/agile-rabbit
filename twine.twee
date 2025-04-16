@@ -254,12 +254,10 @@ $(document).on(':passagedisplay', function(ev) {
 
 
 :: intro2-text [nobr]
- <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardhor">
-    <img src="assets/img/title.png" alt="Stronger Together Logo"/>
-</div></div>
+
 <br/>
-<p>This is Stronger Together.</p>
+<h2>This is Stronger Together.</h2>
+<br/>
 <p>A card game offering a 30 minute introduction to community resilience. </p>
 <p>It’s designed for communities of all kinds to play together. </p>
 <br/>
@@ -326,16 +324,21 @@ $(document).on(':passagedisplay', function(ev) {
     <<replace "#line3">><<type 60ms>><p>...</p><</type>><</replace>>
 <</timed>>
 <<timed 7s>>
-    <<replace "#line4">><h2>a monster attack.</h2><</replace>>
+    <<replace "#line4">><h2>A MONSTER ATTACK!</h2><</replace>>
 <</timed>>
 <<timed 9s>>
     <<replace "#line5">>
         <br/>
         <p>The aim of this game is to prepare, respond and recover well from this attack.</p>
-        <p>Good luck!</p>
     <</replace>>
 <</timed>>
 
+<<timed 11s>>
+    <<append "#line5">>
+        <br/>
+        <p>Good luck!</p>
+    <</append>>
+<</timed>>
 
 <<timed 9s>>
     <<replace "#nextButtonContainer">>
@@ -354,21 +357,21 @@ $(document).on(':passagedisplay', function(ev) {
 <main class="grid-wrapper">
 
     <div class="grid-item explanation">
-        <p>You’ll play as a neighbour on High Street. </p>
+        <p>Each player will play as a neighbour on High Street. </p>
 <p>We’ll start by getting to know you. </p>
 <br/>
 <p>Players, pick one of the <span class="accent">Player Cards</span>, and turn it face up. </p>
 <br/>
       <div class="info-container">
          <div class="inline-img-container"><div class="inline-img-wrapper arcard">
-        <h3>Player Cards</h3><img src="assets/img/Demo_Player_Card.jpg" alt="Player Card"/></div></div>
+        <h3>Player Cards</h3><img src="assets/img/Demo_Player_Card.png" alt="Player Card"/></div></div>
           <div class="grid-item cards">
 
    </div>
      </div>
 <br/>
-        
-        <p>Leave the remaining cards face down.  </p>
+    <p>Turn it face up. </p>        
+    <p>Leave the remaining cards face down.  </p>
         
     </div>
 
@@ -393,7 +396,8 @@ $(document).on(':passagedisplay', function(ev) {
 <br/>
     <div class="grid-item explanation">
        
-      <p>Your card will tell you about who you’re playing, some interesting and peculiar facts and skills. </p>
+<p>Your card will tell you about who you’re playing.</p> 
+<p>You’ll find some interesting and peculiar facts and skills. </p>
 <p>But there’s one missing... </p>
 <p>for you to fill. </p>
 <p>Fill in the blank with a fact or skill that's true for you. </p>
@@ -414,7 +418,12 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $pass to "playercards-c">>
 <<set $nextpass to "monstercards-intro">>
 
-<main class="grid-wrapper">
+
+ <<timed 5s>>
+  <<include "2headertimer">>
+<</timed>>
+
+<main class="grid-wrapper timer">
 <br/>
     <div class="grid-item explanation">
 <p>Take the time to introduce yourselves to your fellow neighbours on High Street. </p>
@@ -424,13 +433,7 @@ $(document).on(':passagedisplay', function(ev) {
     </div>
     </main>
     <<include "footeroptionappears">>
- <<timed 120s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
+
 
 :: timer [nobr]
   /* <<audio "30s" "play" loop>> */
@@ -463,6 +466,39 @@ $(document).on(':passagedisplay', function(ev) {
 :: 3mtimer [nobr]
   /* <<audio "30s" "play" loop>> */
 <<set $seconds to 180>>
+<span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
+
+
+<<silently>>
+	<<repeat 1s>>
+		<<set $seconds to $seconds - 1>>
+		<<if $seconds gt 0>>
+			<<replace "#countdown">><span class="secs">$seconds</span> <span class="extra">seconds</span><</replace>>
+		<<else>>
+			<<replace "#countdown">><strong>Times up</strong><</replace>>
+      <<timed 1.5s>>
+       <<replace "#nextButtonContainer">>
+        <<if $pass is "questions2">>
+             <<button "End">>
+            <<goto $nextpass>>
+             <</button>>
+         <<else>>
+            <<button "Move On">>
+            <<goto $nextpass>>
+             <</button>>
+            <</if>>
+        <</replace>>
+        <</timed>>
+  
+			<<stop>>
+		<</if>>
+	<</repeat>>
+<</silently>>
+
+:: 2mtimer [nobr]
+  /* <<audio "30s" "play" loop>> */
+
+<<set $seconds to 120>>
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
 
@@ -531,7 +567,7 @@ $(document).on(':passagedisplay', function(ev) {
 <main class="">
     <div class="explanation">
 
-<p>Shuffle the monster cards and draw 2. </p>
+<p>Shuffle the Monster Cards and draw 2.  </p>
 <p>Select the cards you drew below. </p>
 
    
@@ -660,11 +696,11 @@ $(document).on(':passagedisplay', function(ev) {
 
 <main class="">
     <div class="explanation">
-<p>Now you know what might be coming, there is a chance to prepare. </p>
+<p>Now you know what could be coming, there is a chance to prepare. </p>
 <p>There are different actions you might take to get ready for the monster attack. </p>
 
 <p><span class="accent">Prepare</span> actions, focussed on physical preparation. </p>
- <p><span class="accent">Connect</span> actions, focussed on connecting to the street and the local community. </p>
+ <p><span class="accent">Connect</span> actions, focussed on connecting to High Street and your local community. </p>
  <br/>
   <div class="inline-img-container cards-selection">
   <div class="inline-img-wrapper arcard">
@@ -697,8 +733,9 @@ $(document).on(':passagedisplay', function(ev) {
 <main class="timer">
     <div class="explanation">
 
-<p>Facilitator, lay out the <span class="accent">Prepare</span> and <span class="accent">Connect</span> actions on the table ahead of you. </p>
-<p>You need to choose FIVE actions to prepare for the monster attack. </p>
+<p>Facilitator, lay out the <span class="accent">Prepare</span> and <span class="accent">Connect</span> actions on the table.</p>
+<p>As a street, you need to choose FIVE actions to prepare for the monster attack. 
+ </p>
 
 
 <p>A reminder of the forecast: </p>
@@ -706,9 +743,11 @@ $(document).on(':passagedisplay', function(ev) {
 <<include "chosenmonstersforecastdisplay">>
     </div>
 <br/>
+<<timed 5s>>
 <p>The clock is ticking.</p>
 <p>You’ve got five minutes to choose your actions.</p>
 <p>Put the remaining action cards face down in a discard pile. </p>
+<</timed>>
 
 <br/>
  
@@ -720,6 +759,13 @@ $(document).on(':passagedisplay', function(ev) {
 <header class="timer">
 
       <<include "timer">>
+
+</header>
+
+:: 2headertimer [nobr]
+<header class="timer">
+
+      <<include "2mtimer">>
 
 </header>
 
@@ -852,7 +898,7 @@ $(document).on(':passagedisplay', function(ev) {
 Local resources are depleted, minimal thought and effort has gone into preparing for disaster. 
 Because of poor planning and lack of investment not everything you try and do will be successful.
 Unfortunately, two of your actions will be unsuccessful, and can’t go ahead.", 
-    text2:"Two of your actions will be unsuccessful, and can’t go ahead. You’ll need to come together as a community to use your own skills and resources in its place.",
+    text2:"Facilitator, when faced with the unsuccessful actions, one of the neighbours will need to explain how their skills and resources might fill the gap. You can judge how successful their tactics are. ",
      wildcards: 0, 
     changedactions: 2},
      {num:2, 
@@ -860,7 +906,7 @@ Unfortunately, two of your actions will be unsuccessful, and can’t go ahead.",
 Local resources are depleted, minimal thought and effort has gone into preparing for disaster. 
 Because of poor planning and lack of investment not everything you try and do will be successful.
 Unfortunately, one of your actions will be unsuccessful, and can’t go ahead.", 
-    text2: "One of your actions will be unsuccessful, and can’t go ahead. You’ll need to come together as a community to use your own skills and resources in its place.", 
+    text2: "Facilitator, when faced with the unsuccessful action, one of the neighbours will need to explain how their skills and resources might fill the gap. You can judge how successful their tactics are. ", 
      wildcards: 0, 
     changedactions: 1},
      {num:3, 
@@ -903,7 +949,7 @@ There’s some extra help available. ",
     <img src="assets/img/fortunes.png" alt="Fortune Card"/>
 </div></div>
 <p>You know little about the High Street you live on. </p>
-<p>But we do all know that the world is unfair. </p>
+<p>But we all know that the world is unfair.  </p>
 <br/>
 <p>Life on different High Streets vary wildly across the UK.</p> 
 <br/>
@@ -918,7 +964,7 @@ There’s some extra help available. ",
     </div>
 </main>
 /* <<include "wallet">> */
-<<include "footersimpleappears">>
+/* <<include "footersimpleappears">> */
 
 :: rolling [nobr]
 <main class="maindice">
@@ -941,7 +987,7 @@ There’s some extra help available. ",
 
 <main>
    <div class="result">
-   <h2>Result: $diceoptions[$diceroll].num</h2>
+   <h2>You rolled a $diceoptions[$diceroll].num</h2>
    
         $diceoptions[$diceroll].text1
         <br/>
@@ -959,7 +1005,7 @@ There’s some extra help available. ",
    </div>
     <br/>    <br/>   
 <div>
-    <p>Are you happy with your fortune?</p>
+    <h2>Are you happy with your fortune?</h2>
     <p>In the real world fortune is very hard to change. </p>
     <p>But since this is a game... Would you like to roll again? </p>
     <<button "Roll again">>
@@ -1062,7 +1108,7 @@ There’s some extra help available. ",
 <p>The monster attack is moments away and we can finally see which monster is coming. </p>
 <br/>
 <p>Shuffle the two forecast cards. </p>
-<p>Facilitator, hold them out. </p>
+<p>Facilitator, hold them upside down. </p>
 <p>One player, select a card to reveal the monster you will face. </p>
 <br/>
 <p>Select the monster below. </p>
@@ -1141,34 +1187,63 @@ There’s some extra help available. ",
     <</timed>>
 <</if>>
 
-
-:: story1 [nobr]
+:: storyintro [nobr]
 <<set $prevpass to "forecast">>
-<<set $pass to "story1">>
-<<set $nextpass to "story2">>
-
+<<set $pass to "storyintro">>
+<<set $nextpass to "story1">>
+<<set $imgfinalmonster to "assets/img/" + "Demo_" + $playerchoices.finalmonster + ".png">>
 <main>
 <h2>Now the monster is closing in on High Street. </h2>
 <h3>We’re going to uncover how this attack plays out. </h3>
 <br/>
  <div class="inline-img-container">
   <div class="inline-img-wrapper arcardbig">
+  [img[$imgfinalmonster]]
+</div></div>
+
+
+<<timed 2s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+</main>
+
+<<include "footeroptionappears">>
+
+:: story1 [nobr]
+<<set $prevpass to "storyintro">>
+<<set $pass to "story1">>
+<<set $nextpass to "story2">>
+
+<main>
+
+<br/>
+ <div class="inline-img-container">
+  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
   <img src="assets/img/alerts.png" alt="Sign Up for Alerts"/>
 </div></div>
+<br/>
 /* CONNECT 5 = id 12 */
 <<if $playerchoices.chosenactions.includes(12)>>
     <p>Everyone is warned about the monster in good time. The alert includes up to date guidance, and no neighbours are caught out by outdated methods.  </p>
  <</if>>
 <<if !$playerchoices.chosenactions.includes(12) && !$playerchoices.changedactions.includes(12)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
     <p>Not everyone is warned about the monster or given up to date guidance. Neighbours use outdated and unsuccessful methods to keep the monster at bay. Neighbourhood morale dips. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(12)>>
     <p>Not everyone is warned about the monster in good time, or given the most up to date guidance. You use your skills and resources to help. </p>
 <br/><br/>
 <i><p>Reminder: </p>
-<p>One neighbour will use their skills to take action. </p>
-<p>Facilitator, you will judge whether they have successfully filled the gap.</p>
-</p></i>
+<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
+<p>You will judge whether they have successfully filled the gap. </p>
+
+</i>
  <</if>>
 
 
@@ -1194,14 +1269,18 @@ There’s some extra help available. ",
 
 <main>
  <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig">
+  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
   <img src="assets/img/salts.png" alt="Lay down salts"/>
 </div></div>
+<br/>
 /* CRYSTAL & PREPARE 1 = id 1 */
 <<if $playerchoices.finalmonster is "Crystal" && $playerchoices.chosenactions.includes(1)>>
     <p>There is no mark of Crystal on the streets. Neighbours venture out, and no one slips or falls. Dot, the stray cat, is safe! </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Crystal" && !$playerchoices.chosenactions.includes(1) && !$playerchoices.changedactions.includes(1)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
     <p>The streets are slippy and icy. A couple of neighbours venture out and slip and fall, resulting in a broken wrist and two sprained ankles. Dot, the stray cat, is safe though!</p>
  <</if>>
 <<if $playerchoices.finalmonster is "Crystal" && $playerchoices.changedactions.includes(1)>>
@@ -1209,8 +1288,9 @@ There’s some extra help available. ",
 <br/><br/>
 <i>
     <p>Reminder: </p>
-    <p>One neighbour will use their skills to take action. </p>
-    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
+<p>You will judge whether they have successfully filled the gap. </p>
+
 </i>
  
  <</if>>
@@ -1236,15 +1316,18 @@ There’s some extra help available. ",
 
 <main>
  <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig">
+  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
   <img src="assets/img/drinks.png" alt="Gather Drinks"/>
 </div></div>
-
+<br/>
 /* INFERNO & PREPARE 2 = id 2 */
 <<if $playerchoices.finalmonster is "Inferno" && $playerchoices.chosenactions.includes(2)>>
     <p>The temperature creeps up, and you make sure everyone is cool and hydrated. However, Dot, the stray cat, found some water and shade!  </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Inferno" && !$playerchoices.chosenactions.includes(2) && !$playerchoices.changedactions.includes(2)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
     <p>The temperature creeps up, and some neighbours, especially those with existing health conditions, suffer. Two people are dehydrated, and one neighbour faints and is taken to hospital. However, Dot, the stray cat, found some water and shade!  </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Inferno" && $playerchoices.changedactions.includes(2)>>
@@ -1252,8 +1335,9 @@ There’s some extra help available. ",
 <br/><br/>
 <i>
 <p>Reminder: </p>
-<p>One neighbour will use their skills to take action. </p>
-<p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
+<p>You will judge whether they have successfully filled the gap. </p>
+
  </i>
  <</if>>
 
@@ -1278,16 +1362,19 @@ There’s some extra help available. ",
 
 <main>
  <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig">
+  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
   <img src="assets/img/objects.png" alt="Secure objects"/>
 </div></div>
-
+<br/>
 
 /* GALE & PREPARE 3 = id 3 */
 <<if $playerchoices.finalmonster is "Gale" && $playerchoices.chosenactions.includes(3)>>
     <p>Gale bangs at the doors of sheds, and pulls at the cables you’ve tied, but nothing escapes. Neighbours and Dot, the stray cat, are safe from flying debris! </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Gale" && !$playerchoices.chosenactions.includes(3) && !$playerchoices.changedactions.includes(3)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
     <p>Gale bangs at the doors of sheds, lifting chairs and a trampoline into the air. One neighbour is hit by a flying parasol and goes to hospital. Fortunately, Dot, the stray cat, dodges all of the debris!  </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Gale" && $playerchoices.changedactions.includes(3)>>
@@ -1295,8 +1382,9 @@ There’s some extra help available. ",
 <br/><br/>
 <i>
     <p>Reminder: </p>
-    <p>One neighbour will use their skills to take action. </p>
-    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+ <p> Facilitator, invite one player to describe how they will use their skills to take action. </p>
+<p>You will judge whether they have successfully filled the gap. </p>
+
 </i>
 
 
@@ -1324,15 +1412,18 @@ There’s some extra help available. ",
 
 <main>
  <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig">
+  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
   <img src="assets/img/barriers.png" alt="Set up barriers"/>
 </div></div>
- 
+<br/> 
  /* DRENCH & PREPARE 4 = id 4 */
 <<if $playerchoices.finalmonster is "Drench" && $playerchoices.chosenactions.includes(4)>>
     <p>Drench arrives. The barriers, blocks and pads keep homes water free, with no risk of disease or electric shock. Dot, the stray cat, is safe and well!  </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Drench" && !$playerchoices.chosenactions.includes(4) && !$playerchoices.changedactions.includes(4)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
     <p>Drench arrives and rushes into homes. Two neighbours get respiratory infections from the floodwater, and a family is stuck upstairs in their house, with risk of electric shock below. Dot, the stray cat, manages to find shelter though!  </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Drench" && $playerchoices.changedactions.includes(4)>>
@@ -1340,8 +1431,9 @@ There’s some extra help available. ",
 <br/><br/>
 <i>
     <p>Reminder: </p>
-    <p>One neighbour will use their skills to take action. </p>
-    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
+<p>You will judge whether they have successfully filled the gap. </p>
+
 </i>
 
 
@@ -1364,23 +1456,22 @@ There’s some extra help available. ",
 
 <main>
  <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig">
+  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
   <img src="assets/img/messaging.png" alt="Set up messaging chat"/>
 </div></div>
-/* CONNECT 1 = id 8 */
+<br/>/* CONNECT 1 = id 8 */
 <<if $playerchoices.chosenactions.includes(8)>>
 <p>The messaging chat connects you to someone on the street you haven’t met. </p>
-
 <i><p>Turn over one of the face down neighbour cards. </p></i>
-
 <p>You include this neighbour in your preparations. You involve their skills and provide support to them. </p>
 
  <</if>>
 <<if !$playerchoices.chosenactions.includes(8) && !$playerchoices.changedactions.includes(8)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>You don’t meet someone on the street who is rarely home to answer the door.</p> 
-
 <i><p>Turn over one of the face down neighbour cards. </p></i>
-
 <p>You don’t include this neighbour in your preparations. You can't involve their skills or provide support to them. </p>
 
 
@@ -1394,8 +1485,9 @@ There’s some extra help available. ",
 <br/><br/>
 <i>
     <p>Reminder: </p>
-    <p>One neighbour will use their skills to take action. </p>
-    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
+<p>You will judge whether they have successfully filled the gap. </p>
+
 </i>
 
  <</if>>
@@ -1418,10 +1510,10 @@ There’s some extra help available. ",
 
 <main>
 <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig">
+  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
   <img src="assets/img/door-knocking.png" alt="Door-knocking"/>
 </div></div>
-
+<br/>
 /* CONNECT 2 = id 9 */
 <<if $playerchoices.chosenactions.includes(9)>>
 <p>You meet a neighbour who doesn’t use messaging chats. </p>
@@ -1432,10 +1524,11 @@ There’s some extra help available. ",
 
  <</if>>
 <<if !$playerchoices.chosenactions.includes(9) && !$playerchoices.changedactions.includes(9)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>You don’t meet a neighbour who doesn’t use messaging chats. </p>
-
 <i><p>Turn over one of the face down neighbour cards. </p></i>
-
 <p>You don’t include this neighbour in your preparations. You can't involve their skills or provide support to them. </p>
 
  <</if>>
@@ -1448,8 +1541,9 @@ There’s some extra help available. ",
 <br/><br/>
 <i>
     <p>Reminder: </p>
-    <p>One neighbour will use their skills to take action. </p>
-    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
+<p>You will judge whether they have successfully filled the gap. </p>
+
 </i>
 
  <</if>>
@@ -1472,15 +1566,18 @@ There’s some extra help available. ",
 <main>
 
 <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig">
+  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
   <img src="assets/img/belongings.png" alt="Move precious belongings"/>
 </div></div>
-
+<br/>
 /* PREPARE 5 = id 5 */
 <<if $playerchoices.chosenactions.includes(5)>>
 <p>The monster rushes in, but can’t reach belongings that sit on high shelves and in attics. Nothing is damaged. Hooray!</p>
  <</if>>
 <<if !$playerchoices.chosenactions.includes(5) && !$playerchoices.changedactions.includes(5)>>
+<<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>The monster rushes in, and belongings are swept away with them. A neighbour loses all their family photographs, another’s computer is broken. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(5)>>
@@ -1488,8 +1585,9 @@ There’s some extra help available. ",
 <br/><br/>
 <i>
     <p>Reminder: </p>
-    <p>One neighbour will use their skills to take action. </p>
-    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
+<p>You will judge whether they have successfully filled the gap.  </p>
+
 </i>
 
  <</if>>
@@ -1511,14 +1609,17 @@ There’s some extra help available. ",
 
 <main>
 <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig">
+  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
   <img src="assets/img/emergency.png" alt="Prepare emergency kit"/>
 </div></div>
-/* PREPARE 6 = id 6 */
+<br/>/* PREPARE 6 = id 6 */
 <<if $playerchoices.chosenactions.includes(6)>>
 <p>The monster attacks the electricity supply and there is a 24h outage. You’re prepared: you have food, water, a first aid kit, and a wind up radio to stay up to date. Phew!</p>
  <</if>>
 <<if !$playerchoices.chosenactions.includes(6) && !$playerchoices.changedactions.includes(6)>>
+<<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>The monster attacks the electricity supply and there is a 24h outage. You’re unprepared: you can’t regulate your temperature and you struggle to find edible food. It is a shock. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(6)>>
@@ -1526,8 +1627,9 @@ There’s some extra help available. ",
 <br/><br/>
 <i>
     <p>Reminder: </p>
-    <p>One neighbour will use their skills to take action. </p>
-    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
+<p>You will judge whether they have successfully filled the gap. </p>
+
 </i>
 
  <</if>>
@@ -1549,15 +1651,18 @@ There’s some extra help available. ",
 
 <main>
 <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig">
+  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
   <img src="assets/img/plan.png" alt="Make a plan"/>
 </div></div>
-
+<br/>
 /* PREPARE 7 = id 7 */
 <<if $playerchoices.chosenactions.includes(7)>>
 <p>The monster forces you to evacuate. Thanks to your plan, you have all you need with you: food, water and a phone charger. Your neighbour calls for help, you pick up! </p>
  <</if>>
 <<if !$playerchoices.chosenactions.includes(7) && !$playerchoices.changedactions.includes(7)>>
+<<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>The monster forces you to evacuate and you forget key items, including your phone charger. Your neighbour calls asking for help, but your phone has no battery. It doesn’t ring.</p>
  <</if>>
 <<if $playerchoices.changedactions.includes(7)>>
@@ -1565,8 +1670,9 @@ There’s some extra help available. ",
 <br/><br/>
 <i>
     <p>Reminder: </p>
-    <p>One neighbour will use their skills to take action. </p>
-    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
+<p>You will judge whether they have successfully filled the gap.</p> 
+
 </i>
 
  <</if>>
@@ -1588,15 +1694,18 @@ There’s some extra help available. ",
 
 <main>
 <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig">
+  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
   <img src="assets/img/community.png" alt="Community Centre"/>
 </div></div>
-
+<br/>
 /* CONNECT 3 = id 10 */
 <<if $playerchoices.chosenactions.includes(10)>>
 <p>Resources run low, and you turn to the community centre. Several neighbours run out of food. However, the community centre’s food bank makes sure everyone is well fed. </p>
  <</if>>
 <<if !$playerchoices.chosenactions.includes(10) && !$playerchoices.changedactions.includes(10)>>
+<<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>Resources run low, and you have nowhere to turn. Several neighbours run out of food.They are left hungry. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(10)>>
@@ -1604,8 +1713,9 @@ There’s some extra help available. ",
 <br/><br/>
 <i>
     <p>Reminder: </p>
-    <p>One neighbour will use their skills to take action. </p>
-    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
+<p>You will judge whether they have successfully filled the gap. </p>
+
 </i>
 
  <</if>>
@@ -1620,22 +1730,25 @@ There’s some extra help available. ",
 </main>
 <<include "footeroptionappears">>
 
-:: story11 [nobr]
-<<set $prevp9ss to "story10">>
-<<set $pass to "story11">>
+:: story12 [nobr]
+<<set $prevp9ss to "story11">>
+<<set $pass to "story12">>
 <<set $nextpass to "wildcards">>
 
 <main>
 <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig">
+  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
   <img src="assets/img/local.png" alt="Connect to local community centre or faith space"/>
 </div></div>
-
+<br/>
 /* CONNECT 4 = id 11 */
 <<if $playerchoices.chosenactions.includes(11)>>
 <p>Several houses are attacked badly by the monster, and become unsafe to stay in. Neighbours retreat to the safe space. Blankets are handed out. </p>
  <</if>>
 <<if !$playerchoices.chosenactions.includes(11) && !$playerchoices.changedactions.includes(11)>>
+<<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>Several of the houses are attacked badly by the monster, and become unsafe to stay in. There is nowhere for the neighbours to go. It is terrifying and neighbours are scared and panicked. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(11)>>
@@ -1643,8 +1756,9 @@ There’s some extra help available. ",
 <br/><br/>
 <i>
     <p>Reminder: </p>
-    <p>One neighbour will use their skills to take action. </p>
-    <p>Facilitator, you will judge whether they have successfully filled the gap. </p>
+<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
+<p>You will judge whether they have successfully filled the gap. </p>
+
 </i>
 <</if>>
 
@@ -1811,7 +1925,7 @@ There’s some extra help available. ",
 
     <<else>>
 
-<<if previous() is "aftermath">>
+<<if previous() is "aftermathintro">>
 <<goto $prevpass>>
 <<else >>
     <<goto $nextpass>>
@@ -1821,10 +1935,10 @@ There’s some extra help available. ",
 </main>
 <<include "footer">>
 
-:: aftermath [nobr]
+:: aftermathintro [nobr]
 <<set $prevpass to "pullwildcards">>
-<<set $pass to "aftermath">>
-<<set $nextpass to "recovery">>
+<<set $pass to "aftermathintro">>
+<<set $nextpass to "aftermath">>
 
 <main>
  <div class="inline-img-container">
@@ -1834,6 +1948,39 @@ There’s some extra help available. ",
 <h2>The monster leaves High Street. </h2>
 
 <h3>You are left with some consequences to contend with.</h3>
+
+<p>You’ll use your skills, resources and connections to help High Street begin its recovery. </p>
+<p>Perhaps you will use your construction skills to help repair a broken roof, or make a round of incredible sandwiches to lift everyone’s mood? </p>
+
+<p>Click below to discover the impacts.</p>
+
+
+<<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+</main>
+<<include "footersimpleappears">>
+
+
+:: aftermath [nobr]
+<<set $prevpass to "aftermathintro">>
+<<set $pass to "aftermath">>
+<<set $nextpass to "outro">>
+ <<timed 5s>>
+        <<include "3headertimer">>
+        <</timed>>
+<main class="timer">
+<br/>
+<h2>Review the impacts below</h2>
+<br/>
+<p>Take some time to discuss the actions you will take, using only what you have at your disposal (on your character cards).</p>
+<p>You don’t need to cover all of the impacts, perhaps focus on three if you need to. </p> 
+<p>Facilitator, we recommend three minutes for this. </p>
+<p>When you’re ready, share what you will do. </p>
 <br/>
 
 <ul class="consequences-list">
@@ -1921,51 +2068,21 @@ There’s some extra help available. ",
 </li>
 <</if>>
 </ul>
-<<timed 3s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
+
 </main>
 <<include "footersimpleappears">>
 
 
-:: recovery [nobr]
-<<set $prevpass to "aftermath">>
-<<set $pass to "recovery">>
-<<set $nextpass to "outro">>
-
-<main class="timer">
-    <h2> The monster attack reverberates through High Street.</h2>
-   
-<p>You’ll use your skills, resources and connections to help High Street begin its recovery. </p>
-<br/>
-<p>Perhaps you will use your construction skills to help repair a broken roof, or make a round of incredible sandwiches to lift everyone’s mood? </p>
-<p>Take some time to discuss the actions you will take, using only what you have at your disposal (on your character cards).</p>
-<p>You don’t need to cover all of the impacts, perhaps focus on three if you need to. </p> 
-<br/>
-<p>Facilitator, we recommend three minutes for this. </p>
-<p>When you’re ready, share what you will do. </p>
-
-    
-    <<timed 5s>>
-        <<include "3headertimer">>
-        <</timed>>
-    
-</main>
-<<include "footeroptionappears">>
 
 
 :: outro [nobr]
-<<set $prevpass to "recovery">>
+<<set $prevpass to "aftermath">>
 <<set $pass to "outro">>
 <<set $nextpass to "outro2">>
 
 <main>
   <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
+  <div class="inline-img-wrapper arcardbig">
     <img src="assets/img/cat.png" alt="Cat"/>
 </div></div>
 <p>Dot, the stray cat, wanders down the street and watches as neighbours come together to repair roofs, share food and start the journey to recovery. </p>
@@ -2016,7 +2133,11 @@ There’s some extra help available. ",
 <<set $nextpass to "questions">>
 
 <main>
-
+  <div class="inline-img-container">
+  <div class="inline-img-wrapper arcard">
+    <img src="assets/img/debrief.png" alt="Debrief"/>
+</div></div>
+<br/>
 <h2>That’s the end of the game! </h2>
 <p>There is now time to debrief and discuss. Talk through the three questions below. </p>
 <p>Facilitator, we recommend five minutes for this discussion. </p>

@@ -470,6 +470,10 @@ justify-content: center;
   transform: rotate(-4deg);
 }
 
+.arcardbig.grey > img{
+  filter: grayscale(1);
+}
+
 .cards-selection{
   display: flex;
   flex-wrap: wrap;
