@@ -492,6 +492,11 @@ max-width: 45%;
 
 .actions-item.chosen{
   border: 5px solid rgb(220, 80, 208);
+  background-color: #f5ebd8;
+}
+#nextButtonContainer > #hint{
+background-color: var(--color-eight);
+padding: 1rem;
 }
 
 /* ACTIONS */

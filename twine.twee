@@ -170,6 +170,8 @@ $(document).on(':passagedisplay', function(ev) {
     finalmonster: [],
     originalactions: [],
     chosenactions: [],
+    chosenactionstosave: [],
+    originalactionstosave: [],
     changedactions:[],
     chosenwildcards: [],
     wildcards:0,
@@ -232,7 +234,7 @@ $(document).on(':passagedisplay', function(ev) {
         <h3>Game Board</h3><img src="assets/img/board.jpg" alt="Demo Game Board"/>
 </div></div>
 
-<p>Choose someone to play your <span class="accent">facilitator</span>, they’ll read out instructions & deal out cards.</p>
+<p>Choose someone to play your <span class="accent">Facilitator</span>, they’ll read out instructions & deal out cards.</p>
 <p>The facilitator can still play the game, or sit on the outside, totally up to you.</p>
 
 <p>When you’re ready to play: </p>
@@ -465,7 +467,7 @@ $(document).on(':passagedisplay', function(ev) {
 
 :: 3mtimer [nobr]
   /* <<audio "30s" "play" loop>> */
-<<set $seconds to 180>>
+<<set $seconds to 1>>
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
 
@@ -509,7 +511,7 @@ $(document).on(':passagedisplay', function(ev) {
 			<<replace "#countdown">><span class="secs">$seconds</span> <span class="extra">seconds</span><</replace>>
 		<<else>>
 			<<replace "#countdown">><strong>Times up</strong><</replace>>
-      <<timed 1.5s>>
+      <<timed 0.5s>>
        <<replace "#nextButtonContainer">>
         <<if $pass is "questions2">>
              <<button "End">>
@@ -527,6 +529,33 @@ $(document).on(':passagedisplay', function(ev) {
 		<</if>>
 	<</repeat>>
 <</silently>>
+
+:: 5mtimer [nobr]
+  <<set $seconds to 300>>
+<span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
+
+
+<<silently>>
+	<<repeat 1s>>
+		<<set $seconds to $seconds - 1>>
+		<<if $seconds gt 0>>
+			<<replace "#countdown">><span class="secs">$seconds</span> <span class="extra">seconds</span><</replace>>
+		<<else>>
+			<<replace "#countdown">><strong>Times up</strong><</replace>>
+     
+  
+			<<stop>>
+		<</if>>
+	<</repeat>>
+<</silently>>
+
+  <<timed 60s>>
+       <<replace "#nextButtonContainer">>
+        <<button "Move On">>
+            <<goto $nextpass>>
+            <</button>>
+        <</replace>>
+        <</timed>>
 
 :: monstercards-intro [nobr]
 <<set $prevpass to "playercards-c">>
@@ -573,7 +602,7 @@ $(document).on(':passagedisplay', function(ev) {
    
     </div>
 <h2>Chosen Monsters: <span id="chosenMonsterMount"><<print $playerchoices.chosenmonsters>></span></h2>
-<p id="errorMsg" style="color: red;"></p> <!-- Error message area -->
+<p id="errorMsg" style="color: white;"></p> <!-- Error message area -->
 <br/>
 <div class="cards-selection">
 
@@ -776,6 +805,13 @@ $(document).on(':passagedisplay', function(ev) {
 
 </header>
 
+:: 5headertimer [nobr]
+<header class="timer">
+
+      <<include "5mtimer">>
+
+</header>
+
 :: chosenmonstersdisplay [nobr]
  <<set $img1 to "assets/img/" + "Demo_" + $playerchoices.chosenmonsters[0] + ".png">>
  <<set $img2 to "assets/img/" + "Demo_" + $playerchoices.chosenmonsters[1] + ".png" >>
@@ -831,12 +867,16 @@ $(document).on(':passagedisplay', function(ev) {
     <<include "actionslist">>
     <br/>
     <<button "Reset">>
+        <<set $playerchoices.chosenactionstosave to []>>
         <<set $playerchoices.chosenactions to []>>
+         <<set $playerchoices.originalactions to []>>
         <<goto "actions">>
         <</button>>
     /* 5 Chosen Actions: <div id="chosenActionsMount"></div> */
 </main>
+/* <<include "wallet">> */
 <<include "footersimpleappears">>
+
 
 
 :: actionslist [nobr]
@@ -849,13 +889,18 @@ $(document).on(':passagedisplay', function(ev) {
    <h3>$actionsoptions[_i].type</h3> $text
    <br/>
 
-     <<link "Choose">>
-    <<set $playerchoices.chosenactions.push($actionsoptions[_i].id)>>
-     <<set $playerchoices.originalactions.push($actionsoptions[_i].id)>>
-    <<timed 0.1s>>
-     <<include "checkChosenActions">>   
-    <</timed>>       
-     <</link>>
+     <div sc-eval:id="'chooseBtn'+ $actionsoptions[_i].id" class="chooseBtn">
+         <<link "> Choose">>
+            /* Remove btn once its clicked  */
+        <<set $btnId to "#chooseBtn" + $actionsoptions[_i].id >>
+        <<replace $btnId>>
+            <</replace>>
+        <<set $playerchoices.chosenactionstosave.push($actionsoptions[_i].id)>>
+        <<timed 0.1s>>
+         <<include "checkChosenActions">>   
+        <</timed>>       
+         <</link>>
+     </div>
            </div>
        <</capture>>
    <</for>>
@@ -865,20 +910,25 @@ $(document).on(':passagedisplay', function(ev) {
 :: checkChosenActions [nobr]
 
   <<for _i to 0; _i lt $actionsoptions.length; _i++>>
-    <<if $playerchoices.chosenactions.includes($actionsoptions[_i].id)>>
+    <<if $playerchoices.chosenactionstosave.includes($actionsoptions[_i].id)>>
         <<set $class to ".actions-item" + (_i+1) >>
         <<addclass $class "chosen">>
     <</if>>
 <</for>>  
 
-<<if $playerchoices.chosenactions.length < 5>>
+<<if $playerchoices.chosenactionstosave.length < 5>>
     <<replace "#nextButtonContainer">>
-           <span>Choose 5 actions</span>
+           <div class="hint" id="hint"><span>Choose 5 actions</span></div>
         <</replace>>
-<<elseif $playerchoices.chosenactions.length === 5>>
+<<elseif $playerchoices.chosenactionstosave.length === 5>>
     <<timed 0.1s>>
+        /* Disable buttons  */
+    <<replace ".chooseBtn">>
+        <</replace>>
     <<replace "#nextButtonContainer">>
             <<button "Confirm and move on">>
+             <<set $playerchoices.chosenactions.push($playerchoices.chosenactionstosave)>>
+            <<set $playerchoices.originalactions.push($playerchoices.chosenactionstosave)>>
                 <<goto $nextpass>>
             <</button>>
         <</replace>>
@@ -966,6 +1016,7 @@ There’s some extra help available. ",
 /* <<include "wallet">> */
 /* <<include "footersimpleappears">> */
 
+
 :: rolling [nobr]
 <main class="maindice">
   <div class="dice roll">
@@ -1018,6 +1069,7 @@ There’s some extra help available. ",
 /* <<include "wallet">> */
 <<include "checkForUnsucessfulActions">>
 </main>
+
 
 <<include "footersimpleappears">>
  <<timed 0.1s>>
@@ -1099,7 +1151,7 @@ There’s some extra help available. ",
 :: forecast [nobr]
 <<set $prevpass to "diceresults">>
 <<set $pass to "forecast">>
-<<set $nextpass to "story1">>
+<<set $nextpass to "storyintro">>
 
 <main>
 <div class="explanation">
@@ -1174,7 +1226,7 @@ There’s some extra help available. ",
 
     <<timed 0.1s>>
     <<replace "#nextButtonContainer">>
-         <span>Choose 1 Monster</span>
+         <div class="hint" id="hint"><span>Choose 1 Monster</span></div>
         <</replace>>
     <</timed>>
 <<if $playerchoices.finalmonster != "">>
@@ -2165,12 +2217,8 @@ There’s some extra help available. ",
 <p>Some things went well, others less well, but you stuck it out: you were resilient.</p> 
 <p>If you were going to give your High Street an award - a blue plaque, say - to hang on the wall and commemorate this street and your response to the attack - what would it say? </p>
 
-<<timed 20s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
+<<timed 5s>>
+  <<include "5headertimer">>
 <</timed>>
     
 </main>
@@ -2186,16 +2234,13 @@ There’s some extra help available. ",
 <p>If you were to play again, how would you play differently? </p>
 
   
-<<timed 20s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
+<<timed 5s>>
+  <<include "5headertimer">>
 <</timed>>
     
 </main>
 <<include "footeroptionappears">>
+
 
 :: question3 [nobr]
 <<set $prevpass to "question2">>
@@ -2208,12 +2253,8 @@ There’s some extra help available. ",
 <p>How did the game make you think about community resilience on your own street? </p>
 
   
- <<timed 20s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
+<<timed 5s>>
+  <<include "5headertimer">>
 <</timed>>
     
 </main>
