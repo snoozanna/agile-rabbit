@@ -451,6 +451,10 @@ justify-content: center;
   align-items: center;
 }
 
+.inline-img-container.wildcards{
+  gap: 1rem;
+}
+
 .inline-img-wrapper{
   margin-block-end: 2rem;
   transform-origin: center;

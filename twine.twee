@@ -439,6 +439,7 @@ $(document).on(':passagedisplay', function(ev) {
 
 :: timer [nobr]
   /* <<audio "30s" "play" loop>> */
+
 <<set $seconds to 300>>
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
@@ -458,6 +459,7 @@ $(document).on(':passagedisplay', function(ev) {
 <</silently>>
 
   <<timed 120s>>
+
        <<replace "#nextButtonContainer">>
         <<button "Move On">>
             <<goto $nextpass>>
@@ -467,7 +469,7 @@ $(document).on(':passagedisplay', function(ev) {
 
 :: 3mtimer [nobr]
   /* <<audio "30s" "play" loop>> */
-<<set $seconds to 1>>
+<<set $seconds to 180>>
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
 
@@ -499,7 +501,6 @@ $(document).on(':passagedisplay', function(ev) {
 
 :: 2mtimer [nobr]
   /* <<audio "30s" "play" loop>> */
-
 <<set $seconds to 120>>
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
@@ -684,6 +685,7 @@ $(document).on(':passagedisplay', function(ev) {
 <p>The monster attack will be one of these two cards, but it’s a 50 / 50 chance. </p>
 
     </main>
+
     <<include "footeroptionappears">>
  <<include "checkChosenMonsterCards">>
 
@@ -740,6 +742,7 @@ $(document).on(':passagedisplay', function(ev) {
 </div></div>
  </div>
 </main>
+
 
 <<include "footeroptionappears">>
  <<timed 3s>>
@@ -895,7 +898,7 @@ $(document).on(':passagedisplay', function(ev) {
         <<set $btnId to "#chooseBtn" + $actionsoptions[_i].id >>
         <<replace $btnId>>
             <</replace>>
-        <<set $playerchoices.chosenactionstosave.push($actionsoptions[_i].id)>>
+        <<run $playerchoices.chosenactionstosave.push($actionsoptions[_i].id)>>
         <<timed 0.1s>>
          <<include "checkChosenActions">>   
         <</timed>>       
@@ -927,8 +930,9 @@ $(document).on(':passagedisplay', function(ev) {
         <</replace>>
     <<replace "#nextButtonContainer">>
             <<button "Confirm and move on">>
-             <<set $playerchoices.chosenactions.push($playerchoices.chosenactionstosave)>>
-            <<set $playerchoices.originalactions.push($playerchoices.chosenactionstosave)>>
+                <<run $playerchoices.chosenactions.push(...$playerchoices.chosenactionstosave)>>
+                <<run $playerchoices.originalactions.push(...$playerchoices.chosenactionstosave)>>
+
                 <<goto $nextpass>>
             <</button>>
         <</replace>>
@@ -1013,7 +1017,7 @@ There’s some extra help available. ",
     <</button>>
     </div>
 </main>
-/* <<include "wallet">> */
+
 /* <<include "footersimpleappears">> */
 
 
@@ -1047,12 +1051,15 @@ There’s some extra help available. ",
         $diceoptions[$diceroll].text2
         <br/>
     <br/>
-         <<if $diceoptions[$diceroll].wildcards isnot 0 >>
-        <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
-       <img src="assets/img/wildcard.png" alt="Wildcard"/>
-</div></div>
-            <</if>>
+    <<if $diceoptions[$diceroll].wildcards isnot 0>>
+    <div class="inline-img-container wildcards">
+        <<for _i to 0; _i lt $diceoptions[$diceroll].wildcards; _i++>>
+            <div class="inline-img-wrapper arcard">
+                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+            </div>
+        <</for>>
+    </div>
+<</if>>
    </div>
     <br/>    <br/>   
 <div>
@@ -1066,7 +1073,7 @@ There’s some extra help available. ",
         <</button>>
     
 </div>
-/* <<include "wallet">> */
+
 <<include "checkForUnsucessfulActions">>
 </main>
 
@@ -1146,6 +1153,11 @@ There’s some extra help available. ",
     <span>Wildcards: $playerchoices.wildcards</span>
     
 </div>
+
+<<script>>
+console.log(State.variables)
+<</script>>
+
 /* <<include "footerwallet">> */
 
 :: forecast [nobr]
@@ -1167,7 +1179,7 @@ There’s some extra help available. ",
 </div>
 <<include "choosefinalmonster">>
 <br/>
-/* <<include "wallet">> */
+
 </main>
 
 <<include "footersimpleappears">>
@@ -1289,6 +1301,9 @@ There’s some extra help available. ",
     <p>Not everyone is warned about the monster or given up to date guidance. Neighbours use outdated and unsuccessful methods to keep the monster at bay. Neighbourhood morale dips. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(12)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
     <p>Not everyone is warned about the monster in good time, or given the most up to date guidance. You use your skills and resources to help. </p>
 <br/><br/>
 <i><p>Reminder: </p>
@@ -1308,6 +1323,8 @@ There’s some extra help available. ",
 <</timed>>
 </main>
 
+
+
 <<include "footeroptionappears">>
 
 :: story2 [nobr]
@@ -1316,7 +1333,7 @@ There’s some extra help available. ",
 <<set $nextpass to "story3">>
 
 <<if $playerchoices.finalmonster isnot "Crystal">>
-    <<goto$nextpass>>
+    <<goto $nextpass>>
     <</if>>
 
 <main>
@@ -1336,6 +1353,9 @@ There’s some extra help available. ",
     <p>The streets are slippy and icy. A couple of neighbours venture out and slip and fall, resulting in a broken wrist and two sprained ankles. Dot, the stray cat, is safe though!</p>
  <</if>>
 <<if $playerchoices.finalmonster is "Crystal" && $playerchoices.changedactions.includes(1)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>The streets are slippy and icy. Even Dot, the stray cat, is sliding about. You use your skills and resources to help. </p>
 <br/><br/>
 <i>
@@ -1356,26 +1376,33 @@ There’s some extra help available. ",
 <</timed>>
 </main>
 
+
+
 <<include "footeroptionappears">>
 
 :: story3 [nobr]
 <<set $prevpass to "story2">>
-<<set $pass to "story2">>
+<<set $pass to "story3">>
 <<set $nextpass to "story4">>
+
+<<set $chosenactionstemp to $playerchoices.chosenactions>>
 <<if $playerchoices.finalmonster isnot "Inferno">>
-    <<goto$nextpass>>
+    <<goto $nextpass>>
     <</if>>
 
 <main>
  <div class="inline-img-container">
   <div class="inline-img-wrapper arcardbig" id="cardWrapper">
   <img src="assets/img/drinks.png" alt="Gather Drinks"/>
-</div></div>
+</div></div>    
 <br/>
 /* INFERNO & PREPARE 2 = id 2 */
-<<if $playerchoices.finalmonster is "Inferno" && $playerchoices.chosenactions.includes(2)>>
+
+
+<<if $playerchoices.finalmonster is "Inferno" and $playerchoices.chosenactions.includes(2)>>
     <p>The temperature creeps up, and you make sure everyone is cool and hydrated. However, Dot, the stray cat, found some water and shade!  </p>
  <</if>>
+
 <<if $playerchoices.finalmonster is "Inferno" && !$playerchoices.chosenactions.includes(2) && !$playerchoices.changedactions.includes(2)>>
     <<timed 0.1s>>
      <<addclass "#cardWrapper" "grey">>
@@ -1383,6 +1410,9 @@ There’s some extra help available. ",
     <p>The temperature creeps up, and some neighbours, especially those with existing health conditions, suffer. Two people are dehydrated, and one neighbour faints and is taken to hospital. However, Dot, the stray cat, found some water and shade!  </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Inferno" && $playerchoices.changedactions.includes(2)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p> As the temperature creeps up, neighbours grow concerned, even Dot, the stray cat, is parched. You use your skills and resources to keep your neighbours safe.</p> 
 <br/><br/>
 <i>
@@ -1401,7 +1431,10 @@ There’s some extra help available. ",
     <</replace>>
 <</timed>>
 </main>
+
+
 <<include "footeroptionappears">>
+
 
 :: story4 [nobr]
 <<set $prevpass to "story3">>
@@ -1409,7 +1442,7 @@ There’s some extra help available. ",
 <<set $nextpass to "story5">>
 
 <<if $playerchoices.finalmonster isnot "Gale">>
-    <<goto$nextpass>>
+    <<goto $nextpass>>
     <</if>>
 
 <main>
@@ -1430,6 +1463,9 @@ There’s some extra help available. ",
     <p>Gale bangs at the doors of sheds, lifting chairs and a trampoline into the air. One neighbour is hit by a flying parasol and goes to hospital. Fortunately, Dot, the stray cat, dodges all of the debris!  </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Gale" && $playerchoices.changedactions.includes(3)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>Gale swirls down, ready to lift objects into the air. Dot, the stray cat, digs her claws into a tree trunk and holds tight. You use your own skills and resources to protect your neighbours.</p> 
 <br/><br/>
 <i>
@@ -1458,7 +1494,7 @@ There’s some extra help available. ",
 <<set $pass to "story5">>
 <<set $nextpass to "story6">>
 <<if $playerchoices.finalmonster isnot "Drench">>
-    <<goto$nextpass>>
+    <<goto $nextpass>>
     <</if>>
 
 
@@ -1479,6 +1515,9 @@ There’s some extra help available. ",
     <p>Drench arrives and rushes into homes. Two neighbours get respiratory infections from the floodwater, and a family is stuck upstairs in their house, with risk of electric shock below. Dot, the stray cat, manages to find shelter though!  </p>
  <</if>>
 <<if $playerchoices.finalmonster is "Drench" && $playerchoices.changedactions.includes(4)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>Drench rushes in. Dot, the stray cat, is seen perching on a high branch. You use your own skills and resources to protect your neighbours.</p> 
 <br/><br/>
 <i>
@@ -1499,6 +1538,8 @@ There’s some extra help available. ",
     <</replace>>
 <</timed>>
 </main>
+
+
 <<include "footeroptionappears">>
 :: story6 [nobr]
 <<set $prevpass to "story5">>
@@ -1529,10 +1570,11 @@ There’s some extra help available. ",
 
  <</if>>
 <<if $playerchoices.changedactions.includes(8)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>You don’t meet someone on the street who is rarely home to answer the door. </p>
-
 <i><p>Turn over one of the face down neighbour cards. </p></i>
-
 <p>You use your own skills and resources. </p>
 <br/><br/>
 <i>
@@ -1553,6 +1595,7 @@ There’s some extra help available. ",
     <</replace>>
 <</timed>>
 </main>
+
 <<include "footeroptionappears">>
 
 :: story7 [nobr]
@@ -1585,6 +1628,9 @@ There’s some extra help available. ",
 
  <</if>>
 <<if $playerchoices.changedactions.includes(9)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>You don’t meet a neighbour who doesn’t use messaging chats. </p>
 
 <i><p>Turn over one of the face down neighbour cards. </p></i>
@@ -1608,6 +1654,7 @@ There’s some extra help available. ",
     <</replace>>
 <</timed>>
 </main>
+
 <<include "footeroptionappears">>
 
 :: story8 [nobr]
@@ -1633,6 +1680,9 @@ There’s some extra help available. ",
 <p>The monster rushes in, and belongings are swept away with them. A neighbour loses all their family photographs, another’s computer is broken. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(5)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>The monster arrives, but you haven’t been able to move your belongings to safety. You have to rely on your own skills and resources. </p>
 <br/><br/>
 <i>
@@ -1652,6 +1702,8 @@ There’s some extra help available. ",
     <</replace>>
 <</timed>>
 </main>
+
+
 <<include "footeroptionappears">>
 
 :: story9 [nobr]
@@ -1675,6 +1727,9 @@ There’s some extra help available. ",
 <p>The monster attacks the electricity supply and there is a 24h outage. You’re unprepared: you can’t regulate your temperature and you struggle to find edible food. It is a shock. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(6)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>The monster attacks the electricity supply and there is a 24h outage. You use your own skills and resources. </p>
 <br/><br/>
 <i>
@@ -1694,6 +1749,8 @@ There’s some extra help available. ",
     <</replace>>
 <</timed>>
 </main>
+
+
 <<include "footeroptionappears">>
 
 :: story10 [nobr]
@@ -1718,6 +1775,9 @@ There’s some extra help available. ",
 <p>The monster forces you to evacuate and you forget key items, including your phone charger. Your neighbour calls asking for help, but your phone has no battery. It doesn’t ring.</p>
  <</if>>
 <<if $playerchoices.changedactions.includes(7)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>The monster forces you to evacuate, and you’re stuck without a plan. You use your skills and resources. </p>
 <br/><br/>
 <i>
@@ -1737,6 +1797,8 @@ There’s some extra help available. ",
     <</replace>>
 <</timed>>
 </main>
+
+
 <<include "footeroptionappears">>
 
 :: story11 [nobr]
@@ -1761,6 +1823,9 @@ There’s some extra help available. ",
 <p>Resources run low, and you have nowhere to turn. Several neighbours run out of food.They are left hungry. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(10)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>Resources run low, there is nowhere to turn. Several neighbours run out of food. You use your own skills and resources. </p>
 <br/><br/>
 <i>
@@ -1780,6 +1845,7 @@ There’s some extra help available. ",
     <</replace>>
 <</timed>>
 </main>
+
 <<include "footeroptionappears">>
 
 :: story12 [nobr]
@@ -1804,6 +1870,9 @@ There’s some extra help available. ",
 <p>Several of the houses are attacked badly by the monster, and become unsafe to stay in. There is nowhere for the neighbours to go. It is terrifying and neighbours are scared and panicked. </p>
  <</if>>
 <<if $playerchoices.changedactions.includes(11)>>
+    <<timed 0.1s>>
+     <<addclass "#cardWrapper" "grey">>
+    <</timed>>
 <p>Several houses are attacked badly by the monster, and become unsafe to stay in. You use your own skills and resources. </p>
 <br/><br/>
 <i>
@@ -1822,6 +1891,7 @@ There’s some extra help available. ",
     <</replace>>
 <</timed>>
 </main>
+
 <<include "footeroptionappears">>
 
 :: wildcardlist [nobr]
@@ -1834,13 +1904,19 @@ There’s some extra help available. ",
 <div sc-eval:class="'actions-item actions-item' + ($actionsoptions[_i].id)" sc-eval:id="'action' + [_i]" sc-eval:data-id="'action' + [_i]">
    <h3>$wildcardoptions[_i].type</h3> $text
    <br/>
-
-     <<link "Choose">>
-    <<set $playerchoices.chosenwildcards.push($wildcardoptions[_i].id)>>
-    <<timed 0.1s>>
-     <<include "checkChosenWildcards">>   
-    <</timed>>       
-     <</link>>
+   <div sc-eval:id="'chooseBtn'+ $wildcardoptions[_i].id" class="chooseBtn">
+     <<link "> Choose">>
+            /* Remove btn once its clicked  */
+        <<set $btnId to "#chooseBtn" + $wildcardoptions[_i].id >>
+        <<replace $btnId>>
+            <</replace>>
+        <<run $playerchoices.chosenwildcards.push($wildcardoptions[_i].id)>>
+        <<timed 0.1s>>
+         <<include "checkChosenWildcards">>   
+        <</timed>>       
+         <</link>>
+        </div>
+     
            </div>
        <</capture>>
    <</for>>
@@ -1854,18 +1930,23 @@ There’s some extra help available. ",
         <<addclass $class "chosen">>
     <</if>>
 <</for>>  
-    <<timed 5s>>
+    <<if $playerchoices.chosenwildcards.length === $playerchoices.wildcards>>
+          /* Disable buttons  */
+    <<replace ".chooseBtn">>
+        <</replace>>
     <<replace "#nextButtonContainer">>
             <<button "Confirm and move on">>
                 <<goto $nextpass>>
             <</button>>
         <</replace>>
-    <</timed>>
+    <</if>>
 
-
+<<script>>
+console.log(State.variables)
+<</script>>
 
 :: wildcards [nobr]
-<<set $prevpass to "story">>
+<<set $prevpass to "story12">>
 <<set $pass to "wildcards">>
 <<set $nextpass to "aftermath">>
 <<set $wildcardoptions to [
@@ -1875,7 +1956,7 @@ There’s some extra help available. ",
      {type: "wildcard", text: "Your councillor sends around insurance experts, to ensure households can get good claims against economic damage.", id:4},
 ]>>
 
-<<if previous() is "story11" && $playerchoices.wildcards is 0>>
+<<if previous() is "story12" && $playerchoices.wildcards is 0>>
 
     <<goto $nextpass>>
 <</if>>
@@ -1900,92 +1981,14 @@ There’s some extra help available. ",
 </main>
 <<include "footersimpleappears">>
 
-<<if previous() is "aftermath">>
+/* <<if previous() is "aftermath">>
 <<goto $prevpass>>
 <<else >>
     <<goto $nextpass>>
-<</if>>
+<</if>> */
 
 
-:: pullwildcards [nobr]
-<<set $prevpass to "story11">>
-<<set $pass to "pullwildcards">>
-<<set $nextpass to "aftermath">>
-<<set $wildcardoptions to [
-    "Local firefighters come to clear debris off the streets.", 
-    "An emergency first aid van sets up on the street, knocking on doors and providing support where needed.", 
-    "Free care packages with water, food and emergency supplies are dropped at each house.",
-    "Your councillor sends around insurance experts, to ensure households can get good claims against economic damage."
-]>>
-<<set $wildcardsdrawn to []>> 
-<<set $remainingwildcards to $playerchoices.wildcards>>
 
-<main>
-    <<if $remainingwildcards > 0 >>
-        <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
-       <img src="assets/img/wildcard.png" alt="Wildcard"/>
-</div></div>
-     
-        <p>Your helpful councillor has sent some extra support:  
-        Pull <<print $remainingwildcards>> wildcard(s).</p>
-
-        <div id="wildcardDisplay"></div>
-        <div id="remainingwildcardsText">
-            <p><span class="accent">Remaining wildcards:</span> <<print $remainingwildcards>></p>
-        </div>
-
-        <div id="drawButtonContainer">
-            <<button "Draw Wildcard">>
-                <<set _drawnCard to "">>
-
-                <<for _tries to 0; _tries lt 10; _tries++>> 
-                    <<set _randomIndex to random(0, $wildcardoptions.length - 1)>>
-                    <<set _potentialCard to $wildcardoptions[_randomIndex]>>
-                    <<if not $wildcardsdrawn.includes(_potentialCard)>>
-                        <<set _drawnCard to _potentialCard>>
-                        <<set $wildcardsdrawn.push(_drawnCard)>>
-                        <<set $remainingwildcards to $remainingwildcards - 1>>
-                        <<break>>
-                    <</if>>
-                <</for>>
-
-                <<append "#wildcardDisplay">>
-                    <p><span class="accent">Wildcard:</span> <<print _drawnCard>></p>
-                <</append>>
-
-                <<replace "#remainingwildcardsText">>
-                    <p><span class="accent">Remaining wildcards:</span> <<print $remainingwildcards>></p>
-                <</replace>>
-
-                <<if $remainingwildcards == 0>>
-                     <<replace "#remainingwildcardsText">>
-              
-                <</replace>>
-                     <<append "#wildcardDisplay">>
-                    <h3>Aren't you lucky?</h3>
-                    <br/>
-                <</append>>
-                    <<replace "#drawButtonContainer">>
-                        <<button "Move On">>
-                            <<goto $nextpass>>
-                        <</button>>
-                    <</replace>>
-                <</if>>
-            <</button>>
-        </div>
-
-    <<else>>
-
-<<if previous() is "aftermathintro">>
-<<goto $prevpass>>
-<<else >>
-    <<goto $nextpass>>
-<</if>>
-
-    <</if>>
-</main>
-<<include "footer">>
 
 :: aftermathintro [nobr]
 <<set $prevpass to "pullwildcards">>
@@ -2018,6 +2021,7 @@ There’s some extra help available. ",
 <<include "footersimpleappears">>
 
 
+
 :: aftermath [nobr]
 <<set $prevpass to "aftermathintro">>
 <<set $pass to "aftermath">>
@@ -2025,6 +2029,7 @@ There’s some extra help available. ",
  <<timed 5s>>
         <<include "3headertimer">>
         <</timed>>
+
 <main class="timer">
 <br/>
 <h2>Review the impacts below</h2>
