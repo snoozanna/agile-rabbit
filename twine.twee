@@ -439,8 +439,8 @@ $(document).on(':passagedisplay', function(ev) {
 
 :: timer [nobr]
   /* <<audio "30s" "play" loop>> */
-
-<<set $seconds to 300>>
+<<set $seconds to 1>>
+/* <<set $seconds to 300>> */
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
 
@@ -458,7 +458,8 @@ $(document).on(':passagedisplay', function(ev) {
 	<</repeat>>
 <</silently>>
 
-  <<timed 120s>>
+  /* <<timed 120s>> */
+      <<timed 1s>>
 
        <<replace "#nextButtonContainer">>
         <<button "Move On">>
@@ -469,7 +470,8 @@ $(document).on(':passagedisplay', function(ev) {
 
 :: 3mtimer [nobr]
   /* <<audio "30s" "play" loop>> */
-<<set $seconds to 180>>
+  <<set $seconds to 1>>
+/* <<set $seconds to 180>> */
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
 
@@ -501,7 +503,8 @@ $(document).on(':passagedisplay', function(ev) {
 
 :: 2mtimer [nobr]
   /* <<audio "30s" "play" loop>> */
-<<set $seconds to 120>>
+<<set $seconds to 1>>
+/* <<set $seconds to 120>> */
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
 
@@ -532,6 +535,7 @@ $(document).on(':passagedisplay', function(ev) {
 <</silently>>
 
 :: 5mtimer [nobr]
+  /* <<set $seconds to 3>> */
   <<set $seconds to 300>>
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
@@ -843,6 +847,7 @@ $(document).on(':passagedisplay', function(ev) {
 
 
 :: actions [nobr]
+
 <<set $prevpass to "chosenMonsterForecast">>
 <<set $pass to "actions">>
 <<set $nextpass to "predice">>
@@ -877,7 +882,7 @@ $(document).on(':passagedisplay', function(ev) {
         <</button>>
     /* 5 Chosen Actions: <div id="chosenActionsMount"></div> */
 </main>
-/* <<include "wallet">> */
+<<include "wallet">>
 <<include "footersimpleappears">>
 
 
@@ -1017,7 +1022,7 @@ There’s some extra help available. ",
     <</button>>
     </div>
 </main>
-
+<<include "wallet">>
 /* <<include "footersimpleappears">> */
 
 
@@ -1181,7 +1186,7 @@ console.log(State.variables)
 <br/>
 
 </main>
-
+<<include "wallet">>
 <<include "footersimpleappears">>
 
 :: choosefinalmonster [nobr]
@@ -1669,7 +1674,7 @@ console.log(State.variables)
   <img src="assets/img/belongings.png" alt="Move precious belongings"/>
 </div></div>
 <br/>
-/* PREPARE 5 = id 5 */
+/* PREPARE 7 = id 7 */
 <<if $playerchoices.chosenactions.includes(7)>>
 <p>The monster rushes in, but can’t reach belongings that sit on high shelves and in attics. Nothing is damaged. Hooray!</p>
  <</if>>
@@ -1716,7 +1721,7 @@ console.log(State.variables)
   <div class="inline-img-wrapper arcardbig" id="cardWrapper">
   <img src="assets/img/emergency.png" alt="Prepare emergency kit"/>
 </div></div>
-<br/>/* PREPARE 6 = id 6 */
+<br/>/* PREPARE 5 = id 5 */
 <<if $playerchoices.chosenactions.includes(5)>>
 <p>The monster attacks the electricity supply and there is a 24h outage. You’re prepared: you have food, water, a first aid kit, and a wind up radio to stay up to date. Phew!</p>
  <</if>>
@@ -1764,7 +1769,7 @@ console.log(State.variables)
   <img src="assets/img/plan.png" alt="Make a plan"/>
 </div></div>
 <br/>
-/* PREPARE 7 = id 7 */
+/* PREPARE 6 = id 6 */
 <<if $playerchoices.chosenactions.includes(6)>>
 <p>The monster forces you to evacuate. Thanks to your plan, you have all you need with you: food, water and a phone charger. Your neighbour calls for help, you pick up! </p>
  <</if>>

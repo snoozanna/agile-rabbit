@@ -441,8 +441,8 @@ $(document).on(':passagedisplay', function(ev) {
     &lt;/div&gt;
     &lt;/main&gt;
     &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="timer" tags="nobr" position="225,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
-
-&lt;&lt;set $seconds to 300&gt;&gt;
+&lt;&lt;set $seconds to 1&gt;&gt;
+/* &lt;&lt;set $seconds to 300&gt;&gt; */
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;$seconds&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;seconds&lt;/span&gt;&lt;/span&gt;
 
 
@@ -460,7 +460,8 @@ $(document).on(':passagedisplay', function(ev) {
 	&lt;&lt;/repeat&gt;&gt;
 &lt;&lt;/silently&gt;&gt;
 
-  &lt;&lt;timed 120s&gt;&gt;
+  /* &lt;&lt;timed 120s&gt;&gt; */
+      &lt;&lt;timed 1s&gt;&gt;
 
        &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
         &lt;&lt;button &quot;Move On&quot;&gt;&gt;
@@ -468,7 +469,8 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="3mtimer" tags="nobr" position="350,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
-&lt;&lt;set $seconds to 180&gt;&gt;
+  &lt;&lt;set $seconds to 1&gt;&gt;
+/* &lt;&lt;set $seconds to 180&gt;&gt; */
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;$seconds&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;seconds&lt;/span&gt;&lt;/span&gt;
 
 
@@ -497,7 +499,8 @@ $(document).on(':passagedisplay', function(ev) {
 		&lt;&lt;/if&gt;&gt;
 	&lt;&lt;/repeat&gt;&gt;
 &lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="2mtimer" tags="nobr" position="475,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
-&lt;&lt;set $seconds to 120&gt;&gt;
+&lt;&lt;set $seconds to 1&gt;&gt;
+/* &lt;&lt;set $seconds to 120&gt;&gt; */
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;$seconds&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;seconds&lt;/span&gt;&lt;/span&gt;
 
 
@@ -525,7 +528,8 @@ $(document).on(':passagedisplay', function(ev) {
 			&lt;&lt;stop&gt;&gt;
 		&lt;&lt;/if&gt;&gt;
 	&lt;&lt;/repeat&gt;&gt;
-&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="5mtimer" tags="nobr" position="600,350" size="100,100">&lt;&lt;set $seconds to 300&gt;&gt;
+&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="5mtimer" tags="nobr" position="600,350" size="100,100">/* &lt;&lt;set $seconds to 3&gt;&gt; */
+  &lt;&lt;set $seconds to 300&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;$seconds&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;seconds&lt;/span&gt;&lt;/span&gt;
 
 
@@ -831,7 +835,7 @@ $(document).on(':passagedisplay', function(ev) {
         &lt;&lt;/button&gt;&gt;
     /* 5 Chosen Actions: &lt;div id=&quot;chosenActionsMount&quot;&gt;&lt;/div&gt; */
 &lt;/main&gt;
-/* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */
+&lt;&lt;include &quot;wallet&quot;&gt;&gt;
 &lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="actionslist" tags="nobr" position="975,475" size="100,100">&lt;div class=&quot;actions-list&quot;&gt;
 &lt;&lt;for _i to 0; _i lt $actionsoptions.length; _i++&gt;&gt;
   &lt;&lt;capture _i&gt;&gt;
@@ -955,7 +959,7 @@ There’s some extra help available. &quot;,
     &lt;&lt;/button&gt;&gt;
     &lt;/div&gt;
 &lt;/main&gt;
-
+&lt;&lt;include &quot;wallet&quot;&gt;&gt;
 /* &lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="41" name="rolling" tags="nobr" position="100,600" size="100,100">&lt;main class=&quot;maindice&quot;&gt;
   &lt;div class=&quot;dice roll&quot;&gt;
     &lt;div class=&quot;dot top-left&quot;&gt;&lt;/div&gt;
@@ -1095,7 +1099,7 @@ console.log(State.variables)
 &lt;br/&gt;
 
 &lt;/main&gt;
-
+&lt;&lt;include &quot;wallet&quot;&gt;&gt;
 &lt;&lt;include &quot;footersimpleappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="choosefinalmonster" tags="nobr" position="850,600" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;forecast.png&quot; &gt;&gt;
  &lt;&lt;set $img2 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[1] + &quot;forecast.png&quot; &gt;&gt;
 
@@ -1549,17 +1553,17 @@ console.log(State.variables)
   &lt;img src=&quot;assets/img/belongings.png&quot; alt=&quot;Move precious belongings&quot;/&gt;
 &lt;/div&gt;&lt;/div&gt;
 &lt;br/&gt;
-/* PREPARE 5 = id 5 */
-&lt;&lt;if $playerchoices.chosenactions.includes(5)&gt;&gt;
+/* PREPARE 7 = id 7 */
+&lt;&lt;if $playerchoices.chosenactions.includes(7)&gt;&gt;
 &lt;p&gt;The monster rushes in, but can’t reach belongings that sit on high shelves and in attics. Nothing is damaged. Hooray!&lt;/p&gt;
  &lt;&lt;/if&gt;&gt;
-&lt;&lt;if !$playerchoices.chosenactions.includes(5) &amp;&amp; !$playerchoices.changedactions.includes(5)&gt;&gt;
+&lt;&lt;if !$playerchoices.chosenactions.includes(7) &amp;&amp; !$playerchoices.changedactions.includes(7)&gt;&gt;
 &lt;&lt;timed 0.1s&gt;&gt;
      &lt;&lt;addclass &quot;#cardWrapper&quot; &quot;grey&quot;&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
 &lt;p&gt;The monster rushes in, and belongings are swept away with them. A neighbour loses all their family photographs, another’s computer is broken. &lt;/p&gt;
  &lt;&lt;/if&gt;&gt;
-&lt;&lt;if $playerchoices.changedactions.includes(5)&gt;&gt;
+&lt;&lt;if $playerchoices.changedactions.includes(7)&gt;&gt;
     &lt;&lt;timed 0.1s&gt;&gt;
      &lt;&lt;addclass &quot;#cardWrapper&quot; &quot;grey&quot;&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
@@ -1593,17 +1597,17 @@ console.log(State.variables)
   &lt;div class=&quot;inline-img-wrapper arcardbig&quot; id=&quot;cardWrapper&quot;&gt;
   &lt;img src=&quot;assets/img/emergency.png&quot; alt=&quot;Prepare emergency kit&quot;/&gt;
 &lt;/div&gt;&lt;/div&gt;
-&lt;br/&gt;/* PREPARE 6 = id 6 */
-&lt;&lt;if $playerchoices.chosenactions.includes(6)&gt;&gt;
+&lt;br/&gt;/* PREPARE 5 = id 5 */
+&lt;&lt;if $playerchoices.chosenactions.includes(5)&gt;&gt;
 &lt;p&gt;The monster attacks the electricity supply and there is a 24h outage. You’re prepared: you have food, water, a first aid kit, and a wind up radio to stay up to date. Phew!&lt;/p&gt;
  &lt;&lt;/if&gt;&gt;
-&lt;&lt;if !$playerchoices.chosenactions.includes(6) &amp;&amp; !$playerchoices.changedactions.includes(6)&gt;&gt;
+&lt;&lt;if !$playerchoices.chosenactions.includes(5) &amp;&amp; !$playerchoices.changedactions.includes(5)&gt;&gt;
 &lt;&lt;timed 0.1s&gt;&gt;
      &lt;&lt;addclass &quot;#cardWrapper&quot; &quot;grey&quot;&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
 &lt;p&gt;The monster attacks the electricity supply and there is a 24h outage. You’re unprepared: you can’t regulate your temperature and you struggle to find edible food. It is a shock. &lt;/p&gt;
  &lt;&lt;/if&gt;&gt;
-&lt;&lt;if $playerchoices.changedactions.includes(6)&gt;&gt;
+&lt;&lt;if $playerchoices.changedactions.includes(5)&gt;&gt;
     &lt;&lt;timed 0.1s&gt;&gt;
      &lt;&lt;addclass &quot;#cardWrapper&quot; &quot;grey&quot;&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
@@ -1638,17 +1642,17 @@ console.log(State.variables)
   &lt;img src=&quot;assets/img/plan.png&quot; alt=&quot;Make a plan&quot;/&gt;
 &lt;/div&gt;&lt;/div&gt;
 &lt;br/&gt;
-/* PREPARE 7 = id 7 */
-&lt;&lt;if $playerchoices.chosenactions.includes(7)&gt;&gt;
+/* PREPARE 6 = id 6 */
+&lt;&lt;if $playerchoices.chosenactions.includes(6)&gt;&gt;
 &lt;p&gt;The monster forces you to evacuate. Thanks to your plan, you have all you need with you: food, water and a phone charger. Your neighbour calls for help, you pick up! &lt;/p&gt;
  &lt;&lt;/if&gt;&gt;
-&lt;&lt;if !$playerchoices.chosenactions.includes(7) &amp;&amp; !$playerchoices.changedactions.includes(7)&gt;&gt;
+&lt;&lt;if !$playerchoices.chosenactions.includes(6) &amp;&amp; !$playerchoices.changedactions.includes(6)&gt;&gt;
 &lt;&lt;timed 0.1s&gt;&gt;
      &lt;&lt;addclass &quot;#cardWrapper&quot; &quot;grey&quot;&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
 &lt;p&gt;The monster forces you to evacuate and you forget key items, including your phone charger. Your neighbour calls asking for help, but your phone has no battery. It doesn’t ring.&lt;/p&gt;
  &lt;&lt;/if&gt;&gt;
-&lt;&lt;if $playerchoices.changedactions.includes(7)&gt;&gt;
+&lt;&lt;if $playerchoices.changedactions.includes(6)&gt;&gt;
     &lt;&lt;timed 0.1s&gt;&gt;
      &lt;&lt;addclass &quot;#cardWrapper&quot; &quot;grey&quot;&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
@@ -1724,7 +1728,7 @@ console.log(State.variables)
 &lt;main&gt;
 &lt;div class=&quot;inline-img-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper arcardbig&quot; id=&quot;cardWrapper&quot;&gt;
-  &lt;img src=&quot;assets/img/local.png&quot; alt=&quot;Connect to local community centre or faith space&quot;/&gt;
+  &lt;img src=&quot;assets/img/local.png&quot; alt=&quot;Connect to local school centre or faith space&quot;/&gt;
 &lt;/div&gt;&lt;/div&gt;
 &lt;br/&gt;
 /* CONNECT 4 = id 11 */
