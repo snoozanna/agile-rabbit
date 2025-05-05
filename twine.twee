@@ -1670,16 +1670,16 @@ console.log(State.variables)
 </div></div>
 <br/>
 /* PREPARE 5 = id 5 */
-<<if $playerchoices.chosenactions.includes(5)>>
+<<if $playerchoices.chosenactions.includes(7)>>
 <p>The monster rushes in, but can’t reach belongings that sit on high shelves and in attics. Nothing is damaged. Hooray!</p>
  <</if>>
-<<if !$playerchoices.chosenactions.includes(5) && !$playerchoices.changedactions.includes(5)>>
+<<if !$playerchoices.chosenactions.includes(7) && !$playerchoices.changedactions.includes(7)>>
 <<timed 0.1s>>
      <<addclass "#cardWrapper" "grey">>
     <</timed>>
 <p>The monster rushes in, and belongings are swept away with them. A neighbour loses all their family photographs, another’s computer is broken. </p>
  <</if>>
-<<if $playerchoices.changedactions.includes(5)>>
+<<if $playerchoices.changedactions.includes(7)>>
     <<timed 0.1s>>
      <<addclass "#cardWrapper" "grey">>
     <</timed>>
@@ -1717,16 +1717,16 @@ console.log(State.variables)
   <img src="assets/img/emergency.png" alt="Prepare emergency kit"/>
 </div></div>
 <br/>/* PREPARE 6 = id 6 */
-<<if $playerchoices.chosenactions.includes(6)>>
+<<if $playerchoices.chosenactions.includes(5)>>
 <p>The monster attacks the electricity supply and there is a 24h outage. You’re prepared: you have food, water, a first aid kit, and a wind up radio to stay up to date. Phew!</p>
  <</if>>
-<<if !$playerchoices.chosenactions.includes(6) && !$playerchoices.changedactions.includes(6)>>
+<<if !$playerchoices.chosenactions.includes(5) && !$playerchoices.changedactions.includes(5)>>
 <<timed 0.1s>>
      <<addclass "#cardWrapper" "grey">>
     <</timed>>
 <p>The monster attacks the electricity supply and there is a 24h outage. You’re unprepared: you can’t regulate your temperature and you struggle to find edible food. It is a shock. </p>
  <</if>>
-<<if $playerchoices.changedactions.includes(6)>>
+<<if $playerchoices.changedactions.includes(5)>>
     <<timed 0.1s>>
      <<addclass "#cardWrapper" "grey">>
     <</timed>>
@@ -1765,16 +1765,16 @@ console.log(State.variables)
 </div></div>
 <br/>
 /* PREPARE 7 = id 7 */
-<<if $playerchoices.chosenactions.includes(7)>>
+<<if $playerchoices.chosenactions.includes(6)>>
 <p>The monster forces you to evacuate. Thanks to your plan, you have all you need with you: food, water and a phone charger. Your neighbour calls for help, you pick up! </p>
  <</if>>
-<<if !$playerchoices.chosenactions.includes(7) && !$playerchoices.changedactions.includes(7)>>
+<<if !$playerchoices.chosenactions.includes(6) && !$playerchoices.changedactions.includes(6)>>
 <<timed 0.1s>>
      <<addclass "#cardWrapper" "grey">>
     <</timed>>
 <p>The monster forces you to evacuate and you forget key items, including your phone charger. Your neighbour calls asking for help, but your phone has no battery. It doesn’t ring.</p>
  <</if>>
-<<if $playerchoices.changedactions.includes(7)>>
+<<if $playerchoices.changedactions.includes(6)>>
     <<timed 0.1s>>
      <<addclass "#cardWrapper" "grey">>
     <</timed>>
@@ -1856,7 +1856,7 @@ console.log(State.variables)
 <main>
 <div class="inline-img-container">
   <div class="inline-img-wrapper arcardbig" id="cardWrapper">
-  <img src="assets/img/local.png" alt="Connect to local community centre or faith space"/>
+  <img src="assets/img/local.png" alt="Connect to local school centre or faith space"/>
 </div></div>
 <br/>
 /* CONNECT 4 = id 11 */
