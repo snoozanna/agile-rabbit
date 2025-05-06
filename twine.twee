@@ -439,8 +439,8 @@ $(document).on(':passagedisplay', function(ev) {
 
 :: timer [nobr]
   /* <<audio "30s" "play" loop>> */
-<<set $seconds to 1>>
-/* <<set $seconds to 300>> */
+/* <<set $seconds to 1>> */
+<<set $seconds to 300>>
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
 
@@ -458,8 +458,8 @@ $(document).on(':passagedisplay', function(ev) {
 	<</repeat>>
 <</silently>>
 
-  /* <<timed 120s>> */
-      <<timed 1s>>
+  <<timed 120s>>
+      /* <<timed 1s>> */
 
        <<replace "#nextButtonContainer">>
         <<button "Move On">>
@@ -470,8 +470,8 @@ $(document).on(':passagedisplay', function(ev) {
 
 :: 3mtimer [nobr]
   /* <<audio "30s" "play" loop>> */
-  <<set $seconds to 1>>
-/* <<set $seconds to 180>> */
+  /* <<set $seconds to 1>> */
+<<set $seconds to 180>>
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
 
@@ -503,8 +503,8 @@ $(document).on(':passagedisplay', function(ev) {
 
 :: 2mtimer [nobr]
   /* <<audio "30s" "play" loop>> */
-<<set $seconds to 1>>
-/* <<set $seconds to 120>> */
+/* <<set $seconds to 1>> */
+<<set $seconds to 120>>
 <span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
 
 
@@ -882,7 +882,7 @@ $(document).on(':passagedisplay', function(ev) {
         <</button>>
     /* 5 Chosen Actions: <div id="chosenActionsMount"></div> */
 </main>
-<<include "wallet">>
+/* <<include "wallet">> */
 <<include "footersimpleappears">>
 
 
@@ -1022,7 +1022,7 @@ There’s some extra help available. ",
     <</button>>
     </div>
 </main>
-<<include "wallet">>
+/* <<include "wallet">> */
 /* <<include "footersimpleappears">> */
 
 
@@ -1186,7 +1186,7 @@ console.log(State.variables)
 <br/>
 
 </main>
-<<include "wallet">>
+/* <<include "wallet">> */
 <<include "footersimpleappears">>
 
 :: choosefinalmonster [nobr]
