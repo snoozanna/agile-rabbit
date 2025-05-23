@@ -164,12 +164,14 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "landing">>
 <<set $pass to "landing">>
 <<set $nextpass to "intro1">>
+<<set $audioOn to false>>
 
 <<set $playerchoices to {
     chosenmonsters: [],
     finalmonster: [],
     originalactions: [],
     chosenactions: [],
+    rolledagain:false,
     chosenactionstosave: [],
     originalactionstosave: [],
     changedactions:[],
@@ -234,25 +236,32 @@ $(document).on(':passagedisplay', function(ev) {
         <h3>Game Board</h3><img src="assets/img/board.jpg" alt="Demo Game Board"/>
 </div></div>
 
-<p>Choose someone to play your <span class="accent">Facilitator</span>, they’ll read out instructions & deal out cards.</p>
-<p>The facilitator can still play the game, or sit on the outside, totally up to you.</p>
+<p>Choose someone to play your <span class="accent">Facilitator</span>, they’ll lead you through the game.</p>
+<p>The facilitator can play, or sit on the outside, totally up to you. </p>
+<p>Let us know if you want to play with sound, or without sound.  </p>
+<p>If you have no sound, your facilitator will need to read the text aloud.</p>
 
-<p>When you’re ready to play: </p>
+<<button "With Sound">>
+    <<set $audioOn to true>>
+    <<goto $nextpass>>
+    <</button>>
 
-<<timed 3s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Begin">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
+<<button "Without Sound">>
+    <<set $audioOn to false>>
+    <<goto $nextpass>>
+    <</button>>
+
+
 
 :: intro2 [nobr]
 <<set $prevpass to "intro1">>
 <<set $pass to "intro2">>
 <<set $nextpass to "intro3">>
+<<if $audioOn is true>><audio src="" autoplay loop>Audio is not supported on your device</audio><</if>>
 
 <<include "_templateIntro">>
+
+
 
 
 :: intro2-text [nobr]
@@ -288,11 +297,6 @@ $(document).on(':passagedisplay', function(ev) {
 <p>You will play as neighbours on a single street - High Street - it’s the most common street name in the UK. </p>
 <p>High Street could be anywhere in the country. There are some houses, a block of flats, a couple of shops and a stray cat named Dot.</p>
 
-<br/>
-<p>
-    If there are multiple tables playing, each represents a different High Street in a different part of the UK. 
-    You will all face the same disaster. 
-</p>
 
 <<timed 3s>>
     <<replace "#nextButtonContainer">>
@@ -331,7 +335,7 @@ $(document).on(':passagedisplay', function(ev) {
 <<timed 9s>>
     <<replace "#line5">>
         <br/>
-        <p>The aim of this game is to prepare, respond and recover well from this attack.</p>
+        <p>The aim of this game is to prepare for, respond to and recover well from this attack. </p>
     <</replace>>
 <</timed>>
 
@@ -359,10 +363,10 @@ $(document).on(':passagedisplay', function(ev) {
 <main class="grid-wrapper">
 
     <div class="grid-item explanation">
-        <p>Each player will play as a neighbour on High Street. </p>
+        <p>Each player will play as a neighbour on High Street.  </p>
 <p>We’ll start by getting to know you. </p>
 <br/>
-<p>Players, pick one of the <span class="accent">Player Cards</span>, and turn it face up. </p>
+<p>Players, pick one of the <span class="accent">Player Cards</span>. </p>
 <br/>
       <div class="info-container">
          <div class="inline-img-container"><div class="inline-img-wrapper arcard">
@@ -372,8 +376,8 @@ $(document).on(':passagedisplay', function(ev) {
    </div>
      </div>
 <br/>
-    <p>Turn it face up. </p>        
-    <p>Leave the remaining cards face down.  </p>
+    <p>Turn it face up to reveal your character details.  </p>        
+    <p>Leave the remaining cards in the pile with the doors facing up.  </p>
         
     </div>
 
@@ -399,10 +403,13 @@ $(document).on(':passagedisplay', function(ev) {
     <div class="grid-item explanation">
        
 <p>Your card will tell you about who you’re playing.</p> 
-<p>You’ll find some interesting and peculiar facts and skills. </p>
+<p>You’ll find your house number and some interesting and peculiar facts and skills.  </p>
 <p>But there’s one missing... </p>
 <p>for you to fill. </p>
-<p>Fill in the blank with a fact or skill that's true for you. </p>
+<br/>
+<p>Take a moment to get to know the person you are playing as.</p> 
+<p>Then, fill in the blank with a fact or skill that's true for you. 
+</p>
     </div>
     </main>
     <<include "footeroptionappears">>
@@ -418,7 +425,7 @@ $(document).on(':passagedisplay', function(ev) {
 :: playercards-c [nobr]
 <<set $prevpass to "playercards-b">>
 <<set $pass to "playercards-c">>
-<<set $nextpass to "monstercards-intro">>
+<<set $nextpass to "monstercards-preintro">>
 
 
  <<timed 5s>>
@@ -429,38 +436,41 @@ $(document).on(':passagedisplay', function(ev) {
 <br/>
     <div class="grid-item explanation">
 <p>Take the time to introduce yourselves to your fellow neighbours on High Street. </p>
-<p>Share your name: it can be your real name, or an imaginary one. </p>
-<p>Share your interesting and peculiar skills & facts. </p>
-
+<p>Share your house number, and your interesting and peculiar skills & facts. </p>
+$nextpass
     </div>
     </main>
     <<include "footeroptionappears">>
 
 
 :: timer [nobr]
-  /* <<audio "30s" "play" loop>> */
-/* <<set $seconds to 1>> */
 <<set $seconds to 300>>
-<span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
-
+<span id="countdown"><span class="time">Loading...</span></span>
 
 <<silently>>
 	<<repeat 1s>>
 		<<set $seconds to $seconds - 1>>
 		<<if $seconds gt 0>>
-			<<replace "#countdown">><span class="secs">$seconds</span> <span class="extra">seconds</span><</replace>>
+			<<replace "#countdown">>
+				<<if $seconds >= 60>>
+					<<set _min to Math.floor($seconds / 60)>>
+					<<set _sec to $seconds % 60>>
+					<span class="time">$_min:<<if _sec lt 10>>0<</if>>$_sec</span>
+				<<else>>
+					<span class="time">$seconds seconds</span>
+				<</if>>
+			<</replace>>
 		<<else>>
-			<<replace "#countdown">><strong>Times up</strong><</replace>>
-     
-  
+			<<replace "#countdown">><strong>Time's up</strong><</replace>>
 			<<stop>>
 		<</if>>
 	<</repeat>>
 <</silently>>
 
 
+
       /* <<timed 1s>> */
-  <<timed 120s>>
+  <<timed 3s>>
        <<replace "#nextButtonContainer">>
         <<button "Move On">>
             <<goto $nextpass>>
@@ -501,6 +511,22 @@ $(document).on(':passagedisplay', function(ev) {
 	<</repeat>>
 <</silently>>
 
+ <<timed 3s>>
+       <<replace "#nextButtonContainer">>
+        <<button "Move On">>
+            <<if $pass is "questions2">>
+             <<button "End">>
+            <<goto $nextpass>>
+             <</button>>
+         <<else>>
+            <<button "Move On">>
+            <<goto $nextpass>>
+             <</button>>
+            <</if>>
+            <</button>>
+        <</replace>>
+        <</timed>>
+
 :: 2mtimer [nobr]
   /* <<audio "30s" "play" loop>> */
 /* <<set $seconds to 1>> */
@@ -534,6 +560,20 @@ $(document).on(':passagedisplay', function(ev) {
 	<</repeat>>
 <</silently>>
 
+ <<timed 3s>>
+       <<replace "#nextButtonContainer">>
+            <<if $pass is "questions2">>
+             <<button "End">>
+            <<goto $nextpass>>
+             <</button>>
+         <<else>>
+            <<button "Move On">>
+            <<goto $nextpass>>
+             <</button>>
+            <</if>>
+        <</replace>>
+        <</timed>>
+
 :: 5mtimer [nobr]
   /* <<set $seconds to 3>> */
   <<set $seconds to 300>>
@@ -554,7 +594,7 @@ $(document).on(':passagedisplay', function(ev) {
 	<</repeat>>
 <</silently>>
 
-  <<timed 60s>>
+  <<timed 3s>>
        <<replace "#nextButtonContainer">>
         <<button "Move On">>
             <<goto $nextpass>>
@@ -562,18 +602,53 @@ $(document).on(':passagedisplay', function(ev) {
         <</replace>>
         <</timed>>
 
-:: monstercards-intro [nobr]
+:: monstercards-preintro [nobr]
 <<set $prevpass to "playercards-c">>
+<<set $pass to "monstercards-preintro">>
+<<set $nextpass to "monstercards-intro">>
+
+<main class="">
+    <div class="explanation">
+   <p>Excellent, you have now met some of your neighbours.</p>
+<p>For this game, you, as a group, are playing as the representatives of High Street.</p> 
+<p>You will be responsible for helping the whole street prepare for the disaster that looms on the horizon...</p>
+<p>the monster that is coming.</p> 
+
+<p>You have chosen to be this representative.</p>
+<p>And let’s be honest... you’re the representatives because you’re the people who turned up to the community planning meeting. </p>
+
+<p>There are other people on High Street too, doors not yet opened. </p>
+<p>Any choice you make will impact your neighbours as much as it impacts all of you. </p>
+
+</div>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: monstercards-intro [nobr]
+<<set $prevpass to "monstercards-preintr">>
 <<set $pass to "monstercards-intro">>
 <<set $nextpass to "monstercards">>
 
 <main class="">
     <div class="explanation">
-    <p> Excellent, you have now met your community. </p>
-<p>But, as you settle into your new homes and characters, disaster looms on the horizon...</p>
-<p>a monster is coming. </p>
+    <p>Now to the attack... </p>
 
-<p>There are four possible monsters that might strike: Gale, Drench, Inferno and Crystal. </p>
+<p>There are four possible monsters that might strike: </p>
+<ul>
+    <li><p>Gale, a monster made of wind</p></li>
+    <li><p>Drench, a monster made of water </p></li>
+    <li><p>Inferno  monster made of heat & fire</p></li>
+    <li><p>Crystal, a monster made of snow & ice. </p></li>
+</ul>
+
   <div class="inline-img-container">
   <div class="inline-img-wrapper arcard">
     <img src="assets/img/monster.png" alt="Monsters"/>
@@ -602,7 +677,7 @@ $(document).on(':passagedisplay', function(ev) {
     <div class="explanation">
 
 <p>Shuffle the Monster Cards and draw 2.  </p>
-<p>Select the cards you drew below. </p>
+<p>Then, select the cards you drew below.  </p>
 
    
     </div>
@@ -734,8 +809,8 @@ $(document).on(':passagedisplay', function(ev) {
 <p>Now you know what could be coming, there is a chance to prepare. </p>
 <p>There are different actions you might take to get ready for the monster attack. </p>
 
-<p><span class="accent">Prepare</span> actions, focussed on physical preparation. </p>
- <p><span class="accent">Connect</span> actions, focussed on connecting to High Street and your local community. </p>
+<p><span class="accent">Prepare</span> actions, physical preparations for neighbours to do at home or on the street.  </p>
+ <p><span class="accent">Connect</span> actions, connecting to your neighbours and local community. </p>
  <br/>
   <div class="inline-img-container cards-selection">
   <div class="inline-img-wrapper arcard">
@@ -770,8 +845,9 @@ $(document).on(':passagedisplay', function(ev) {
     <div class="explanation">
 
 <p>Facilitator, lay out the <span class="accent">Prepare</span> and <span class="accent">Connect</span> actions on the table.</p>
-<p>As a street, you need to choose FIVE actions to prepare for the monster attack. 
- </p>
+<p>You need to choose FIVE actions to prepare for the monster attack. </p>
+<p>A reminder of the Monsters that might strike: </p>
+
 
 
 <p>A reminder of the forecast: </p>
@@ -850,7 +926,7 @@ $(document).on(':passagedisplay', function(ev) {
 
 <<set $prevpass to "chosenMonsterForecast">>
 <<set $pass to "actions">>
-<<set $nextpass to "predice">>
+<<set $nextpass to "postactionchoice">>
 <<set $actionsoptions to [
     {type: "prepare", actionnum: 1, text: "Lay out some salt.", id:1},
     {type: "prepare", actionnum: 2, text: "Gather drinks and ice." , id:2},
@@ -870,7 +946,7 @@ $(document).on(':passagedisplay', function(ev) {
 <main class="">
     <div class="explanation">
     <p>Take a moment to read out your choices.</p> 
-<p>Then tell us what you’ve selected here </p>
+<p>Then, select them below. </p>
     </div>
     <<include "actionslist">>
     <br/>
@@ -944,7 +1020,27 @@ $(document).on(':passagedisplay', function(ev) {
     <</timed>>
     <</if>>
 
+:: postactionchoice [nobr]
+<<set $prevpass to "actions">>
+<<set $pass to "postactionchoice">>
+<<set $nextpass to "predice">>
 
+<main class="">
+    <div class="explanation">
+<p>Place out the action cards you have chosen ahead of you.  </p>
+<p>Put the remaining action cards face down in a discard pile. </p>
+
+ </div>
+</main>
+
+<<include "footeroptionappears">>
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
 
 :: predice [nobr]
 
@@ -1010,10 +1106,10 @@ There’s some extra help available. ",
 <p>You know little about the High Street you live on. </p>
 <p>But we all know that the world is unfair.  </p>
 <br/>
-<p>Life on different High Streets vary wildly across the UK.</p> 
+<p>Life on different High Streets varies wildly across the UK. </p> 
 <br/>
 <p>Before the monster arrives, we’re going to find out just how unfair things are: how fortunate this High Street is. </p>
-<p>To do this you’ll roll a… [virtual] die. </p>
+<p>To do this you’ll roll a... [virtual] die. </p>
 <br/>
   <<button "Roll">>
 <<set $diceroll to random(0,5) >>
@@ -1072,6 +1168,7 @@ There’s some extra help available. ",
     <p>In the real world fortune is very hard to change. </p>
     <p>But since this is a game... Would you like to roll again? </p>
     <<button "Roll again">>
+        <<set $rolledagain to true>>
         <<set _failedActions to []>> 
         <<set $diceroll to random(0,5) >>
         <<goto "diceresults">>
@@ -1176,11 +1273,11 @@ console.log(State.variables)
 <br/>
 <p>The monster attack is moments away and we can finally see which monster is coming. </p>
 <br/>
-<p>Shuffle the two forecast cards. </p>
+<p>Shuffle the two monster cards.  </p>
 <p>Facilitator, hold them upside down. </p>
-<p>One player, select a card to reveal the monster you will face. </p>
+<p>One player, choose a card to reveal the monster you will face.  </p>
 <br/>
-<p>Select the monster below. </p>
+<p>Now, select this monster below.  </p>
 </div>
 <<include "choosefinalmonster">>
 <br/>
@@ -1262,8 +1359,8 @@ console.log(State.variables)
 <<set $nextpass to "story1">>
 <<set $imgfinalmonster to "assets/img/" + "Demo_" + $playerchoices.finalmonster + ".png">>
 <main>
-<h2>Now the monster is closing in on High Street. </h2>
-<h3>We’re going to uncover how this attack plays out. </h3>
+<h2>The monster closes in on High Street. </h2>
+<h3>We’re going to uncover how this attack plays out.  </h3>
 <br/>
  <div class="inline-img-container">
   <div class="inline-img-wrapper arcardbig">
@@ -2005,14 +2102,14 @@ console.log(State.variables)
   <div class="inline-img-wrapper arcard">
     <img src="assets/img/recovery.png" alt="Recovery"/>
 </div></div>
-<h2>The monster leaves High Street. </h2>
+<h2>The monster retreats from High Street.  </h2>
 
-<h3>You are left with some consequences to contend with.</h3>
+<h3>You’re left with the aftermath. </h3>
 
-<p>You’ll use your skills, resources and connections to help High Street begin its recovery. </p>
-<p>Perhaps you will use your construction skills to help repair a broken roof, or make a round of incredible sandwiches to lift everyone’s mood? </p>
+<p>While the street came together, you were not able to keep the monster completely at bay. <p>
+<p>You are left facing the consequences.  </p>
+<p>How will you recover? </p>
 
-<p>Click below to discover the impacts.</p>
 
 
 <<timed 3s>>
@@ -2031,128 +2128,109 @@ console.log(State.variables)
 <<set $prevpass to "aftermathintro">>
 <<set $pass to "aftermath">>
 <<set $nextpass to "outro">>
- <<timed 5s>>
+ <<timed 10s>>
         <<include "3headertimer">>
         <</timed>>
 
 <main class="timer">
 <br/>
-<h2>Review the impacts below</h2>
+<h2>The monster attack has left High Street reeling. </h2>
 <br/>
-<p>Take some time to discuss the actions you will take, using only what you have at your disposal (on your character cards).</p>
-<p>You don’t need to cover all of the impacts, perhaps focus on three if you need to. </p> 
-<p>Facilitator, we recommend three minutes for this. </p>
-<p>When you’re ready, share what you will do. </p>
+<p>Morale is low and neighbours across High Street are left scared and shaken. </p>
+<p>Despite your planning and preparations, the monster had a big impact, and there were some things you couldn’t predict. </p>
+<p>Some neighbours have experienced damage to their homes, while others have experienced damage to their health. </p>
+<p>For everyone, the monster’s visit has left a lasting impression. </p>
+<p>High Street doesn’t feel the same. </p>
 <br/>
 
-<ul class="consequences-list">
-/* If Connect 5 is not selected */
-<<if !$playerchoices.chosenactions.includes(12)>>
-    <li>
-    <p>Neighbourhood morale is low. </p>
-    </li>
- <</if>>
+<p>Together, you will decide how to use your skills, resources and talents to build morale and put High Street on the road to recovery. </p>
+<br/>
+<p>Your plan could be practical: putting together a team to mend broken windows. </p>
+<p>or fantastical: hosting an immersive unicorn party </p>
+<p>Or a bit of both!</p>
+<br/>
+<p>Facilitator, spend three minutes on this discussion. </p>
+<p>We recommend doing this by inviting everyone to share their pitch for an event, action or activity. </p>
+<br/>
+<p>When you’ve done that - </p>
 
-/* If monster is CRYSTAL And If Prepare 1 is not selected  */
- <<if $playerchoices.finalmonster is "Crystal" && !$playerchoices.chosenactions.includes(1)>>
-<li>
-<p>One neighbour has a broken wrist and two have sprained ankles.</p>
-</li>
-<</if>>
-
-/* If monster is INFERNO And If Prepare 2 is not selected  */
-<<if $playerchoices.finalmonster is "Inferno" && !$playerchoices.chosenactions.includes(2)>>
-<li>
-<p>Two neighbours are recovering from dehydration, and one is still in hospital.</p>
-</li>
-<</if>>
-
-/* If monster is GALE And If Prepare 3 is not selected  */
-<<if $playerchoices.finalmonster is "Gale" && !$playerchoices.chosenactions.includes(3)>>
-<li>
-<p> A neighbour hit by a flying parasol is still in hospital.  </p>
-</li>
-<</if>>
-
-/* If monster is DRENCH And If Prepare 4 is not selected  */
-<<if $playerchoices.finalmonster is "Drench" && !$playerchoices.chosenactions.includes(4)>>
-<li>
-<p>Two neighbours have respiratory infections and several are traumatised from being trapped in their homes. </p>
-</li>
-<</if>>
-
-/* If Connect 1 is not selected  */
-<<if !$playerchoices.chosenactions.includes(8)>>
-<li>
-<p>Neighbours were not able to access support. </p>
-</li>
-<</if>>
-
-/* If Connect 2 is not selected  */
-<<if !$playerchoices.chosenactions.includes(9)>>
-<li>
-<p>Neighbours were not able to access support. </p>
-</li>
-<</if>>
-
-/* If Prepare 5 is not selected  */
-<<if !$playerchoices.chosenactions.includes(5)>>
-<li>
-<p>One neighbour lost all their family photographs, and another lost their computer. </p>
-</li>
-<</if>>
-
-/* If Prepare 6 is not selected  */
-<<if !$playerchoices.chosenactions.includes(6)>>
-<li>
-<p>Neighbours are still in shock.  </p>
-</li>
-<</if>>
-
-/* If Prepare 7 is not selected  */
-<<if !$playerchoices.chosenactions.includes(7)>>
-<li>
-<p>A neighbour, who was left stranded, feels abandoned. </p>
-</li>
-<</if>>
-
-/* If Connect 3 is not selected  */
-<<if !$playerchoices.chosenactions.includes(10)>>
-<li>
-<p>Neighbours are emotionally impacted and managing health conditions from days without food. </p>
-</li> 
-    <</if>>
-
-/* If Connect 4 is not selected  */
-<<if !$playerchoices.chosenactions.includes(11)>>
-<li>
-<p>Neighbours are still scared. </p>
-</li>
-<</if>>
-</ul>
 
 </main>
 <<include "footersimpleappears">>
 
-
-
-
 :: outro [nobr]
 <<set $prevpass to "aftermath">>
 <<set $pass to "outro">>
+<<set $nextpass to "record">>
+
+<main>
+ 
+<p>Now, you need to pick a pitch.</p>
+<br/>
+
+<p>There might already be a clear winner. </p>
+
+<p>If not, go round and make your pitches one last time. </p>
+<p>What can you do to build High Street’s morale? </p>
+<br/>
+<p>Then together, make your choice.</p>
+ <br/>
+<p>Once you have your final pitch: </p>
+<br/>
+
+    
+<<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+</main>
+<<include "footeroptionappears">>
+
+
+:: record [nobr]
+<<set $prevpass to "outro">>
+<<set $pass to "record">>
 <<set $nextpass to "outro2">>
 
 <main>
-  <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig">
-    <img src="assets/img/cat.png" alt="Cat"/>
-</div></div>
-<p>Dot, the stray cat, wanders down the street and watches as neighbours come together to repair roofs, share food and start the journey to recovery. </p>
+ 
+<p>Now you have your pitch, we want you to tell us what it is. </p>
+<p>When you’re ready, press RECORD below, speak into the microphone and tell us what you have planned. </p>
+<br/>
+<p>We’ll record an audio file of your pitch - the action you will take for your High Street. </p>
 
-<p>There are still challenges and obstacles, & areas which need care & attention, but what you should remember is...</p>
-
-
+SPEAKPIPE
     
+<<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+</main>
+<<include "footeroptionappears">>
+
+:: postrecord [nobr]
+<<set $prevpass to "record">>
+<<set $pass to "postrecord">>
+<<set $nextpass to "outro2">>
+
+<main>
+ 
+<p>On High Street, your plan is put into action. </p>
+<br/>
+<p>You watch the practical, fantastical, practical / fantastical events unfold and reflect on all you have been through...</p>
+<p>Dot is impressed.</p>
+<br/>
+<p>You made some good choices. </p>
+<p>You made some less good ones. </p>
+<i>Potential ref to score here - You could have made choices that were 20% better. </i>
+
+
 <<timed 3s>>
     <<replace "#nextButtonContainer">>
     <<button "Move on">>
@@ -2174,7 +2252,7 @@ console.log(State.variables)
 <p>When you came together, you didn’t only keep the street safe, you looked after each other too. </p>
 <br/>
 <p>Well done! </p>
-<p>No matter what remains, know that High Street is on the road to recovery, and we are Stronger Together.</p>
+<p>No matter what remains, know that High Street is on the road to recovery, and we are <span class="accent">Stronger Together.</span></p>
 
 
     
@@ -2201,8 +2279,10 @@ console.log(State.variables)
 </div></div>
 <br/>
 <h2>That’s the end of the game! </h2>
-<p>There is now time to debrief and discuss. Talk through the three questions below. </p>
-<p>Facilitator, we recommend five minutes for this discussion. </p>
+<p>There is now time for you to debrief and discuss. </p>
+<p>Talk through the questions and reflect together.  </p>
+
+<p><i>Facilitator, we recommend five minutes for this discussion.</i> </p>
     
 <<timed 3s>>
     <<replace "#nextButtonContainer">>
@@ -2252,15 +2332,40 @@ console.log(State.variables)
 <<include "footeroptionappears">>
 
 
+
 :: question3 [nobr]
 <<set $prevpass to "question2">>
 <<set $pass to "question3">>
+<<set $nextpass to "question4">>
+
+<main class="timer">
+ONLY IF ROLL AGAGIN
+<h2>Question 3 </h2>
+<p>When it came to your fortune, you chose to roll the dice again. </p>
+<p>At the end of the game, how do you feel about this choice? Would you do the same next time? </p>
+
+
+  
+<<timed 5s>>
+  <<include "5headertimer">>
+<</timed>>
+    
+</main>
+<<include "footeroptionappears">>
+
+
+:: question4 [nobr]
+<<set $prevpass to "question3">>
+<<set $pass to "question4">>
 <<set $nextpass to "end">>
 
 <main class="timer">
-
-<h2>Question 3 </h2>
+<h2>Question 4 </h2>
+<p>Today you played as a character, but we all live on streets with our own communities, homes and neighbours. </p>
+<p>We’re going to invite you to take a step away from the game, back to yourself</p>
 <p>How did the game make you think about community resilience on your own street? </p>
+
+
 
   
 <<timed 5s>>
