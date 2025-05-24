@@ -144,7 +144,7 @@ $(document).on(':passagedisplay', function(ev) {
 :: footersimpleappears[nobr]
 <<set $showWallet to false>>
 <footer class="grid-item footer">
-<div/>
+
   /* <<link [img[assets/img/back-black.png]]>>
         <<goto $prevpass>>
     <</link>> */
@@ -152,7 +152,7 @@ $(document).on(':passagedisplay', function(ev) {
         <<set $showWallet to true>>
         <<goto "wallet">>
         <</link>> */
-         
+         /* <div/> */
     <div id="nextButtonContainer">
      </div>
 </footer>
@@ -178,12 +178,12 @@ $(document).on(':passagedisplay', function(ev) {
     changedactions:[],
     chosenwildcards: [],
     wildcards:0,
+    score:0,
+    percentage:0
 }>>
 <<audio ":all" stop>>
 
-<div class="desktop-message">
-  <p>Please view this on a phone.</p>
-</div>
+
 
 <main class="landing">
 <h1>Welcome to Stronger Together</h1>
@@ -361,7 +361,7 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $pass to "playercards">>
 <<set $nextpass to "playercards-b">>
 
-<main class="grid-wrapper">
+<main>
 
     <div class="grid-item explanation">
         <p>Each player will play as a neighbour on High Street.  </p>
@@ -399,7 +399,7 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $pass to "playercards-b">>
 <<set $nextpass to "playercards-c">>
 
-<main class="grid-wrapper">
+<main >
 <br/>
     <div class="grid-item explanation">
        
@@ -433,7 +433,7 @@ $(document).on(':passagedisplay', function(ev) {
   <<include "2headertimer">>
 <</timed>>
 
-<main class="grid-wrapper timer">
+<main class=" timer">
 <br/>
     <div class="grid-item explanation">
 <p>Take the time to introduce yourselves to your fellow neighbours on High Street. </p>
@@ -632,7 +632,7 @@ $(document).on(':passagedisplay', function(ev) {
 
 <main class="">
     <div class="explanation">
-    <p>Now to the attack... </p>
+    <h2>Now to the attack... </h2>
 
 <p>There are four possible monsters that might strike: </p>
 
@@ -916,7 +916,6 @@ $(document).on(':passagedisplay', function(ev) {
 
 
 :: actions [nobr]
-
 <<set $prevpass to "chosenMonsterForecast">>
 <<set $pass to "actions">>
 <<set $nextpass to "postactionchoice">>
@@ -944,15 +943,18 @@ $(document).on(':passagedisplay', function(ev) {
     <<include "actionslist">>
     <br/>
     <<button "Reset">>
-        <<set $playerchoices.chosenactionstosave to []>>
+
         <<set $playerchoices.chosenactions to []>>
-         <<set $playerchoices.originalactions to []>>
+
         <<goto "actions">>
         <</button>>
     /* 5 Chosen Actions: <div id="chosenActionsMount"></div> */
 </main>
 /* <<include "wallet">> */
-<<include "footersimpleappears">>
+<<include "footeroptionappears">>
+<<timed 0.1s>>
+    <<include "checkChosenActions">>
+<</timed>>
 
 
 
@@ -972,7 +974,7 @@ $(document).on(':passagedisplay', function(ev) {
         <<set $btnId to "#chooseBtn" + $actionsoptions[_i].id >>
         <<replace $btnId>>
             <</replace>>
-        <<run $playerchoices.chosenactionstosave.push($actionsoptions[_i].id)>>
+        <<run $playerchoices.chosenactions.push($actionsoptions[_i].id)>>
         <<timed 0.1s>>
          <<include "checkChosenActions">>   
         <</timed>>       
@@ -982,36 +984,46 @@ $(document).on(':passagedisplay', function(ev) {
        <</capture>>
    <</for>>
 </div>
+    /* <<include "wallet">> */
+
+
 
 
 :: checkChosenActions [nobr]
 
-  <<for _i to 0; _i lt $actionsoptions.length; _i++>>
-    <<if $playerchoices.chosenactionstosave.includes($actionsoptions[_i].id)>>
+<<for _i to 0; _i lt $actionsoptions.length; _i++>>
+    <<if $playerchoices.chosenactions.includes($actionsoptions[_i].id)>>
         <<set $class to ".actions-item" + (_i+1) >>
         <<addclass $class "chosen">>
     <</if>>
 <</for>>  
 
-<<if $playerchoices.chosenactionstosave.length < 5>>
+<<if $playerchoices.chosenactions.length < 5>>
     <<replace "#nextButtonContainer">>
            <div class="hint" id="hint"><span>Choose 5 actions</span></div>
         <</replace>>
-<<elseif $playerchoices.chosenactionstosave.length === 5>>
+<<elseif $playerchoices.chosenactions.length === 5>>
     <<timed 0.1s>>
         /* Disable buttons  */
     <<replace ".chooseBtn">>
         <</replace>>
     <<replace "#nextButtonContainer">>
             <<button "Confirm and move on">>
-                <<run $playerchoices.chosenactions.push(...$playerchoices.chosenactionstosave)>>
-                <<run $playerchoices.originalactions.push(...$playerchoices.chosenactionstosave)>>
+                /* <<run $playerchoices.chosenactions.push($playerchoices.chosenactionstosave)>> */
+          
 
                 <<goto $nextpass>>
             <</button>>
         <</replace>>
     <</timed>>
     <</if>>
+
+
+
+
+
+
+
 
 :: postactionchoice [nobr]
 <<set $prevpass to "actions">>
@@ -1042,45 +1054,45 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $nextpass to "diceresults">>
 <<set $diceoptions to [
     {num:1, 
-    text1: "Things aren’t great.  
+    text1: `Things aren’t great.  
 Local resources are depleted, so minimal thought and effort has gone into preparing for disaster. 
 Because of poor planning and lack of investment, you’re facing the monster attack entirely by yourselves. 
-You won’t receive any <span class='accent'>Good Fortune Cards</span>. Instead, during the attack you’ll face one Unpredictable Outcome.", 
-    text2:"You’ll need to come together as a street, using your own skills and resources to respond. 
-Your facilitator will lead you through this when the moment comes.",
+You won’t receive any <span class='accent'>Good Fortune Cards</span>. Instead, during the attack you’ll face one Unpredictable Outcome.`, 
+    text2:`You’ll need to come together as a street, using your own skills and resources to respond. 
+Your facilitator will lead you through this when the moment comes.`,
      wildcards: 0, 
     changedactions: 2},
      {num:2, 
-     text1: "Things aren’t great.  
+     text1: `Things aren’t great.  
 Local resources are depleted, so minimal thought and effort has gone into preparing for disaster. 
 Because of poor planning and lack of investment, you’re facing the monster attack entirely by yourselves. 
-You won’t receive any <span class='accent'>Good Fortune Cards</span>. Instead, during the attack you’ll face one Unpredictable Outcome.", 
-    text2:"You’ll need to come together as a street, using your own skills and resources to respond. 
-Your facilitator will lead you through this when the moment comes.",
+You won’t receive any <span class='accent'>Good Fortune Cards</span>. Instead, during the attack you’ll face one Unpredictable Outcome.`, 
+    text2:`You’ll need to come together as a street, using your own skills and resources to respond. 
+Your facilitator will lead you through this when the moment comes.`,
      wildcards: 0, 
     changedactions: 2},
      {num:3, 
-    text1: " You are fortunate. 
-Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. ", 
-    text2:"During the monster attack you’ll be able to access one Good Fortune Card. ",
+    text1: `You are fortunate. 
+Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
+    text2:`During the monster attack you’ll be able to access one Good Fortune Card.`,
      wildcards: 1, 
     changedactions: 0},
      {num:4, 
-    text1: " You are fortunate. 
-Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. ", 
-    text2:"During the monster attack you’ll be able to access one Good Fortune Card. ",
+    text1: `You are fortunate. 
+Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
+    text2:`During the monster attack you’ll be able to access one Good Fortune Card.`,
      wildcards: 1, 
     changedactions: 0},
      {num:5, 
-    text1: "You are very fortunate. 
-Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. ", 
-    text2:"During the monster attack you’ll be able to access two Good Fortune Cards.",
+    text1: `You are very fortunate. 
+Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
+    text2:`During the monster attack you’ll be able to access two Good Fortune Cards.`,
      wildcards: 2, 
     changedactions: 0},
     {num:6, 
-    text1: "You are very fortunate. 
-Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. ", 
-    text2:"During the monster attack you’ll be able to access two Good Fortune Cards.",
+    text1: `You are very fortunate. 
+Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
+    text2:`During the monster attack you’ll be able to access two Good Fortune Cards.`,
      wildcards: 2, 
     changedactions: 0}
 ]
@@ -1135,11 +1147,11 @@ Your local council has had the money and resources to put some time into disaste
    <div class="result">
    <h2>You rolled a $diceoptions[$diceroll].num</h2>
    
-        $diceoptions[$diceroll].text1
+        <p>$diceoptions[$diceroll].text1</p>
         <br/>
         <div id="proposedChangeMount"></div>
         <br/>
-        $diceoptions[$diceroll].text2
+       <p> $diceoptions[$diceroll].text2</p>
         <br/>
     <br/>
     <<if $diceoptions[$diceroll].wildcards isnot 0>>
@@ -1170,11 +1182,12 @@ Your local council has had the money and resources to put some time into disaste
 </main>
 
 
-<<include "footersimpleappears">>
+<<include "footeroptionappears">>
  <<timed 0.1s>>
     <<replace "#nextButtonContainer">>
             <<button "Confirm and move on">>
                 <<set $playerchoices.diceroll to $diceroll>>
+                
                 <<goto $nextpass>>
             
             <</button>>
@@ -1194,12 +1207,16 @@ Your local council has had the money and resources to put some time into disaste
     <span>Chosen Actions: $playerchoices.chosenactions</span>
     <span>Wildcards: $playerchoices.wildcards</span>
     <span>Diceroll: $playerchoices.diceroll</span>
+    <span>Total Score: $playerchoices.score</span>
     
 </div>
 
 <<script>>
 console.log(State.variables)
 <</script>>
+
+   <<print typeof $playerchoices>>
+<<print JSON.stringify($playerchoices)>>
 
 /* <<include "footerwallet">> */
 
@@ -1225,7 +1242,7 @@ console.log(State.variables)
 
 </main>
 /* <<include "wallet">> */
-<<include "footersimpleappears">>
+<<include "footeroptionappears">>
 
 :: choosefinalmonster [nobr]
  <<set $img1 to "assets/img/" + "Demo_" + $playerchoices.chosenmonsters[0] + "forecast.png" >>
@@ -1288,11 +1305,76 @@ console.log(State.variables)
     <<timed 0.1s>>
         <<replace "#nextButtonContainer">>
             <<button "Confirm and move on">>
-                <<goto $nextpass>>
+                <<include "workOutScore">>
+                <<timed 0.1s>>
+                     <<goto $nextpass>>
+                    <</timed>>
             <</button>>
         <</replace>>
     <</timed>>
 <</if>>
+
+
+:: workOutScore [nobr]
+/* There is one point available for every action card selected, so every player / game should be getting a score of 5 / 10 as a minimum. 
+Then for each monster there are 6 optimal choices. For each of these selected, 1 should be added to the score. */
+
+<<set _baseScore = $playerchoices.chosenactions.length>>
+<<set _optimalActions = {
+    "Gale": [3, 5, 7, 8, 10, 12],
+    "Inferno": [2, 5, 6, 8, 9, 11],
+    "Drench": [4, 6, 7, 8, 11, 12],
+    "Crystal": [1, 5, 6, 9, 10, 11]
+}>>
+
+
+<<set _finalMonster = $playerchoices.finalmonster>>
+<<set _optimalForMonster = _optimalActions[_finalMonster]>>
+<<set _bonusScore = 0>>
+
+<<print "includes:">>
+<<print $playerchoices.chosenactions>>
+
+<<for _i to 0; _i lt 5; _i++>>
+    <<if _optimalForMonster.includes($playerchoices.chosenactions[_i])>>
+        <<print "includes:" + $playerchoices.chosenactions[_i]>>
+        <<set _bonusScore += 1>>
+    <</if>>
+<</for>>
+
+<<set _totalScore = _baseScore + _bonusScore>>
+<<set _percentage = Math.round((_totalScore / 10) * 100)>>
+<<set $playerchoices.score = _totalScore>>
+<<set $playerchoices.percentage = _percentage>>
+
+
+
+/* <<timed 1s>>
+Player chosen actions: $playerchoices.chosenactions
+<br/>
+Final monster: _finalMonster
+<br/>
+Base score: _baseScore
+<br/>
+Optimal for monster: _optimalForMonster
+<br/>
+Bonus Score:  _bonusScore
+<br/>
+You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impact.
+<</timed>> */
+
+
+/* <<if _percentage >= 90>>
+    Exceptional work – your preparation was nearly perfect.
+<<elseif _percentage >= 70>>
+    Great job – your planning paid off, and it made a real difference.
+<<elseif _percentage >= 50>>
+    Not bad – you took important steps, but there’s room to improve.
+<<else>>
+    The storm hit hard – next time, a few more key actions might help turn the tide.
+<</if>> */
+
+
 
 :: storyintro [nobr]
 <<set $prevpass to "forecast">>
@@ -1321,31 +1403,32 @@ console.log(State.variables)
 
 <<include "footeroptionappears">>
 
+
 :: chosemonsterpath [nobr]
 <<if $playerchoices.finalmonster is "Gale">>
-    <<set $nextpass to "galestory">>
+    <<set $nextpass to "galeintro">>
 <</if>>
 <<if $playerchoices.finalmonster is "Crystal">>
-    <<set $nextpass to "crystalstory">>
+    <<set $nextpass to "crystalintro">>
 <</if>>
 <<if $playerchoices.finalmonster is "Inferno">>
-    <<set $nextpass to "infernostory">>
+    <<set $nextpass to "infernointro">>
 <</if>>
 <<if $playerchoices.finalmonster is "Drench">>
-    <<set $nextpass to "drenchstory">>
+    <<set $nextpass to "drenchintro">>
 <</if>>
 
-:: galeintro
+:: galeintro [nobr]
 <<set $prevpass to "storyintro">>
 <<set $pass to "galeintro">>
 <<set $nextpass to "galestory">>
 
 <main class="">
     <div class="explanation">
-<p> Gale swirls into High Street. moving faster than anticipated. </p>
+<p> Gale swirls into High Street, moving faster than anticipated. </p>
 <p>Even inside with all doors and windows shut, you can hear her whistling, rattling, slamming, desperate to get in. </p>
 
-<p>Thanks to your choices, you manage [SCORE]% of Gale’s impacts.</p>
+<p>Thanks to your choices, you manage <span class="accent">$playerchoices.percentage%</span> of Gale’s impacts.</p>
 <p>Let’s see how you did...</p>
 
 
@@ -1366,37 +1449,71 @@ console.log(State.variables)
 :: galestory[nobr]
 <<set $prevpass to "galeintro">>
 <<set $pass to "galestory">>
-<<set $nextpass to "galefortune">>
+<<if $playerchoices.diceroll is 1 or 2 >>
+    <<set $nextpass to "gale-poststory">>
+    <<else>>
+    <<set $nextpass to "galefortune">>
+<</if>>
+
 
 <main class="">
     <div class="explanation">
 <<if $playerchoices.chosenactions.includes(12)>>
+<div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/12.png" alt="action card"/>
+    </div>
     <p>Everyone is warned about Gale's arrival in good time. The alert includes up to date guidance, and no neighbours are caught out by outdated methods.   </p>
+    </div>
  <</if>>
 
 <<if $playerchoices.chosenactions.includes(8)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/8.png" alt="action card"/>
+    </div>
 <p>You set up a messaging chat, which connects you to some of your neighbours you are yet to meet. </p>
 
 <p>Turn over half of the face down neighbour cards. </p>
 
 <p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
-
+</div>
  <</if>>
 
  <<if $playerchoices.chosenactions.includes(3)>>
+<div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/3.png" alt="action card"/>
+    </div>
     <p>Gale bangs at the doors of sheds, and pulls at the cables you’ve tied, but nothing escapes. Your neighbours and Dot, the stray cat, are safe from flying debris!  </p>
+    </div>
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(7)>>
+<div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/7.png" alt="action card"/>
+    </div>
     <p>Gale rattles at the windows, and one shatters in its frame. Fortunately, you have moved all the furniture away, and kept the area clear. Nothing is damaged and everyone is safe.</p>
+    </div>
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(5)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/5.png" alt="action card"/>
+    </div>
     <p>Gale attacks the electricity supply and there is a 24h outage. You’re prepared: you have food, water, a first aid kit, and a wind up radio to stay up to date. Phew!</p>
+    </div>
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(10)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/10.png" alt="action card"/>
+    </div>
     <p>Towards the end of Gale’s visit, resources run low. You turn to the community centre. Several neighbours run out of food, but the community centre’s food bank makes sure everyone is well fed.</p>
+    </div>
  <</if>>
  </div>
 </main>
@@ -1416,13 +1533,12 @@ console.log(State.variables)
 <<set $pass to "galefortune">>
 <<set $nextpass to "gale-poststory">>
 
-
 <main class="">
     <div class="explanation">
     <div id="mount"></div>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.$diceroll is 3 || 4>>
+    <<if $playerchoices.diceroll is 3 or 4>>
     <h2>Your fortune also provides an additional benefit! </h2>
     <p>You get a Good Fortune Card: </p>
     <div class="inline-img-container wildcards">
@@ -1436,7 +1552,7 @@ console.log(State.variables)
 <</timed>>
  <<timed 0.1s>>
  <<replace "#mount">>
- <<if $playerchoices.$diceroll is 5 || 6>>
+ <<if $playerchoices.diceroll is 5 or 6>>
     <h2>Your fortune also provides additional benefits! </h2>
     <p>You get two Good Fortune Cards: </p>
     <div class="inline-img-container wildcards">
@@ -1466,8 +1582,15 @@ console.log(State.variables)
     <</replace>>
 <</timed>>
 
+
+
 :: gale-poststory[nobr]
-<<set $prevpass to "galefortune">>
+
+<<if $playerchoices.diceroll is 1 or 2>>
+    <<set $prevpass to "galestory">>
+    <<else>>
+    <<set $prevpass to "galefortune">>
+<</if>>
 <<set $pass to "gale-poststory">>
 <<set $nextpass to "galeimpacts">>
 
@@ -1493,38 +1616,71 @@ console.log(State.variables)
 :: galeimpacts[nobr]
 <<set $prevpass to "gale-poststory">>
 <<set $pass to "galeimpacts">>
-<<set $nextpass to "galefortuneimpacts">>
+<<if $playerchoices.diceroll is 1 or 2>>
+    <<set $nextpass to "galefortuneimpacts">>
+    <<else>>
+    <<set $nextpass to "aftermathintro">>
+<</if>>
 
 <main class="">
     <div class="explanation">
 <<if !$playerchoices.chosenactions.includes(12)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/12.png" alt="action card"/>
+    </div>
     <p>You didn’t sign up for alerts, and news of Gale’s arrival is contradictory and confusing. One neighbour ends up stuck in their car unable to get home. As Gale retreats they are left shaken and scared.   </p>
+    </div>
  <</if>>
 
 <<if !$playerchoices.chosenactions.includes(8)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/8.png" alt="action card"/>
+    </div>
 <p>You don’t set up a messaging group, and so you aren’t able to connect to several neighbours. </p>
 
 <p><i>Turn over half of the remaining face down neighbour cards. </i></p>
 
 <p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
-
+</div>
 
  <</if>>
 
  <<if !$playerchoices.chosenactions.includes(3)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/3.png" alt="action card"/>
+    </div>
     <p>Gale bangs at the doors of sheds, lifting chairs and a trampoline into the air. One neighbour is hit by a flying parasol and goes to hospital. Fortunately, Dot, the stray cat, dodges all of the debris! </p>
+    </div>
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(7)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/7.png" alt="action card"/>
+    </div>
     <p>Gale rattles at the windows, and one shatters in its frame. No one is hurt, but a TV is knocked over as the pane falls in, its screen is smashed and the table beneath is unusable.</p>
+    </div>
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(5)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/5.png" alt="action card"/>
+    </div>
     <p>Gale attacks the electricity supply and there is a 24h outage. Neighbours are unprepared: they don’t have enough blankets or jumpers to stay warm, and none of you have as many tins of beans as you thought. It’s a shock. </p>
+    </div>
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(10)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/10.png" alt="action card"/>
+    </div>
     <p>Resources run low, and you have nowhere to turn. Several neighbours run out of food. They are left hungry. </p>
+    </div>
  <</if>>
  </div>
 </main>
@@ -1550,7 +1706,7 @@ console.log(State.variables)
     <div id="mount"></div>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.$diceroll is 1 || 2>>
+    <<if $playerchoices.diceroll is 1 or 2>>
     <h2>Gale retreats and leaves what you can only call a rather large mess. </h2>
 <p>There are fallen trees and debris over a major road, and due to your low fortune, there is no councillor to turn to. But you do have each other! </p>
 
@@ -1577,7 +1733,7 @@ console.log(State.variables)
 <</timed>>
 
 
-:: infernointro
+:: infernointro [nobr]
 <<set $prevpass to "storyintro">>
 <<set $pass to "infernointro">>
 <<set $nextpass to "infernostory">>
@@ -1587,7 +1743,7 @@ console.log(State.variables)
 <p>Inferno sizzles into High Street. She clears the sky of clouds, so all you see is blue. </p>
 <p>Inside and out the air is thick, heavy and still, no cool, no breeze. The thermometer climbs higher and higher. </p>
 <br/>
-<p>Thanks to your choices, you manage [SCORE]% of Inferno’s impacts.</p>
+<p>Thanks to your choices, you manage <span class="accent">$playerchoices.percentage%</span> of Inferno’s impacts.</p>
 <p>Let’s see how you did...</p>
 
 
@@ -1609,44 +1765,77 @@ console.log(State.variables)
 :: infernostory[nobr]
 <<set $prevpass to "infernointro">>
 <<set $pass to "infernostory">>
-<<set $nextpass to "infernofortune">>
+<<if $playerchoices.diceroll is 1 or 2 >>
+    <<set $nextpass to "inferno-poststory">>
+    <<else>>
+    <<set $nextpass to "infernofortune">>
+<</if>>
 
 <main class="">
     <div class="explanation">
 <<if $playerchoices.chosenactions.includes(2)>>
+<div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/2.png" alt="action card"/>
+    </div>
     <p>The temperature rises, and you pass out water to make sure everyone is cool and hydrated. Even Dot, the stray cat, gets her fill!</p>
+    </div>
  <</if>>
 
 <<if $playerchoices.chosenactions.includes(8)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/8.png" alt="action card"/>
+    </div>
 <p>You set up a messaging chat, which connects you to some of your neighbours you are yet to meet. </p>
 
 <p><i>Turn over half the remaining face down neighbour cards. </i></p>
 
 <p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
-
+</div>
 
  <</if>>
 
  <<if $playerchoices.chosenactions.includes(9)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/9.png" alt="action card"/>
+    </div>
  <p>You go door knocking, which connects you to some of your neighbours you are yet to meet. </p>
 
 <p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
 
 <p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
-
+</div>
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(5)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/5.png" alt="action card"/>
+    </div>
     <p>One of your neighbours faints in the heat, hitting their arm against a low table. Thanks to your emergency kit, you give them food, water and first aid support while you wait for help to come. </p>
+    </div>
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(11)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/11.png" alt="action card"/>
+    </div>
     <p>Several houses are attacked badly by Inferno, and become unsafe to stay in. Neighbours retreat to the safe space.</p>
+    </div>
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(6)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/6.png" alt="action card"/>
+    </div>
     <p>As Neighbours retreat from Inferno’s heat, you grab your to-go bag. You’re grateful for the emergency supplies, and especially your phone charger. The next morning your neighbour calls asking for help. You go to help them. </p>
+    </div>
  <</if>>
+
  </div>
 </main>
 
@@ -1664,14 +1853,14 @@ console.log(State.variables)
 <<set $prevpass to "infernostory">>
 <<set $pass to "infernofortune">>
 <<set $nextpass to "inferno-poststory">>
-<<set $playerchoices.$diceroll to $diceroll>>
+
 
 <main class="">
     <div class="explanation">
     <div id="mount"></div>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.$diceroll is 3 || 4>>
+    <<if $playerchoices.diceroll is 3 or 4>>
     <h2>Your fortune also provides an additional benefit! </h2>
     <p>You get a Good Fortune Card: </p>
     <div class="inline-img-container wildcards">
@@ -1685,7 +1874,7 @@ console.log(State.variables)
 <</timed>>
  <<timed 0.1s>>
  <<replace "#mount">>
- <<if $playerchoices.$diceroll is 5 || 6>>
+ <<if $playerchoices.diceroll is 5 or 6>>
     <h2>Your fortune also provides additional benefits! </h2>
     <p>You get two Good Fortune Cards: </p>
     <div class="inline-img-container wildcards">
@@ -1717,7 +1906,11 @@ console.log(State.variables)
 
 
 :: inferno-poststory[nobr]
-<<set $prevpass to "infernofortune">>
+<<if $playerchoices.diceroll is 1 or 2>>
+    <<set $prevpass to "infernostory">>
+    <<else>>
+    <<set $prevpass to "infernofortune">>
+<</if>>
 <<set $pass to "inferno-poststory">>
 <<set $nextpass to "infernoimpacts">>
 
@@ -1745,42 +1938,70 @@ console.log(State.variables)
 :: infernoimpacts[nobr]
 <<set $prevpass to "inferno-poststory">>
 <<set $pass to "infernoimpacts">>
-<<set $nextpass to "infernofortuneimpacts">>
+<<if $playerchoices.diceroll is 1 or 2>>
+    <<set $nextpass to "infernofortuneimpacts">>
+    <<else>>
+    <<set $nextpass to "aftermathintro">>
+<</if>>
 
 <main class="">
     <div class="explanation">
 <<if !$playerchoices.chosenactions.includes(2)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/2.png" alt="action card"/>
+    </div>
     <p>As the temperature rises, some neighbours, especially those with existing health conditions, suffer. Two people are dehydrated and need to be taken to hospital. Fortunately, Dot, the stray cat, found some water and shade - your neighbours aren’t quite so lucky!  </p>
+    </div>
  <</if>>
 
 <<if !$playerchoices.chosenactions.includes(8)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/8.png" alt="action card"/>
+    </div>
 <p>You don’t set up a messaging group, and so you aren’t able to connect to several neighbours. </p>
-
 <p><i>Turn over half of the remaining face down neighbour cards. </i></p>
-
 <p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another.</p> 
-
+</div>
  <</if>>
 
  <<if !$playerchoices.chosenactions.includes(9)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/9.png" alt="action card"/>
+    </div>
 <p>You don’t go door knocking, and so you aren’t able to connect to several neighbours. </p>
-
 <p><i>Turn over half of the remaining face down neighbour cards. </i></p>
-
 <p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
-
+</div>
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(5)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/5.png" alt="action card"/>
+    </div>
     <p>One of your neighbours faints and hits themselves on a low table. With no emergency kit you have no supplies to help them as they wait for an ambulance to arrive. They’re left feeling shaken and a little scared. </p>
+    </div>
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(11)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/11.png" alt="action card"/>
+    </div>
     <p>Several of the houses are attacked badly by Inferno and become unsafe to stay in. There is nowhere for some of the neighbours to go. Neighbours are scared and panicked. </p>
+    </div>
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(6)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/6.png" alt="action card"/>
+    </div>
     <p>Some neighbours do evacuate from Inferno’s heat, but with no grab bag, you forget key items, including your phone charger. Your neighbour calls asking for help, but your phone has no battery. It doesn’t ring.</p>
+    </div>
  <</if>>
  </div>
 </main>
@@ -1806,7 +2027,7 @@ console.log(State.variables)
     <div id="mount"></div>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.$diceroll is 1 || 2>>
+    <<if $playerchoices.diceroll is 1 or 2>>
     <h2>As the heat rises, your fear for your neighbours does too. </h2>
 <p>With no emergency help available due to your low fortune, you will need to step in and fill the gap. Neighbours are hot, dehydrated and at risk.</p>
 
@@ -1833,7 +2054,7 @@ console.log(State.variables)
 <</timed>>
 
 
-:: drenchintro
+:: drenchintro [nobr]
 <<set $prevpass to "storyintro">>
 <<set $pass to "drenchintro">>
 <<set $nextpass to "drenchstory">>
@@ -1842,7 +2063,7 @@ console.log(State.variables)
     <div class="explanation">
 <p>The skies open and Drench falls down, rushing along the slope of the street, pooling at drains and in potholes that can’t contain her. She slips and slides through cracks and gaps. No matter where you go she is around every corner. </p>
 
-<p>Thanks to your choices, you manage [SCORE]% of Drench’s impacts.</p>
+<p>Thanks to your choices, you manage <span class="accent">$playerchoices.percentage%</span> of Drench’s impacts.</p>
 <p>Let’s see how you did...</p>
 
 </div>
@@ -1862,38 +2083,71 @@ console.log(State.variables)
 :: drenchstory[nobr]
 <<set $prevpass to "drenchintro">>
 <<set $pass to "drenchstory">>
-<<set $nextpass to "drenchfortune">>
+<<if $playerchoices.diceroll is 1 or 2 >>
+    <<set $nextpass to "drench-poststory">>
+    <<else>>
+    <<set $nextpass to "drenchfortune">>
+<</if>>
+
 
 <main class="">
     <div class="explanation">
 <<if $playerchoices.chosenactions.includes(12)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/12.png" alt="action card"/>
+    </div>
     <p>With High Street signed up to alerts, everyone is warned about the Drench’s arrival in good time. The alert includes up to date guidance, which ensures no one uses any out of date methods or approaches to keep Drench at bay. </p>
+    </div>
  <</if>>
 
 <<if $playerchoices.chosenactions.includes(4)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/4.png" alt="action card"/>
+    </div>
 <p>Drench arrives. The barriers, blocks and pads keep most of High Street water free, with no risk of disease or electric shock. Dot, the stray cat, is safe and well! </p>
+</div>
  <</if>>
 
  <<if $playerchoices.chosenactions.includes(7)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/7.png" alt="action card"/>
+    </div>
  <p>A few homes on High Street are unable to keep Drench out.  Fortunately, when Drench does rush in, she can’t reach belongings that sit on high shelves and in attics. </p>
-
+</div>
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(8)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/8.png" alt="action card"/>
+    </div>
    <p> You set up a messaging chat, which connects you to some of your neighbours you are yet to meet. </p>
 
 <p><i>Turn over half the remaining face down neighbour cards. </i></p>
 
 <p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
-
+</div>
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(6)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/6.png" alt="action card"/>
+    </div>
     <p>Drench forces several houses to evacuate. Thanks to your plan, you have a to-go bag. You’re grateful for the supplies, and especially your phone charger. The next morning your neighbour calls asking for help. You go to help them. </p>
+    </div>
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(11)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/11.png" alt="action card"/>
+    </div>
     <p>Several homes are now waterlogged and become unsafe to stay in. Neighbours gratefully retreat to the safe space.</p>
+    </div>
  <</if>>
  </div>
 </main>
@@ -1912,14 +2166,13 @@ console.log(State.variables)
 <<set $prevpass to "drenchstory">>
 <<set $pass to "drenchfortune">>
 <<set $nextpass to "drench-poststory">>
-<<set $playerchoices.$diceroll to $diceroll>>
 
 <main class="">
     <div class="explanation">
     <div id="mount"></div>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.$diceroll is 3 || 4>>
+    <<if $playerchoices.diceroll is 3 or 4>>
     <h2>Your fortune also provides an additional benefit! </h2>
     <p>You get a Good Fortune Card: </p>
     <div class="inline-img-container wildcards">
@@ -1933,7 +2186,7 @@ console.log(State.variables)
 <</timed>>
  <<timed 0.1s>>
  <<replace "#mount">>
- <<if $playerchoices.$diceroll is 5 || 6>>
+ <<if $playerchoices.diceroll is 5 or 6>>
     <h2>Your fortune also provides additional benefits! </h2>
     <p>You get two Good Fortune Cards: </p>
     <div class="inline-img-container wildcards">
@@ -1966,7 +2219,11 @@ console.log(State.variables)
 <<include "wallet">>
 
 :: drench-poststory[nobr]
-<<set $prevpass to "drenchfortune">>
+<<if $playerchoices.diceroll is 1 or 2>>
+    <<set $prevpass to "drenchstory">>
+    <<else>>
+    <<set $prevpass to "drenchfortune">>
+<</if>>
 <<set $pass to "drench-poststory">>
 <<set $nextpass to "drenchimpacts">>
 
@@ -1995,40 +2252,70 @@ console.log(State.variables)
 :: drenchimpacts[nobr]
 <<set $prevpass to "drench-poststory">>
 <<set $pass to "drenchimpacts">>
-<<set $nextpass to "drenchfortuneimpacts">>
+<<if $playerchoices.diceroll is 1 or 2>>
+    <<set $nextpass to "drenchfortuneimpacts">>
+    <<else>>
+    <<set $nextpass to "aftermathintro">>
+<</if>>
 
 <main class="">
     <div class="explanation">
 <<if !$playerchoices.chosenactions.includes(12)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/12.png" alt="action card"/>
+    </div>
     <p>With High Street not signed up to alerts, not everyone is warned about Drench’s arrival or given up to date guidance in time. Several neighbours use sandbags to block Drench rather than absorbent pads, and this out of date approach allows some of Drench to seep through. </p>
+    </div>
  <</if>>
 
 <<if !$playerchoices.chosenactions.includes(4)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/4.png" alt="action card"/>
+    </div>
 <p>Drench arrives and pours into buildings and homes. Then she stays. Two neighbours get respiratory infections from the floodwater, and a family is stuck upstairs in their house, with risk of electric shock below. Dot, the stray cat, manages to find shelter though! </p>
+</div>
 
  <</if>>
 
  <<if !$playerchoices.chosenactions.includes(7)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/7.png" alt="action card"/>
+    </div>
 <p>In several homes, as Drench rushes in, belongings are swept away with her. A neighbour loses all their family photographs, another’s computer is waterlogged and broken. </p>
-
+</div>
 
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(8)>>
-  <p>You don’t set up a messaging group, and so you aren’t able to connect to several neighbours. </p>
-
-<p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
-
-<p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
-
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/8.png" alt="action card"/>
+    </div>
+    <p>You don’t set up a messaging group, and so you aren’t able to connect to several neighbours. </p>
+    <p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
+    <p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
+    </div>
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(11)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/11.png" alt="action card"/>
+    </div>
     <p>Several homes are flooded and become unsafe to stay in. Yet, there is nowhere to go. One neighbour has to sleep on their dining table. Others grow more and more hungry as the flood keeps them upstairs and away from their kitchen below. </p>
+    </div>
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(6)>>
+     <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/6.png" alt="action card"/>
+    </div>
     <p>Some neighbours do evacuate from their flooded homes, including you. With no grab bag, you forget key items, including your phone charger. Your neighbour calls asking for help, but your phone has no battery. It doesn’t ring.</p>
+    </div>
  <</if>>
  </div>
 </main>
@@ -2056,7 +2343,7 @@ console.log(State.variables)
     <div id="mount"></div>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.$diceroll is 1 || 2>>
+    <<if $playerchoices.diceroll is 1 or 2>>
     <h2>Even though rain no longer falls, Drench and her impact lingers. </h2>
 <p>The town hall is unrecognisable due to flood damage, but your local council says there is no money to fix it. </p>
 
@@ -2083,7 +2370,7 @@ console.log(State.variables)
 <</timed>>
 
 
-:: crystalintro
+:: crystalintro [nobr]
 <<set $prevpass to "storyintro">>
 <<set $pass to "crystalintro">>
 <<set $nextpass to "crystalstory">>
@@ -2093,7 +2380,7 @@ console.log(State.variables)
 <p>Crystal crawls into High Street. She greets you with a frosty reception. </p>
 <p>She gathers snow, sleet and ice, depositing them along the street: in front of doors, around cars, at central intersections on major roads. </p>
 <br/>
-<p>Thanks to your choices, you manage [SCORE]% of Crystal’s impacts.</p>
+<p>Thanks to your choices, you manage <span class="accent">$playerchoices.percentage%</span> of Crystal’s impacts.</p>
 <p>Let’s see how you did...</p>
 
 
@@ -2115,38 +2402,71 @@ console.log(State.variables)
 <<set $prevpass to "crystalintro">>
 <<set $pass to "crystalstory">>
 <<set $nextpass to "crystalfortune">>
+<<if $playerchoices.diceroll is 1 or 2 >>
+    <<set $nextpass to "crystal-poststory">>
+    <<else>>
+    <<set $nextpass to "crystalfortune">>
+<</if>>
 
 <main class="">
     <div class="explanation">
 <<if $playerchoices.chosenactions.includes(1)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/1.png" alt="action card"/>
+    </div>
     <p>Thanks to the salts laid out, there is no mark of Crystal on the streets. Neighbours venture out, and no one slips or falls. Dot, the stray cat, is safe! </p>
+    </div>
  <</if>>
 
 <<if $playerchoices.chosenactions.includes(9)>>
+    <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/9.png" alt="action card"/>
+    </div>
 <p>You go door knocking, which connects you to some of your neighbours you are yet to meet. </p>
 
 <p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
 
 <p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
-
+ </div>
  <</if>>
 
  <<if $playerchoices.chosenactions.includes(5)>>
+      <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/5.png" alt="action card"/>
+    </div>
  <p>Crystal dangles from the power lines, pulling several down and causing an outage. With your emergency kit you’re prepared: you have food, water, a first aid kit, blankets and a wind up radio to stay up to date. Phew! </p>
-
+</div>
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(6)>>
+      <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/6.png" alt="action card"/>
+    </div>
    <p>As Crystal lingers, several houses become too cold and neighbours are forced to evacuate. Thanks to your plan, you have food, water and a phone charger. When your neighbour calls the next morning for help, you pick up. </p>
+   </div>
 
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(11)>>
+      <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/11.png" alt="action card"/>
+    </div>
     <p>Several neighbours are forced to find refuge from the freezing weather at the safe space. Blankets and mugs of hot chocolate are handed out.  </p>
+    </div>
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(10)>>
+      <div class="story-line-container">
+  <div class="inline-img-wrapper ">
+      <img src="assets/img/10.png" alt="action card"/>
+    </div>
     <p>As Crystal stretches her icy tendrils across the roads, food supplies start to dwindle. You turn to the community centre. The community centre’s food bank makes sure everyone is well fed. </p>
+    </div>
  <</if>>
  </div>
 </main>
@@ -2161,6 +2481,8 @@ console.log(State.variables)
     <</replace>>
 <</timed>>
 
+/* <<include "wallet">> */
+
 :: crystalfortune [nobr]
 <<set $prevpass to "crystalstory">>
 <<set $pass to "crystalfortune">>
@@ -2172,7 +2494,7 @@ console.log(State.variables)
     <div id="mount"></div>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.$diceroll is 3 || 4>>
+    <<if $playerchoices.diceroll is 3 or 4>>
     <h2>Your fortune also provides an additional benefit! </h2>
     <p>You get a Good Fortune Card: </p>
     <div class="inline-img-container wildcards">
@@ -2186,7 +2508,7 @@ console.log(State.variables)
 <</timed>>
  <<timed 0.1s>>
  <<replace "#mount">>
- <<if $playerchoices.$diceroll is 5 || 6>>
+ <<if $playerchoices.diceroll is 5 or 6>>
     <h2>Your fortune also provides additional benefits! </h2>
     <p>You get two Good Fortune Cards: </p>
     <div class="inline-img-container wildcards">
@@ -2218,7 +2540,11 @@ console.log(State.variables)
 <</timed>>
 
 :: crystal-poststory[nobr]
-<<set $prevpass to "crystalfortune">>
+<<if $playerchoices.diceroll is 1 or 2>>
+    <<set $prevpass to "crystalstory">>
+    <<else>>
+    <<set $prevpass to "crystalfortune">>
+<</if>>
 <<set $pass to "crystal-poststory">>
 <<set $nextpass to "crystalimpacts">>
 
@@ -2246,40 +2572,71 @@ console.log(State.variables)
 :: crystalimpacts[nobr]
 <<set $prevpass to "crystal-poststory">>
 <<set $pass to "crystalimpacts">>
-<<set $nextpass to "crystalfortuneimpacts">>
+<<if $playerchoices.diceroll is 1 or 2>>
+    <<set $nextpass to "crystalfortuneimpacts">>
+    <<else>>
+    <<set $nextpass to "aftermathintro">>
+<</if>>
 
 <main class="">
     <div class="explanation">
 <<if !$playerchoices.chosenactions.includes(1)>>
+       <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/1.png" alt="action card"/>
+    </div>
     <p>With no grit, the streets are slippery and icy. A couple of neighbours venture out and slip and fall, resulting in a broken wrist and two sprained ankles. Dot, the stray cat, is safe though! </p>
+    </div>
  <</if>>
 
 <<if !$playerchoices.chosenactions.includes(9)>>
-<p>You don’t go door knocking, and so you aren’t able to connect to several neighbours. </p>
+       <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/9.png" alt="action card"/>
+    </div>
 
-<p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
+    <p>You don’t go door knocking, and so you aren’t able to connect to several neighbours. </p>
+    <p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
+    <p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
 
-<p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
-
+</div>
  <</if>>
 
  <<if !$playerchoices.chosenactions.includes(5)>>
+       <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/5.png" alt="action card"/>
+    </div>
 <p>Crystal dangles from the power lines, pulling several down and causing an outage. You’re unprepared: you don’t have the blankets and jumpers you need, and struggle to find edible food. It is a shock. </p>
-
+</div>
 
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(6)>>
+       <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/6.png" alt="action card"/>
+    </div>
 <p> As Crystal lingers, several houses become too cold and neighbours are forced to evacuate. You forget key items, including your phone charger. Your neighbour calls asking for help, but your phone has no battery. It doesn’t ring.</p>
-
+</div>
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(11)>>
+       <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/11.png" alt="action card"/>
+    </div>
     <p>As Crystal’s visit drags on, temperatures dip below safe levels. Some neighbours' homes become unsafe to stay in, but there is nowhere to go. They sit shivering all night. One neighbour ends up with hypothermia. </p>
+    </div>
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(10)>>
+       <div class="story-line-container">
+  <div class="inline-img-wrapper grey ">
+      <img src="assets/img/10.png" alt="action card"/>
+    </div>
     <p>As Crystal stretches her icy tendrils across the roads, food supplies start to dwindle, but there is nowhere to turn. Several neighbours run out of food. They are left hungry. </p>
+    </div>
  <</if>>
  </div>
 </main>
@@ -2305,7 +2662,7 @@ console.log(State.variables)
     <div id="mount"></div>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.$diceroll is 1 || 2>>
+    <<if $playerchoices.diceroll is 1 or 2>>
     <h2>As the heat falls, your fear for your neighbours rises.</h2>
 <p> Due to your low fortune, there is no additional help available. So the neighbours of High Street will need to step in and fill the gap. Neighbours are cold, isolated and at risk. How can you ensure your neighbours will get the help they need? </p>
 
@@ -2354,7 +2711,7 @@ console.log(State.variables)
 <p>How will you recover? </p>
 
 </main>
-<<include "footersimpleappears">>
+<<include "footeroptionappears">>
 <<timed 3s>>
     <<replace "#nextButtonContainer">>
     <<button "Move on">>
@@ -2399,7 +2756,7 @@ console.log(State.variables)
 
 
 </main>
-<<include "footersimpleappears">>
+<<include "footeroptionappears">>
 
 :: outro [nobr]
 <<set $prevpass to "aftermath">>
@@ -2436,7 +2793,7 @@ console.log(State.variables)
 :: record [nobr]
 <<set $prevpass to "outro">>
 <<set $pass to "record">>
-<<set $nextpass to "outro2">>
+<<set $nextpass to "postrecord">>
 
 <main>
  
@@ -2444,12 +2801,12 @@ console.log(State.variables)
 <p>When you’re ready, press RECORD below, speak into the microphone and tell us what you have planned. </p>
 <br/>
 <p>We’ll record an audio file of your pitch - the action you will take for your High Street. </p>
-
-SPEAKPIPE
+<br/>
+<iframe src="https://www.speakpipe.com/widget/inline/kp6xzmubni8enwhrhvqo1sx5cbst92iy" allow="microphone" width="100%" height="200" frameborder="0"></iframe>
     
 <<timed 3s>>
     <<replace "#nextButtonContainer">>
-    <<button "Move on">>
+    <<button "I've finished recording">>
             <<goto $nextpass>>
         <</button>>
     <</replace>>
@@ -2461,7 +2818,7 @@ SPEAKPIPE
 <<set $prevpass to "record">>
 <<set $pass to "postrecord">>
 <<set $nextpass to "outro2">>
-
+<<set $improvement to 100- $playerchoices.percentage>>
 <main>
  
 <p>On High Street, your plan is put into action. </p>
@@ -2471,7 +2828,7 @@ SPEAKPIPE
 <br/>
 <p>You made some good choices. </p>
 <p>You made some less good ones. </p>
-<i>Potential ref to score here - You could have made choices that were 20% better. </i>
+<p> You could have made choices that were <span class="accent">$improvement%</span> better. </p>
 
 
 <<timed 3s>>
@@ -2485,7 +2842,7 @@ SPEAKPIPE
 <<include "footeroptionappears">>
 
 :: outro2 [nobr]
-<<set $prevpass to "outro">>
+<<set $prevpass to "postrecord">>
 <<set $pass to "outro2">>
 <<set $nextpass to "outro3">>
 
@@ -2628,7 +2985,7 @@ SPEAKPIPE
 
 
 :: end [nobr]
-<<set $prevpass to "questions2">>
+<<set $prevpass to "question4">>
 <<set $pass to "end">>
 <<set $nextpass to "end">>
 <main>
