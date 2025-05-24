@@ -531,6 +531,8 @@ padding: 1rem;
 }
 
 
+
+
 /* WALLET  */
 .wallet{
   display: flex;
@@ -639,4 +641,9 @@ flex-direction: column;
 
  ul.consequences-list{
   list-style-type: square;
+ }
+
+ span.unbold{
+  font-weight: 300;
+  font-size: 1.7rem;
  }

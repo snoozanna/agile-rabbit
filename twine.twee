@@ -171,6 +171,7 @@ $(document).on(':passagedisplay', function(ev) {
     finalmonster: [],
     originalactions: [],
     chosenactions: [],
+    diceroll:0,
     rolledagain:false,
     chosenactionstosave: [],
     originalactionstosave: [],
@@ -437,7 +438,7 @@ $(document).on(':passagedisplay', function(ev) {
     <div class="grid-item explanation">
 <p>Take the time to introduce yourselves to your fellow neighbours on High Street. </p>
 <p>Share your house number, and your interesting and peculiar skills & facts. </p>
-$nextpass
+
     </div>
     </main>
     <<include "footeroptionappears">>
@@ -445,7 +446,7 @@ $nextpass
 
 :: timer [nobr]
 <<set $seconds to 300>>
-<span id="countdown"><span class="time">Loading...</span></span>
+<span id="countdown"></span>
 
 <<silently>>
 	<<repeat 1s>>
@@ -455,9 +456,9 @@ $nextpass
 				<<if $seconds >= 60>>
 					<<set _min to Math.floor($seconds / 60)>>
 					<<set _sec to $seconds % 60>>
-					<span class="time">$_min:<<if _sec lt 10>>0<</if>>$_sec</span>
+					<span class="secs">_min:<<if _sec lt 10>>0<</if>>_sec</span>
 				<<else>>
-					<span class="time">$seconds seconds</span>
+					<span class="secs">$seconds </span>
 				<</if>>
 			<</replace>>
 		<<else>>
@@ -482,30 +483,24 @@ $nextpass
   /* <<audio "30s" "play" loop>> */
   /* <<set $seconds to 1>> */
 <<set $seconds to 180>>
-<span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
+<span id="countdown"><span class="secs"></span> <span class="extra"></span></span>
 
 
 <<silently>>
 	<<repeat 1s>>
 		<<set $seconds to $seconds - 1>>
 		<<if $seconds gt 0>>
-			<<replace "#countdown">><span class="secs">$seconds</span> <span class="extra">seconds</span><</replace>>
+			<<replace "#countdown">>
+				<<if $seconds >= 60>>
+					<<set _min to Math.floor($seconds / 60)>>
+					<<set _sec to $seconds % 60>>
+					<span class="secs">_min:<<if _sec lt 10>>0<</if>>_sec</span>
+				<<else>>
+					<span class="secs">$seconds </span>
+				<</if>>
+			<</replace>>
 		<<else>>
-			<<replace "#countdown">><strong>Times up</strong><</replace>>
-      <<timed 1.5s>>
-       <<replace "#nextButtonContainer">>
-        <<if $pass is "questions2">>
-             <<button "End">>
-            <<goto $nextpass>>
-             <</button>>
-         <<else>>
-            <<button "Move On">>
-            <<goto $nextpass>>
-             <</button>>
-            <</if>>
-        <</replace>>
-        <</timed>>
-  
+			<<replace "#countdown">><strong>Time's up</strong><</replace>>
 			<<stop>>
 		<</if>>
 	<</repeat>>
@@ -513,7 +508,6 @@ $nextpass
 
  <<timed 3s>>
        <<replace "#nextButtonContainer">>
-        <<button "Move On">>
             <<if $pass is "questions2">>
              <<button "End">>
             <<goto $nextpass>>
@@ -523,7 +517,6 @@ $nextpass
             <<goto $nextpass>>
              <</button>>
             <</if>>
-            <</button>>
         <</replace>>
         <</timed>>
 
@@ -531,30 +524,24 @@ $nextpass
   /* <<audio "30s" "play" loop>> */
 /* <<set $seconds to 1>> */
 <<set $seconds to 120>>
-<span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
+<span id="countdown"><span class="secs"></span> <span class="extra"></span></span>
 
 
 <<silently>>
 	<<repeat 1s>>
 		<<set $seconds to $seconds - 1>>
 		<<if $seconds gt 0>>
-			<<replace "#countdown">><span class="secs">$seconds</span> <span class="extra">seconds</span><</replace>>
+			<<replace "#countdown">>
+				<<if $seconds >= 60>>
+					<<set _min to Math.floor($seconds / 60)>>
+					<<set _sec to $seconds % 60>>
+					<span class="secs">_min:<<if _sec lt 10>>0<</if>>_sec</span>
+				<<else>>
+					<span class="secs">$seconds </span>
+				<</if>>
+			<</replace>>
 		<<else>>
-			<<replace "#countdown">><strong>Times up</strong><</replace>>
-      <<timed 0.5s>>
-       <<replace "#nextButtonContainer">>
-        <<if $pass is "questions2">>
-             <<button "End">>
-            <<goto $nextpass>>
-             <</button>>
-         <<else>>
-            <<button "Move On">>
-            <<goto $nextpass>>
-             <</button>>
-            <</if>>
-        <</replace>>
-        <</timed>>
-  
+			<<replace "#countdown">><strong>Time's up</strong><</replace>>
 			<<stop>>
 		<</if>>
 	<</repeat>>
@@ -577,18 +564,24 @@ $nextpass
 :: 5mtimer [nobr]
   /* <<set $seconds to 3>> */
   <<set $seconds to 300>>
-<span id="countdown"><span class="secs">$seconds</span> <span class="extra">seconds</span></span>
+<span id="countdown"><span class="secs"></span> <span class="extra"></span></span>
 
 
 <<silently>>
 	<<repeat 1s>>
 		<<set $seconds to $seconds - 1>>
 		<<if $seconds gt 0>>
-			<<replace "#countdown">><span class="secs">$seconds</span> <span class="extra">seconds</span><</replace>>
+			<<replace "#countdown">>
+				<<if $seconds >= 60>>
+					<<set _min to Math.floor($seconds / 60)>>
+					<<set _sec to $seconds % 60>>
+					<span class="secs">_min:<<if _sec lt 10>>0<</if>>_sec</span>
+				<<else>>
+					<span class="secs">$seconds </span>
+				<</if>>
+			<</replace>>
 		<<else>>
-			<<replace "#countdown">><strong>Times up</strong><</replace>>
-     
-  
+			<<replace "#countdown">><strong>Time's up</strong><</replace>>
 			<<stop>>
 		<</if>>
 	<</repeat>>
@@ -642,13 +635,13 @@ $nextpass
     <p>Now to the attack... </p>
 
 <p>There are four possible monsters that might strike: </p>
-<ul>
-    <li><p>Gale, a monster made of wind</p></li>
-    <li><p>Drench, a monster made of water </p></li>
-    <li><p>Inferno  monster made of heat & fire</p></li>
-    <li><p>Crystal, a monster made of snow & ice. </p></li>
-</ul>
 
+<h3>Gale <span class="unbold">a monster made of wind</span></h3>
+<h3>Drench <span class="unbold" >a monster made of water</span> </h3>
+<h3>Inferno <span class="unbold">a monster made of heat & fire</span></h3>
+<h3>Crystal <span class="unbold">a monster made of snow & ice</span></h3> 
+
+<br/>
   <div class="inline-img-container">
   <div class="inline-img-wrapper arcard">
     <img src="assets/img/monster.png" alt="Monsters"/>
@@ -974,7 +967,7 @@ $nextpass
    <br/>
 
      <div sc-eval:id="'chooseBtn'+ $actionsoptions[_i].id" class="chooseBtn">
-         <<link "> Choose">>
+         <<button "> Choose">>
             /* Remove btn once its clicked  */
         <<set $btnId to "#chooseBtn" + $actionsoptions[_i].id >>
         <<replace $btnId>>
@@ -983,7 +976,7 @@ $nextpass
         <<timed 0.1s>>
          <<include "checkChosenActions">>   
         <</timed>>       
-         <</link>>
+         <</button>>
      </div>
            </div>
        <</capture>>
@@ -1049,49 +1042,46 @@ $nextpass
 <<set $nextpass to "diceresults">>
 <<set $diceoptions to [
     {num:1, 
-    text1: "Things are pretty bad. 
-Local resources are depleted, minimal thought and effort has gone into preparing for disaster. 
-Because of poor planning and lack of investment not everything you try and do will be successful.
-Unfortunately, two of your actions will be unsuccessful, and can’t go ahead.", 
-    text2:"Facilitator, when faced with the unsuccessful actions, one of the neighbours will need to explain how their skills and resources might fill the gap. You can judge how successful their tactics are. ",
+    text1: "Things aren’t great.  
+Local resources are depleted, so minimal thought and effort has gone into preparing for disaster. 
+Because of poor planning and lack of investment, you’re facing the monster attack entirely by yourselves. 
+You won’t receive any <span class='accent'>Good Fortune Cards</span>. Instead, during the attack you’ll face one Unpredictable Outcome.", 
+    text2:"You’ll need to come together as a street, using your own skills and resources to respond. 
+Your facilitator will lead you through this when the moment comes.",
      wildcards: 0, 
     changedactions: 2},
      {num:2, 
-    text1: "Things aren’t great. 
-Local resources are depleted, minimal thought and effort has gone into preparing for disaster. 
-Because of poor planning and lack of investment not everything you try and do will be successful.
-Unfortunately, one of your actions will be unsuccessful, and can’t go ahead.", 
-    text2: "Facilitator, when faced with the unsuccessful action, one of the neighbours will need to explain how their skills and resources might fill the gap. You can judge how successful their tactics are. ", 
+     text1: "Things aren’t great.  
+Local resources are depleted, so minimal thought and effort has gone into preparing for disaster. 
+Because of poor planning and lack of investment, you’re facing the monster attack entirely by yourselves. 
+You won’t receive any <span class='accent'>Good Fortune Cards</span>. Instead, during the attack you’ll face one Unpredictable Outcome.", 
+    text2:"You’ll need to come together as a street, using your own skills and resources to respond. 
+Your facilitator will lead you through this when the moment comes.",
      wildcards: 0, 
-    changedactions: 1},
+    changedactions: 2},
      {num:3, 
-    text1: "Things are okay.
-Everyone is getting by, the local council are doing their best to stumble on.", 
-    text2: "You won’t lose access to any of your preparations, but there is no extra help coming either. ", 
-     wildcards: 0, 
+    text1: " You are fortunate. 
+Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. ", 
+    text2:"During the monster attack you’ll be able to access one Good Fortune Card. ",
+     wildcards: 1, 
     changedactions: 0},
      {num:4, 
-    text1: "Things are alright. 
-Everyone is getting by, the council is doing their best to keep it all afloat. ", 
-     text2: "Thanks to your local councillor, there is a little extra support.<br/> 
-Facilitator, place one green wildcard face down on the table.  ", 
+    text1: " You are fortunate. 
+Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. ", 
+    text2:"During the monster attack you’ll be able to access one Good Fortune Card. ",
      wildcards: 1, 
     changedactions: 0},
      {num:5, 
-    text1: "You are fortunate. 
-The local council has had the time, money and resources to put some time into disaster preparation. 
-There’s some extra help available.", 
-    text2:"Thanks to your engaged local councilor, there’s some extra help available. <br/>
-Facilitator, place two green wildcards face down on the table. 
-",
+    text1: "You are very fortunate. 
+Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. ", 
+    text2:"During the monster attack you’ll be able to access two Good Fortune Cards.",
      wildcards: 2, 
     changedactions: 0},
     {num:6, 
     text1: "You are very fortunate. 
-The local council has had the time, money and resources to put some time into disaster preparation. 
-There’s some extra help available. ", 
-     text2: "Thanks to your very engaged local councilor, there’s some extra help available. <br/>Facilitator, place  three green wildcards face down on the table. ", 
-     wildcards: 3, 
+Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. ", 
+    text2:"During the monster attack you’ll be able to access two Good Fortune Cards.",
+     wildcards: 2, 
     changedactions: 0}
 ]
   >>
@@ -1169,14 +1159,14 @@ There’s some extra help available. ",
     <p>But since this is a game... Would you like to roll again? </p>
     <<button "Roll again">>
         <<set $rolledagain to true>>
-        <<set _failedActions to []>> 
+
         <<set $diceroll to random(0,5) >>
         <<goto "diceresults">>
         <</button>>
     
 </div>
 
-<<include "checkForUnsucessfulActions">>
+
 </main>
 
 
@@ -1184,64 +1174,15 @@ There’s some extra help available. ",
  <<timed 0.1s>>
     <<replace "#nextButtonContainer">>
             <<button "Confirm and move on">>
-                /* <<goto $nextpass>> */
-                <<include "saveResultsOfDiceRoll">>
+                <<set $playerchoices.diceroll to $diceroll>>
+                <<goto $nextpass>>
+            
             <</button>>
         <</replace>>
     <</timed>>
 
 
 
-:: checkForUnsucessfulActions [nobr]
-
-<<if $diceoptions[$diceroll].changedactions > 0>>
-    <<set _failedActions to []>> 
-
-    /* Select up to two failed actions randomly */
-    <<for _i to 0; _i lt Math.min(2, $diceoptions[$diceroll].changedactions); _i++>>
-        <<set _failedIndex to random(0, $playerchoices.chosenactions.length - 1)>>
-        <<set _failedActionID to $playerchoices.chosenactions[_failedIndex]>>
-        <<set _failedActions.push(_failedActionID)>>
-    <</for>>
-
-    /* Loop through all actions and check for matches */
-    <<timed 0.1s>>
-        <<replace "#proposedChangeMount">>
-            <br/>
-            <h3>Unsuccessful action(s):</h3>
-            <div class="actions-list">
-                <<for _i to 0; _i lt $actionsoptions.length; _i++>>
-                    <<if _failedActions.includes($actionsoptions[_i].id)>>
-                        <div class="actions-item">
-                            <h3>$actionsoptions[_i].type</h3> 
-                            <p>$actionsoptions[_i].text</p>
-                        
-                        </div>
-                    <</if>>
-                <</for>>
-            </div>
-        <</replace>>
-    <</timed>>
-<</if>>
-
-:: saveResultsOfDiceRoll
-<<set $playerchoices.wildcards to $diceoptions[$diceroll].wildcards>>
-<<set $updatedChosenActions to []>> <!-- New array to hold filtered values -->
-<<if _failedActions>>
- <<set $playerchoices.changedactions to _failedActions>>
-<<for _i to 0; _i lt $playerchoices.chosenactions.length; _i++>>
-    <<if !_failedActions.includes($playerchoices.chosenactions[_i])>> <!-- Check if the action is not in _failedActions -->
-        <<set $updatedChosenActions.push($playerchoices.chosenactions[_i])>> <!-- Add it to the new array if it's not a failed action -->
-    <</if>>
-<</for>>
-<!-- Replace the original chosenactions with the filtered version -->
-<<set $playerchoices.chosenactions = $updatedChosenActions>>
-<</if>>
-
-
-<<timed 0.5s>>
-    <<goto $nextpass>>
-    <</timed>>
 
 
 :: wallet [nobr]
@@ -1251,8 +1192,8 @@ There’s some extra help available. ",
     <span>Final Monster: $playerchoices.finalmonster</span>
     <span>Original Actions: $playerchoices.originalactions</span>
     <span>Chosen Actions: $playerchoices.chosenactions</span>
-    <span>Changed Actions: $playerchoices.changedactions</span>
     <span>Wildcards: $playerchoices.wildcards</span>
+    <span>Diceroll: $playerchoices.diceroll</span>
     
 </div>
 
@@ -1356,7 +1297,8 @@ console.log(State.variables)
 :: storyintro [nobr]
 <<set $prevpass to "forecast">>
 <<set $pass to "storyintro">>
-<<set $nextpass to "story1">>
+<<set $nextpass to "">>
+<<include "chosemonsterpath">>
 <<set $imgfinalmonster to "assets/img/" + "Demo_" + $playerchoices.finalmonster + ".png">>
 <main>
 <h2>The monster closes in on High Street. </h2>
@@ -1379,721 +1321,1021 @@ console.log(State.variables)
 
 <<include "footeroptionappears">>
 
-:: story1 [nobr]
+:: chosemonsterpath [nobr]
+<<if $playerchoices.finalmonster is "Gale">>
+    <<set $nextpass to "galestory">>
+<</if>>
+<<if $playerchoices.finalmonster is "Crystal">>
+    <<set $nextpass to "crystalstory">>
+<</if>>
+<<if $playerchoices.finalmonster is "Inferno">>
+    <<set $nextpass to "infernostory">>
+<</if>>
+<<if $playerchoices.finalmonster is "Drench">>
+    <<set $nextpass to "drenchstory">>
+<</if>>
+
+:: galeintro
 <<set $prevpass to "storyintro">>
-<<set $pass to "story1">>
-<<set $nextpass to "story2">>
+<<set $pass to "galeintro">>
+<<set $nextpass to "galestory">>
 
-<main>
+<main class="">
+    <div class="explanation">
+<p> Gale swirls into High Street. moving faster than anticipated. </p>
+<p>Even inside with all doors and windows shut, you can hear her whistling, rattling, slamming, desperate to get in. </p>
 
-<br/>
- <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
-  <img src="assets/img/alerts.png" alt="Sign Up for Alerts"/>
-</div></div>
-<br/>
-/* CONNECT 5 = id 12 */
-<<if $playerchoices.chosenactions.includes(12)>>
-    <p>Everyone is warned about the monster in good time. The alert includes up to date guidance, and no neighbours are caught out by outdated methods.  </p>
- <</if>>
-<<if !$playerchoices.chosenactions.includes(12) && !$playerchoices.changedactions.includes(12)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-    <p>Not everyone is warned about the monster or given up to date guidance. Neighbours use outdated and unsuccessful methods to keep the monster at bay. Neighbourhood morale dips. </p>
- <</if>>
-<<if $playerchoices.changedactions.includes(12)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-    <p>Not everyone is warned about the monster in good time, or given the most up to date guidance. You use your skills and resources to help. </p>
-<br/><br/>
-<i><p>Reminder: </p>
-<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
-<p>You will judge whether they have successfully filled the gap. </p>
+<p>Thanks to your choices, you manage [SCORE]% of Gale’s impacts.</p>
+<p>Let’s see how you did...</p>
 
-</i>
- <</if>>
 
-
-<<timed 3s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
-</main>
-
-
-
-<<include "footeroptionappears">>
-
-:: story2 [nobr]
-<<set $prevpass to "story1">>
-<<set $pass to "story2">>
-<<set $nextpass to "story3">>
-
-<<if $playerchoices.finalmonster isnot "Crystal">>
-    <<goto $nextpass>>
-    <</if>>
-
-<main>
- <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
-  <img src="assets/img/salts.png" alt="Lay down salts"/>
-</div></div>
-<br/>
-/* CRYSTAL & PREPARE 1 = id 1 */
-<<if $playerchoices.finalmonster is "Crystal" && $playerchoices.chosenactions.includes(1)>>
-    <p>There is no mark of Crystal on the streets. Neighbours venture out, and no one slips or falls. Dot, the stray cat, is safe! </p>
- <</if>>
-<<if $playerchoices.finalmonster is "Crystal" && !$playerchoices.chosenactions.includes(1) && !$playerchoices.changedactions.includes(1)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-    <p>The streets are slippy and icy. A couple of neighbours venture out and slip and fall, resulting in a broken wrist and two sprained ankles. Dot, the stray cat, is safe though!</p>
- <</if>>
-<<if $playerchoices.finalmonster is "Crystal" && $playerchoices.changedactions.includes(1)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>The streets are slippy and icy. Even Dot, the stray cat, is sliding about. You use your skills and resources to help. </p>
-<br/><br/>
-<i>
-    <p>Reminder: </p>
-<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
-<p>You will judge whether they have successfully filled the gap. </p>
-
-</i>
- 
- <</if>>
-
-<<timed 3s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
-</main>
-
-
-
-<<include "footeroptionappears">>
-
-:: story3 [nobr]
-<<set $prevpass to "story2">>
-<<set $pass to "story3">>
-<<set $nextpass to "story4">>
-
-<<set $chosenactionstemp to $playerchoices.chosenactions>>
-<<if $playerchoices.finalmonster isnot "Inferno">>
-    <<goto $nextpass>>
-    <</if>>
-
-<main>
- <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
-  <img src="assets/img/drinks.png" alt="Gather Drinks"/>
-</div></div>    
-<br/>
-/* INFERNO & PREPARE 2 = id 2 */
-
-
-<<if $playerchoices.finalmonster is "Inferno" and $playerchoices.chosenactions.includes(2)>>
-    <p>The temperature creeps up, and you make sure everyone is cool and hydrated. However, Dot, the stray cat, found some water and shade!  </p>
- <</if>>
-
-<<if $playerchoices.finalmonster is "Inferno" && !$playerchoices.chosenactions.includes(2) && !$playerchoices.changedactions.includes(2)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-    <p>The temperature creeps up, and some neighbours, especially those with existing health conditions, suffer. Two people are dehydrated, and one neighbour faints and is taken to hospital. However, Dot, the stray cat, found some water and shade!  </p>
- <</if>>
-<<if $playerchoices.finalmonster is "Inferno" && $playerchoices.changedactions.includes(2)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p> As the temperature creeps up, neighbours grow concerned, even Dot, the stray cat, is parched. You use your skills and resources to keep your neighbours safe.</p> 
-<br/><br/>
-<i>
-<p>Reminder: </p>
-<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
-<p>You will judge whether they have successfully filled the gap. </p>
-
- </i>
- <</if>>
-
-<<timed 3s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
-</main>
-
-
-<<include "footeroptionappears">>
-
-
-:: story4 [nobr]
-<<set $prevpass to "story3">>
-<<set $pass to "story4">>
-<<set $nextpass to "story5">>
-
-<<if $playerchoices.finalmonster isnot "Gale">>
-    <<goto $nextpass>>
-    <</if>>
-
-<main>
- <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
-  <img src="assets/img/objects.png" alt="Secure objects"/>
-</div></div>
-<br/>
-
-/* GALE & PREPARE 3 = id 3 */
-<<if $playerchoices.finalmonster is "Gale" && $playerchoices.chosenactions.includes(3)>>
-    <p>Gale bangs at the doors of sheds, and pulls at the cables you’ve tied, but nothing escapes. Neighbours and Dot, the stray cat, are safe from flying debris! </p>
- <</if>>
-<<if $playerchoices.finalmonster is "Gale" && !$playerchoices.chosenactions.includes(3) && !$playerchoices.changedactions.includes(3)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-    <p>Gale bangs at the doors of sheds, lifting chairs and a trampoline into the air. One neighbour is hit by a flying parasol and goes to hospital. Fortunately, Dot, the stray cat, dodges all of the debris!  </p>
- <</if>>
-<<if $playerchoices.finalmonster is "Gale" && $playerchoices.changedactions.includes(3)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>Gale swirls down, ready to lift objects into the air. Dot, the stray cat, digs her claws into a tree trunk and holds tight. You use your own skills and resources to protect your neighbours.</p> 
-<br/><br/>
-<i>
-    <p>Reminder: </p>
- <p> Facilitator, invite one player to describe how they will use their skills to take action. </p>
-<p>You will judge whether they have successfully filled the gap. </p>
-
-</i>
-
-
- <</if>>
- 
-<<timed 3s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
-</main>
-
-<<include "footersimpleappears">>
-
-:: story5 [nobr]
-<<set $prevpass to "story4">>
-<<set $pass to "story5">>
-<<set $nextpass to "story6">>
-<<if $playerchoices.finalmonster isnot "Drench">>
-    <<goto $nextpass>>
-    <</if>>
-
-
-<main>
- <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
-  <img src="assets/img/barriers.png" alt="Set up barriers"/>
-</div></div>
-<br/> 
- /* DRENCH & PREPARE 4 = id 4 */
-<<if $playerchoices.finalmonster is "Drench" && $playerchoices.chosenactions.includes(4)>>
-    <p>Drench arrives. The barriers, blocks and pads keep homes water free, with no risk of disease or electric shock. Dot, the stray cat, is safe and well!  </p>
- <</if>>
-<<if $playerchoices.finalmonster is "Drench" && !$playerchoices.chosenactions.includes(4) && !$playerchoices.changedactions.includes(4)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-    <p>Drench arrives and rushes into homes. Two neighbours get respiratory infections from the floodwater, and a family is stuck upstairs in their house, with risk of electric shock below. Dot, the stray cat, manages to find shelter though!  </p>
- <</if>>
-<<if $playerchoices.finalmonster is "Drench" && $playerchoices.changedactions.includes(4)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>Drench rushes in. Dot, the stray cat, is seen perching on a high branch. You use your own skills and resources to protect your neighbours.</p> 
-<br/><br/>
-<i>
-    <p>Reminder: </p>
-<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
-<p>You will judge whether they have successfully filled the gap. </p>
-
-</i>
-
-
- <</if>>
-
-<<timed 3s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
-</main>
-
-
-<<include "footeroptionappears">>
-:: story6 [nobr]
-<<set $prevpass to "story5">>
-<<set $pass to "story6">>
-<<set $nextpass to "story7">>
-
-
-<main>
- <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
-  <img src="assets/img/messaging.png" alt="Set up messaging chat"/>
-</div></div>
-<br/>/* CONNECT 1 = id 8 */
-<<if $playerchoices.chosenactions.includes(8)>>
-<p>The messaging chat connects you to someone on the street you haven’t met. </p>
-<i><p>Turn over one of the face down neighbour cards. </p></i>
-<p>You include this neighbour in your preparations. You involve their skills and provide support to them. </p>
-
- <</if>>
-<<if !$playerchoices.chosenactions.includes(8) && !$playerchoices.changedactions.includes(8)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>You don’t meet someone on the street who is rarely home to answer the door.</p> 
-<i><p>Turn over one of the face down neighbour cards. </p></i>
-<p>You don’t include this neighbour in your preparations. You can't involve their skills or provide support to them. </p>
-
-
- <</if>>
-<<if $playerchoices.changedactions.includes(8)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>You don’t meet someone on the street who is rarely home to answer the door. </p>
-<i><p>Turn over one of the face down neighbour cards. </p></i>
-<p>You use your own skills and resources. </p>
-<br/><br/>
-<i>
-    <p>Reminder: </p>
-<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
-<p>You will judge whether they have successfully filled the gap. </p>
-
-</i>
-
- <</if>>
- 
-
-<<timed 3s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
-</main>
-
-<<include "footeroptionappears">>
-
-:: story7 [nobr]
-<<set $prevp9ss to "story6">>
-<<set $pass to "story7">>
-<<set $nextpass to "story8">>
-
-<main>
-<div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
-  <img src="assets/img/door-knocking.png" alt="Door-knocking"/>
-</div></div>
-<br/>
-/* CONNECT 2 = id 9 */
-<<if $playerchoices.chosenactions.includes(9)>>
-<p>You meet a neighbour who doesn’t use messaging chats. </p>
-
-<i><p>Turn over one of the face down neighbour cards. </p></i>
-
-<p>You include this neighbour in your preparations. You involve their skills and provide support to them. </p>
-
- <</if>>
-<<if !$playerchoices.chosenactions.includes(9) && !$playerchoices.changedactions.includes(9)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>You don’t meet a neighbour who doesn’t use messaging chats. </p>
-<i><p>Turn over one of the face down neighbour cards. </p></i>
-<p>You don’t include this neighbour in your preparations. You can't involve their skills or provide support to them. </p>
-
- <</if>>
-<<if $playerchoices.changedactions.includes(9)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>You don’t meet a neighbour who doesn’t use messaging chats. </p>
-
-<i><p>Turn over one of the face down neighbour cards. </p></i>
-
-<p>You use your own skills and resources. </p>
-<br/><br/>
-<i>
-    <p>Reminder: </p>
-<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
-<p>You will judge whether they have successfully filled the gap. </p>
-
-</i>
-
- <</if>>
-
-<<timed 3s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
-</main>
-
-<<include "footeroptionappears">>
-
-:: story8 [nobr]
-<<set $prevp9ss to "story7">>
-<<set $pass to "story8">>
-<<set $nextpass to "story9">>
-
-<main>
-
-<div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
-  <img src="assets/img/belongings.png" alt="Move precious belongings"/>
-</div></div>
-<br/>
-/* PREPARE 7 = id 7 */
-<<if $playerchoices.chosenactions.includes(7)>>
-<p>The monster rushes in, but can’t reach belongings that sit on high shelves and in attics. Nothing is damaged. Hooray!</p>
- <</if>>
-<<if !$playerchoices.chosenactions.includes(7) && !$playerchoices.changedactions.includes(7)>>
-<<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>The monster rushes in, and belongings are swept away with them. A neighbour loses all their family photographs, another’s computer is broken. </p>
- <</if>>
-<<if $playerchoices.changedactions.includes(7)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>The monster arrives, but you haven’t been able to move your belongings to safety. You have to rely on your own skills and resources. </p>
-<br/><br/>
-<i>
-    <p>Reminder: </p>
-<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
-<p>You will judge whether they have successfully filled the gap.  </p>
-
-</i>
-
- <</if>>
-
-<<timed 3s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
-</main>
-
-
-<<include "footeroptionappears">>
-
-:: story9 [nobr]
-<<set $prevp9ss to "story8">>
-<<set $pass to "story9">>
-<<set $nextpass to "story10">>
-
-<main>
-<div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
-  <img src="assets/img/emergency.png" alt="Prepare emergency kit"/>
-</div></div>
-<br/>/* PREPARE 5 = id 5 */
-<<if $playerchoices.chosenactions.includes(5)>>
-<p>The monster attacks the electricity supply and there is a 24h outage. You’re prepared: you have food, water, a first aid kit, and a wind up radio to stay up to date. Phew!</p>
- <</if>>
-<<if !$playerchoices.chosenactions.includes(5) && !$playerchoices.changedactions.includes(5)>>
-<<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>The monster attacks the electricity supply and there is a 24h outage. You’re unprepared: you can’t regulate your temperature and you struggle to find edible food. It is a shock. </p>
- <</if>>
-<<if $playerchoices.changedactions.includes(5)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>The monster attacks the electricity supply and there is a 24h outage. You use your own skills and resources. </p>
-<br/><br/>
-<i>
-    <p>Reminder: </p>
-<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
-<p>You will judge whether they have successfully filled the gap. </p>
-
-</i>
-
- <</if>>
-
-<<timed 3s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
-</main>
-
-
-<<include "footeroptionappears">>
-
-:: story10 [nobr]
-<<set $prevp9ss to "story9">>
-<<set $pass to "story10">>
-<<set $nextpass to "story11">>
-
-<main>
-<div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
-  <img src="assets/img/plan.png" alt="Make a plan"/>
-</div></div>
-<br/>
-/* PREPARE 6 = id 6 */
-<<if $playerchoices.chosenactions.includes(6)>>
-<p>The monster forces you to evacuate. Thanks to your plan, you have all you need with you: food, water and a phone charger. Your neighbour calls for help, you pick up! </p>
- <</if>>
-<<if !$playerchoices.chosenactions.includes(6) && !$playerchoices.changedactions.includes(6)>>
-<<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>The monster forces you to evacuate and you forget key items, including your phone charger. Your neighbour calls asking for help, but your phone has no battery. It doesn’t ring.</p>
- <</if>>
-<<if $playerchoices.changedactions.includes(6)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>The monster forces you to evacuate, and you’re stuck without a plan. You use your skills and resources. </p>
-<br/><br/>
-<i>
-    <p>Reminder: </p>
-<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
-<p>You will judge whether they have successfully filled the gap.</p> 
-
-</i>
-
- <</if>>
-
-<<timed 3s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
-</main>
-
-
-<<include "footeroptionappears">>
-
-:: story11 [nobr]
-<<set $prevp9ss to "story10">>
-<<set $pass to "story11">>
-<<set $nextpass to "story12">>
-
-<main>
-<div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
-  <img src="assets/img/community.png" alt="Community Centre"/>
-</div></div>
-<br/>
-/* CONNECT 3 = id 10 */
-<<if $playerchoices.chosenactions.includes(10)>>
-<p>Resources run low, and you turn to the community centre. Several neighbours run out of food. However, the community centre’s food bank makes sure everyone is well fed. </p>
- <</if>>
-<<if !$playerchoices.chosenactions.includes(10) && !$playerchoices.changedactions.includes(10)>>
-<<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>Resources run low, and you have nowhere to turn. Several neighbours run out of food.They are left hungry. </p>
- <</if>>
-<<if $playerchoices.changedactions.includes(10)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>Resources run low, there is nowhere to turn. Several neighbours run out of food. You use your own skills and resources. </p>
-<br/><br/>
-<i>
-    <p>Reminder: </p>
-<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
-<p>You will judge whether they have successfully filled the gap. </p>
-
-</i>
-
- <</if>>
-
-<<timed 3s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
-</main>
-
-<<include "footeroptionappears">>
-
-:: story12 [nobr]
-<<set $prevp9ss to "story11">>
-<<set $pass to "story12">>
-<<set $nextpass to "wildcards">>
-
-<main>
-<div class="inline-img-container">
-  <div class="inline-img-wrapper arcardbig" id="cardWrapper">
-  <img src="assets/img/local.png" alt="Connect to local school centre or faith space"/>
-</div></div>
-<br/>
-/* CONNECT 4 = id 11 */
-<<if $playerchoices.chosenactions.includes(11)>>
-<p>Several houses are attacked badly by the monster, and become unsafe to stay in. Neighbours retreat to the safe space. Blankets are handed out. </p>
- <</if>>
-<<if !$playerchoices.chosenactions.includes(11) && !$playerchoices.changedactions.includes(11)>>
-<<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>Several of the houses are attacked badly by the monster, and become unsafe to stay in. There is nowhere for the neighbours to go. It is terrifying and neighbours are scared and panicked. </p>
- <</if>>
-<<if $playerchoices.changedactions.includes(11)>>
-    <<timed 0.1s>>
-     <<addclass "#cardWrapper" "grey">>
-    <</timed>>
-<p>Several houses are attacked badly by the monster, and become unsafe to stay in. You use your own skills and resources. </p>
-<br/><br/>
-<i>
-    <p>Reminder: </p>
-<p>Facilitator, invite one player to describe how they will use their skills to take action. </p>
-<p>You will judge whether they have successfully filled the gap. </p>
-
-</i>
-<</if>>
-
-<<timed 3s>>
-    <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
-        <</button>>
-    <</replace>>
-<</timed>>
-</main>
-
-<<include "footeroptionappears">>
-
-:: wildcardlist [nobr]
-
-<div class="actions-list">
-<<for _i to 0; _i lt $wildcardoptions.length; _i++>>
-  <<capture _i>>
-    <<set $text to ($wildcardoptions[_i].text)>>
-    
-<div sc-eval:class="'actions-item actions-item' + ($actionsoptions[_i].id)" sc-eval:id="'action' + [_i]" sc-eval:data-id="'action' + [_i]">
-   <h3>$wildcardoptions[_i].type</h3> $text
-   <br/>
-   <div sc-eval:id="'chooseBtn'+ $wildcardoptions[_i].id" class="chooseBtn">
-     <<link "> Choose">>
-            /* Remove btn once its clicked  */
-        <<set $btnId to "#chooseBtn" + $wildcardoptions[_i].id >>
-        <<replace $btnId>>
-            <</replace>>
-        <<run $playerchoices.chosenwildcards.push($wildcardoptions[_i].id)>>
-        <<timed 0.1s>>
-         <<include "checkChosenWildcards">>   
-        <</timed>>       
-         <</link>>
-        </div>
-     
-           </div>
-       <</capture>>
-   <</for>>
 </div>
+</main>
+<<include "footeroptionappears">>
 
-:: checkChosenWildcards [nobr]
-
-  <<for _i to 0; _i lt $wildcardoptions.length; _i++>>
-    <<if $playerchoices.chosenwildcards.includes($wildcardoptions[_i].id)>>
-        <<set $class to ".actions-item" + (_i+1) >>
-        <<addclass $class "chosen">>
-    <</if>>
-<</for>>  
-    <<if $playerchoices.chosenwildcards.length === $playerchoices.wildcards>>
-          /* Disable buttons  */
-    <<replace ".chooseBtn">>
-        <</replace>>
+ <<timed 3s>>
     <<replace "#nextButtonContainer">>
-            <<button "Confirm and move on">>
-                <<goto $nextpass>>
-            <</button>>
-        <</replace>>
-    <</if>>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
 
-<<script>>
-console.log(State.variables)
-<</script>>
 
-:: wildcards [nobr]
-<<set $prevpass to "story12">>
-<<set $pass to "wildcards">>
-<<set $nextpass to "aftermath">>
-<<set $wildcardoptions to [
-    {type: "wildcard", text: "Local firefighters come to clear debris off the streets.", id:1},
-   {type: "wildcard", text: "An emergency first aid van sets up on the street, knocking on doors and providing support where needed.", id:2},
-    {type: "wildcard", text: "Free care packages with water, food and emergency supplies are dropped at each house.", id:3},
-     {type: "wildcard", text: "Your councillor sends around insurance experts, to ensure households can get good claims against economic damage.", id:4},
-]>>
 
-<<if previous() is "story12" && $playerchoices.wildcards is 0>>
+:: galestory[nobr]
+<<set $prevpass to "galeintro">>
+<<set $pass to "galestory">>
+<<set $nextpass to "galefortune">>
 
-    <<goto $nextpass>>
-<</if>>
+<main class="">
+    <div class="explanation">
+<<if $playerchoices.chosenactions.includes(12)>>
+    <p>Everyone is warned about Gale's arrival in good time. The alert includes up to date guidance, and no neighbours are caught out by outdated methods.   </p>
+ <</if>>
+
+<<if $playerchoices.chosenactions.includes(8)>>
+<p>You set up a messaging chat, which connects you to some of your neighbours you are yet to meet. </p>
+
+<p>Turn over half of the face down neighbour cards. </p>
+
+<p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+
+ <</if>>
+
+ <<if $playerchoices.chosenactions.includes(3)>>
+    <p>Gale bangs at the doors of sheds, and pulls at the cables you’ve tied, but nothing escapes. Your neighbours and Dot, the stray cat, are safe from flying debris!  </p>
+ <</if>>
+
+  <<if $playerchoices.chosenactions.includes(7)>>
+    <p>Gale rattles at the windows, and one shatters in its frame. Fortunately, you have moved all the furniture away, and kept the area clear. Nothing is damaged and everyone is safe.</p>
+ <</if>>
+
+  <<if $playerchoices.chosenactions.includes(5)>>
+    <p>Gale attacks the electricity supply and there is a 24h outage. You’re prepared: you have food, water, a first aid kit, and a wind up radio to stay up to date. Phew!</p>
+ <</if>>
+
+  <<if $playerchoices.chosenactions.includes(10)>>
+    <p>Towards the end of Gale’s visit, resources run low. You turn to the community centre. Several neighbours run out of food, but the community centre’s food bank makes sure everyone is well fed.</p>
+ <</if>>
+ </div>
+</main>
+
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: galefortune [nobr]
+<<set $prevpass to "galestory">>
+<<set $pass to "galefortune">>
+<<set $nextpass to "gale-poststory">>
 
 
 <main class="">
     <div class="explanation">
-  <p>Your helpful councillor has sent some extra support:  
-        Pull <<print $playerchoices.wildcards>> wildcard(s).</p>
-        <p>Let us know which wildcards you selected below. </p>
+    <div id="mount"></div>
+ <<timed 0.1s>>
+ <<replace "#mount">>
+    <<if $playerchoices.$diceroll is 3 || 4>>
+    <h2>Your fortune also provides an additional benefit! </h2>
+    <p>You get a Good Fortune Card: </p>
+    <div class="inline-img-container wildcards">
+            <div class="inline-img-wrapper arcard">
+                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+            </div>
     </div>
-    <<include "wildcardlist">>
-    <br/>
-    <<button "Reset">>
-        <<set $playerchoices.chosenwildcards to []>>
-        <<goto "wildcards">>
-        <</button>>
-    /* 5 Chosen Actions: <div id="chosenActionsMount"></div> */
-    <br/>    <br/>
-      <h3>Aren't you lucky?</h3>
-          <br/>
-</main>
-<<include "footersimpleappears">>
+    <p>In the days following Gale’s visit the fire service are sent to High Street. They clear trees and debris, ensuring all key roads can be accessed and no properties remain at risk. </p>
+<</if>>
+<</replace>>
+<</timed>>
+ <<timed 0.1s>>
+ <<replace "#mount">>
+ <<if $playerchoices.$diceroll is 5 || 6>>
+    <h2>Your fortune also provides additional benefits! </h2>
+    <p>You get two Good Fortune Cards: </p>
+    <div class="inline-img-container wildcards">
+            <div class="inline-img-wrapper arcard">
+                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+            </div>
+            <div class="inline-img-wrapper arcard">
+                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+            </div>
+    </div>
+ <p>  In the days following Gale’s visit the fire service are sent to High Street. They clear trees and debris, ensuring all key roads can be accessed and no properties remain at risk. </p>
 
-/* <<if previous() is "aftermath">>
-<<goto $prevpass>>
-<<else >>
-    <<goto $nextpass>>
-<</if>> */
+<p>Your local councillor also commits to rebuilding some of the damaged public infrastructure. They say everything will be fixed in the next six months. You decide you’ll wait and see. </p>
+
+<</if>>
+<</replace>>
+<</timed>>
+ </div>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: gale-poststory[nobr]
+<<set $prevpass to "galefortune">>
+<<set $pass to "gale-poststory">>
+<<set $nextpass to "galeimpacts">>
+
+<main class="">
+    <div class="explanation">
+<p>Unfortunately, not everything goes quite as well. </p>
+<p>Due to the choices you made, there are some challenges you have to face.</p> 
+<p>Here are Gale’s impacts you’re left to contend with...</p>
+
+</div>
+</main>
+
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: galeimpacts[nobr]
+<<set $prevpass to "gale-poststory">>
+<<set $pass to "galeimpacts">>
+<<set $nextpass to "galefortuneimpacts">>
+
+<main class="">
+    <div class="explanation">
+<<if !$playerchoices.chosenactions.includes(12)>>
+    <p>You didn’t sign up for alerts, and news of Gale’s arrival is contradictory and confusing. One neighbour ends up stuck in their car unable to get home. As Gale retreats they are left shaken and scared.   </p>
+ <</if>>
+
+<<if !$playerchoices.chosenactions.includes(8)>>
+<p>You don’t set up a messaging group, and so you aren’t able to connect to several neighbours. </p>
+
+<p><i>Turn over half of the remaining face down neighbour cards. </i></p>
+
+<p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
+
+
+ <</if>>
+
+ <<if !$playerchoices.chosenactions.includes(3)>>
+    <p>Gale bangs at the doors of sheds, lifting chairs and a trampoline into the air. One neighbour is hit by a flying parasol and goes to hospital. Fortunately, Dot, the stray cat, dodges all of the debris! </p>
+ <</if>>
+
+  <<if !$playerchoices.chosenactions.includes(7)>>
+    <p>Gale rattles at the windows, and one shatters in its frame. No one is hurt, but a TV is knocked over as the pane falls in, its screen is smashed and the table beneath is unusable.</p>
+ <</if>>
+
+  <<if !$playerchoices.chosenactions.includes(5)>>
+    <p>Gale attacks the electricity supply and there is a 24h outage. Neighbours are unprepared: they don’t have enough blankets or jumpers to stay warm, and none of you have as many tins of beans as you thought. It’s a shock. </p>
+ <</if>>
+
+  <<if !$playerchoices.chosenactions.includes(10)>>
+    <p>Resources run low, and you have nowhere to turn. Several neighbours run out of food. They are left hungry. </p>
+ <</if>>
+ </div>
+</main>
+
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: galefortuneimpacts [nobr]
+<<set $prevpass to "galeimpacts">>
+<<set $pass to "galefortuneimpacts">>
+<<set $nextpass to "aftermathintro">>
+
+
+<main class="">
+    <div class="explanation">
+    <div id="mount"></div>
+ <<timed 0.1s>>
+ <<replace "#mount">>
+    <<if $playerchoices.$diceroll is 1 || 2>>
+    <h2>Gale retreats and leaves what you can only call a rather large mess. </h2>
+<p>There are fallen trees and debris over a major road, and due to your low fortune, there is no councillor to turn to. But you do have each other! </p>
+
+<p>You will use your skills to take action on this <span class="accent">Unpredictable Outcome.</span> </p>
+
+<p><i>Facilitator, invite one player to describe how they will use their skills to take action.</i> </p>
+
+<p><i>You will judge whether they have successfully filled the gap. </i></p>
+
+<</if>>
+<</replace>>
+<</timed>>
+ 
+ </div>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+
+:: infernointro
+<<set $prevpass to "storyintro">>
+<<set $pass to "infernointro">>
+<<set $nextpass to "infernostory">>
+
+<main class="">
+    <div class="explanation">
+<p>Inferno sizzles into High Street. She clears the sky of clouds, so all you see is blue. </p>
+<p>Inside and out the air is thick, heavy and still, no cool, no breeze. The thermometer climbs higher and higher. </p>
+<br/>
+<p>Thanks to your choices, you manage [SCORE]% of Inferno’s impacts.</p>
+<p>Let’s see how you did...</p>
+
+
+
+</div>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+
+
+:: infernostory[nobr]
+<<set $prevpass to "infernointro">>
+<<set $pass to "infernostory">>
+<<set $nextpass to "infernofortune">>
+
+<main class="">
+    <div class="explanation">
+<<if $playerchoices.chosenactions.includes(2)>>
+    <p>The temperature rises, and you pass out water to make sure everyone is cool and hydrated. Even Dot, the stray cat, gets her fill!</p>
+ <</if>>
+
+<<if $playerchoices.chosenactions.includes(8)>>
+<p>You set up a messaging chat, which connects you to some of your neighbours you are yet to meet. </p>
+
+<p><i>Turn over half the remaining face down neighbour cards. </i></p>
+
+<p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+
+
+ <</if>>
+
+ <<if $playerchoices.chosenactions.includes(9)>>
+ <p>You go door knocking, which connects you to some of your neighbours you are yet to meet. </p>
+
+<p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
+
+<p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+
+ <</if>>
+
+  <<if $playerchoices.chosenactions.includes(5)>>
+    <p>One of your neighbours faints in the heat, hitting their arm against a low table. Thanks to your emergency kit, you give them food, water and first aid support while you wait for help to come. </p>
+ <</if>>
+
+  <<if $playerchoices.chosenactions.includes(11)>>
+    <p>Several houses are attacked badly by Inferno, and become unsafe to stay in. Neighbours retreat to the safe space.</p>
+ <</if>>
+
+  <<if $playerchoices.chosenactions.includes(6)>>
+    <p>As Neighbours retreat from Inferno’s heat, you grab your to-go bag. You’re grateful for the emergency supplies, and especially your phone charger. The next morning your neighbour calls asking for help. You go to help them. </p>
+ <</if>>
+ </div>
+</main>
+
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: infernofortune [nobr]
+<<set $prevpass to "infernostory">>
+<<set $pass to "infernofortune">>
+<<set $nextpass to "inferno-poststory">>
+<<set $playerchoices.$diceroll to $diceroll>>
+
+<main class="">
+    <div class="explanation">
+    <div id="mount"></div>
+ <<timed 0.1s>>
+ <<replace "#mount">>
+    <<if $playerchoices.$diceroll is 3 || 4>>
+    <h2>Your fortune also provides an additional benefit! </h2>
+    <p>You get a Good Fortune Card: </p>
+    <div class="inline-img-container wildcards">
+            <div class="inline-img-wrapper arcard">
+                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+            </div>
+    </div>
+    <p>As the heat reaches dangerous levels, local community health workers set up a first aid tent on High Street, providing emergency medical care and handing out water, cold compresses and rehydration sachets. </p>
+<</if>>
+<</replace>>
+<</timed>>
+ <<timed 0.1s>>
+ <<replace "#mount">>
+ <<if $playerchoices.$diceroll is 5 || 6>>
+    <h2>Your fortune also provides additional benefits! </h2>
+    <p>You get two Good Fortune Cards: </p>
+    <div class="inline-img-container wildcards">
+            <div class="inline-img-wrapper arcard">
+                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+            </div>
+            <div class="inline-img-wrapper arcard">
+                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+            </div>
+    </div>
+ <p> As the heat reaches dangerous levels, local community health workers set up a first aid tent on High Street, providing emergency medical care and handing out water, cold compresses and rehydration sachets. </p>
+
+<p>A group of healthcare workers are also dispatched to individual houses, to check in on vulnerable members of the community, and provide emergency support where needed.</p>
+
+<</if>>
+<</replace>>
+<</timed>>
+ </div>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+
+:: inferno-poststory[nobr]
+<<set $prevpass to "infernofortune">>
+<<set $pass to "inferno-poststory">>
+<<set $nextpass to "infernoimpacts">>
+
+<main class="">
+    <div class="explanation">
+<p>Unfortunately, not everything goes quite as well. </p>
+<p>Due to the choices you made, there are some challenges you have to face. </p>
+
+<p>Here are Inferno’s impacts you’re left to contend with… </p>
+
+
+</div>
+</main>
+
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: infernoimpacts[nobr]
+<<set $prevpass to "inferno-poststory">>
+<<set $pass to "infernoimpacts">>
+<<set $nextpass to "infernofortuneimpacts">>
+
+<main class="">
+    <div class="explanation">
+<<if !$playerchoices.chosenactions.includes(2)>>
+    <p>As the temperature rises, some neighbours, especially those with existing health conditions, suffer. Two people are dehydrated and need to be taken to hospital. Fortunately, Dot, the stray cat, found some water and shade - your neighbours aren’t quite so lucky!  </p>
+ <</if>>
+
+<<if !$playerchoices.chosenactions.includes(8)>>
+<p>You don’t set up a messaging group, and so you aren’t able to connect to several neighbours. </p>
+
+<p><i>Turn over half of the remaining face down neighbour cards. </i></p>
+
+<p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another.</p> 
+
+ <</if>>
+
+ <<if !$playerchoices.chosenactions.includes(9)>>
+<p>You don’t go door knocking, and so you aren’t able to connect to several neighbours. </p>
+
+<p><i>Turn over half of the remaining face down neighbour cards. </i></p>
+
+<p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
+
+ <</if>>
+
+  <<if !$playerchoices.chosenactions.includes(5)>>
+    <p>One of your neighbours faints and hits themselves on a low table. With no emergency kit you have no supplies to help them as they wait for an ambulance to arrive. They’re left feeling shaken and a little scared. </p>
+ <</if>>
+
+  <<if !$playerchoices.chosenactions.includes(11)>>
+    <p>Several of the houses are attacked badly by Inferno and become unsafe to stay in. There is nowhere for some of the neighbours to go. Neighbours are scared and panicked. </p>
+ <</if>>
+
+  <<if !$playerchoices.chosenactions.includes(6)>>
+    <p>Some neighbours do evacuate from Inferno’s heat, but with no grab bag, you forget key items, including your phone charger. Your neighbour calls asking for help, but your phone has no battery. It doesn’t ring.</p>
+ <</if>>
+ </div>
+</main>
+
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: infernofortuneimpacts [nobr]
+<<set $prevpass to "infernoimpacts">>
+<<set $pass to "infernofortuneimpacts">>
+<<set $nextpass to "aftermathintro">>
+
+
+<main class="">
+    <div class="explanation">
+    <div id="mount"></div>
+ <<timed 0.1s>>
+ <<replace "#mount">>
+    <<if $playerchoices.$diceroll is 1 || 2>>
+    <h2>As the heat rises, your fear for your neighbours does too. </h2>
+<p>With no emergency help available due to your low fortune, you will need to step in and fill the gap. Neighbours are hot, dehydrated and at risk.</p>
+
+<p>You will use your skills to take action on this <span class="accent">Unpredictable Outcome.</span> </p>
+
+<p><i>Facilitator, invite one player to describe how they will use their skills to take action.</i> </p>
+
+<p><i>You will judge whether they have successfully filled the gap. </i></p>
+
+<</if>>
+<</replace>>
+<</timed>>
+ 
+ </div>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+
+:: drenchintro
+<<set $prevpass to "storyintro">>
+<<set $pass to "drenchintro">>
+<<set $nextpass to "drenchstory">>
+
+<main class="">
+    <div class="explanation">
+<p>The skies open and Drench falls down, rushing along the slope of the street, pooling at drains and in potholes that can’t contain her. She slips and slides through cracks and gaps. No matter where you go she is around every corner. </p>
+
+<p>Thanks to your choices, you manage [SCORE]% of Drench’s impacts.</p>
+<p>Let’s see how you did...</p>
+
+</div>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+
+
+:: drenchstory[nobr]
+<<set $prevpass to "drenchintro">>
+<<set $pass to "drenchstory">>
+<<set $nextpass to "drenchfortune">>
+
+<main class="">
+    <div class="explanation">
+<<if $playerchoices.chosenactions.includes(12)>>
+    <p>With High Street signed up to alerts, everyone is warned about the Drench’s arrival in good time. The alert includes up to date guidance, which ensures no one uses any out of date methods or approaches to keep Drench at bay. </p>
+ <</if>>
+
+<<if $playerchoices.chosenactions.includes(4)>>
+<p>Drench arrives. The barriers, blocks and pads keep most of High Street water free, with no risk of disease or electric shock. Dot, the stray cat, is safe and well! </p>
+ <</if>>
+
+ <<if $playerchoices.chosenactions.includes(7)>>
+ <p>A few homes on High Street are unable to keep Drench out.  Fortunately, when Drench does rush in, she can’t reach belongings that sit on high shelves and in attics. </p>
+
+ <</if>>
+
+  <<if $playerchoices.chosenactions.includes(8)>>
+   <p> You set up a messaging chat, which connects you to some of your neighbours you are yet to meet. </p>
+
+<p><i>Turn over half the remaining face down neighbour cards. </i></p>
+
+<p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+
+ <</if>>
+
+  <<if $playerchoices.chosenactions.includes(6)>>
+    <p>Drench forces several houses to evacuate. Thanks to your plan, you have a to-go bag. You’re grateful for the supplies, and especially your phone charger. The next morning your neighbour calls asking for help. You go to help them. </p>
+ <</if>>
+
+  <<if $playerchoices.chosenactions.includes(11)>>
+    <p>Several homes are now waterlogged and become unsafe to stay in. Neighbours gratefully retreat to the safe space.</p>
+ <</if>>
+ </div>
+</main>
+
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: drenchfortune [nobr]
+<<set $prevpass to "drenchstory">>
+<<set $pass to "drenchfortune">>
+<<set $nextpass to "drench-poststory">>
+<<set $playerchoices.$diceroll to $diceroll>>
+
+<main class="">
+    <div class="explanation">
+    <div id="mount"></div>
+ <<timed 0.1s>>
+ <<replace "#mount">>
+    <<if $playerchoices.$diceroll is 3 || 4>>
+    <h2>Your fortune also provides an additional benefit! </h2>
+    <p>You get a Good Fortune Card: </p>
+    <div class="inline-img-container wildcards">
+            <div class="inline-img-wrapper arcard">
+                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+            </div>
+    </div>
+    <p>Emergency services are dispatched to High Street to help people who remain stranded by the lingering floods. A family climbs out of their top floor window, and one man is rescued from his car. </p>
+<</if>>
+<</replace>>
+<</timed>>
+ <<timed 0.1s>>
+ <<replace "#mount">>
+ <<if $playerchoices.$diceroll is 5 || 6>>
+    <h2>Your fortune also provides additional benefits! </h2>
+    <p>You get two Good Fortune Cards: </p>
+    <div class="inline-img-container wildcards">
+            <div class="inline-img-wrapper arcard">
+                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+            </div>
+            <div class="inline-img-wrapper arcard">
+                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+            </div>
+    </div>
+ <p>Emergency services are dispatched to High Street to help people who remain stranded by the lingering floods. A family climbs out of their top floor window, and one man is rescued from his car. </p>
+
+<p>A group of healthcare workers are dispatched to individual houses, to check in on vulnerable members of the community, and provide emergency support where needed. </p>
+
+<</if>>
+<</replace>>
+<</timed>>
+ </div>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+<<include "wallet">>
+
+:: drench-poststory[nobr]
+<<set $prevpass to "drenchfortune">>
+<<set $pass to "drench-poststory">>
+<<set $nextpass to "drenchimpacts">>
+
+<main class="">
+    <div class="explanation">
+<p>Unfortunately, not everything goes quite as well. </p>
+<p>Due to the choices you made, there are some challenges you have to face. </p>
+<br/>
+<p>Here are Drench’s impacts you’re left to contend with...</p>
+
+
+
+</div>
+</main>
+
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: drenchimpacts[nobr]
+<<set $prevpass to "drench-poststory">>
+<<set $pass to "drenchimpacts">>
+<<set $nextpass to "drenchfortuneimpacts">>
+
+<main class="">
+    <div class="explanation">
+<<if !$playerchoices.chosenactions.includes(12)>>
+    <p>With High Street not signed up to alerts, not everyone is warned about Drench’s arrival or given up to date guidance in time. Several neighbours use sandbags to block Drench rather than absorbent pads, and this out of date approach allows some of Drench to seep through. </p>
+ <</if>>
+
+<<if !$playerchoices.chosenactions.includes(4)>>
+<p>Drench arrives and pours into buildings and homes. Then she stays. Two neighbours get respiratory infections from the floodwater, and a family is stuck upstairs in their house, with risk of electric shock below. Dot, the stray cat, manages to find shelter though! </p>
+
+ <</if>>
+
+ <<if !$playerchoices.chosenactions.includes(7)>>
+<p>In several homes, as Drench rushes in, belongings are swept away with her. A neighbour loses all their family photographs, another’s computer is waterlogged and broken. </p>
+
+
+ <</if>>
+
+  <<if !$playerchoices.chosenactions.includes(8)>>
+  <p>You don’t set up a messaging group, and so you aren’t able to connect to several neighbours. </p>
+
+<p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
+
+<p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
+
+ <</if>>
+
+  <<if !$playerchoices.chosenactions.includes(11)>>
+    <p>Several homes are flooded and become unsafe to stay in. Yet, there is nowhere to go. One neighbour has to sleep on their dining table. Others grow more and more hungry as the flood keeps them upstairs and away from their kitchen below. </p>
+ <</if>>
+
+  <<if !$playerchoices.chosenactions.includes(6)>>
+    <p>Some neighbours do evacuate from their flooded homes, including you. With no grab bag, you forget key items, including your phone charger. Your neighbour calls asking for help, but your phone has no battery. It doesn’t ring.</p>
+ <</if>>
+ </div>
+</main>
+
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+<<include "wallet">>
+
+:: drenchfortuneimpacts [nobr]
+<<set $prevpass to "drenchimpacts">>
+<<set $pass to "drenchfortuneimpacts">>
+<<set $nextpass to "aftermathintro">>
+
+
+<main class="">
+    <div class="explanation">
+    <div id="mount"></div>
+ <<timed 0.1s>>
+ <<replace "#mount">>
+    <<if $playerchoices.$diceroll is 1 || 2>>
+    <h2>Even though rain no longer falls, Drench and her impact lingers. </h2>
+<p>The town hall is unrecognisable due to flood damage, but your local council says there is no money to fix it. </p>
+
+<p>You will use your skills to take action on this <span class="accent">Unpredictable Outcome.</span> </p>
+
+<p><i>Facilitator, invite one player to describe how they will use their skills to take action.</i> </p>
+
+<p><i>You will judge whether they have successfully filled the gap. </i></p>
+
+<</if>>
+<</replace>>
+<</timed>>
+ 
+ </div>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+
+:: crystalintro
+<<set $prevpass to "storyintro">>
+<<set $pass to "crystalintro">>
+<<set $nextpass to "crystalstory">>
+
+<main class="">
+    <div class="explanation">
+<p>Crystal crawls into High Street. She greets you with a frosty reception. </p>
+<p>She gathers snow, sleet and ice, depositing them along the street: in front of doors, around cars, at central intersections on major roads. </p>
+<br/>
+<p>Thanks to your choices, you manage [SCORE]% of Crystal’s impacts.</p>
+<p>Let’s see how you did...</p>
+
+
+</div>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+
+
+:: crystalstory[nobr]
+<<set $prevpass to "crystalintro">>
+<<set $pass to "crystalstory">>
+<<set $nextpass to "crystalfortune">>
+
+<main class="">
+    <div class="explanation">
+<<if $playerchoices.chosenactions.includes(1)>>
+    <p>Thanks to the salts laid out, there is no mark of Crystal on the streets. Neighbours venture out, and no one slips or falls. Dot, the stray cat, is safe! </p>
+ <</if>>
+
+<<if $playerchoices.chosenactions.includes(9)>>
+<p>You go door knocking, which connects you to some of your neighbours you are yet to meet. </p>
+
+<p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
+
+<p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+
+ <</if>>
+
+ <<if $playerchoices.chosenactions.includes(5)>>
+ <p>Crystal dangles from the power lines, pulling several down and causing an outage. With your emergency kit you’re prepared: you have food, water, a first aid kit, blankets and a wind up radio to stay up to date. Phew! </p>
+
+ <</if>>
+
+  <<if $playerchoices.chosenactions.includes(6)>>
+   <p>As Crystal lingers, several houses become too cold and neighbours are forced to evacuate. Thanks to your plan, you have food, water and a phone charger. When your neighbour calls the next morning for help, you pick up. </p>
+
+ <</if>>
+
+  <<if $playerchoices.chosenactions.includes(11)>>
+    <p>Several neighbours are forced to find refuge from the freezing weather at the safe space. Blankets and mugs of hot chocolate are handed out.  </p>
+ <</if>>
+
+  <<if $playerchoices.chosenactions.includes(10)>>
+    <p>As Crystal stretches her icy tendrils across the roads, food supplies start to dwindle. You turn to the community centre. The community centre’s food bank makes sure everyone is well fed. </p>
+ <</if>>
+ </div>
+</main>
+
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: crystalfortune [nobr]
+<<set $prevpass to "crystalstory">>
+<<set $pass to "crystalfortune">>
+<<set $nextpass to "crystal-poststory">>
+
+
+<main class="">
+    <div class="explanation">
+    <div id="mount"></div>
+ <<timed 0.1s>>
+ <<replace "#mount">>
+    <<if $playerchoices.$diceroll is 3 || 4>>
+    <h2>Your fortune also provides an additional benefit! </h2>
+    <p>You get a Good Fortune Card: </p>
+    <div class="inline-img-container wildcards">
+            <div class="inline-img-wrapper arcard">
+                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+            </div>
+    </div>
+    <p>A group of healthcare workers deliver home visits across High Street, to check in on vulnerable members of the community, and provide emergency support where needed. </p>
+<</if>>
+<</replace>>
+<</timed>>
+ <<timed 0.1s>>
+ <<replace "#mount">>
+ <<if $playerchoices.$diceroll is 5 || 6>>
+    <h2>Your fortune also provides additional benefits! </h2>
+    <p>You get two Good Fortune Cards: </p>
+    <div class="inline-img-container wildcards">
+            <div class="inline-img-wrapper arcard">
+                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+            </div>
+            <div class="inline-img-wrapper arcard">
+                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+            </div>
+    </div>
+ <p>A group of healthcare workers deliver home visits across High Street, to check in on vulnerable members of the community, and provide emergency support where needed. </p>
+
+<p>Your local councillor also commits to rebuilding some of the damaged public infrastructure. They say everything will be fixed in the next six months. You decide you’ll wait and see. </p>
+
+
+<</if>>
+<</replace>>
+<</timed>>
+ </div>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: crystal-poststory[nobr]
+<<set $prevpass to "crystalfortune">>
+<<set $pass to "crystal-poststory">>
+<<set $nextpass to "crystalimpacts">>
+
+<main class="">
+    <div class="explanation">
+<p>Unfortunately, not everything goes quite as well. </p>
+<p>Due to the choices you made, there are some challenges you have to face. </p>
+<br/>
+<p>Here are Crystal’s impacts you’re left to contend with...</p>
+
+
+</div>
+</main>
+
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: crystalimpacts[nobr]
+<<set $prevpass to "crystal-poststory">>
+<<set $pass to "crystalimpacts">>
+<<set $nextpass to "crystalfortuneimpacts">>
+
+<main class="">
+    <div class="explanation">
+<<if !$playerchoices.chosenactions.includes(1)>>
+    <p>With no grit, the streets are slippery and icy. A couple of neighbours venture out and slip and fall, resulting in a broken wrist and two sprained ankles. Dot, the stray cat, is safe though! </p>
+ <</if>>
+
+<<if !$playerchoices.chosenactions.includes(9)>>
+<p>You don’t go door knocking, and so you aren’t able to connect to several neighbours. </p>
+
+<p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
+
+<p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
+
+ <</if>>
+
+ <<if !$playerchoices.chosenactions.includes(5)>>
+<p>Crystal dangles from the power lines, pulling several down and causing an outage. You’re unprepared: you don’t have the blankets and jumpers you need, and struggle to find edible food. It is a shock. </p>
+
+
+ <</if>>
+
+  <<if !$playerchoices.chosenactions.includes(6)>>
+<p> As Crystal lingers, several houses become too cold and neighbours are forced to evacuate. You forget key items, including your phone charger. Your neighbour calls asking for help, but your phone has no battery. It doesn’t ring.</p>
+
+ <</if>>
+
+  <<if !$playerchoices.chosenactions.includes(11)>>
+    <p>As Crystal’s visit drags on, temperatures dip below safe levels. Some neighbours' homes become unsafe to stay in, but there is nowhere to go. They sit shivering all night. One neighbour ends up with hypothermia. </p>
+ <</if>>
+
+  <<if !$playerchoices.chosenactions.includes(10)>>
+    <p>As Crystal stretches her icy tendrils across the roads, food supplies start to dwindle, but there is nowhere to turn. Several neighbours run out of food. They are left hungry. </p>
+ <</if>>
+ </div>
+</main>
+
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: crystalfortuneimpacts [nobr]
+<<set $prevpass to "crystalimpacts">>
+<<set $pass to "crystalfortuneimpacts">>
+<<set $nextpass to "aftermathintro">>
+
+
+<main class="">
+    <div class="explanation">
+    <div id="mount"></div>
+ <<timed 0.1s>>
+ <<replace "#mount">>
+    <<if $playerchoices.$diceroll is 1 || 2>>
+    <h2>As the heat falls, your fear for your neighbours rises.</h2>
+<p> Due to your low fortune, there is no additional help available. So the neighbours of High Street will need to step in and fill the gap. Neighbours are cold, isolated and at risk. How can you ensure your neighbours will get the help they need? </p>
+
+<p>You will use your skills to take action on this <span class="accent">Unpredictable Outcome.</span> </p>
+
+<p><i>Facilitator, invite one player to describe how they will use their skills to take action.</i> </p>
+
+<p><i>You will judge whether they have successfully filled the gap. </i></p>
+
+<</if>>
+<</replace>>
+<</timed>>
+ 
+ </div>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
 
 
 
 
 :: aftermathintro [nobr]
-<<set $prevpass to "pullwildcards">>
+<<set $prevpass to "storyintro">>
 <<set $pass to "aftermathintro">>
 <<set $nextpass to "aftermath">>
 
@@ -2101,17 +2343,18 @@ console.log(State.variables)
  <div class="inline-img-container">
   <div class="inline-img-wrapper arcard">
     <img src="assets/img/recovery.png" alt="Recovery"/>
-</div></div>
+</div>
+</div>
 <h2>The monster retreats from High Street.  </h2>
 
 <h3>You’re left with the aftermath. </h3>
 
-<p>While the street came together, you were not able to keep the monster completely at bay. <p>
+<p>While the street came together, you were not able to keep the monster completely at bay. </p>
 <p>You are left facing the consequences.  </p>
 <p>How will you recover? </p>
 
-
-
+</main>
+<<include "footersimpleappears">>
 <<timed 3s>>
     <<replace "#nextButtonContainer">>
     <<button "Move on">>
@@ -2119,8 +2362,8 @@ console.log(State.variables)
         <</button>>
     <</replace>>
 <</timed>>
-</main>
-<<include "footersimpleappears">>
+
+
 
 
 
@@ -2164,10 +2407,10 @@ console.log(State.variables)
 <<set $nextpass to "record">>
 
 <main>
- 
-<p>Now, you need to pick a pitch.</p>
-<br/>
+ <br/>
+<h2>Now, you need to pick a pitch.</h2>
 
+<br/>
 <p>There might already be a clear winner. </p>
 
 <p>If not, go round and make your pitches one last time. </p>
@@ -2317,7 +2560,11 @@ SPEAKPIPE
 :: question2 [nobr]
 <<set $prevpass to "questions">>
 <<set $pass to "question2">>
-<<set $nextpass to "question3">>
+<<if $rolledagain is true>>
+    <<set $nextpass to "question3">>
+    <<else>>
+    <<set $nextpass to "question4">>
+<</if>>
 
 <main class="timer">
 <h2>Question 2</h2>
@@ -2339,7 +2586,6 @@ SPEAKPIPE
 <<set $nextpass to "question4">>
 
 <main class="timer">
-ONLY IF ROLL AGAGIN
 <h2>Question 3 </h2>
 <p>When it came to your fortune, you chose to roll the dice again. </p>
 <p>At the end of the game, how do you feel about this choice? Would you do the same next time? </p>
@@ -2355,7 +2601,12 @@ ONLY IF ROLL AGAGIN
 
 
 :: question4 [nobr]
-<<set $prevpass to "question3">>
+<<if $rolledagain is true>>
+    <<set $prevpass to "question3">>
+    <<else>>
+    <<set $prevpass to "question2">>
+<</if>>
+
 <<set $pass to "question4">>
 <<set $nextpass to "end">>
 
