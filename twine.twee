@@ -164,7 +164,7 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "landing">>
 <<set $pass to "landing">>
 <<set $nextpass to "intro1">>
-<<set $audioOn to false>>
+<<set $withVoiceover to false>>
 
 <<set $playerchoices to {
     chosenmonsters: [],
@@ -239,18 +239,19 @@ $(document).on(':passagedisplay', function(ev) {
 
 <p>Choose someone to play your <span class="accent">Facilitator</span>, they’ll lead you through the game.</p>
 <p>The facilitator can play, or sit on the outside, totally up to you. </p>
-<p>Let us know if you want to play with sound, or without sound.  </p>
-<p>If you have no sound, your facilitator will need to read the text aloud.</p>
-
-<<button "With Sound">>
-    <<set $audioOn to true>>
+<br/>
+<p>Let us know if you want to play <<button "With Voiceover">>
+    <<set $withVoiceover to true>>
     <<goto $nextpass>>
-    <</button>>
-
-<<button "Without Sound">>
-    <<set $audioOn to false>>
+    <</button>> </p>
+<p>Or without <<button "Without Voiceover">>
+    <<set $withVoiceover to false>>
     <<goto $nextpass>>
-    <</button>>
+    <</button>> </p>
+
+<p>If you have no voiceover, your facilitator will need to read the text aloud: </p>
+
+<p>If you want no sound at all, please turn your volume down</p>
 
 
 
@@ -258,7 +259,7 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "intro1">>
 <<set $pass to "intro2">>
 <<set $nextpass to "intro3">>
-<<if $audioOn is true>><audio src="" autoplay loop>Audio is not supported on your device</audio><</if>>
+<<if $withVoiceover is true>><audio src="" autoplay loop>Audio is not supported on your device</audio><</if>>
 
 <<include "_templateIntro">>
 
@@ -361,29 +362,24 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $pass to "playercards">>
 <<set $nextpass to "playercards-b">>
 
-<main>
-
-    <div class="grid-item explanation">
-        <p>Each player will play as a neighbour on High Street.  </p>
+<main class="grid-wrapper">
+ <div class="info-container grid-item cards">
+         <div class="inline-img-container">
+         <div class="inline-img-wrapper arcard">
+        <h3>Neighbour Cards</h3><img src="assets/img/Demo_Player_Card.png" alt="Player Card"/></div>
+        </div>
+     </div>
+<div class="grid-item explanation">
+<p>Each player will play as a neighbour on High Street.  </p>
 <p>We’ll start by getting to know you. </p>
 <br/>
-<p>Players, pick one of the <span class="accent">Player Cards</span>. </p>
-<br/>
-      <div class="info-container">
-         <div class="inline-img-container"><div class="inline-img-wrapper arcard">
-        <h3>Player Cards</h3><img src="assets/img/Demo_Player_Card.png" alt="Player Card"/></div></div>
-          <div class="grid-item cards">
-
-   </div>
-     </div>
-<br/>
-    <p>Turn it face up to reveal your character details.  </p>        
-    <p>Leave the remaining cards in the pile with the doors facing up.  </p>
+<p>Facilitator, deal out the <span class="accent">Neighbour Cards</span> to each player. </p>
+    <p>Leave the remaining Neighbour Cards in the pile.  </p>
         
-    </div>
+</div>
 
- 
-    </main>
+  
+     </main>
     <<include "footeroptionappears">>
  <<timed 3s>>
     <<replace "#nextButtonContainer">>
@@ -403,14 +399,12 @@ $(document).on(':passagedisplay', function(ev) {
 <br/>
     <div class="grid-item explanation">
        
-<p>Your card will tell you about who you’re playing.</p> 
-<p>You’ll find your house number and some interesting and peculiar facts and skills.  </p>
-<p>But there’s one missing... </p>
-<p>for you to fill. </p>
+<p>Your card will tell you about who you’re playing. </p>
+<p>You’ll find your house number and some interesting and peculiar facts and skills. </p>
+<p>You can choose the name for your character, it could be your own name, or a different one.</p>
 <br/>
 <p>Take a moment to get to know the person you are playing as.</p> 
-<p>Then, fill in the blank with a fact or skill that's true for you. 
-</p>
+
     </div>
     </main>
     <<include "footeroptionappears">>
@@ -438,6 +432,8 @@ $(document).on(':passagedisplay', function(ev) {
     <div class="grid-item explanation">
 <p>Take the time to introduce yourselves to your fellow neighbours on High Street. </p>
 <p>Share your house number, and your interesting and peculiar skills & facts. </p>
+<p>Facilitator, we recommend 2 minutes for this. </p>
+
 
     </div>
     </main>
@@ -608,7 +604,7 @@ $(document).on(':passagedisplay', function(ev) {
 <p>the monster that is coming.</p> 
 
 <p>You have chosen to be this representative.</p>
-<p>And let’s be honest... you’re the representatives because you’re the people who turned up to the community planning meeting. </p>
+<p>Actually, let’s be honest... you’re the representatives because you’re the people who turned up to the community planning meeting. </p>
 
 <p>There are other people on High Street too, doors not yet opened. </p>
 <p>Any choice you make will impact your neighbours as much as it impacts all of you. </p>
@@ -628,25 +624,26 @@ $(document).on(':passagedisplay', function(ev) {
 :: monstercards-intro [nobr]
 <<set $prevpass to "monstercards-preintr">>
 <<set $pass to "monstercards-intro">>
-<<set $nextpass to "monstercards">>
+<<set $nextpass to "forecasttrans">>
 
-<main class="">
-    <div class="explanation">
-    <h2>Now to the attack... </h2>
-
-<p>There are four possible monsters that might strike: </p>
-
-<h3>Gale <span class="unbold">a monster made of wind</span></h3>
-<h3>Drench <span class="unbold" >a monster made of water</span> </h3>
-<h3>Inferno <span class="unbold">a monster made of heat & fire</span></h3>
-<h3>Crystal <span class="unbold">a monster made of snow & ice</span></h3> 
-
-<br/>
+<main class="grid-wrapper">
+ <div class="info-container grid-item cards">
   <div class="inline-img-container">
   <div class="inline-img-wrapper arcard">
     <img src="assets/img/monster.png" alt="Monsters"/>
 </div></div>
 <br/>
+</div>
+    <div class="grid-item explanation">
+    <h2>Now to the attack... </h2>
+<p>There are four possible monsters that might strike: </p>
+
+<h3>Gale, <span class="unbold">a monster made of wind</span></h3>
+<h3>Drench, <span class="unbold" >a monster made of water</span> </h3>
+<h3>Inferno, <span class="unbold">a monster made of heat & fire</span></h3>
+<h3>Crystal, <span class="unbold">a monster made of snow & ice</span></h3> 
+
+
 <p>Before you decide how to prepare for the monster attack, you’re going to get a forecast. </p>
 
 </div>
@@ -661,8 +658,28 @@ $(document).on(':passagedisplay', function(ev) {
     <</replace>>
 <</timed>>
 
-:: monstercards [nobr]
+:: forecasttrans [nobr]
 <<set $prevpass to "monstercards-intro">>
+<<set $pass to "forecasttrans">>
+<<set $nextpass to "monstercards">>
+
+<main class="cards-selection">
+ <div class="info-container grid-item cards fadeIn10 fortunetrans">
+  <div class="inline-img-container">
+    <div class="inline-img-wrapper arcardbig">
+     <img src="assets/img/forecast.png" alt="Forecast"/>
+    </div>
+    </div>
+    </div>
+</main>
+
+
+ <<timed 10s>>
+ <<goto $nextpass>>
+<</timed>>
+
+:: monstercards [nobr]
+<<set $prevpass to "forecasttrans">>
 <<set $pass to "monstercards">>
 <<set $nextpass to "chosenMonsterForecast-intro">>
 
@@ -677,7 +694,7 @@ $(document).on(':passagedisplay', function(ev) {
 <h2>Chosen Monsters: <span id="chosenMonsterMount"><<print $playerchoices.chosenmonsters>></span></h2>
 <p id="errorMsg" style="color: white;"></p> <!-- Error message area -->
 <br/>
-<div class="cards-selection">
+<div class="cards-selection four">
 
 <!-- Gale -->
 <div id="galeChoice" class="card-selection-item arcard">
@@ -759,7 +776,9 @@ $(document).on(':passagedisplay', function(ev) {
     </main>
 
     <<include "footeroptionappears">>
+    <<timed 0.1s>>
  <<include "checkChosenMonsterCards">>
+<</timed>>
 
 
 :: checkChosenMonsterCards [nobr]
@@ -797,21 +816,23 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $pass to "chosenMonsterForecast-intro">>
 <<set $nextpass to "chosenMonsterForecast">>
 
-<main class="">
-    <div class="explanation">
+<main class="grid-wrapper split">
+ <div class="inline-img-container cards-selection grid-item cards wrap">
+    <div class="inline-img-wrapper arcard">
+        <img src="assets/img/preparer.png" alt="Prepare Card"/>
+    </div>
+    <div class="inline-img-wrapper arcard">
+         <img src="assets/img/connect.png" alt="Connect Card"/>
+    </div>
+    </div>
+
+    <div class="grid-item explanation">
 <p>Now you know what could be coming, there is a chance to prepare. </p>
 <p>There are different actions you might take to get ready for the monster attack. </p>
 
 <p><span class="accent">Prepare</span> actions, physical preparations for neighbours to do at home or on the street.  </p>
  <p><span class="accent">Connect</span> actions, connecting to your neighbours and local community. </p>
  <br/>
-  <div class="inline-img-container cards-selection">
-  <div class="inline-img-wrapper arcard">
-    <img src="assets/img/preparer.png" alt="Prepare Card"/>
-</div>
- <div class="inline-img-wrapper arcard">
-    <img src="assets/img/connect.png" alt="Connect Card"/>
-</div></div>
  </div>
 </main>
 
@@ -834,25 +855,20 @@ $(document).on(':passagedisplay', function(ev) {
     <<include "headertimer">>
 <</timed>>
 
-<main class="timer">
-    <div class="explanation">
+<main class="timer grid-wrapper split">
+    <div class=" grid-item explanation">
 
-<p>Facilitator, lay out the <span class="accent">Prepare</span> and <span class="accent">Connect</span> actions on the table.</p>
 <p>You need to choose FIVE actions to prepare for the monster attack. </p>
-<p>A reminder of the Monsters that might strike: </p>
-
-
-
-<p>A reminder of the forecast: </p>
 <br/>
-<<include "chosenmonstersforecastdisplay">>
+ <<timed 5s>>
+    <p>The clock is ticking.</p>
+    <p>You’ve got five minutes to choose your actions.</p>
+    <p>Go!</p>
+    <</timed>>
     </div>
-<br/>
-<<timed 5s>>
-<p>The clock is ticking.</p>
-<p>You’ve got five minutes to choose your actions.</p>
-<p>Put the remaining action cards face down in a discard pile. </p>
-<</timed>>
+/* <div class="grid-item cards"> */
+<<include "chosenmonstersforecastdisplay">>
+/* </div> */
 
 <br/>
  
@@ -905,11 +921,11 @@ $(document).on(':passagedisplay', function(ev) {
  <<set $img1 to "assets/img/" + "Demo_" + $playerchoices.chosenmonsters[0] + "forecast.png">>
  <<set $img2 to "assets/img/" + "Demo_" + $playerchoices.chosenmonsters[1] + "forecast.png" >>
 
-<div class="cards-selection">
-    <div class="card-selection-item arcard">
+<div class="cards-selection grid-item cards">
+    <div class=" inline-img-wrapper arcard">
         [img[$img1]]
     </div>
-    <div class="card-selection-item arcard">
+    <div class=" inline-img-wrapper arcard">
         [img[$img2]]
     </div>
 </div>
@@ -1028,11 +1044,11 @@ $(document).on(':passagedisplay', function(ev) {
 :: postactionchoice [nobr]
 <<set $prevpass to "actions">>
 <<set $pass to "postactionchoice">>
-<<set $nextpass to "predice">>
+<<set $nextpass to "fortunetrans">>
 
 <main class="">
     <div class="explanation">
-<p>Place out the action cards you have chosen ahead of you.  </p>
+<p>Place out the action cards you have chosen on the table. </p>
 <p>Put the remaining action cards face down in a discard pile. </p>
 
  </div>
@@ -1047,6 +1063,26 @@ $(document).on(':passagedisplay', function(ev) {
     <</replace>>
 <</timed>>
 
+:: fortunetrans [nobr]
+<<set $prevpass to "postactionchoice">>
+<<set $pass to "fortunetrans">>
+<<set $nextpass to "predice">>
+
+<main class="cards-selection">
+ <div class="info-container grid-item cards fadeIn10 fortunetrans">
+  <div class="inline-img-container">
+    <div class="inline-img-wrapper arcardbig">
+     <img src="assets/img/fortunes.png" alt="Fortune"/>
+    </div>
+    </div>
+    </div>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 10s>>
+     <<goto $nextpass>>
+<</timed>>
+
 :: predice [nobr]
 
 <<set $prevpass to "actions">>
@@ -1057,7 +1093,7 @@ $(document).on(':passagedisplay', function(ev) {
     text1: `Things aren’t great.  
 Local resources are depleted, so minimal thought and effort has gone into preparing for disaster. 
 Because of poor planning and lack of investment, you’re facing the monster attack entirely by yourselves. 
-You won’t receive any <span class='accent'>Good Fortune Cards</span>. Instead, during the attack you’ll face one Unpredictable Outcome.`, 
+You won’t receive any Good Fortune Cards. Instead, during the attack you’ll face one <span class='accent'>Unpredictable Outcome</span>.`, 
     text2:`You’ll need to come together as a street, using your own skills and resources to respond. 
 Your facilitator will lead you through this when the moment comes.`,
      wildcards: 0, 
@@ -1066,7 +1102,7 @@ Your facilitator will lead you through this when the moment comes.`,
      text1: `Things aren’t great.  
 Local resources are depleted, so minimal thought and effort has gone into preparing for disaster. 
 Because of poor planning and lack of investment, you’re facing the monster attack entirely by yourselves. 
-You won’t receive any <span class='accent'>Good Fortune Cards</span>. Instead, during the attack you’ll face one Unpredictable Outcome.`, 
+You won’t receive any Good Fortune Cards. Instead, during the attack you’ll face one <span class='accent'>Unpredictable Outcome</span>.`, 
     text2:`You’ll need to come together as a street, using your own skills and resources to respond. 
 Your facilitator will lead you through this when the moment comes.`,
      wildcards: 0, 
@@ -1074,37 +1110,41 @@ Your facilitator will lead you through this when the moment comes.`,
      {num:3, 
     text1: `You are fortunate. 
 Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
-    text2:`During the monster attack you’ll be able to access one Good Fortune Card.`,
+    text2:`During the monster attack you’ll be able to access one <span class='accent'>Good Fortune Card</span>.`,
      wildcards: 1, 
     changedactions: 0},
      {num:4, 
     text1: `You are fortunate. 
 Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
-    text2:`During the monster attack you’ll be able to access one Good Fortune Card.`,
+    text2:`During the monster attack you’ll be able to access one <span class='accent'>Good Fortune Card</span>.`,
      wildcards: 1, 
     changedactions: 0},
      {num:5, 
     text1: `You are very fortunate. 
 Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
-    text2:`During the monster attack you’ll be able to access two Good Fortune Cards.`,
+    text2:`During the monster attack you’ll be able to access two <span class='accent'>Good Fortune Cards</span>.`,
      wildcards: 2, 
     changedactions: 0},
     {num:6, 
     text1: `You are very fortunate. 
 Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
-    text2:`During the monster attack you’ll be able to access two Good Fortune Cards.`,
+    text2:`During the monster attack you’ll be able to access two <span class='accent'>Good Fortune Cards</span>.`,
      wildcards: 2, 
     changedactions: 0}
 ]
   >>
 <<set $diceroll to "">>
 
-<main>
-    <div class="explanation">
-      <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
-    <img src="assets/img/fortunes.png" alt="Fortune Card"/>
-</div></div>
+<main class="grid-wrapper">
+ <div class="info-container grid-item cards">
+         <div class="inline-img-container">
+         <div class="inline-img-wrapper arcard">
+    <img src="assets/img/fortunes.png" alt="Fortune Card"/></div>
+        </div>
+     </div>
+
+    <div class="explanation grid-item ">
+     <br/>
 <p>You know little about the High Street you live on. </p>
 <p>But we all know that the world is unfair.  </p>
 <br/>
@@ -1113,15 +1153,18 @@ Your local council has had the money and resources to put some time into disaste
 <p>Before the monster arrives, we’re going to find out just how unfair things are: how fortunate this High Street is. </p>
 <p>To do this you’ll roll a... [virtual] die. </p>
 <br/>
-  <<button "Roll">>
-<<set $diceroll to random(0,5) >>
-/* <<goto $nextpass>> */
-<<goto "rolling">>
-    <</button>>
+<br/>
+  <div>
+      <<button "Roll">>
+    <<set $diceroll to random(0,5) >>
+    /* <<goto $nextpass>> */
+    <<goto "rolling">>
+        <</button>>
+  </div>
     </div>
 </main>
 /* <<include "wallet">> */
-/* <<include "footersimpleappears">> */
+<<include "footer">>
 
 
 :: rolling [nobr]
@@ -1186,7 +1229,7 @@ Your local council has had the money and resources to put some time into disaste
  <<timed 0.1s>>
     <<replace "#nextButtonContainer">>
             <<button "Confirm and move on">>
-                <<set $playerchoices.diceroll to $diceroll>>
+                <<set $playerchoices.diceroll to $diceoptions[$diceroll].num>>
                 
                 <<goto $nextpass>>
             
@@ -1225,8 +1268,8 @@ console.log(State.variables)
 <<set $pass to "forecast">>
 <<set $nextpass to "storyintro">>
 
-<main>
-<div class="explanation">
+<main class="grid-wrapper split">
+<div class="explanation grid-item">
 <h2>Disaster looms.</h2>
 <br/>
 <p>The monster attack is moments away and we can finally see which monster is coming. </p>
@@ -1249,8 +1292,8 @@ console.log(State.variables)
  <<set $img2 to "assets/img/" + "Demo_" + $playerchoices.chosenmonsters[1] + "forecast.png" >>
 
 
-<div class="cards-selection">
-    <div class="card-selection-item arcard" id="card1">
+<div class="cards-selection grid-item cards">
+    <div class="inline-img-wrapper card-selection-item arcard" id="card1">
         <<link [img[$img1]]>>
             <<if $playerchoices.finalmonster == $playerchoices.chosenmonsters[0]>>
                 <<set $playerchoices.finalmonster to "">> <!-- Deselect if already selected -->
@@ -1265,7 +1308,7 @@ console.log(State.variables)
         <</link>>
     </div>
     
-    <div class="card-selection-item arcard" id="card2">
+    <div class="inline-img-wrapper card-selection-item arcard" id="card2">
         <<link [img[$img2]]>>
             <<if $playerchoices.finalmonster == $playerchoices.chosenmonsters[1]>>
                 <<set $playerchoices.finalmonster to "">> <!-- Deselect if already selected -->
@@ -1382,11 +1425,13 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $nextpass to "">>
 <<include "chosemonsterpath">>
 <<set $imgfinalmonster to "assets/img/" + "Demo_" + $playerchoices.finalmonster + ".png">>
-<main>
-<h2>The monster closes in on High Street. </h2>
-<h3>We’re going to uncover how this attack plays out.  </h3>
+<main class="grid-wrapper">
+<div class="grid-item explanation">
+    <h2>The monster closes in on High Street. </h2>
+    <h3>We’re going to uncover how this attack plays out.  </h3>
+</div>
 <br/>
- <div class="inline-img-container">
+ <div class="inline-img-container grid-item cards">
   <div class="inline-img-wrapper arcardbig">
   [img[$imgfinalmonster]]
 </div></div>
@@ -1449,7 +1494,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 :: galestory[nobr]
 <<set $prevpass to "galeintro">>
 <<set $pass to "galestory">>
-<<if $playerchoices.diceroll is 1 or 2 >>
+<<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
     <<set $nextpass to "gale-poststory">>
     <<else>>
     <<set $nextpass to "galefortune">>
@@ -1472,11 +1517,13 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
   <div class="inline-img-wrapper ">
       <img src="assets/img/8.png" alt="action card"/>
     </div>
-<p>You set up a messaging chat, which connects you to some of your neighbours you are yet to meet. </p>
-
-<p>Turn over half of the face down neighbour cards. </p>
-
-<p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+<div>
+    <p>You set up a messaging chat, which connects you to some of your neighbours you are yet to meet. </p>
+    
+    <p>Turn over half of the face down neighbour cards. </p>
+    
+    <p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+</div>
 </div>
  <</if>>
 
@@ -1536,9 +1583,9 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <main class="">
     <div class="explanation">
     <div id="mount"></div>
+    <<if $playerchoices.diceroll == 3 or $playerchoices.diceroll == 4>>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.diceroll is 3 or 4>>
     <h2>Your fortune also provides an additional benefit! </h2>
     <p>You get a Good Fortune Card: </p>
     <div class="inline-img-container wildcards">
@@ -1547,12 +1594,15 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
             </div>
     </div>
     <p>In the days following Gale’s visit the fire service are sent to High Street. They clear trees and debris, ensuring all key roads can be accessed and no properties remain at risk. </p>
-<</if>>
+
 <</replace>>
 <</timed>>
+<</if>>
+
+ <<if $playerchoices.diceroll == 5 or $playerchoices.diceroll == 6>>
  <<timed 0.1s>>
  <<replace "#mount">>
- <<if $playerchoices.diceroll is 5 or 6>>
+
     <h2>Your fortune also provides additional benefits! </h2>
     <p>You get two Good Fortune Cards: </p>
     <div class="inline-img-container wildcards">
@@ -1567,9 +1617,9 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 
 <p>Your local councillor also commits to rebuilding some of the damaged public infrastructure. They say everything will be fixed in the next six months. You decide you’ll wait and see. </p>
 
-<</if>>
 <</replace>>
 <</timed>>
+<</if>>
  </div>
 </main>
 <<include "footeroptionappears">>
@@ -1586,7 +1636,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 
 :: gale-poststory[nobr]
 
-<<if $playerchoices.diceroll is 1 or 2>>
+<<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
     <<set $prevpass to "galestory">>
     <<else>>
     <<set $prevpass to "galefortune">>
@@ -1616,10 +1666,10 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 :: galeimpacts[nobr]
 <<set $prevpass to "gale-poststory">>
 <<set $pass to "galeimpacts">>
-<<if $playerchoices.diceroll is 1 or 2>>
+<<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
     <<set $nextpass to "galefortuneimpacts">>
     <<else>>
-    <<set $nextpass to "aftermathintro">>
+    <<set $nextpass to "recoverytrans">>
 <</if>>
 
 <main class="">
@@ -1638,11 +1688,13 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/8.png" alt="action card"/>
     </div>
-<p>You don’t set up a messaging group, and so you aren’t able to connect to several neighbours. </p>
-
-<p><i>Turn over half of the remaining face down neighbour cards. </i></p>
-
-<p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
+<div>
+    <p>You don’t set up a messaging group, and so you aren’t able to connect to several neighbours. </p>
+    
+    <p><i>Turn over half of the remaining face down neighbour cards. </i></p>
+    
+    <p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
+</div>
 </div>
 
  <</if>>
@@ -1698,7 +1750,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 :: galefortuneimpacts [nobr]
 <<set $prevpass to "galeimpacts">>
 <<set $pass to "galefortuneimpacts">>
-<<set $nextpass to "aftermathintro">>
+<<set $nextpass to "recoverytrans">>
 
 
 <main class="">
@@ -1706,13 +1758,16 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <div id="mount"></div>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.diceroll is 1 or 2>>
-    <h2>Gale retreats and leaves what you can only call a rather large mess. </h2>
-<p>There are fallen trees and debris over a major road, and due to your low fortune, there is no councillor to turn to. But you do have each other! </p>
+    <<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
+     <p>Gale retreats and leaves what you can only call a rather large mess. </p>
+     <br/>   
+    <h2>There are fallen trees and debris over a major road causing some of the neighbours to be stuck. </h2>
+    <br/>
+<p>Due to your low fortune, there is no councillor to turn to. But you do have each other! </p>
 
 <p>You will use your skills to take action on this <span class="accent">Unpredictable Outcome.</span> </p>
 
-<p><i>Facilitator, invite one player to describe how they will use their skills to take action.</i> </p>
+<p><i>Facilitator, invite the players to describe how they will use their skills to take action.</i> </p>
 
 <p><i>You will judge whether they have successfully filled the gap. </i></p>
 
@@ -1760,18 +1815,20 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+/* <<include "wallet">> */
 
 
 :: infernostory[nobr]
 <<set $prevpass to "infernointro">>
 <<set $pass to "infernostory">>
-<<if $playerchoices.diceroll is 1 or 2 >>
+<<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
     <<set $nextpass to "inferno-poststory">>
-    <<else>>
+<<else>>
     <<set $nextpass to "infernofortune">>
 <</if>>
 
 <main class="">
+
     <div class="explanation">
 <<if $playerchoices.chosenactions.includes(2)>>
 <div class="story-line-container">
@@ -1787,11 +1844,13 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
   <div class="inline-img-wrapper ">
       <img src="assets/img/8.png" alt="action card"/>
     </div>
-<p>You set up a messaging chat, which connects you to some of your neighbours you are yet to meet. </p>
-
-<p><i>Turn over half the remaining face down neighbour cards. </i></p>
-
-<p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+<div>
+    <p>You set up a messaging chat, which connects you to some of your neighbours you are yet to meet. </p>
+    
+    <p><i>Turn over half the remaining face down neighbour cards. </i></p>
+    
+    <p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+</div>
 </div>
 
  <</if>>
@@ -1801,11 +1860,13 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
   <div class="inline-img-wrapper ">
       <img src="assets/img/9.png" alt="action card"/>
     </div>
- <p>You go door knocking, which connects you to some of your neighbours you are yet to meet. </p>
-
-<p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
-
-<p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+ <div>
+     <p>You go door knocking, which connects you to some of your neighbours you are yet to meet. </p>
+    
+    <p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
+    
+    <p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+ </div>
 </div>
  <</if>>
 
@@ -1849,6 +1910,9 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+
+
+
 :: infernofortune [nobr]
 <<set $prevpass to "infernostory">>
 <<set $pass to "infernofortune">>
@@ -1858,9 +1922,10 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <main class="">
     <div class="explanation">
     <div id="mount"></div>
+
+ <<if $playerchoices.diceroll == 3 or $playerchoices.diceroll == 4>>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.diceroll is 3 or 4>>
     <h2>Your fortune also provides an additional benefit! </h2>
     <p>You get a Good Fortune Card: </p>
     <div class="inline-img-container wildcards">
@@ -1869,12 +1934,15 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
             </div>
     </div>
     <p>As the heat reaches dangerous levels, local community health workers set up a first aid tent on High Street, providing emergency medical care and handing out water, cold compresses and rehydration sachets. </p>
-<</if>>
+
 <</replace>>
 <</timed>>
+<</if>>
+
+ <<if $playerchoices.diceroll == 5 or $playerchoices.diceroll == 6>>
  <<timed 0.1s>>
  <<replace "#mount">>
- <<if $playerchoices.diceroll is 5 or 6>>
+
     <h2>Your fortune also provides additional benefits! </h2>
     <p>You get two Good Fortune Cards: </p>
     <div class="inline-img-container wildcards">
@@ -1889,9 +1957,9 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 
 <p>A group of healthcare workers are also dispatched to individual houses, to check in on vulnerable members of the community, and provide emergency support where needed.</p>
 
-<</if>>
 <</replace>>
 <</timed>>
+<</if>>
  </div>
 </main>
 <<include "footeroptionappears">>
@@ -1906,7 +1974,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 
 
 :: inferno-poststory[nobr]
-<<if $playerchoices.diceroll is 1 or 2>>
+<<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
     <<set $prevpass to "infernostory">>
     <<else>>
     <<set $prevpass to "infernofortune">>
@@ -1938,10 +2006,10 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 :: infernoimpacts[nobr]
 <<set $prevpass to "inferno-poststory">>
 <<set $pass to "infernoimpacts">>
-<<if $playerchoices.diceroll is 1 or 2>>
+<<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
     <<set $nextpass to "infernofortuneimpacts">>
     <<else>>
-    <<set $nextpass to "aftermathintro">>
+    <<set $nextpass to "recoverytrans">>
 <</if>>
 
 <main class="">
@@ -1960,9 +2028,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/8.png" alt="action card"/>
     </div>
-<p>You don’t set up a messaging group, and so you aren’t able to connect to several neighbours. </p>
-<p><i>Turn over half of the remaining face down neighbour cards. </i></p>
-<p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another.</p> 
+<div>
+    <p>You don’t set up a messaging group, and so you aren’t able to connect to several neighbours. </p>
+    <p><i>Turn over half of the remaining face down neighbour cards. </i></p>
+    <p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another.</p> 
+</div>
 </div>
  <</if>>
 
@@ -1971,9 +2041,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/9.png" alt="action card"/>
     </div>
-<p>You don’t go door knocking, and so you aren’t able to connect to several neighbours. </p>
-<p><i>Turn over half of the remaining face down neighbour cards. </i></p>
-<p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
+<div>
+    <p>You don’t go door knocking, and so you aren’t able to connect to several neighbours. </p>
+    <p><i>Turn over half of the remaining face down neighbour cards. </i></p>
+    <p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
+</div>
 </div>
  <</if>>
 
@@ -2019,7 +2091,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 :: infernofortuneimpacts [nobr]
 <<set $prevpass to "infernoimpacts">>
 <<set $pass to "infernofortuneimpacts">>
-<<set $nextpass to "aftermathintro">>
+<<set $nextpass to "recoverytrans">>
 
 
 <main class="">
@@ -2027,13 +2099,15 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <div id="mount"></div>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.diceroll is 1 or 2>>
-    <h2>As the heat rises, your fear for your neighbours does too. </h2>
-<p>With no emergency help available due to your low fortune, you will need to step in and fill the gap. Neighbours are hot, dehydrated and at risk.</p>
-
+    <<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
+    <p>As the heat rises, your fear for your neighbours does too. </p>
+<p>With no emergency help available due to your low fortune, you will need to step in and fill the gap. 
+<br/><br/>
+<h2>Neighbours are hot, dehydrated and at risk. How can you ensure your neighbours will get the help they need? </h2>
+<br/>
 <p>You will use your skills to take action on this <span class="accent">Unpredictable Outcome.</span> </p>
 
-<p><i>Facilitator, invite one player to describe how they will use their skills to take action.</i> </p>
+<p><i>Facilitator, invite the players to describe how they will use their skills to take action.</i> </p>
 
 <p><i>You will judge whether they have successfully filled the gap. </i></p>
 
@@ -2083,7 +2157,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 :: drenchstory[nobr]
 <<set $prevpass to "drenchintro">>
 <<set $pass to "drenchstory">>
-<<if $playerchoices.diceroll is 1 or 2 >>
+<<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
     <<set $nextpass to "drench-poststory">>
     <<else>>
     <<set $nextpass to "drenchfortune">>
@@ -2124,11 +2198,13 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
   <div class="inline-img-wrapper ">
       <img src="assets/img/8.png" alt="action card"/>
     </div>
-   <p> You set up a messaging chat, which connects you to some of your neighbours you are yet to meet. </p>
-
-<p><i>Turn over half the remaining face down neighbour cards. </i></p>
-
-<p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+  <div>
+       <p> You set up a messaging chat, which connects you to some of your neighbours you are yet to meet. </p>
+    
+    <p><i>Turn over half the remaining face down neighbour cards. </i></p>
+    
+    <p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+  </div>
 </div>
  <</if>>
 
@@ -2168,11 +2244,12 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $nextpass to "drench-poststory">>
 
 <main class="">
+  
     <div class="explanation">
     <div id="mount"></div>
+<<if $playerchoices.diceroll === 3 or $playerchoices.diceroll === 4>>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.diceroll is 3 or 4>>
     <h2>Your fortune also provides an additional benefit! </h2>
     <p>You get a Good Fortune Card: </p>
     <div class="inline-img-container wildcards">
@@ -2181,12 +2258,13 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
             </div>
     </div>
     <p>Emergency services are dispatched to High Street to help people who remain stranded by the lingering floods. A family climbs out of their top floor window, and one man is rescued from his car. </p>
-<</if>>
 <</replace>>
 <</timed>>
+<</if>>
+
+ <<if $playerchoices.diceroll == 5 or $playerchoices.diceroll == 6>>
  <<timed 0.1s>>
  <<replace "#mount">>
- <<if $playerchoices.diceroll is 5 or 6>>
     <h2>Your fortune also provides additional benefits! </h2>
     <p>You get two Good Fortune Cards: </p>
     <div class="inline-img-container wildcards">
@@ -2200,10 +2278,9 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <p>Emergency services are dispatched to High Street to help people who remain stranded by the lingering floods. A family climbs out of their top floor window, and one man is rescued from his car. </p>
 
 <p>A group of healthcare workers are dispatched to individual houses, to check in on vulnerable members of the community, and provide emergency support where needed. </p>
-
-<</if>>
 <</replace>>
 <</timed>>
+<</if>>
  </div>
 </main>
 <<include "footeroptionappears">>
@@ -2216,10 +2293,10 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
-<<include "wallet">>
+
 
 :: drench-poststory[nobr]
-<<if $playerchoices.diceroll is 1 or 2>>
+<<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
     <<set $prevpass to "drenchstory">>
     <<else>>
     <<set $prevpass to "drenchfortune">>
@@ -2252,10 +2329,10 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 :: drenchimpacts[nobr]
 <<set $prevpass to "drench-poststory">>
 <<set $pass to "drenchimpacts">>
-<<if $playerchoices.diceroll is 1 or 2>>
+<<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
     <<set $nextpass to "drenchfortuneimpacts">>
     <<else>>
-    <<set $nextpass to "aftermathintro">>
+    <<set $nextpass to "recoverytrans">>
 <</if>>
 
 <main class="">
@@ -2294,9 +2371,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/8.png" alt="action card"/>
     </div>
-    <p>You don’t set up a messaging group, and so you aren’t able to connect to several neighbours. </p>
-    <p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
-    <p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
+    <div>
+        <p>You don’t set up a messaging group, and so you aren’t able to connect to several neighbours. </p>
+        <p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
+        <p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
+    </div>
     </div>
  <</if>>
 
@@ -2335,7 +2414,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 :: drenchfortuneimpacts [nobr]
 <<set $prevpass to "drenchimpacts">>
 <<set $pass to "drenchfortuneimpacts">>
-<<set $nextpass to "aftermathintro">>
+<<set $nextpass to "recoverytrans">>
 
 
 <main class="">
@@ -2343,13 +2422,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <div id="mount"></div>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.diceroll is 1 or 2>>
-    <h2>Even though rain no longer falls, Drench and her impact lingers. </h2>
-<p>The town hall is unrecognisable due to flood damage, but your local council says there is no money to fix it. </p>
-
+    <<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
+    <p>Even though rain no longer falls, Drench and her impact lingers. </p>
+    <br/>
+<h2>The town hall is unrecognisable due to flood damage, but your local council says there is no money to fix it.  </h2>
+<br/>
 <p>You will use your skills to take action on this <span class="accent">Unpredictable Outcome.</span> </p>
 
-<p><i>Facilitator, invite one player to describe how they will use their skills to take action.</i> </p>
+<p><i>Facilitator, invite the players to describe how they will use their skills to take action.</i> </p>
 
 <p><i>You will judge whether they have successfully filled the gap. </i></p>
 
@@ -2402,7 +2482,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $prevpass to "crystalintro">>
 <<set $pass to "crystalstory">>
 <<set $nextpass to "crystalfortune">>
-<<if $playerchoices.diceroll is 1 or 2 >>
+<<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
     <<set $nextpass to "crystal-poststory">>
     <<else>>
     <<set $nextpass to "crystalfortune">>
@@ -2424,11 +2504,13 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
   <div class="inline-img-wrapper ">
       <img src="assets/img/9.png" alt="action card"/>
     </div>
-<p>You go door knocking, which connects you to some of your neighbours you are yet to meet. </p>
-
-<p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
-
-<p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+<div>
+    <p>You go door knocking, which connects you to some of your neighbours you are yet to meet. </p>
+    
+    <p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
+    
+    <p>You can include these neighbours in your preparations, and later in your recovery. You might have skills to exchange, or ways to support one another. </p>
+</div>
  </div>
  <</if>>
 
@@ -2492,9 +2574,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <main class="">
     <div class="explanation">
     <div id="mount"></div>
- <<timed 0.1s>>
- <<replace "#mount">>
-    <<if $playerchoices.diceroll is 3 or 4>>
+
+<<if $playerchoices.diceroll == 3 or $playerchoices.diceroll == 4>>
+    <<timed 0.1s>>
+    <<replace "#mount">>
+
     <h2>Your fortune also provides an additional benefit! </h2>
     <p>You get a Good Fortune Card: </p>
     <div class="inline-img-container wildcards">
@@ -2503,12 +2587,15 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
             </div>
     </div>
     <p>A group of healthcare workers deliver home visits across High Street, to check in on vulnerable members of the community, and provide emergency support where needed. </p>
-<</if>>
+
 <</replace>>
 <</timed>>
+<</if>>
+
+ <<if $playerchoices.diceroll == 5 or $playerchoices.diceroll == 6>>
  <<timed 0.1s>>
  <<replace "#mount">>
- <<if $playerchoices.diceroll is 5 or 6>>
+
     <h2>Your fortune also provides additional benefits! </h2>
     <p>You get two Good Fortune Cards: </p>
     <div class="inline-img-container wildcards">
@@ -2523,10 +2610,9 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 
 <p>Your local councillor also commits to rebuilding some of the damaged public infrastructure. They say everything will be fixed in the next six months. You decide you’ll wait and see. </p>
 
-
-<</if>>
 <</replace>>
 <</timed>>
+<</if>>
  </div>
 </main>
 <<include "footeroptionappears">>
@@ -2540,7 +2626,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <</timed>>
 
 :: crystal-poststory[nobr]
-<<if $playerchoices.diceroll is 1 or 2>>
+<<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
     <<set $prevpass to "crystalstory">>
     <<else>>
     <<set $prevpass to "crystalfortune">>
@@ -2572,10 +2658,10 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 :: crystalimpacts[nobr]
 <<set $prevpass to "crystal-poststory">>
 <<set $pass to "crystalimpacts">>
-<<if $playerchoices.diceroll is 1 or 2>>
+<<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
     <<set $nextpass to "crystalfortuneimpacts">>
     <<else>>
-    <<set $nextpass to "aftermathintro">>
+    <<set $nextpass to "recoverytrans">>
 <</if>>
 
 <main class="">
@@ -2595,9 +2681,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
       <img src="assets/img/9.png" alt="action card"/>
     </div>
 
-    <p>You don’t go door knocking, and so you aren’t able to connect to several neighbours. </p>
-    <p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
-    <p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
+    <div>
+        <p>You don’t go door knocking, and so you aren’t able to connect to several neighbours. </p>
+        <p><i>Turn over half of the remaining face down neighbour cards.</i> </p>
+        <p>You can’t include these neighbours in your preparations or recovery, and you’re not able to provide support to one another. </p>
+    </div>
 
 </div>
  <</if>>
@@ -2654,7 +2742,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 :: crystalfortuneimpacts [nobr]
 <<set $prevpass to "crystalimpacts">>
 <<set $pass to "crystalfortuneimpacts">>
-<<set $nextpass to "aftermathintro">>
+<<set $nextpass to "recoverytrans">>
 
 
 <main class="">
@@ -2662,13 +2750,15 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <div id="mount"></div>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <<if $playerchoices.diceroll is 1 or 2>>
-    <h2>As the heat falls, your fear for your neighbours rises.</h2>
-<p> Due to your low fortune, there is no additional help available. So the neighbours of High Street will need to step in and fill the gap. Neighbours are cold, isolated and at risk. How can you ensure your neighbours will get the help they need? </p>
-
+    <<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
+    <p>As the heat falls, your fear for your neighbours rises.</p>
+<p> Due to your low fortune, there is no additional help available. So the neighbours of High Street will need to step in and fill the gap. 
+<br/>
+<h2>Neighbours are cold, isolated and at risk. How can you ensure your neighbours will get the help they need? </h2>
+<br/>
 <p>You will use your skills to take action on this <span class="accent">Unpredictable Outcome.</span> </p>
 
-<p><i>Facilitator, invite one player to describe how they will use their skills to take action.</i> </p>
+<p><i>Facilitator, invite the players to describe how they will use their skills to take action.</i> </p>
 
 <p><i>You will judge whether they have successfully filled the gap. </i></p>
 
@@ -2689,26 +2779,48 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <</timed>>
 
 
+:: recoverytrans [nobr]
+<<set $prevpass to "storyintro">>
+<<set $pass to "recoverytrans">>
+<<set $nextpass to "aftermathintro">>
 
+<main class="cards-selection">
+ <div class="info-container grid-item cards fadeIn10 fortunetrans">
+  <div class="inline-img-container">
+    <div class="inline-img-wrapper arcardbig">
+     <img src="assets/img/recovery.png" alt="Recovery"/>
+    </div>
+    </div>
+    </div>
+</main>
+
+
+ <<timed 10s>>
+ <<goto $nextpass>>
+<</timed>>
 
 :: aftermathintro [nobr]
 <<set $prevpass to "storyintro">>
 <<set $pass to "aftermathintro">>
 <<set $nextpass to "aftermath">>
 
-<main>
- <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
-    <img src="assets/img/recovery.png" alt="Recovery"/>
-</div>
-</div>
-<h2>The monster retreats from High Street.  </h2>
+<main class="grid-wrapper">
+<div class="info-container grid-item cards">
+         <div class="inline-img-container">
+         <div class="inline-img-wrapper arcard">
+    <img src="assets/img/recovery.png" alt="Recovery"/></div>
+        </div>
+     </div>
 
-<h3>You’re left with the aftermath. </h3>
-
-<p>While the street came together, you were not able to keep the monster completely at bay. </p>
-<p>You are left facing the consequences.  </p>
-<p>How will you recover? </p>
+<div class="grid-item explanation">
+    <h2>The monster retreats from High Street.  </h2>
+    
+    <h3>You’re left with the aftermath. </h3>
+    
+    <p>While the street came together, you were not able to keep the monster completely at bay. </p>
+    <p>You are left facing the consequences.  </p>
+    <p>How will you recover? </p>
+</div>
 
 </main>
 <<include "footeroptionappears">>
@@ -2727,23 +2839,42 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 :: aftermath [nobr]
 <<set $prevpass to "aftermathintro">>
 <<set $pass to "aftermath">>
-<<set $nextpass to "outro">>
- <<timed 10s>>
-        <<include "3headertimer">>
-        <</timed>>
+<<set $nextpass to "aftermath2">>
+
 
 <main class="timer">
 <br/>
 <h2>The monster attack has left High Street reeling. </h2>
 <br/>
+
 <p>Morale is low and neighbours across High Street are left scared and shaken. </p>
 <p>Despite your planning and preparations, the monster had a big impact, and there were some things you couldn’t predict. </p>
 <p>Some neighbours have experienced damage to their homes, while others have experienced damage to their health. </p>
 <p>For everyone, the monster’s visit has left a lasting impression. </p>
 <p>High Street doesn’t feel the same. </p>
-<br/>
 
-<p>Together, you will decide how to use your skills, resources and talents to build morale and put High Street on the road to recovery. </p>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: aftermath2 [nobr]
+<<set $prevpass to "aftermath">>
+<<set $pass to "aftermath2">>
+<<set $nextpass to "outro">>
+ <<timed 5s>>
+        <<include "3headertimer">>
+        <</timed>>
+
+<main class="timer">
+<br/>
+<h2>Together, you will decide how to use your skills, resources and talents to build morale and put High Street on the road to recovery. </h2>
 <br/>
 <p>Your plan could be practical: putting together a team to mend broken windows. </p>
 <p>or fantastical: hosting an immersive unicorn party </p>
@@ -2751,8 +2882,8 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <br/>
 <p>Facilitator, spend three minutes on this discussion. </p>
 <p>We recommend doing this by inviting everyone to share their pitch for an event, action or activity. </p>
-<br/>
-<p>When you’ve done that - </p>
+<p>Use your skills on your <span class="accent">Neighbour Cards</span></p>
+<p>When you’ve done that click ‘Move On’</p>
 
 
 </main>
@@ -2769,13 +2900,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 
 <br/>
 <p>There might already be a clear winner. </p>
-
 <p>If not, go round and make your pitches one last time. </p>
 <p>What can you do to build High Street’s morale? </p>
 <br/>
 <p>Then together, make your choice.</p>
- <br/>
-<p>Once you have your final pitch: </p>
+
 <br/>
 
     
@@ -2798,9 +2927,10 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <main>
  
 <p>Now you have your pitch, we want you to tell us what it is. </p>
-<p>When you’re ready, press RECORD below, speak into the microphone and tell us what you have planned. </p>
+<p>When you’re ready, press ‘Start Recording’ below, speak into the microphone and tell us what you have planned. </p>
 <br/>
-<p>We’ll record an audio file of your pitch - the action you will take for your High Street. </p>
+<p>Summarise your pitch in 1 minute - the action you will take for High Street. </p>
+
 <br/>
 <iframe src="https://www.speakpipe.com/widget/inline/kp6xzmubni8enwhrhvqo1sx5cbst92iy" allow="microphone" width="100%" height="200" frameborder="0"></iframe>
     
@@ -2823,7 +2953,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  
 <p>On High Street, your plan is put into action. </p>
 <br/>
-<p>You watch the practical, fantastical, practical / fantastical events unfold and reflect on all you have been through...</p>
+<p>You watch the practical and fantastical events unfold and reflect on all you have been through...</p>
 <p>Dot is impressed.</p>
 <br/>
 <p>You made some good choices. </p>
@@ -2870,126 +3000,127 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 :: outro3 [nobr]
 <<set $prevpass to "outro2">>
 <<set $pass to "outro3">>
-<<set $nextpass to "questions">>
+<<set $nextpass to "end">>
+<<timed 5s>>
+  <<include "5headertimer">>
+<</timed>>
+<main class="grid-wrapper">
+<div class="info-container grid-item cards">
+         <div class="inline-img-container">
+         <div class="inline-img-wrapper arcard">
+    <img src="assets/img/debrief.png" alt="Debrief"/></div>
+        </div>
+     </div>
 
-<main>
-  <div class="inline-img-container">
-  <div class="inline-img-wrapper arcard">
-    <img src="assets/img/debrief.png" alt="Debrief"/>
-</div></div>
 <br/>
-<h2>That’s the end of the game! </h2>
-<p>There is now time for you to debrief and discuss. </p>
-<p>Talk through the questions and reflect together.  </p>
-
-<p><i>Facilitator, we recommend five minutes for this discussion.</i> </p>
+<div class="grid-item explanation" id="mount">
+    <h2>That’s the end of the game! </h2>
+    <p>There is now time for you to debrief and discuss. </p>
+    <p>Talk through the questions and reflect together.  </p>
+    
+    <p><i>Facilitator, we recommend five minutes for this discussion.</i> </p>
+</div>
     
 <<timed 3s>>
     <<replace "#nextButtonContainer">>
-    <<button "Move on">>
-            <<goto $nextpass>>
+    <<button "We're ready">>
+        <<replace "#nextButtonContainer">><</replace>>
+         <<replace "#mount">>
+            <<include "question1">>
+            <</replace>>
         <</button>>
     <</replace>>
 <</timed>>
+        
 </main>
 <<include "footeroptionappears">>
 
 
 
-:: questions [nobr]
-<<set $prevpass to "outro3">>
-<<set $pass to "questions">>
-<<set $nextpass to "question2">>
-
-<main class="timer">
-<h2>Question 1</h2>
+:: question1 [nobr]
+<h2>Question </h2>
 <p>Today, you came together to face the monster. </p>
 <p>Some things went well, others less well, but you stuck it out: you were resilient.</p> 
 <p>If you were going to give your High Street an award - a blue plaque, say - to hang on the wall and commemorate this street and your response to the attack - what would it say? </p>
 
-<<timed 5s>>
-  <<include "5headertimer">>
+<<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Next question">>
+        <<replace "#nextButtonContainer">><</replace>>
+         <<replace "#mount">>
+            <<include "question2">>
+            <</replace>>
+        <</button>>
+    <</replace>>
 <</timed>>
-    
-</main>
-<<include "footeroptionappears">>
 
 :: question2 [nobr]
-<<set $prevpass to "questions">>
-<<set $pass to "question2">>
-<<if $rolledagain is true>>
-    <<set $nextpass to "question3">>
-    <<else>>
-    <<set $nextpass to "question4">>
-<</if>>
 
-<main class="timer">
-<h2>Question 2</h2>
+
+<h2>Question</h2>
 <p>If you were to play again, how would you play differently? </p>
 
-  
-<<timed 5s>>
-  <<include "5headertimer">>
+  <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Next question">>
+        <<replace "#nextButtonContainer">><</replace>>
+         <<replace "#mount">>
+            <<if $rolledagain is true>>
+                <<include "question3">>
+             <<else>>
+             <<include "question4">>
+            <</if>>
+            <</replace>>
+        <</button>>
+    <</replace>>
 <</timed>>
-    
-</main>
-<<include "footeroptionappears">>
+
 
 
 
 :: question3 [nobr]
-<<set $prevpass to "question2">>
-<<set $pass to "question3">>
-<<set $nextpass to "question4">>
 
-<main class="timer">
-<h2>Question 3 </h2>
+<h2>Question </h2>
 <p>When it came to your fortune, you chose to roll the dice again. </p>
 <p>At the end of the game, how do you feel about this choice? Would you do the same next time? </p>
 
 
-  
-<<timed 5s>>
-  <<include "5headertimer">>
+  <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Next question">>
+        <<replace "#nextButtonContainer">><</replace>>
+         <<replace "#mount">>
+            <<include "question4">>
+            <</replace>>
+        <</button>>
+    <</replace>>
 <</timed>>
-    
-</main>
-<<include "footeroptionappears">>
 
 
 :: question4 [nobr]
-<<if $rolledagain is true>>
-    <<set $prevpass to "question3">>
-    <<else>>
-    <<set $prevpass to "question2">>
-<</if>>
 
-<<set $pass to "question4">>
-<<set $nextpass to "end">>
-
-<main class="timer">
-<h2>Question 4 </h2>
+<h2>Question </h2>
 <p>Today you played as a character, but we all live on streets with our own communities, homes and neighbours. </p>
 <p>We’re going to invite you to take a step away from the game, back to yourself</p>
 <p>How did the game make you think about community resilience on your own street? </p>
 
-
-
-  
-<<timed 5s>>
-  <<include "5headertimer">>
+<<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "End">>
+        <<goto "end">>
+        <</button>>
+    <</replace>>
 <</timed>>
-    
-</main>
-<<include "footeroptionappears">>
+
+
 
 
 :: end [nobr]
-<<set $prevpass to "question4">>
+<<set $prevpass to "outro3">>
 <<set $pass to "end">>
 <<set $nextpass to "end">>
 <main>
-<h3>Thanks for playing!</h3>
+<h3>Thanks for playing Stronger Together! </h3>
 <br/>
   <div class="inline-img-container">
   <div class="inline-img-wrapper arcard">
