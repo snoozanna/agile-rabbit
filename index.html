@@ -159,7 +159,21 @@ $(document).on(':passagedisplay', function(ev) {
             event_category: 'GuestClick'
         });
     }
- });</script><tw-passagedata pid="1" name="StoryInit" tags="" position="100,100" size="100,100">&lt;&lt;cacheaudio &quot;timer&quot; &quot;assets/sound/timer.mp3&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="header" tags="nobr" position="225,100" size="100,100">&lt;header&gt;
+ });</script><tw-passagedata pid="1" name="StoryInit" tags="" position="100,100" size="100,100">&lt;&lt;cacheaudio &quot;opening&quot; &quot;assets/audio/StrongerTogetherSFX_1 opening-recovery.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;neighbour&quot; &quot;assets/audio/StrongerTogetherSFX_2 neighbours-recovery.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;forecast&quot; &quot;assets/audio/StrongerTogetherSFX_3 forecast.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;prep&quot; &quot;assets/audio/StrongerTogetherSFX_4 preparation.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;diceroll&quot; &quot;assets/audio/StrongerTogetherSFX_dice roll.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;diceshake&quot; &quot;assets/audio/StrongerTogetherSFX_dice shake.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;firemonster&quot; &quot;assets/audio/StrongerTogetherSFX_FireMonster.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;icemonster&quot; &quot;assets/audio/StrongerTogetherSFX_IceMonster.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;watermonster&quot; &quot;assets/audio/StrongerTogetherSFX_WaterMonster.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;galemonster&quot; &quot;assets/audio/StrongerTogetherSFX_WindMonster.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;success1&quot; &quot;assets/audio/StrongerTogetherSFX_Success 1.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;success2&quot; &quot;assets/audio/StrongerTogetherSFX_Success 2.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;success3&quot; &quot;assets/audio/StrongerTogetherSFX_Success 3.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;aftermath&quot; &quot;assets/audio/StrongerTogetherSFX_6 aftermath.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;meow&quot; &quot;assets/audio/StrongerTogetherSFX_meow.mp3&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="header" tags="nobr" position="225,100" size="100,100">&lt;header&gt;
 &lt;/header&gt;</tw-passagedata><tw-passagedata pid="3" name="footer" tags="nobr" position="350,100" size="100,100">&lt;&lt;set $showWallet to false&gt;&gt;
 &lt;footer&gt;
     &lt;&lt;link [img[assets/img/back-black.png]]&gt;&gt;
@@ -267,7 +281,7 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;/header&gt;</tw-passagedata><tw-passagedata pid="11" name="intro1" tags="nobr" position="100,225" size="100,100">&lt;&lt;set $prevpass to &quot;landing&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro1&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;intro2&quot;&gt;&gt;
-
+&lt;&lt;audio &quot;:all&quot; &quot;stop&quot;&gt;&gt;
 &lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="intro1-text" tags="nobr" position="225,225" size="100,100">&lt;p&gt;Before you begin: &lt;/p&gt;
 
 &lt;p&gt;Lay out your game board as below&lt;/p&gt;
@@ -294,7 +308,12 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;p&gt;If you want no sound at all, please turn your volume down&lt;/p&gt;</tw-passagedata><tw-passagedata pid="13" name="intro2" tags="nobr" position="350,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro1&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro2&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;intro3&quot;&gt;&gt;
-&lt;&lt;if $withVoiceover is true&gt;&gt;&lt;audio src=&quot;&quot; autoplay loop&gt;Audio is not supported on your device&lt;/audio&gt;&lt;&lt;/if&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    /* &lt;audio src=&quot;&quot; autoplay loop&gt;Audio is not supported on your device&lt;/audio&gt; */
+&lt;&lt;else&gt;&gt;
+    /* &lt;audio src=&quot;assets/audio/StrongerTogetherSFX_1 opening-recovery.mp3&quot; autoplay loop&gt;Audio is not supported on your device&lt;/audio&gt; */
+    &lt;&lt;audio &quot;opening&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
 &lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="intro2-text" tags="nobr" position="475,225" size="100,100">&lt;br/&gt;
 &lt;h2&gt;This is Stronger Together.&lt;/h2&gt;
@@ -401,6 +420,12 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;set $pass to &quot;playercards-b&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;playercards-c&quot;&gt;&gt;
 
+&lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+
+&lt;&lt;else&gt;&gt;
+    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main &gt;
 &lt;br/&gt;
     &lt;div class=&quot;grid-item explanation&quot;&gt;
@@ -605,7 +630,7 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="monstercards-intro" tags="nobr" position="850,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-preintr&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="monstercards-intro" tags="nobr" position="850,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-preintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;monstercards-intro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;forecasttrans&quot;&gt;&gt;
 
@@ -642,6 +667,11 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="28" name="forecasttrans" tags="nobr" position="975,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-intro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;forecasttrans&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;monstercards&quot;&gt;&gt;
+&lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+&lt;&lt;else&gt;&gt;
+    &lt;&lt;audio &quot;forecast&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
 &lt;main class=&quot;cards-selection&quot;&gt;
  &lt;div class=&quot;info-container grid-item cards fadeIn10 fortunetrans&quot;&gt;
@@ -656,7 +686,7 @@ $(document).on(':passagedisplay', function(ev) {
 
  &lt;&lt;timed 10s&gt;&gt;
  &lt;&lt;goto $nextpass&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="monstercards" tags="nobr" position="1100,350" size="100,100">&lt;&lt;set $prevpass to &quot;forecasttrans&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="monstercards" tags="nobr" position="1100,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-intro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;monstercards&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
 
@@ -785,7 +815,11 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="chosenMonsterForecast-intro" tags="nobr" position="100,475" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;chosenMonsterForecast&quot;&gt;&gt;
-
+&lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+&lt;&lt;else&gt;&gt;
+    &lt;&lt;audio &quot;prep&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main class=&quot;grid-wrapper split&quot;&gt;
  &lt;div class=&quot;inline-img-container cards-selection grid-item cards wrap&quot;&gt;
     &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
@@ -803,6 +837,7 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;Prepare&lt;/span&gt; actions, physical preparations for neighbours to do at home or on the street.  &lt;/p&gt;
  &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;Connect&lt;/span&gt; actions, connecting to your neighbours and local community. &lt;/p&gt;
  &lt;br/&gt;
+ &lt;p&gt;Facilitator, lay out the &lt;span class=&quot;accent&quot;&gt;Prepare&lt;/span&gt; and &lt;span class=&quot;accent&quot;&gt;Connect&lt;/span&gt; actions on the table.&lt;/p&gt;
  &lt;/div&gt;
 &lt;/main&gt;
 
@@ -1071,15 +1106,19 @@ Your local council has had the money and resources to put some time into disaste
 &lt;br/&gt;
   &lt;div&gt;
       &lt;&lt;button &quot;Roll&quot;&gt;&gt;
+
+    &lt;&lt;audio &quot;diceshake&quot; &quot;play&quot;&gt;&gt;    
     &lt;&lt;set $diceroll to random(0,5) &gt;&gt;
-    /* &lt;&lt;goto $nextpass&gt;&gt; */
-    &lt;&lt;goto &quot;rolling&quot;&gt;&gt;
+    &lt;&lt;timed 1.5s&gt;&gt;
+       &lt;&lt;goto &quot;rolling&quot;&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
         &lt;&lt;/button&gt;&gt;
   &lt;/div&gt;
     &lt;/div&gt;
 &lt;/main&gt;
 /* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */
-&lt;&lt;include &quot;footer&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="rolling" tags="nobr" position="600,600" size="100,100">&lt;main class=&quot;maindice&quot;&gt;
+&lt;&lt;include &quot;footer&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="rolling" tags="nobr" position="600,600" size="100,100">&lt;&lt;audio &quot;diceroll&quot; &quot;play&quot;&gt;&gt;   
+&lt;main class=&quot;maindice&quot;&gt;
   &lt;div class=&quot;dice roll&quot;&gt;
     &lt;div class=&quot;dot top-left&quot;&gt;&lt;/div&gt;
     &lt;div class=&quot;dot top-right&quot;&gt;&lt;/div&gt;
@@ -1120,10 +1159,15 @@ Your local council has had the money and resources to put some time into disaste
     &lt;p&gt;In the real world fortune is very hard to change. &lt;/p&gt;
     &lt;p&gt;But since this is a game... Would you like to roll again? &lt;/p&gt;
     &lt;&lt;button &quot;Roll again&quot;&gt;&gt;
-        &lt;&lt;set $rolledagain to true&gt;&gt;
-
-        &lt;&lt;set $diceroll to random(0,5) &gt;&gt;
-        &lt;&lt;goto &quot;diceresults&quot;&gt;&gt;
+         &lt;&lt;audio &quot;diceshake&quot; &quot;play&quot;&gt;&gt;  
+         &lt;&lt;timed 1s&gt;&gt;
+            &lt;&lt;audio &quot;diceroll&quot; &quot;play&quot;&gt;&gt; 
+            &lt;&lt;/timed&gt;&gt;
+        &lt;&lt;timed 2s&gt;&gt;
+            &lt;&lt;set $rolledagain to true&gt;&gt;
+            &lt;&lt;set $diceroll to random(0,5) &gt;&gt;
+            &lt;&lt;goto &quot;diceresults&quot;&gt;&gt;
+        &lt;&lt;/timed&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     
 &lt;/div&gt;
@@ -1305,6 +1349,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
 &lt;&lt;set $pass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;&quot;&gt;&gt;
 &lt;&lt;include &quot;chosemonsterpath&quot;&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+        /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
+        &lt;&lt;if $withVoiceover is true&gt;&gt;
+
+      &lt;&lt;else&gt;&gt;
+      &lt;&lt;audio $audioMonster &quot;play&quot;&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+        &lt;&lt;/timed&gt;&gt;
 &lt;&lt;set $imgfinalmonster to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.finalmonster + &quot;.png&quot;&gt;&gt;
 &lt;main class=&quot;grid-wrapper&quot;&gt;
 &lt;div class=&quot;grid-item explanation&quot;&gt;
@@ -1329,15 +1381,19 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
 
 &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="chosemonsterpath" tags="nobr" position="350,725" size="100,100">&lt;&lt;if $playerchoices.finalmonster is &quot;Gale&quot;&gt;&gt;
     &lt;&lt;set $nextpass to &quot;galeintro&quot;&gt;&gt;
+    &lt;&lt;set $audioMonster to &quot;galemonster&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;if $playerchoices.finalmonster is &quot;Crystal&quot;&gt;&gt;
     &lt;&lt;set $nextpass to &quot;crystalintro&quot;&gt;&gt;
+    &lt;&lt;set $audioMonster to &quot;icemonster&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;if $playerchoices.finalmonster is &quot;Inferno&quot;&gt;&gt;
     &lt;&lt;set $nextpass to &quot;infernointro&quot;&gt;&gt;
+    &lt;&lt;set $audioMonster to &quot;firemonster&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;if $playerchoices.finalmonster is &quot;Drench&quot;&gt;&gt;
     &lt;&lt;set $nextpass to &quot;drenchintro&quot;&gt;&gt;
+    &lt;&lt;set $audioMonster to &quot;watermonster&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="galeintro" tags="nobr" position="475,725" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;galeintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;galestory&quot;&gt;&gt;
@@ -1368,7 +1424,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;galefortune&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+        /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
+        &lt;&lt;if $withVoiceover is true&gt;&gt;
 
+             &lt;&lt;else&gt;&gt;
+            &lt;&lt;audio &quot;success1&quot; &quot;play&quot;&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -1528,6 +1591,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;timed 0.1s&gt;&gt;
+        /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
+        &lt;&lt;if $withVoiceover is true&gt;&gt;
+
+             &lt;&lt;else&gt;&gt;
+            &lt;&lt;audio &quot;success2&quot; &quot;play&quot;&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -1643,6 +1714,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
 &lt;&lt;set $pass to &quot;infernointro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;infernostory&quot;&gt;&gt;
 
+
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;p&gt;Inferno sizzles into High Street. She clears the sky of clouds, so all you see is blue. &lt;/p&gt;
@@ -1672,6 +1744,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
 &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;infernofortune&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+        /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
+        &lt;&lt;if $withVoiceover is true&gt;&gt;
+
+             &lt;&lt;else&gt;&gt;
+            &lt;&lt;audio &quot;success1&quot; &quot;play&quot;&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
 
 &lt;main class=&quot;&quot;&gt;
 
@@ -1844,6 +1924,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;timed 0.1s&gt;&gt;
+        /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
+        &lt;&lt;if $withVoiceover is true&gt;&gt;
+
+             &lt;&lt;else&gt;&gt;
+            &lt;&lt;audio &quot;success2&quot; &quot;play&quot;&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -1983,6 +2071,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;drenchfortune&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;timed 0.1s&gt;&gt;
+        /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
+        &lt;&lt;if $withVoiceover is true&gt;&gt;
+
+             &lt;&lt;else&gt;&gt;
+            &lt;&lt;audio &quot;success1&quot; &quot;play&quot;&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
 
 
 &lt;main class=&quot;&quot;&gt;
@@ -2144,6 +2240,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;timed 0.1s&gt;&gt;
+        /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
+        &lt;&lt;if $withVoiceover is true&gt;&gt;
+
+             &lt;&lt;else&gt;&gt;
+            &lt;&lt;audio &quot;success2&quot; &quot;play&quot;&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -2219,7 +2323,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 
-&lt;&lt;include &quot;wallet&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="drenchfortuneimpacts" tags="nobr" position="100,975" size="100,100">&lt;&lt;set $prevpass to &quot;drenchimpacts&quot;&gt;&gt;
+/* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="71" name="drenchfortuneimpacts" tags="nobr" position="100,975" size="100,100">&lt;&lt;set $prevpass to &quot;drenchimpacts&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;drenchfortuneimpacts&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
 
@@ -2285,6 +2389,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;crystalfortune&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;timed 0.1s&gt;&gt;
+        /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
+        &lt;&lt;if $withVoiceover is true&gt;&gt;
+
+             &lt;&lt;else&gt;&gt;
+            &lt;&lt;audio &quot;success1&quot; &quot;play&quot;&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -2452,6 +2564,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;timed 0.1s&gt;&gt;
+        /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
+        &lt;&lt;if $withVoiceover is true&gt;&gt;
+
+             &lt;&lt;else&gt;&gt;
+            &lt;&lt;audio &quot;success2&quot; &quot;play&quot;&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -2565,6 +2685,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="78" name="recoverytrans" tags="nobr" position="975,975" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;aftermathintro&quot;&gt;&gt;
+&lt;&lt;timed 0.1s&gt;&gt;
+        &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt;
+        &lt;&lt;if $withVoiceover is true&gt;&gt;
+
+             &lt;&lt;else&gt;&gt;
+            &lt;&lt;audio &quot;aftermath&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
 
 &lt;main class=&quot;cards-selection&quot;&gt;
  &lt;div class=&quot;info-container grid-item cards fadeIn10 fortunetrans&quot;&gt;
@@ -2673,7 +2801,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
 
 &lt;br/&gt;
 
-    
+
 &lt;&lt;timed 3s&gt;&gt;
     &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
     &lt;&lt;button &quot;Move on&quot;&gt;&gt;
@@ -2843,6 +2971,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="91" name="end" tags="nobr" position="100,1225" size="100,100">&lt;&lt;set $prevpass to &quot;outro3&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;end&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;end&quot;&gt;&gt;
+&lt;&lt;timed 0.1s&gt;&gt;
+        &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt;
+        &lt;&lt;if $withVoiceover is true&gt;&gt;
+
+             &lt;&lt;else&gt;&gt;
+            &lt;&lt;audio &quot;meow&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+        &lt;&lt;/if&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
 &lt;main&gt;
 &lt;h3&gt;Thanks for playing Stronger Together! &lt;/h3&gt;
 &lt;br/&gt;

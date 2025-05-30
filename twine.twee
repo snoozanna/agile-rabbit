@@ -77,7 +77,21 @@ $(document).on(':passagedisplay', function(ev) {
  });
 
 :: StoryInit
-<<cacheaudio "timer" "assets/sound/timer.mp3">>
+<<cacheaudio "opening" "assets/audio/StrongerTogetherSFX_1 opening-recovery.mp3">>
+<<cacheaudio "neighbour" "assets/audio/StrongerTogetherSFX_2 neighbours-recovery.mp3">>
+<<cacheaudio "forecast" "assets/audio/StrongerTogetherSFX_3 forecast.mp3">>
+<<cacheaudio "prep" "assets/audio/StrongerTogetherSFX_4 preparation.mp3">>
+<<cacheaudio "diceroll" "assets/audio/StrongerTogetherSFX_dice roll.mp3">>
+<<cacheaudio "diceshake" "assets/audio/StrongerTogetherSFX_dice shake.mp3">>
+<<cacheaudio "firemonster" "assets/audio/StrongerTogetherSFX_FireMonster.mp3">>
+<<cacheaudio "icemonster" "assets/audio/StrongerTogetherSFX_IceMonster.mp3">>
+<<cacheaudio "watermonster" "assets/audio/StrongerTogetherSFX_WaterMonster.mp3">>
+<<cacheaudio "galemonster" "assets/audio/StrongerTogetherSFX_WindMonster.mp3">>
+<<cacheaudio "success1" "assets/audio/StrongerTogetherSFX_Success 1.mp3">>
+<<cacheaudio "success2" "assets/audio/StrongerTogetherSFX_Success 2.mp3">>
+<<cacheaudio "success3" "assets/audio/StrongerTogetherSFX_Success 3.mp3">>
+<<cacheaudio "aftermath" "assets/audio/StrongerTogetherSFX_6 aftermath.mp3">>
+<<cacheaudio "meow" "assets/audio/StrongerTogetherSFX_meow.mp3">>
 
 
 :: header[nobr]
@@ -223,7 +237,7 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "landing">>
 <<set $pass to "intro1">>
 <<set $nextpass to "intro2">>
-
+<<audio ":all" "stop">>
 <<include "_templateIntro">>
 
 
@@ -259,7 +273,12 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "intro1">>
 <<set $pass to "intro2">>
 <<set $nextpass to "intro3">>
-<<if $withVoiceover is true>><audio src="" autoplay loop>Audio is not supported on your device</audio><</if>>
+<<if $withVoiceover is true>>
+    /* <audio src="" autoplay loop>Audio is not supported on your device</audio> */
+<<else>>
+    /* <audio src="assets/audio/StrongerTogetherSFX_1 opening-recovery.mp3" autoplay loop>Audio is not supported on your device</audio> */
+    <<audio "opening" "play" "loop">>
+<</if>>
 
 <<include "_templateIntro">>
 
@@ -395,6 +414,12 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $pass to "playercards-b">>
 <<set $nextpass to "playercards-c">>
 
+<<audio ":all" "stop"  >>
+<<if $withVoiceover is true>>
+
+<<else>>
+    <<audio "neighbour" "play" "loop">>
+<</if>>
 <main >
 <br/>
     <div class="grid-item explanation">
@@ -622,7 +647,7 @@ $(document).on(':passagedisplay', function(ev) {
 <</timed>>
 
 :: monstercards-intro [nobr]
-<<set $prevpass to "monstercards-preintr">>
+<<set $prevpass to "monstercards-preintro">>
 <<set $pass to "monstercards-intro">>
 <<set $nextpass to "forecasttrans">>
 
@@ -662,6 +687,11 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "monstercards-intro">>
 <<set $pass to "forecasttrans">>
 <<set $nextpass to "monstercards">>
+<<audio ":all" stop>>
+<<if $withVoiceover is true>>
+<<else>>
+    <<audio "forecast" "play" "loop">>
+<</if>>
 
 <main class="cards-selection">
  <div class="info-container grid-item cards fadeIn10 fortunetrans">
@@ -679,7 +709,7 @@ $(document).on(':passagedisplay', function(ev) {
 <</timed>>
 
 :: monstercards [nobr]
-<<set $prevpass to "forecasttrans">>
+<<set $prevpass to "monstercards-intro">>
 <<set $pass to "monstercards">>
 <<set $nextpass to "chosenMonsterForecast-intro">>
 
@@ -815,7 +845,11 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "monstercards">>
 <<set $pass to "chosenMonsterForecast-intro">>
 <<set $nextpass to "chosenMonsterForecast">>
-
+<<audio ":all" stop>>
+<<if $withVoiceover is true>>
+<<else>>
+    <<audio "prep" "play" "loop">>
+<</if>>
 <main class="grid-wrapper split">
  <div class="inline-img-container cards-selection grid-item cards wrap">
     <div class="inline-img-wrapper arcard">
@@ -833,6 +867,7 @@ $(document).on(':passagedisplay', function(ev) {
 <p><span class="accent">Prepare</span> actions, physical preparations for neighbours to do at home or on the street.  </p>
  <p><span class="accent">Connect</span> actions, connecting to your neighbours and local community. </p>
  <br/>
+ <p>Facilitator, lay out the <span class="accent">Prepare</span> and <span class="accent">Connect</span> actions on the table.</p>
  </div>
 </main>
 
@@ -1156,9 +1191,12 @@ Your local council has had the money and resources to put some time into disaste
 <br/>
   <div>
       <<button "Roll">>
+
+    <<audio "diceshake" "play">>    
     <<set $diceroll to random(0,5) >>
-    /* <<goto $nextpass>> */
-    <<goto "rolling">>
+    <<timed 1.5s>>
+       <<goto "rolling">>
+    <</timed>>
         <</button>>
   </div>
     </div>
@@ -1168,6 +1206,7 @@ Your local council has had the money and resources to put some time into disaste
 
 
 :: rolling [nobr]
+<<audio "diceroll" "play">>   
 <main class="maindice">
   <div class="dice roll">
     <div class="dot top-left"></div>
@@ -1213,10 +1252,15 @@ Your local council has had the money and resources to put some time into disaste
     <p>In the real world fortune is very hard to change. </p>
     <p>But since this is a game... Would you like to roll again? </p>
     <<button "Roll again">>
-        <<set $rolledagain to true>>
-
-        <<set $diceroll to random(0,5) >>
-        <<goto "diceresults">>
+         <<audio "diceshake" "play">>  
+         <<timed 1s>>
+            <<audio "diceroll" "play">> 
+            <</timed>>
+        <<timed 2s>>
+            <<set $rolledagain to true>>
+            <<set $diceroll to random(0,5) >>
+            <<goto "diceresults">>
+        <</timed>>
         <</button>>
     
 </div>
@@ -1424,6 +1468,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $pass to "storyintro">>
 <<set $nextpass to "">>
 <<include "chosemonsterpath">>
+    <<timed 0.1s>>
+        /* <<audio ":all" "stop"  >> */
+        <<if $withVoiceover is true>>
+
+      <<else>>
+      <<audio $audioMonster "play">>
+        <</if>>
+        <</timed>>
 <<set $imgfinalmonster to "assets/img/" + "Demo_" + $playerchoices.finalmonster + ".png">>
 <main class="grid-wrapper">
 <div class="grid-item explanation">
@@ -1452,15 +1504,19 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 :: chosemonsterpath [nobr]
 <<if $playerchoices.finalmonster is "Gale">>
     <<set $nextpass to "galeintro">>
+    <<set $audioMonster to "galemonster">>
 <</if>>
 <<if $playerchoices.finalmonster is "Crystal">>
     <<set $nextpass to "crystalintro">>
+    <<set $audioMonster to "icemonster">>
 <</if>>
 <<if $playerchoices.finalmonster is "Inferno">>
     <<set $nextpass to "infernointro">>
+    <<set $audioMonster to "firemonster">>
 <</if>>
 <<if $playerchoices.finalmonster is "Drench">>
     <<set $nextpass to "drenchintro">>
+    <<set $audioMonster to "watermonster">>
 <</if>>
 
 :: galeintro [nobr]
@@ -1499,7 +1555,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <<else>>
     <<set $nextpass to "galefortune">>
 <</if>>
+    <<timed 0.1s>>
+        /* <<audio ":all" "stop"  >> */
+        <<if $withVoiceover is true>>
 
+             <<else>>
+            <<audio "success1" "play">>
+        <</if>>
+    <</timed>>
 
 <main class="">
     <div class="explanation">
@@ -1671,6 +1734,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <<else>>
     <<set $nextpass to "recoverytrans">>
 <</if>>
+<<timed 0.1s>>
+        /* <<audio ":all" "stop"  >> */
+        <<if $withVoiceover is true>>
+
+             <<else>>
+            <<audio "success2" "play">>
+        <</if>>
+    <</timed>>
 
 <main class="">
     <div class="explanation">
@@ -1793,6 +1864,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $pass to "infernointro">>
 <<set $nextpass to "infernostory">>
 
+
 <main class="">
     <div class="explanation">
 <p>Inferno sizzles into High Street. She clears the sky of clouds, so all you see is blue. </p>
@@ -1826,6 +1898,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<else>>
     <<set $nextpass to "infernofortune">>
 <</if>>
+    <<timed 0.1s>>
+        /* <<audio ":all" "stop"  >> */
+        <<if $withVoiceover is true>>
+
+             <<else>>
+            <<audio "success1" "play">>
+        <</if>>
+    <</timed>>
 
 <main class="">
 
@@ -2011,6 +2091,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <<else>>
     <<set $nextpass to "recoverytrans">>
 <</if>>
+<<timed 0.1s>>
+        /* <<audio ":all" "stop"  >> */
+        <<if $withVoiceover is true>>
+
+             <<else>>
+            <<audio "success2" "play">>
+        <</if>>
+    <</timed>>
 
 <main class="">
     <div class="explanation">
@@ -2162,6 +2250,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <<else>>
     <<set $nextpass to "drenchfortune">>
 <</if>>
+<<timed 0.1s>>
+        /* <<audio ":all" "stop"  >> */
+        <<if $withVoiceover is true>>
+
+             <<else>>
+            <<audio "success1" "play">>
+        <</if>>
+    <</timed>>
 
 
 <main class="">
@@ -2334,6 +2430,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <<else>>
     <<set $nextpass to "recoverytrans">>
 <</if>>
+<<timed 0.1s>>
+        /* <<audio ":all" "stop"  >> */
+        <<if $withVoiceover is true>>
+
+             <<else>>
+            <<audio "success2" "play">>
+        <</if>>
+    <</timed>>
 
 <main class="">
     <div class="explanation">
@@ -2409,7 +2513,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
-<<include "wallet">>
+/* <<include "wallet">> */
 
 :: drenchfortuneimpacts [nobr]
 <<set $prevpass to "drenchimpacts">>
@@ -2487,6 +2591,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <<else>>
     <<set $nextpass to "crystalfortune">>
 <</if>>
+<<timed 0.1s>>
+        /* <<audio ":all" "stop"  >> */
+        <<if $withVoiceover is true>>
+
+             <<else>>
+            <<audio "success1" "play">>
+        <</if>>
+    <</timed>>
 
 <main class="">
     <div class="explanation">
@@ -2663,6 +2775,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <<else>>
     <<set $nextpass to "recoverytrans">>
 <</if>>
+<<timed 0.1s>>
+        /* <<audio ":all" "stop"  >> */
+        <<if $withVoiceover is true>>
+
+             <<else>>
+            <<audio "success2" "play">>
+        <</if>>
+    <</timed>>
 
 <main class="">
     <div class="explanation">
@@ -2783,6 +2903,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $prevpass to "storyintro">>
 <<set $pass to "recoverytrans">>
 <<set $nextpass to "aftermathintro">>
+<<timed 0.1s>>
+        <<audio ":all" "stop"  >>
+        <<if $withVoiceover is true>>
+
+             <<else>>
+            <<audio "aftermath" "play" "loop">>
+        <</if>>
+    <</timed>>
 
 <main class="cards-selection">
  <div class="info-container grid-item cards fadeIn10 fortunetrans">
@@ -2907,7 +3035,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 
 <br/>
 
-    
+
 <<timed 3s>>
     <<replace "#nextButtonContainer">>
     <<button "Move on">>
@@ -3119,6 +3247,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $prevpass to "outro3">>
 <<set $pass to "end">>
 <<set $nextpass to "end">>
+<<timed 0.1s>>
+        <<audio ":all" "stop"  >>
+        <<if $withVoiceover is true>>
+
+             <<else>>
+            <<audio "meow" "play" "loop">>
+        <</if>>
+    <</timed>>
 <main>
 <h3>Thanks for playing Stronger Together! </h3>
 <br/>
