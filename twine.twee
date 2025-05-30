@@ -85,12 +85,12 @@ $(document).on(':passagedisplay', function(ev) {
 <<cacheaudio "diceshake" "assets/audio/StrongerTogetherSFX_dice shake.mp3">>
 <<cacheaudio "firemonster" "assets/audio/StrongerTogetherSFX_FireMonster.mp3">>
 <<cacheaudio "icemonster" "assets/audio/StrongerTogetherSFX_IceMonster.mp3">>
-<<cacheaudio "watermonster" "assets/audio/StrongerTogetherSFX_WaterMonster.mp3">>
-<<cacheaudio "galemonster" "assets/audio/StrongerTogetherSFX_WindMonster.mp3">>
+<<cacheaudio "watermonster" "assets/audio/StrongerTogetherSFX_v2_WaterMonster.mp3">>
+<<cacheaudio "galemonster" "assets/audio/StrongerTogetherSFX_v2_WindMonster.mp3">>
 <<cacheaudio "success1" "assets/audio/StrongerTogetherSFX_Success 1.mp3">>
 <<cacheaudio "success2" "assets/audio/StrongerTogetherSFX_Success 2.mp3">>
 <<cacheaudio "success3" "assets/audio/StrongerTogetherSFX_Success 3.mp3">>
-<<cacheaudio "aftermath" "assets/audio/StrongerTogetherSFX_6 aftermath.mp3">>
+<<cacheaudio "aftermath" "assets/audio/StrongerTogetherSFX_v2_6 aftermath.mp3">>
 <<cacheaudio "meow" "assets/audio/StrongerTogetherSFX_meow.mp3">>
 
 
