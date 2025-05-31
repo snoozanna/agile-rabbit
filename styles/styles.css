@@ -583,6 +583,8 @@ flex-direction: column;
 }
 
 
+
+
 /* PHONE ONLY */
 /* .desktop-message{
   display: none;
@@ -671,6 +673,18 @@ main.grid-wrapper.split{
   "explanation  cards"
   "footer footer ";
 }
+
+.result.grid-wrapper{
+  padding:5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "explanation explanation cards"
+    "explanation explanation cards";
+    gap: 2rem
+}
+
 
 .grid-item.footer{
   grid-area: footer;

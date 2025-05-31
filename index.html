@@ -104,7 +104,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://6F5BF6DD-A217-4F2F-BEF5-C4EF4361C877// --><tw-storydata name="Agile Rabbit" startnode="8" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="6F5BF6DD-A217-4F2F-BEF5-C4EF4361C877" zoom="1" format="SugarCube" format-version="2.37.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
+	<!-- UUID://6F5BF6DD-A217-4F2F-BEF5-C4EF4361C877// --><tw-storydata name="Agile Rabbit" startnode="9" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="6F5BF6DD-A217-4F2F-BEF5-C4EF4361C877" zoom="1" format="SugarCube" format-version="2.37.0" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Caudex:ital,wght@0,400;0,700;1,400;1,700&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
@@ -159,7 +159,119 @@ $(document).on(':passagedisplay', function(ev) {
             event_category: 'GuestClick'
         });
     }
- });</script><tw-passagedata pid="1" name="StoryInit" tags="" position="100,100" size="100,100">&lt;&lt;cacheaudio &quot;opening&quot; &quot;assets/audio/StrongerTogetherSFX_1 opening-recovery.mp3&quot;&gt;&gt;
+ });
+
+setup.chooseStoryAudio = () => {
+  const storyAudioNeeded = State.variables.storyAudioNeeded;
+  const storyMonsterNeeded = State.variables.storyMonsterNeeded;
+  const audio = document.getElementById("audioPlayer");
+    console.log("audio", audio)
+  if (!audio) {
+    console.error("Audio element with ID 'audioPlayer' not found.");
+    return;
+  }
+
+  // Remove any previously attached 'ended' event to avoid duplicates
+  audio.replaceWith(audio.cloneNode(true));
+  const freshAudio = document.getElementById("audioPlayer");
+
+  // Build audio file paths based on storyAudioNeeded numbers
+  const audioFiles = storyAudioNeeded.map(num => 
+    `assets/voiceover/strongertogethervo_7_${storyMonsterNeeded}_2_S${num}.mp3`
+  );
+
+  let currentTrack = 0;
+
+  function playNext() {
+    if (currentTrack < audioFiles.length) {
+      freshAudio.src = audioFiles[currentTrack];
+      freshAudio.play().catch(err => {
+        console.error("Audio play failed:", err);
+      });
+      currentTrack++;
+    }
+  }
+
+  freshAudio.addEventListener("ended", playNext);
+
+  // Start playback
+  playNext();
+};
+
+setup.chooseFortuneAudio = () => {
+  const diceroll = State.variables.playerchoices.diceroll;
+  const storyMonsterNeeded = State.variables.storyMonsterNeeded;
+  const audio = document.getElementById("audioPlayer");
+
+  console.log("audio", audio);
+
+  if (!audio) {
+    console.error("Audio element with ID 'audioPlayer' not found.");
+    return;
+  }
+
+  // Replace audio element to remove any existing 'ended' listeners
+  audio.replaceWith(audio.cloneNode(true));
+  const freshAudio = document.getElementById("audioPlayer");
+
+  // Determine audio filename based on dice roll
+  let suffix = "";
+  if (diceroll === 1 || diceroll === 2) {
+    suffix = "F12";
+  } else if (diceroll === 3 || diceroll === 4) {
+    suffix = "F34";
+  } else if (diceroll === 5 || diceroll === 6) {
+    suffix = "F56";
+  } else {
+    console.error("Invalid dice roll:", diceroll);
+    return;
+  }
+
+  const audioFile = `assets/voiceover/strongertogethervo_7_${storyMonsterNeeded}_3_${suffix}.mp3`;
+
+  // Assign and play the selected audio file
+  freshAudio.src = audioFile;
+  freshAudio.play().catch(err => {
+    console.error("Audio play failed:", err);
+  });
+};
+
+setup.chooseImpactsAudio = () => {
+  const impactsAudioNeeded = State.variables.impactsAudioNeeded;
+  const storyMonsterNeeded = State.variables.storyMonsterNeeded;
+  const audio = document.getElementById("audioPlayer");
+
+  if (!audio) {
+    console.error("Audio element with ID 'audioPlayer' not found.");
+    return;
+  }
+
+  // Remove any previously attached 'ended' event to avoid duplicates
+  audio.replaceWith(audio.cloneNode(true));
+  const freshAudio = document.getElementById("audioPlayer");
+
+  // Build audio file paths based on storyAudioNeeded numbers
+  const audioFiles = impactsAudioNeeded.map(num => 
+    `assets/voiceover/strongertogethervo_7_${storyMonsterNeeded}_5_N${num}.mp3`
+  );
+
+  let currentTrack = 0;
+
+  function playNext() {
+    if (currentTrack < audioFiles.length) {
+      freshAudio.src = audioFiles[currentTrack];
+      freshAudio.play().catch(err => {
+        console.error("Audio play failed:", err);
+      });
+      currentTrack++;
+    }
+  }
+
+  freshAudio.addEventListener("ended", playNext);
+
+  // Start playback
+  playNext();
+};</script><tw-passagedata pid="1" name="StoryInit" tags="" position="100,100" size="100,100">&lt;&lt;cacheaudio &quot;opening&quot; &quot;assets/audio/StrongerTogetherSFX_v2_1opening-recovery.mp3&quot;&gt;&gt;
 &lt;&lt;cacheaudio &quot;neighbour&quot; &quot;assets/audio/StrongerTogetherSFX_2 neighbours-recovery.mp3&quot;&gt;&gt;
 &lt;&lt;cacheaudio &quot;forecast&quot; &quot;assets/audio/StrongerTogetherSFX_3 forecast.mp3&quot;&gt;&gt;
 &lt;&lt;cacheaudio &quot;prep&quot; &quot;assets/audio/StrongerTogetherSFX_4 preparation.mp3&quot;&gt;&gt;
@@ -215,7 +327,15 @@ $(document).on(':passagedisplay', function(ev) {
     &lt;&lt;/link&gt;&gt; */
     &lt;div id=&quot;nextButtonContainer&quot;&gt;
      &lt;/div&gt;
-&lt;/footer&gt;</tw-passagedata><tw-passagedata pid="7" name="footersimpleappears" tags="nobr" position="850,100" size="100,100">&lt;&lt;set $showWallet to false&gt;&gt;
+&lt;/footer&gt;</tw-passagedata><tw-passagedata pid="7" name="footerquestions" tags="nobr" position="850,100" size="100,100">&lt;&lt;set $showWallet to false&gt;&gt;
+&lt;footer class=&quot;grid-item footer&quot;&gt;
+  &lt;&lt;link [img[assets/img/back-black.png]]&gt;&gt;
+        &lt;&lt;goto $prevpass&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+ 
+    &lt;div id=&quot;nextButtonContainerQ&quot;&gt;
+     &lt;/div&gt;
+&lt;/footer&gt;</tw-passagedata><tw-passagedata pid="8" name="footersimpleappears" tags="nobr" position="975,100" size="100,100">&lt;&lt;set $showWallet to false&gt;&gt;
 &lt;footer class=&quot;grid-item footer&quot;&gt;
 
   /* &lt;&lt;link [img[assets/img/back-black.png]]&gt;&gt;
@@ -228,11 +348,10 @@ $(document).on(':passagedisplay', function(ev) {
          /* &lt;div/&gt; */
     &lt;div id=&quot;nextButtonContainer&quot;&gt;
      &lt;/div&gt;
-&lt;/footer&gt;</tw-passagedata><tw-passagedata pid="8" name="landing" tags="nobr" position="975,100" size="100,100">&lt;&lt;set $prevpass to &quot;landing&quot;&gt;&gt;
+&lt;/footer&gt;</tw-passagedata><tw-passagedata pid="9" name="landing" tags="nobr" position="1100,100" size="100,100">&lt;&lt;set $prevpass to &quot;landing&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;landing&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;intro1&quot;&gt;&gt;
 &lt;&lt;set $withVoiceover to false&gt;&gt;
-
 &lt;&lt;set $playerchoices to {
     chosenmonsters: [],
     finalmonster: [],
@@ -249,20 +368,32 @@ $(document).on(':passagedisplay', function(ev) {
     percentage:0
 }&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
+&lt;audio src=&quot;assets/voiceover/strongertogethervo_0_1.mp3&quot; autoplay &gt;Audio is not supported on your device&lt;/audio&gt;
 
 
+&lt;main class=&quot;landing grid-wrapper split&quot;&gt;
+&lt;div class=&quot;info-container grid-item cards&quot;&gt;
+         &lt;div class=&quot;inline-img-container&quot;&gt;
+         &lt;div class=&quot;inline-img-wrapper &quot;&gt;
+    &lt;img src=&quot;assets/img/logo-189.png&quot; alt=&quot;Logo&quot;/&gt;&lt;/div&gt;
+        &lt;/div&gt;
+     &lt;/div&gt;
+&lt;div class=&quot;grid-item explanation&quot;&gt;
+    &lt;h1&gt;Welcome to Stronger Together&lt;/h1&gt;
+    &lt;br/&gt;
+    &lt;h2&gt;A card game about community resilience &lt;/h2&gt;
+    &lt;br/&gt;
+      &lt;div&gt;
+          &lt;&lt;button &quot;Enter&quot;&gt;&gt;
+                &lt;&lt;goto $nextpass&gt;&gt;
+            &lt;&lt;/button&gt;&gt;
+      &lt;/div&gt;
+    
 
-&lt;main class=&quot;landing&quot;&gt;
-&lt;h1&gt;Welcome to Stronger Together&lt;/h1&gt;
-&lt;br/&gt;
-&lt;h2&gt;A card game about community resilience &lt;/h2&gt;
-&lt;br/&gt;
-  &lt;&lt;button &quot;Enter&quot;&gt;&gt;
-        &lt;&lt;goto $nextpass&gt;&gt;
-    &lt;&lt;/button&gt;&gt;
+&lt;/div&gt;
 &lt;/main&gt;
 
-/* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="9" name="_templateIntro" tags="nobr" position="1100,100" size="100,100">&lt;&lt;addclass &quot;body&quot; &quot;light&quot;&gt;&gt;
+/* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="10" name="_templateIntro" tags="nobr" position="1225,100" size="100,100">&lt;&lt;addclass &quot;body&quot; &quot;light&quot;&gt;&gt;
 
 /* &lt;&lt;include &quot;headerIntro&quot;&gt;&gt; */
 &lt;main class=&quot;talking&quot;&gt;
@@ -275,22 +406,23 @@ $(document).on(':passagedisplay', function(ev) {
         &lt;&lt;/if&gt;&gt;
   
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="headerIntro" tags="nobr" position="1225,100" size="100,100">&lt;header class=&quot;intro&quot;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="headerIntro" tags="nobr" position="100,225" size="100,100">&lt;header class=&quot;intro&quot;&gt;
   &lt;h2&gt;Stronger Together&lt;/h2&gt;
 
-&lt;/header&gt;</tw-passagedata><tw-passagedata pid="11" name="intro1" tags="nobr" position="100,225" size="100,100">&lt;&lt;set $prevpass to &quot;landing&quot;&gt;&gt;
+&lt;/header&gt;</tw-passagedata><tw-passagedata pid="12" name="intro1" tags="nobr" position="225,225" size="100,100">&lt;&lt;set $prevpass to &quot;landing&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro1&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;intro2&quot;&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;&gt;&gt;
-&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="intro1-text" tags="nobr" position="225,225" size="100,100">&lt;p&gt;Before you begin: &lt;/p&gt;
+&lt;audio src=&quot;assets/voiceover/strongertogethervo_0_2.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="intro1-text" tags="nobr" position="350,225" size="100,100">&lt;h2&gt;Before you begin: &lt;/h2&gt;
 
 &lt;p&gt;Lay out your game board as below&lt;/p&gt;
 
   &lt;div class=&quot;inline-img-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper arcardhor&quot;&gt;
-        &lt;h3&gt;Game Board&lt;/h3&gt;&lt;img src=&quot;assets/img/board.jpg&quot; alt=&quot;Demo Game Board&quot;/&gt;
+        &lt;h3&gt;Game Board&lt;/h3&gt;&lt;img src=&quot;assets/img/board.png&quot; alt=&quot;Demo Game Board&quot;/&gt;
 &lt;/div&gt;&lt;/div&gt;
-
+&lt;br/&gt;
 &lt;p&gt;Choose someone to play your &lt;span class=&quot;accent&quot;&gt;Facilitator&lt;/span&gt;, they’ll lead you through the game.&lt;/p&gt;
 &lt;p&gt;The facilitator can play, or sit on the outside, totally up to you. &lt;/p&gt;
 &lt;br/&gt;
@@ -305,18 +437,27 @@ $(document).on(':passagedisplay', function(ev) {
 
 &lt;p&gt;If you have no voiceover, your facilitator will need to read the text aloud: &lt;/p&gt;
 
-&lt;p&gt;If you want no sound at all, please turn your volume down&lt;/p&gt;</tw-passagedata><tw-passagedata pid="13" name="intro2" tags="nobr" position="350,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro1&quot;&gt;&gt;
+&lt;p&gt;If you want no sound at all, please turn your volume down.&lt;/p&gt;</tw-passagedata><tw-passagedata pid="14" name="intro2" tags="nobr" position="475,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro1&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro2&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;intro3&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
-    /* &lt;audio src=&quot;&quot; autoplay loop&gt;Audio is not supported on your device&lt;/audio&gt; */
+    &lt;&lt;timed 1s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_1_1+2.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+    &lt;&lt;audio &quot;opening&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
-    /* &lt;audio src=&quot;assets/audio/StrongerTogetherSFX_1 opening-recovery.mp3&quot; autoplay loop&gt;Audio is not supported on your device&lt;/audio&gt; */
     &lt;&lt;audio &quot;opening&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="intro2-text" tags="nobr" position="475,225" size="100,100">&lt;br/&gt;
-&lt;h2&gt;This is Stronger Together.&lt;/h2&gt;
+&lt;main class=&quot;landing grid-wrapper split&quot;&gt;
+&lt;div class=&quot;info-container grid-item cards&quot;&gt;
+         &lt;div class=&quot;inline-img-container&quot;&gt;
+         &lt;div class=&quot;inline-img-wrapper &quot;&gt;
+    &lt;img src=&quot;assets/img/logo-189.png&quot; alt=&quot;Logo&quot;/&gt;&lt;/div&gt;
+        &lt;/div&gt;
+     &lt;/div&gt;
+&lt;div class=&quot;grid-item explanation&quot;&gt;
+   &lt;h2&gt;This is Stronger Together.&lt;/h2&gt;
 &lt;br/&gt;
 &lt;p&gt;A card game offering a 30 minute introduction to community resilience. &lt;/p&gt;
 &lt;p&gt;It’s designed for communities of all kinds to play together. &lt;/p&gt;
@@ -325,6 +466,9 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;p&gt;This isn’t a game about a group of politicians around a table. &lt;/p&gt;
 &lt;p&gt;It&#39;s about how communities themselves might embrace what they already have, and come together for their people and their place.&lt;/p&gt;
 
+&lt;/div&gt;
+&lt;/main&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;
 
 &lt;&lt;timed 3s&gt;&gt;
     &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
@@ -335,10 +479,26 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="intro3" tags="nobr" position="600,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro2&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro3&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;intro3b&quot;&gt;&gt;
-
-&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="intro3-text" tags="nobr" position="725,225" size="100,100">&lt;p&gt;You will play as neighbours on a single street - High Street - it’s the most common street name in the UK. &lt;/p&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.2s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_2_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;main class=&quot;landing grid-wrapper split&quot;&gt;
+&lt;div class=&quot;info-container grid-item cards&quot;&gt;
+         &lt;div class=&quot;inline-img-container&quot;&gt;
+         &lt;div class=&quot;inline-img-wrapper &quot;&gt;
+    &lt;img src=&quot;assets/img/cat.png&quot; alt=&quot;Logo&quot;/&gt;&lt;/div&gt;
+        &lt;/div&gt;
+     &lt;/div&gt;
+&lt;div class=&quot;grid-item explanation&quot;&gt;
+&lt;p&gt;You will play as neighbours on a single street - High Street - it’s the most common street name in the UK. &lt;/p&gt;
 &lt;p&gt;High Street could be anywhere in the country. There are some houses, a block of flats, a couple of shops and a stray cat named Dot.&lt;/p&gt;
 
+
+&lt;/div&gt;
+&lt;/main&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;
 
 &lt;&lt;timed 3s&gt;&gt;
     &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
@@ -346,35 +506,39 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="intro3b" tags="nobr" position="850,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro3&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="intro3b" tags="nobr" position="725,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro3&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro3b&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;playercards&quot;&gt;&gt;
-
-&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="intro3b-text" tags="nobr" position="975,225" size="100,100">&lt;span id=&quot;line1&quot;&gt;&lt;/span&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.2s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_2_2.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="intro3b-text" tags="nobr" position="850,225" size="100,100">&lt;span id=&quot;line1&quot;&gt;&lt;/span&gt;
 &lt;span id=&quot;line2&quot;&gt;&lt;/span&gt;
 &lt;span id=&quot;line3&quot;&gt;&lt;/span&gt;
 &lt;span id=&quot;line4&quot;&gt;&lt;/span&gt;
 &lt;span id=&quot;line5&quot;&gt;&lt;/span&gt;
-&lt;&lt;timed 1s&gt;&gt;
+&lt;&lt;timed 0.1s&gt;&gt;
     &lt;&lt;replace &quot;#line1&quot;&gt;&gt;&lt;p&gt;As the residents of High Street, the disaster you will face is...&lt;/p&gt;&lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;&lt;timed 3s&gt;&gt;
     &lt;&lt;replace &quot;#line2&quot;&gt;&gt;&lt;&lt;type 60ms&gt;&gt;&lt;p&gt;...&lt;/p&gt;&lt;&lt;/type&gt;&gt;&lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
-&lt;&lt;timed 5s&gt;&gt;
+&lt;&lt;timed 4s&gt;&gt;
     &lt;&lt;replace &quot;#line3&quot;&gt;&gt;&lt;&lt;type 60ms&gt;&gt;&lt;p&gt;...&lt;/p&gt;&lt;&lt;/type&gt;&gt;&lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
-&lt;&lt;timed 7s&gt;&gt;
+&lt;&lt;timed 5s&gt;&gt;
     &lt;&lt;replace &quot;#line4&quot;&gt;&gt;&lt;h2&gt;A MONSTER ATTACK!&lt;/h2&gt;&lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
-&lt;&lt;timed 9s&gt;&gt;
+&lt;&lt;timed 7.5s&gt;&gt;
     &lt;&lt;replace &quot;#line5&quot;&gt;&gt;
         &lt;br/&gt;
         &lt;p&gt;The aim of this game is to prepare for, respond to and recover well from this attack. &lt;/p&gt;
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 
-&lt;&lt;timed 11s&gt;&gt;
+&lt;&lt;timed 13s&gt;&gt;
     &lt;&lt;append &quot;#line5&quot;&gt;&gt;
         &lt;br/&gt;
         &lt;p&gt;Good luck!&lt;/p&gt;
@@ -387,10 +551,14 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="playercards" tags="nobr" position="1100,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro3&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="playercards" tags="nobr" position="975,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro3&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;playercards&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;playercards-b&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.2s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_2_3.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main class=&quot;grid-wrapper&quot;&gt;
  &lt;div class=&quot;info-container grid-item cards&quot;&gt;
          &lt;div class=&quot;inline-img-container&quot;&gt;
@@ -416,13 +584,13 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="playercards-b" tags="nobr" position="1225,225" size="100,100">&lt;&lt;set $prevpass to &quot;playercards&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="playercards-b" tags="nobr" position="1100,225" size="100,100">&lt;&lt;set $prevpass to &quot;playercards&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;playercards-b&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;playercards-c&quot;&gt;&gt;
-
 &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
-
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_2_4.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+     &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
     &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -445,10 +613,14 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="playercards-c" tags="nobr" position="100,350" size="100,100">&lt;&lt;set $prevpass to &quot;playercards-b&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="playercards-c" tags="nobr" position="1225,225" size="100,100">&lt;&lt;set $prevpass to &quot;playercards-b&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;playercards-c&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;monstercards-preintro&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.2s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_2_5.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
  &lt;&lt;timed 5s&gt;&gt;
   &lt;&lt;include &quot;2headertimer&quot;&gt;&gt;
@@ -464,7 +636,7 @@ $(document).on(':passagedisplay', function(ev) {
 
     &lt;/div&gt;
     &lt;/main&gt;
-    &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="timer" tags="nobr" position="225,350" size="100,100">&lt;&lt;set $seconds to 300&gt;&gt;
+    &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="timer" tags="nobr" position="100,350" size="100,100">&lt;&lt;set $seconds to 300&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;/span&gt;
 
 &lt;&lt;silently&gt;&gt;
@@ -496,7 +668,7 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="3mtimer" tags="nobr" position="350,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
+        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="3mtimer" tags="nobr" position="225,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
   /* &lt;&lt;set $seconds to 1&gt;&gt; */
 &lt;&lt;set $seconds to 180&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;&lt;/span&gt;&lt;/span&gt;
@@ -534,7 +706,7 @@ $(document).on(':passagedisplay', function(ev) {
              &lt;&lt;/button&gt;&gt;
             &lt;&lt;/if&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="2mtimer" tags="nobr" position="475,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
+        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="2mtimer" tags="nobr" position="350,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
 /* &lt;&lt;set $seconds to 1&gt;&gt; */
 &lt;&lt;set $seconds to 120&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;&lt;/span&gt;&lt;/span&gt;
@@ -572,7 +744,7 @@ $(document).on(':passagedisplay', function(ev) {
              &lt;&lt;/button&gt;&gt;
             &lt;&lt;/if&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="5mtimer" tags="nobr" position="600,350" size="100,100">/* &lt;&lt;set $seconds to 3&gt;&gt; */
+        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="5mtimer" tags="nobr" position="475,350" size="100,100">/* &lt;&lt;set $seconds to 3&gt;&gt; */
   &lt;&lt;set $seconds to 300&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;&lt;/span&gt;&lt;/span&gt;
 
@@ -603,10 +775,37 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="monstercards-preintro" tags="nobr" position="725,350" size="100,100">&lt;&lt;set $prevpass to &quot;playercards-c&quot;&gt;&gt;
+        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="5mtimerquestions" tags="nobr" position="600,350" size="100,100">/* &lt;&lt;set $seconds to 3&gt;&gt; */
+  &lt;&lt;set $seconds to 300&gt;&gt;
+&lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;&lt;/span&gt;&lt;/span&gt;
+
+
+&lt;&lt;silently&gt;&gt;
+	&lt;&lt;repeat 1s&gt;&gt;
+		&lt;&lt;set $seconds to $seconds - 1&gt;&gt;
+		&lt;&lt;if $seconds gt 0&gt;&gt;
+			&lt;&lt;replace &quot;#countdown&quot;&gt;&gt;
+				&lt;&lt;if $seconds &gt;= 60&gt;&gt;
+					&lt;&lt;set _min to Math.floor($seconds / 60)&gt;&gt;
+					&lt;&lt;set _sec to $seconds % 60&gt;&gt;
+					&lt;span class=&quot;secs&quot;&gt;_min:&lt;&lt;if _sec lt 10&gt;&gt;0&lt;&lt;/if&gt;&gt;_sec&lt;/span&gt;
+				&lt;&lt;else&gt;&gt;
+					&lt;span class=&quot;secs&quot;&gt;$seconds &lt;/span&gt;
+				&lt;&lt;/if&gt;&gt;
+			&lt;&lt;/replace&gt;&gt;
+		&lt;&lt;else&gt;&gt;
+			&lt;&lt;replace &quot;#countdown&quot;&gt;&gt;&lt;strong&gt;Time&#39;s up&lt;/strong&gt;&lt;&lt;/replace&gt;&gt;
+			&lt;&lt;stop&gt;&gt;
+		&lt;&lt;/if&gt;&gt;
+	&lt;&lt;/repeat&gt;&gt;
+&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="monstercards-preintro" tags="nobr" position="725,350" size="100,100">&lt;&lt;set $prevpass to &quot;playercards-c&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;monstercards-preintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;monstercards-intro&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.2s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_2_6+7.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
    &lt;p&gt;Excellent, you have now met some of your neighbours.&lt;/p&gt;
@@ -633,7 +832,11 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="monstercards-intro" tags="nobr" position="850,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-preintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;monstercards-intro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;forecasttrans&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.2s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_3_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main class=&quot;grid-wrapper&quot;&gt;
  &lt;div class=&quot;info-container grid-item cards&quot;&gt;
   &lt;div class=&quot;inline-img-container&quot;&gt;
@@ -668,7 +871,8 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;set $pass to &quot;forecasttrans&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;monstercards&quot;&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
-&lt;&lt;if $withVoiceover is true&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;    
+     &lt;&lt;audio &quot;forecast&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
     &lt;&lt;audio &quot;forecast&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -689,7 +893,14 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="monstercards" tags="nobr" position="1100,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-intro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;monstercards&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;    
+    &lt;&lt;timed 0.1s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_3_2.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+    &lt;&lt;timed 7s&gt;&gt;
+     &lt;audio src=&quot;assets/voiceover/strongertogethervo_3_3.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+     &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 
@@ -817,9 +1028,18 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;set $nextpass to &quot;chosenMonsterForecast&quot;&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 1s&gt;&gt;
+     &lt;audio src=&quot;assets/voiceover/strongertogethervo_4_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+     &lt;&lt;/timed&gt;&gt;
+     &lt;&lt;timed 19s&gt;&gt;
+     &lt;audio src=&quot;assets/voiceover/strongertogethervo_4_2.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+     &lt;&lt;/timed&gt;&gt;
+     &lt;&lt;audio &quot;prep&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
     &lt;&lt;audio &quot;prep&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+
+
 &lt;main class=&quot;grid-wrapper split&quot;&gt;
  &lt;div class=&quot;inline-img-container cards-selection grid-item cards wrap&quot;&gt;
     &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
@@ -852,6 +1072,14 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="32" name="chosenMonsterForecast" tags="nobr" position="225,475" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;chosenMonsterForecast&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;actions&quot;&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 1s&gt;&gt;
+     &lt;audio src=&quot;&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+     &lt;&lt;/timed&gt;&gt;
+     &lt;&lt;timed 3s&gt;&gt;
+     &lt;audio src=&quot;assets/voiceover/strongertogethervo_4_3.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+     &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;&lt;timed 5s&gt;&gt;
     &lt;&lt;include &quot;headertimer&quot;&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
@@ -891,7 +1119,9 @@ $(document).on(':passagedisplay', function(ev) {
 
       &lt;&lt;include &quot;5mtimer&quot;&gt;&gt;
 
-&lt;/header&gt;</tw-passagedata><tw-passagedata pid="37" name="chosenmonstersdisplay" tags="nobr" position="850,475" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;.png&quot;&gt;&gt;
+&lt;/header&gt;</tw-passagedata><tw-passagedata pid="37" name="questionsheadertimer" tags="nobr" position="850,475" size="100,100">&lt;header class=&quot;timer&quot;&gt;
+      &lt;&lt;include &quot;5mtimerquestions&quot;&gt;&gt;
+&lt;/header&gt;</tw-passagedata><tw-passagedata pid="38" name="chosenmonstersdisplay" tags="nobr" position="975,475" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;.png&quot;&gt;&gt;
  &lt;&lt;set $img2 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[1] + &quot;.png&quot; &gt;&gt;
 
 &lt;div class=&quot;cards-selection&quot;&gt;
@@ -901,7 +1131,7 @@ $(document).on(':passagedisplay', function(ev) {
     &lt;div class=&quot;card-selection-item arcard&quot;&gt;
         [img[$img2]]
     &lt;/div&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="38" name="chosenmonstersforecastdisplay" tags="nobr" position="975,475" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;forecast.png&quot;&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="39" name="chosenmonstersforecastdisplay" tags="nobr" position="1100,475" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;forecast.png&quot;&gt;&gt;
  &lt;&lt;set $img2 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[1] + &quot;forecast.png&quot; &gt;&gt;
 
 &lt;div class=&quot;cards-selection grid-item cards&quot;&gt;
@@ -911,7 +1141,7 @@ $(document).on(':passagedisplay', function(ev) {
     &lt;div class=&quot; inline-img-wrapper arcard&quot;&gt;
         [img[$img2]]
     &lt;/div&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="39" name="actions" tags="nobr" position="1100,475" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast&quot;&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="40" name="actions" tags="nobr" position="1225,475" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;actions&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;postactionchoice&quot;&gt;&gt;
 &lt;&lt;set $actionsoptions to [
@@ -928,6 +1158,10 @@ $(document).on(':passagedisplay', function(ev) {
     {type: &quot;connect&quot;, actionnum: 4, text: &quot;Connect to the local school or faith space.&quot;, id:11},
     {type: &quot;connect&quot;, actionnum: 5, text: &quot;Sign up for alerts and warnings.&quot;, id:12}
 ]&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_4_4.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
 
 &lt;main class=&quot;&quot;&gt;
@@ -949,7 +1183,7 @@ $(document).on(':passagedisplay', function(ev) {
 &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;
 &lt;&lt;timed 0.1s&gt;&gt;
     &lt;&lt;include &quot;checkChosenActions&quot;&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="40" name="actionslist" tags="nobr" position="1225,475" size="100,100">&lt;div class=&quot;actions-list&quot;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="actionslist" tags="nobr" position="100,600" size="100,100">&lt;div class=&quot;actions-list&quot;&gt;
 &lt;&lt;for _i to 0; _i lt $actionsoptions.length; _i++&gt;&gt;
   &lt;&lt;capture _i&gt;&gt;
     &lt;&lt;set $text to ($actionsoptions[_i].text)&gt;&gt;
@@ -974,7 +1208,7 @@ $(document).on(':passagedisplay', function(ev) {
        &lt;&lt;/capture&gt;&gt;
    &lt;&lt;/for&gt;&gt;
 &lt;/div&gt;
-    /* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="41" name="checkChosenActions" tags="nobr" position="100,600" size="100,100">&lt;&lt;for _i to 0; _i lt $actionsoptions.length; _i++&gt;&gt;
+    /* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="42" name="checkChosenActions" tags="nobr" position="225,600" size="100,100">&lt;&lt;for _i to 0; _i lt $actionsoptions.length; _i++&gt;&gt;
     &lt;&lt;if $playerchoices.chosenactions.includes($actionsoptions[_i].id)&gt;&gt;
         &lt;&lt;set $class to &quot;.actions-item&quot; + (_i+1) &gt;&gt;
         &lt;&lt;addclass $class &quot;chosen&quot;&gt;&gt;
@@ -999,9 +1233,13 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="42" name="postactionchoice" tags="nobr" position="225,600" size="100,100">&lt;&lt;set $prevpass to &quot;actions&quot;&gt;&gt;
+    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="postactionchoice" tags="nobr" position="350,600" size="100,100">&lt;&lt;set $prevpass to &quot;actions&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;postactionchoice&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;fortunetrans&quot;&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_4_5.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -1018,7 +1256,7 @@ $(document).on(':passagedisplay', function(ev) {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="fortunetrans" tags="nobr" position="350,600" size="100,100">&lt;&lt;set $prevpass to &quot;postactionchoice&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="fortunetrans" tags="nobr" position="475,600" size="100,100">&lt;&lt;set $prevpass to &quot;postactionchoice&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;fortunetrans&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;predice&quot;&gt;&gt;
 
@@ -1026,7 +1264,7 @@ $(document).on(':passagedisplay', function(ev) {
  &lt;div class=&quot;info-container grid-item cards fadeIn10 fortunetrans&quot;&gt;
   &lt;div class=&quot;inline-img-container&quot;&gt;
     &lt;div class=&quot;inline-img-wrapper arcardbig&quot;&gt;
-     &lt;img src=&quot;assets/img/fortunes.png&quot; alt=&quot;Fortune&quot;/&gt;
+     &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Fortune&quot;/&gt;
     &lt;/div&gt;
     &lt;/div&gt;
     &lt;/div&gt;
@@ -1035,7 +1273,7 @@ $(document).on(':passagedisplay', function(ev) {
 
  &lt;&lt;timed 10s&gt;&gt;
      &lt;&lt;goto $nextpass&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="predice" tags="nobr" position="475,600" size="100,100">&lt;&lt;set $prevpass to &quot;actions&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="predice" tags="nobr" position="600,600" size="100,100">&lt;&lt;set $prevpass to &quot;actions&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;predice&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;diceresults&quot;&gt;&gt;
 &lt;&lt;set $diceoptions to [
@@ -1084,6 +1322,10 @@ Your local council has had the money and resources to put some time into disaste
 ]
   &gt;&gt;
 &lt;&lt;set $diceroll to &quot;&quot;&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_5_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+&lt;&lt;else&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
 &lt;main class=&quot;grid-wrapper&quot;&gt;
  &lt;div class=&quot;info-container grid-item cards&quot;&gt;
@@ -1117,7 +1359,7 @@ Your local council has had the money and resources to put some time into disaste
     &lt;/div&gt;
 &lt;/main&gt;
 /* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */
-&lt;&lt;include &quot;footer&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="rolling" tags="nobr" position="600,600" size="100,100">&lt;&lt;audio &quot;diceroll&quot; &quot;play&quot;&gt;&gt;   
+&lt;&lt;include &quot;footer&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="rolling" tags="nobr" position="725,600" size="100,100">&lt;&lt;audio &quot;diceroll&quot; &quot;play&quot;&gt;&gt;   
 &lt;main class=&quot;maindice&quot;&gt;
   &lt;div class=&quot;dice roll&quot;&gt;
     &lt;div class=&quot;dot top-left&quot;&gt;&lt;/div&gt;
@@ -1128,23 +1370,63 @@ Your local council has had the money and resources to put some time into disaste
   &lt;/div&gt;
   &lt;h2&gt;Rolling...&lt;/h2&gt;
 &lt;/main&gt;
-&lt;&lt;timed 3.5s&gt;&gt;&lt;&lt;goto $nextpass&gt;&gt;&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="diceresults" tags="nobr" position="725,600" size="100,100">&lt;&lt;set $prevpass to &quot;predice&quot;&gt;&gt;
+&lt;&lt;timed 3.5s&gt;&gt;&lt;&lt;goto $nextpass&gt;&gt;&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="choosediceaudio" tags="nobr" position="850,600" size="100,100">&lt;&lt;if $diceoptions[$diceroll].num === 1 or $diceoptions[$diceroll].num === 2&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+    &lt;&lt;replace &quot;#audio&quot;&gt;&gt;
+        &lt;audio src=&quot;assets/voiceover/strongertogethervo_5_2_thingsarentgreat.mp3&quot; autoplay &gt;Audio is not supported on your device&lt;/audio&gt;
+        &lt;&lt;/replace&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;elseif $diceoptions[$diceroll].num === 3 or $diceoptions[$diceroll].num === 4&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+    &lt;&lt;replace &quot;#audio&quot;&gt;&gt;
+        &lt;audio src=&quot;assets/voiceover/strongertogethervo_5_2_fortunate.mp3&quot; autoplay &gt;Audio is not supported on your device&lt;/audio&gt;
+        &lt;&lt;/replace&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;elseif $diceoptions[$diceroll].num === 5 or $diceoptions[$diceroll].num === 6&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+    &lt;&lt;replace &quot;#audio&quot;&gt;&gt;
+        &lt;audio src=&quot;assets/voiceover/strongertogethervo_5_2_veryfortunate.mp3&quot; autoplay &gt;Audio is not supported on your device&lt;/audio&gt;
+        &lt;&lt;/replace&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
+    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="chosetimeafterdiceaudio" tags="nobr" position="975,600" size="100,100">&lt;&lt;if $diceoptions[$diceroll].num === 1 or $diceoptions[$diceroll].num === 2&gt;&gt;
+    &lt;&lt;timed 33.5s&gt;&gt;
+    &lt;&lt;replace &quot;#audio&quot;&gt;&gt;
+        &lt;audio src=&quot;assets/voiceover/strongertogethervo_5_3.mp3&quot; autoplay &gt;Audio is not supported on your device&lt;/audio&gt;
+        &lt;&lt;/replace&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;elseif $diceoptions[$diceroll].num === 3 or $diceoptions[$diceroll].num === 4&gt;&gt;
+    &lt;&lt;timed 16.5s&gt;&gt;
+    &lt;&lt;replace &quot;#audio&quot;&gt;&gt;
+        &lt;audio src=&quot;assets/voiceover/strongertogethervo_5_3.mp3&quot; autoplay &gt;Audio is not supported on your device&lt;/audio&gt;
+        &lt;&lt;/replace&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;elseif $diceoptions[$diceroll].num === 5 or $diceoptions[$diceroll].num === 6&gt;&gt;
+    &lt;&lt;timed 17.5s&gt;&gt;
+    &lt;&lt;replace &quot;#audio&quot;&gt;&gt;
+        &lt;audio src=&quot;assets/voiceover/strongertogethervo_5_3.mp3&quot; autoplay &gt;Audio is not supported on your device&lt;/audio&gt;
+        &lt;&lt;/replace&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
+    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="diceresults" tags="nobr" position="1100,600" size="100,100">&lt;&lt;set $prevpass to &quot;predice&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;diceresults&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;forecast&quot;&gt;&gt;
-
+&lt;&lt;include &quot;choosediceaudio&quot;&gt;&gt;
+&lt;&lt;include &quot;chosetimeafterdiceaudio&quot;&gt;&gt;
+&lt;div id=&quot;audio&quot;&gt;&lt;/div&gt;
 &lt;main&gt;
-   &lt;div class=&quot;result&quot;&gt;
-   &lt;h2&gt;You rolled a $diceoptions[$diceroll].num&lt;/h2&gt;
-   
-        &lt;p&gt;$diceoptions[$diceroll].text1&lt;/p&gt;
-        &lt;br/&gt;
-        &lt;div id=&quot;proposedChangeMount&quot;&gt;&lt;/div&gt;
-        &lt;br/&gt;
-       &lt;p&gt; $diceoptions[$diceroll].text2&lt;/p&gt;
-        &lt;br/&gt;
-    &lt;br/&gt;
+   &lt;div class=&quot;result grid-wrapper&quot;&gt;
+
+        &lt;div class=&quot;grid-item explanation&quot;&gt;
+         &lt;h2&gt;You rolled a $diceoptions[$diceroll].num&lt;/h2&gt;
+            &lt;p&gt;$diceoptions[$diceroll].text1&lt;/p&gt;
+            &lt;br/&gt;
+            &lt;div id=&quot;proposedChangeMount&quot;&gt;&lt;/div&gt;
+            &lt;br/&gt;
+           &lt;p&gt; $diceoptions[$diceroll].text2&lt;/p&gt;
+           &lt;br/&gt;
+        &lt;/div&gt;
+        
     &lt;&lt;if $diceoptions[$diceroll].wildcards isnot 0&gt;&gt;
-    &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
+    &lt;div class=&quot;inline-img-container wildcards grid-item crd&quot;&gt;
         &lt;&lt;for _i to 0; _i lt $diceoptions[$diceroll].wildcards; _i++&gt;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
                 &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
@@ -1186,7 +1468,7 @@ Your local council has had the money and resources to put some time into disaste
             
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-    &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="wallet" tags="nobr" position="850,600" size="100,100">&lt;div class=&quot;wallet&quot;&gt;
+    &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="wallet" tags="nobr" position="1225,600" size="100,100">&lt;div class=&quot;wallet&quot;&gt;
     &lt;h2&gt;Wallet&lt;/h2&gt;
     &lt;span&gt;Monsters: $playerchoices.chosenmonsters&lt;/span&gt;
     &lt;span&gt;Final Monster: $playerchoices.finalmonster&lt;/span&gt;
@@ -1205,10 +1487,14 @@ console.log(State.variables)
    &lt;&lt;print typeof $playerchoices&gt;&gt;
 &lt;&lt;print JSON.stringify($playerchoices)&gt;&gt;
 
-/* &lt;&lt;include &quot;footerwallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="48" name="forecast" tags="nobr" position="975,600" size="100,100">&lt;&lt;set $prevpass to &quot;diceresults&quot;&gt;&gt;
+/* &lt;&lt;include &quot;footerwallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="51" name="forecast" tags="nobr" position="100,725" size="100,100">&lt;&lt;set $prevpass to &quot;diceresults&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;forecast&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;storyintro&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.2s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_6_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main class=&quot;grid-wrapper split&quot;&gt;
 &lt;div class=&quot;explanation grid-item&quot;&gt;
 &lt;h2&gt;Disaster looms.&lt;/h2&gt;
@@ -1226,7 +1512,7 @@ console.log(State.variables)
 
 &lt;/main&gt;
 /* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="choosefinalmonster" tags="nobr" position="1100,600" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;forecast.png&quot; &gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="choosefinalmonster" tags="nobr" position="225,725" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;forecast.png&quot; &gt;&gt;
  &lt;&lt;set $img2 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[1] + &quot;forecast.png&quot; &gt;&gt;
 
 
@@ -1260,7 +1546,7 @@ console.log(State.variables)
         &lt;&lt;/link&gt;&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-  &lt;&lt;include &quot;checkFinalMonsterChoice&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="checkFinalMonsterChoice" tags="nobr" position="1225,600" size="100,100">&lt;&lt;timed 0.1s&gt;&gt; 
+  &lt;&lt;include &quot;checkFinalMonsterChoice&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="checkFinalMonsterChoice" tags="nobr" position="350,725" size="100,100">&lt;&lt;timed 0.1s&gt;&gt; 
     &lt;&lt;for _i to 0; _i lt 2; _i++&gt;&gt;
     &lt;&lt;if $playerchoices.finalmonster === $playerchoices.chosenmonsters[0]&gt;&gt;
         &lt;&lt;set _id to &quot;#card1&quot; &gt;&gt;
@@ -1289,7 +1575,7 @@ console.log(State.variables)
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="workOutScore" tags="nobr" position="100,725" size="100,100">/* There is one point available for every action card selected, so every player / game should be getting a score of 5 / 10 as a minimum. 
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="workOutScore" tags="nobr" position="475,725" size="100,100">/* There is one point available for every action card selected, so every player / game should be getting a score of 5 / 10 as a minimum. 
 Then for each monster there are 6 optimal choices. For each of these selected, 1 should be added to the score. */
 
 &lt;&lt;set _baseScore = $playerchoices.chosenactions.length&gt;&gt;
@@ -1311,48 +1597,25 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;for _i to 0; _i lt 5; _i++&gt;&gt;
     &lt;&lt;if _optimalForMonster.includes($playerchoices.chosenactions[_i])&gt;&gt;
         &lt;&lt;print &quot;includes:&quot; + $playerchoices.chosenactions[_i]&gt;&gt;
-        &lt;&lt;set _bonusScore += 1&gt;&gt;
+        &lt;&lt;set _bonusScore += 0.8&gt;&gt;
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;/for&gt;&gt;
 
 &lt;&lt;set _totalScore = _baseScore + _bonusScore&gt;&gt;
 &lt;&lt;set _percentage = Math.round((_totalScore / 10) * 100)&gt;&gt;
 &lt;&lt;set $playerchoices.score = _totalScore&gt;&gt;
-&lt;&lt;set $playerchoices.percentage = _percentage&gt;&gt;
-
-
-
-/* &lt;&lt;timed 1s&gt;&gt;
-Player chosen actions: $playerchoices.chosenactions
-&lt;br/&gt;
-Final monster: _finalMonster
-&lt;br/&gt;
-Base score: _baseScore
-&lt;br/&gt;
-Optimal for monster: _optimalForMonster
-&lt;br/&gt;
-Bonus Score:  _bonusScore
-&lt;br/&gt;
-You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.finalmonster impact.
-&lt;&lt;/timed&gt;&gt; */
-
-
-/* &lt;&lt;if _percentage &gt;= 90&gt;&gt;
-    Exceptional work – your preparation was nearly perfect.
-&lt;&lt;elseif _percentage &gt;= 70&gt;&gt;
-    Great job – your planning paid off, and it made a real difference.
-&lt;&lt;elseif _percentage &gt;= 50&gt;&gt;
-    Not bad – you took important steps, but there’s room to improve.
-&lt;&lt;else&gt;&gt;
-    The storm hit hard – next time, a few more key actions might help turn the tide.
-&lt;&lt;/if&gt;&gt; */</tw-passagedata><tw-passagedata pid="52" name="storyintro" tags="nobr" position="225,725" size="100,100">&lt;&lt;set $prevpass to &quot;forecast&quot;&gt;&gt;
+&lt;&lt;set $playerchoices.percentage = _percentage&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="storyintro" tags="nobr" position="600,725" size="100,100">&lt;&lt;set $prevpass to &quot;forecast&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;&quot;&gt;&gt;
-&lt;&lt;include &quot;chosemonsterpath&quot;&gt;&gt;
+&lt;&lt;include &quot;choosemonsterpath&quot;&gt;&gt;
+
     &lt;&lt;timed 0.1s&gt;&gt;
         /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
-        &lt;&lt;if $withVoiceover is true&gt;&gt;
-
+ &lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;audio $audioMonster &quot;play&quot;&gt;&gt;    
+    &lt;&lt;timed 3s&gt;&gt;
+      &lt;audio src=&quot;assets/voiceover/strongertogethervo_6_2.mp3&quot; autoplay &gt;Audio is not supported on your device&lt;/audio&gt; 
+      &lt;&lt;/timed&gt;&gt;
       &lt;&lt;else&gt;&gt;
       &lt;&lt;audio $audioMonster &quot;play&quot;&gt;&gt;
         &lt;&lt;/if&gt;&gt;
@@ -1379,7 +1642,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
 
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="chosemonsterpath" tags="nobr" position="350,725" size="100,100">&lt;&lt;if $playerchoices.finalmonster is &quot;Gale&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="choosemonsterpath" tags="nobr" position="725,725" size="100,100">&lt;&lt;if $playerchoices.finalmonster is &quot;Gale&quot;&gt;&gt;
     &lt;&lt;set $nextpass to &quot;galeintro&quot;&gt;&gt;
     &lt;&lt;set $audioMonster to &quot;galemonster&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -1394,10 +1657,17 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
 &lt;&lt;if $playerchoices.finalmonster is &quot;Drench&quot;&gt;&gt;
     &lt;&lt;set $nextpass to &quot;drenchintro&quot;&gt;&gt;
     &lt;&lt;set $audioMonster to &quot;watermonster&quot;&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="galeintro" tags="nobr" position="475,725" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="galeintro" tags="nobr" position="850,725" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;galeintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;galestory&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+    &lt;&lt;timed 1s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_7_GALE_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;  
+&lt;&lt;else&gt;&gt;
+    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;p&gt; Gale swirls into High Street, moving faster than anticipated. &lt;/p&gt;
@@ -1417,25 +1687,28 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="galestory" tags="nobr" position="600,725" size="100,100">&lt;&lt;set $prevpass to &quot;galeintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="galestory" tags="nobr" position="975,725" size="100,100">&lt;&lt;set $prevpass to &quot;galeintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;galestory&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;gale-poststory&quot;&gt;&gt;
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;galefortune&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;set $storyAudioNeeded to []&gt;&gt;
+&lt;&lt;set $storyMonsterNeeded to &quot;GALE&quot;&gt;&gt;
     &lt;&lt;timed 0.1s&gt;&gt;
-        /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
-        &lt;&lt;if $withVoiceover is true&gt;&gt;
 
+        &lt;&lt;if $withVoiceover is true&gt;&gt;
+            &lt;&lt;audio &quot;success1&quot; &quot;play&quot;&gt;&gt;
              &lt;&lt;else&gt;&gt;
             &lt;&lt;audio &quot;success1&quot; &quot;play&quot;&gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;&lt;if $playerchoices.chosenactions.includes(12)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(12)&gt;&gt;
 &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/12.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1445,6 +1718,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $playerchoices.chosenactions.includes(8)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(8)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/8.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1460,6 +1734,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
  &lt;&lt;if $playerchoices.chosenactions.includes(3)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(3)&gt;&gt;
 &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/3.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1469,6 +1744,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if $playerchoices.chosenactions.includes(7)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(7)&gt;&gt;
 &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/7.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1478,6 +1754,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if $playerchoices.chosenactions.includes(5)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(5)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/5.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1487,6 +1764,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if $playerchoices.chosenactions.includes(10)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(10)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/10.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1505,10 +1783,18 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="galefortune" tags="nobr" position="725,725" size="100,100">&lt;&lt;set $prevpass to &quot;galestory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseStoryAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="galefortune" tags="nobr" position="1100,725" size="100,100">&lt;&lt;set $prevpass to &quot;galestory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;galefortune&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;gale-poststory&quot;&gt;&gt;
 
+&lt;&lt;set $storyMonsterNeeded to &quot;GALE&quot;&gt;&gt;
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
     &lt;div id=&quot;mount&quot;&gt;&lt;/div&gt;
@@ -1559,13 +1845,24 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="gale-poststory" tags="nobr" position="850,725" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="gale-poststory" tags="nobr" position="1225,725" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $prevpass to &quot;galestory&quot;&gt;&gt;
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $prevpass to &quot;galefortune&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;set $pass to &quot;gale-poststory&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;galeimpacts&quot;&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.2s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_7_GALE_4.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -1584,25 +1881,29 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="galeimpacts" tags="nobr" position="975,725" size="100,100">&lt;&lt;set $prevpass to &quot;gale-poststory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="galeimpacts" tags="nobr" position="100,850" size="100,100">&lt;&lt;set $prevpass to &quot;gale-poststory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;galeimpacts&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;galefortuneimpacts&quot;&gt;&gt;
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;set $impactsAudioNeeded to []&gt;&gt;
+&lt;&lt;set $storyMonsterNeeded to &quot;GALE&quot;&gt;&gt;
+
 &lt;&lt;timed 0.1s&gt;&gt;
         /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
         &lt;&lt;if $withVoiceover is true&gt;&gt;
-
+            &lt;&lt;audio &quot;success2&quot; &quot;play&quot;&gt;&gt;
              &lt;&lt;else&gt;&gt;
             &lt;&lt;audio &quot;success2&quot; &quot;play&quot;&gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;&lt;if !$playerchoices.chosenactions.includes(12)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(12)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/12.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1612,6 +1913,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if !$playerchoices.chosenactions.includes(8)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(8)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/8.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1628,6 +1930,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
  &lt;&lt;if !$playerchoices.chosenactions.includes(3)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(3)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/3.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1637,6 +1940,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if !$playerchoices.chosenactions.includes(7)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(7)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/7.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1646,6 +1950,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if !$playerchoices.chosenactions.includes(5)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(5)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/5.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1655,6 +1960,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if !$playerchoices.chosenactions.includes(10)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(10)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/10.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1673,10 +1979,17 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="galefortuneimpacts" tags="nobr" position="1100,725" size="100,100">&lt;&lt;set $prevpass to &quot;galeimpacts&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseImpactsAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="62" name="galefortuneimpacts" tags="nobr" position="225,850" size="100,100">&lt;&lt;set $prevpass to &quot;galeimpacts&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;galefortuneimpacts&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
-
+&lt;&lt;set $storyMonsterNeeded to &quot;GALE&quot;&gt;&gt;
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -1710,10 +2023,23 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="infernointro" tags="nobr" position="1225,725" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="63" name="infernointro" tags="nobr" position="350,850" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;infernointro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;infernostory&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+    &lt;&lt;timed 1s&gt;&gt;
+    /* &lt;audio src=&quot;assets/voiceover/strongertogethervo_7_GALE_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt; */
+    &lt;&lt;/timed&gt;&gt;  
+&lt;&lt;else&gt;&gt;
+    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -1737,26 +2063,29 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 
-/* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="61" name="infernostory" tags="nobr" position="100,850" size="100,100">&lt;&lt;set $prevpass to &quot;infernointro&quot;&gt;&gt;
+/* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="64" name="infernostory" tags="nobr" position="475,850" size="100,100">&lt;&lt;set $prevpass to &quot;infernointro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;infernostory&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;inferno-poststory&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;infernofortune&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;set $storyAudioNeeded to []&gt;&gt;
+&lt;&lt;set $storyMonsterNeeded to &quot;INF&quot;&gt;&gt;
     &lt;&lt;timed 0.1s&gt;&gt;
         /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
         &lt;&lt;if $withVoiceover is true&gt;&gt;
-
+            &lt;&lt;audio &quot;success1&quot; &quot;play&quot;&gt;&gt;
              &lt;&lt;else&gt;&gt;
             &lt;&lt;audio &quot;success1&quot; &quot;play&quot;&gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 &lt;main class=&quot;&quot;&gt;
 
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;&lt;if $playerchoices.chosenactions.includes(2)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(2)&gt;&gt;
 &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/2.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1766,6 +2095,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $playerchoices.chosenactions.includes(8)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(8)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/8.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1782,6 +2112,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
  &lt;&lt;if $playerchoices.chosenactions.includes(9)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(9)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/9.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1797,6 +2128,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if $playerchoices.chosenactions.includes(5)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(5)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/5.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1806,6 +2138,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if $playerchoices.chosenactions.includes(11)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(11)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/11.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1815,6 +2148,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if $playerchoices.chosenactions.includes(6)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(6)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/6.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1834,11 +2168,17 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="62" name="infernofortune" tags="nobr" position="225,850" size="100,100">&lt;&lt;set $prevpass to &quot;infernostory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseStoryAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="infernofortune" tags="nobr" position="600,850" size="100,100">&lt;&lt;set $prevpass to &quot;infernostory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;infernofortune&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;inferno-poststory&quot;&gt;&gt;
-
-
+&lt;&lt;set $storyMonsterNeeded to &quot;INF&quot;&gt;&gt;
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
     &lt;div id=&quot;mount&quot;&gt;&lt;/div&gt;
@@ -1890,13 +2230,25 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="63" name="inferno-poststory" tags="nobr" position="350,850" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="66" name="inferno-poststory" tags="nobr" position="725,850" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $prevpass to &quot;infernostory&quot;&gt;&gt;
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $prevpass to &quot;infernofortune&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;set $pass to &quot;inferno-poststory&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;infernoimpacts&quot;&gt;&gt;
+
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.2s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_7_INF_4.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -1917,13 +2269,15 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="64" name="infernoimpacts" tags="nobr" position="475,850" size="100,100">&lt;&lt;set $prevpass to &quot;inferno-poststory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="infernoimpacts" tags="nobr" position="850,850" size="100,100">&lt;&lt;set $prevpass to &quot;inferno-poststory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;infernoimpacts&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;infernofortuneimpacts&quot;&gt;&gt;
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;set $impactsAudioNeeded to []&gt;&gt;
+&lt;&lt;set $storyMonsterNeeded to &quot;INF&quot;&gt;&gt;
 &lt;&lt;timed 0.1s&gt;&gt;
         /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
         &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -1932,10 +2286,11 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;audio &quot;success2&quot; &quot;play&quot;&gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;&lt;if !$playerchoices.chosenactions.includes(2)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(2)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/2.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1945,6 +2300,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if !$playerchoices.chosenactions.includes(8)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(8)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/8.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1958,6 +2314,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
  &lt;&lt;if !$playerchoices.chosenactions.includes(9)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(9)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/9.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1971,6 +2328,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if !$playerchoices.chosenactions.includes(5)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(5)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/5.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1980,6 +2338,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if !$playerchoices.chosenactions.includes(11)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(11)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/11.png&quot; alt=&quot;action card&quot;/&gt;
@@ -1989,6 +2348,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if !$playerchoices.chosenactions.includes(6)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(6)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/6.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2007,10 +2367,17 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="infernofortuneimpacts" tags="nobr" position="600,850" size="100,100">&lt;&lt;set $prevpass to &quot;infernoimpacts&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseImpactsAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="68" name="infernofortuneimpacts" tags="nobr" position="975,850" size="100,100">&lt;&lt;set $prevpass to &quot;infernoimpacts&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;infernofortuneimpacts&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
-
+&lt;&lt;set $storyMonsterNeeded to &quot;INF&quot;&gt;&gt;
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -2043,10 +2410,23 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="66" name="drenchintro" tags="nobr" position="725,850" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="drenchintro" tags="nobr" position="1100,850" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;drenchintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;drenchstory&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+    &lt;&lt;timed 1s&gt;&gt;
+    /* &lt;audio src=&quot;assets/voiceover/strongertogethervo_7_GALE_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt; */
+    &lt;&lt;/timed&gt;&gt;  
+&lt;&lt;else&gt;&gt;
+    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;p&gt;The skies open and Drench falls down, rushing along the slope of the street, pooling at drains and in potholes that can’t contain her. She slips and slides through cracks and gaps. No matter where you go she is around every corner. &lt;/p&gt;
@@ -2064,26 +2444,29 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="drenchstory" tags="nobr" position="850,850" size="100,100">&lt;&lt;set $prevpass to &quot;drenchintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="70" name="drenchstory" tags="nobr" position="1225,850" size="100,100">&lt;&lt;set $prevpass to &quot;drenchintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;drenchstory&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;drench-poststory&quot;&gt;&gt;
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;drenchfortune&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;set $storyAudioNeeded to []&gt;&gt;
+&lt;&lt;set $storyMonsterNeeded to &quot;DRE&quot;&gt;&gt;
 &lt;&lt;timed 0.1s&gt;&gt;
         /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
         &lt;&lt;if $withVoiceover is true&gt;&gt;
-
+             &lt;&lt;audio &quot;success1&quot; &quot;play&quot;&gt;&gt;
              &lt;&lt;else&gt;&gt;
             &lt;&lt;audio &quot;success1&quot; &quot;play&quot;&gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
 
-
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;&lt;if $playerchoices.chosenactions.includes(12)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(12)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/12.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2093,6 +2476,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $playerchoices.chosenactions.includes(4)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(4)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/4.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2102,6 +2486,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
  &lt;&lt;if $playerchoices.chosenactions.includes(7)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(7)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/7.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2111,6 +2496,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if $playerchoices.chosenactions.includes(8)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(8)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/8.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2126,6 +2512,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if $playerchoices.chosenactions.includes(6)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(6)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/6.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2135,6 +2522,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if $playerchoices.chosenactions.includes(11)&gt;&gt;
+    &lt;&lt;run $storyAudioNeeded.push(11)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/11.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2153,10 +2541,17 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="68" name="drenchfortune" tags="nobr" position="975,850" size="100,100">&lt;&lt;set $prevpass to &quot;drenchstory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseStoryAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="drenchfortune" tags="nobr" position="100,975" size="100,100">&lt;&lt;set $prevpass to &quot;drenchstory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;drenchfortune&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;drench-poststory&quot;&gt;&gt;
-
+&lt;&lt;set $storyMonsterNeeded to &quot;DRE&quot;&gt;&gt;
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 &lt;main class=&quot;&quot;&gt;
   
     &lt;div class=&quot;explanation&quot;&gt;
@@ -2205,13 +2600,25 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="drench-poststory" tags="nobr" position="1100,850" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="72" name="drench-poststory" tags="nobr" position="225,975" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $prevpass to &quot;drenchstory&quot;&gt;&gt;
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $prevpass to &quot;drenchfortune&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;set $pass to &quot;drench-poststory&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;drenchimpacts&quot;&gt;&gt;
+
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.2s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_7_DRE_4.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -2233,25 +2640,27 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="70" name="drenchimpacts" tags="nobr" position="1225,850" size="100,100">&lt;&lt;set $prevpass to &quot;drench-poststory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="73" name="drenchimpacts" tags="nobr" position="350,975" size="100,100">&lt;&lt;set $prevpass to &quot;drench-poststory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;drenchimpacts&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;drenchfortuneimpacts&quot;&gt;&gt;
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;set $impactsAudioNeeded to []&gt;&gt;
+&lt;&lt;set $storyMonsterNeeded to &quot;DRE&quot;&gt;&gt;
 &lt;&lt;timed 0.1s&gt;&gt;
-        /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
         &lt;&lt;if $withVoiceover is true&gt;&gt;
-
+            &lt;&lt;audio &quot;success2&quot; &quot;play&quot;&gt;&gt;
              &lt;&lt;else&gt;&gt;
             &lt;&lt;audio &quot;success2&quot; &quot;play&quot;&gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;&lt;if !$playerchoices.chosenactions.includes(12)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(12)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/12.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2261,6 +2670,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if !$playerchoices.chosenactions.includes(4)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(4)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/4.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2271,6 +2681,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
  &lt;&lt;if !$playerchoices.chosenactions.includes(7)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(7)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/7.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2281,6 +2692,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if !$playerchoices.chosenactions.includes(8)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(8)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/8.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2294,6 +2706,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if !$playerchoices.chosenactions.includes(11)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(11)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/11.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2303,6 +2716,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if !$playerchoices.chosenactions.includes(6)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(6)&gt;&gt;
      &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/6.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2323,10 +2737,15 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 
-/* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="71" name="drenchfortuneimpacts" tags="nobr" position="100,975" size="100,100">&lt;&lt;set $prevpass to &quot;drenchimpacts&quot;&gt;&gt;
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseImpactsAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="74" name="drenchfortuneimpacts" tags="nobr" position="475,975" size="100,100">&lt;&lt;set $prevpass to &quot;drenchimpacts&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;drenchfortuneimpacts&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
-
+&lt;&lt;set $storyMonsterNeeded to &quot;DRE&quot;&gt;&gt;
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -2358,10 +2777,23 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="72" name="crystalintro" tags="nobr" position="225,975" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="75" name="crystalintro" tags="nobr" position="600,975" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;crystalintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;crystalstory&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+    &lt;&lt;timed 1s&gt;&gt;
+    /* &lt;audio src=&quot;assets/voiceover/strongertogethervo_7_GALE_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt; */
+    &lt;&lt;/timed&gt;&gt;  
+&lt;&lt;else&gt;&gt;
+    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;p&gt;Crystal crawls into High Street. She greets you with a frosty reception. &lt;/p&gt;
@@ -2381,7 +2813,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="73" name="crystalstory" tags="nobr" position="350,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystalintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="76" name="crystalstory" tags="nobr" position="725,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystalintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;crystalstory&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;crystalfortune&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
@@ -2389,18 +2821,21 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;crystalfortune&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;set $storyAudioNeeded to []&gt;&gt;
+&lt;&lt;set $storyMonsterNeeded to &quot;CRY&quot;&gt;&gt;
 &lt;&lt;timed 0.1s&gt;&gt;
         /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
         &lt;&lt;if $withVoiceover is true&gt;&gt;
-
+            &lt;&lt;audio &quot;success1&quot; &quot;play&quot;&gt;&gt;
              &lt;&lt;else&gt;&gt;
             &lt;&lt;audio &quot;success1&quot; &quot;play&quot;&gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;&lt;if $playerchoices.chosenactions.includes(1)&gt;&gt;
+     &lt;&lt;run $storyAudioNeeded.push(1)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/1.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2410,6 +2845,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if $playerchoices.chosenactions.includes(9)&gt;&gt;
+     &lt;&lt;run $storyAudioNeeded.push(9)&gt;&gt;
     &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/9.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2425,6 +2861,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
  &lt;&lt;if $playerchoices.chosenactions.includes(5)&gt;&gt;
+     &lt;&lt;run $storyAudioNeeded.push(5)&gt;&gt;
       &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/5.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2434,6 +2871,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if $playerchoices.chosenactions.includes(6)&gt;&gt;
+     &lt;&lt;run $storyAudioNeeded.push(6)&gt;&gt;
       &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/6.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2444,6 +2882,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if $playerchoices.chosenactions.includes(11)&gt;&gt;
+     &lt;&lt;run $storyAudioNeeded.push(11)&gt;&gt;
       &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/11.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2453,6 +2892,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if $playerchoices.chosenactions.includes(10)&gt;&gt;
+     &lt;&lt;run $storyAudioNeeded.push(10)&gt;&gt;
       &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/10.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2473,10 +2913,15 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 
-/* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="74" name="crystalfortune" tags="nobr" position="475,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystalstory&quot;&gt;&gt;
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseStoryAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="77" name="crystalfortune" tags="nobr" position="850,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystalstory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;crystalfortune&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;crystal-poststory&quot;&gt;&gt;
-
+&lt;&lt;set $storyMonsterNeeded to &quot;CRY&quot;&gt;&gt;
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -2530,13 +2975,24 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="75" name="crystal-poststory" tags="nobr" position="600,975" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="78" name="crystal-poststory" tags="nobr" position="975,975" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $prevpass to &quot;crystalstory&quot;&gt;&gt;
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $prevpass to &quot;crystalfortune&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;set $pass to &quot;crystal-poststory&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;crystalimpacts&quot;&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.2s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_7_CRY_4.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -2557,25 +3013,27 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="76" name="crystalimpacts" tags="nobr" position="725,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystal-poststory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="79" name="crystalimpacts" tags="nobr" position="1100,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystal-poststory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;crystalimpacts&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;crystalfortuneimpacts&quot;&gt;&gt;
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
+&lt;&lt;set $impactsAudioNeeded to []&gt;&gt;
+&lt;&lt;set $storyMonsterNeeded to &quot;CRY&quot;&gt;&gt;
 &lt;&lt;timed 0.1s&gt;&gt;
-        /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
         &lt;&lt;if $withVoiceover is true&gt;&gt;
-
+            &lt;&lt;audio &quot;success2&quot; &quot;play&quot;&gt;&gt;
              &lt;&lt;else&gt;&gt;
             &lt;&lt;audio &quot;success2&quot; &quot;play&quot;&gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;&lt;if !$playerchoices.chosenactions.includes(1)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(1)&gt;&gt;
        &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/1.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2585,6 +3043,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
 &lt;&lt;if !$playerchoices.chosenactions.includes(9)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(9)&gt;&gt;
        &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/9.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2600,6 +3059,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
  &lt;&lt;if !$playerchoices.chosenactions.includes(5)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(5)&gt;&gt;
        &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/5.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2610,6 +3070,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if !$playerchoices.chosenactions.includes(6)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(6)&gt;&gt;
        &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/6.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2619,6 +3080,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if !$playerchoices.chosenactions.includes(11)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(11)&gt;&gt;
        &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/11.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2628,6 +3090,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
  &lt;&lt;/if&gt;&gt;
 
   &lt;&lt;if !$playerchoices.chosenactions.includes(10)&gt;&gt;
+    &lt;&lt;run $impactsAudioNeeded.push(10)&gt;&gt;
        &lt;div class=&quot;story-line-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/10.png&quot; alt=&quot;action card&quot;/&gt;
@@ -2646,10 +3109,17 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="77" name="crystalfortuneimpacts" tags="nobr" position="850,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystalimpacts&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseImpactsAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="80" name="crystalfortuneimpacts" tags="nobr" position="1225,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystalimpacts&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;crystalfortuneimpacts&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
-
+&lt;&lt;set $storyMonsterNeeded to &quot;CRY&quot;&gt;&gt;
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -2682,13 +3152,19 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="78" name="recoverytrans" tags="nobr" position="975,975" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="81" name="recoverytrans" tags="nobr" position="100,1100" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;aftermathintro&quot;&gt;&gt;
 &lt;&lt;timed 0.1s&gt;&gt;
         &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt;
         &lt;&lt;if $withVoiceover is true&gt;&gt;
-
+            &lt;&lt;audio &quot;aftermath&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
              &lt;&lt;else&gt;&gt;
             &lt;&lt;audio &quot;aftermath&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
         &lt;&lt;/if&gt;&gt;
@@ -2707,10 +3183,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
 
  &lt;&lt;timed 10s&gt;&gt;
  &lt;&lt;goto $nextpass&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="79" name="aftermathintro" tags="nobr" position="1100,975" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="82" name="aftermathintro" tags="nobr" position="225,1100" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;aftermathintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;aftermath&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_8_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main class=&quot;grid-wrapper&quot;&gt;
 &lt;div class=&quot;info-container grid-item cards&quot;&gt;
          &lt;div class=&quot;inline-img-container&quot;&gt;
@@ -2737,10 +3217,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="80" name="aftermath" tags="nobr" position="1225,975" size="100,100">&lt;&lt;set $prevpass to &quot;aftermathintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="83" name="aftermath" tags="nobr" position="350,1100" size="100,100">&lt;&lt;set $prevpass to &quot;aftermathintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;aftermath&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;aftermath2&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_8_2.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
 &lt;main class=&quot;timer&quot;&gt;
 &lt;br/&gt;
@@ -2762,10 +3246,15 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="81" name="aftermath2" tags="nobr" position="100,1100" size="100,100">&lt;&lt;set $prevpass to &quot;aftermath&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="84" name="aftermath2" tags="nobr" position="475,1100" size="100,100">&lt;&lt;set $prevpass to &quot;aftermath&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;aftermath2&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;outro&quot;&gt;&gt;
- &lt;&lt;timed 5s&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_8_3.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+ &lt;&lt;timed 7s&gt;&gt;
         &lt;&lt;include &quot;3headertimer&quot;&gt;&gt;
         &lt;&lt;/timed&gt;&gt;
 
@@ -2784,10 +3273,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
 
 
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="82" name="outro" tags="nobr" position="225,1100" size="100,100">&lt;&lt;set $prevpass to &quot;aftermath&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="85" name="outro" tags="nobr" position="600,1100" size="100,100">&lt;&lt;set $prevpass to &quot;aftermath2&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;outro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;record&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_8_4.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main&gt;
  &lt;br/&gt;
 &lt;h2&gt;Now, you need to pick a pitch.&lt;/h2&gt;
@@ -2810,10 +3303,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="83" name="record" tags="nobr" position="350,1100" size="100,100">&lt;&lt;set $prevpass to &quot;outro&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="86" name="record" tags="nobr" position="725,1100" size="100,100">&lt;&lt;set $prevpass to &quot;outro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;record&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;postrecord&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_8_5.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main&gt;
  
 &lt;p&gt;Now you have your pitch, we want you to tell us what it is. &lt;/p&gt;
@@ -2832,10 +3329,15 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="84" name="postrecord" tags="nobr" position="475,1100" size="100,100">&lt;&lt;set $prevpass to &quot;record&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="87" name="postrecord" tags="nobr" position="850,1100" size="100,100">&lt;&lt;set $prevpass to &quot;record&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;postrecord&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;outro2&quot;&gt;&gt;
 &lt;&lt;set $improvement to 100- $playerchoices.percentage&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_8_6.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main&gt;
  
 &lt;p&gt;On High Street, your plan is put into action. &lt;/p&gt;
@@ -2845,7 +3347,7 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
 &lt;br/&gt;
 &lt;p&gt;You made some good choices. &lt;/p&gt;
 &lt;p&gt;You made some less good ones. &lt;/p&gt;
-&lt;p&gt; You could have made choices that were &lt;span class=&quot;accent&quot;&gt;$improvement%&lt;/span&gt; better. &lt;/p&gt;
+
 
 
 &lt;&lt;timed 3s&gt;&gt;
@@ -2856,10 +3358,14 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="85" name="outro2" tags="nobr" position="600,1100" size="100,100">&lt;&lt;set $prevpass to &quot;postrecord&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="88" name="outro2" tags="nobr" position="975,1100" size="100,100">&lt;&lt;set $prevpass to &quot;postrecord&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;outro2&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;outro3&quot;&gt;&gt;
-
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_8_7.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 &lt;main&gt;
 
 &lt;h2&gt;You faced this monster as a street. &lt;/h2&gt;
@@ -2878,11 +3384,18 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="86" name="outro3" tags="nobr" position="725,1100" size="100,100">&lt;&lt;set $prevpass to &quot;outro2&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="89" name="outro3" tags="nobr" position="1100,1100" size="100,100">&lt;&lt;set $prevpass to &quot;outro2&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;outro3&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;end&quot;&gt;&gt;
-&lt;&lt;timed 5s&gt;&gt;
-  &lt;&lt;include &quot;5headertimer&quot;&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+   &lt;div id=&quot;audioMount&quot;&gt;     
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_8_8.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;/div&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;&lt;timed 7s&gt;&gt;
+  &lt;&lt;include &quot;questionsheadertimer&quot;&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;main class=&quot;grid-wrapper&quot;&gt;
 &lt;div class=&quot;info-container grid-item cards&quot;&gt;
@@ -2902,81 +3415,102 @@ You managed to hold off &lt;&lt;_percentage&gt;&gt;% of the $playerchoices.final
 &lt;/div&gt;
     
 &lt;&lt;timed 3s&gt;&gt;
-    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainerQ&quot;&gt;&gt;
     &lt;&lt;button &quot;We&#39;re ready&quot;&gt;&gt;
-        &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
+        &lt;&lt;replace &quot;#nextButtonContainerQ&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
          &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
             &lt;&lt;include &quot;question1&quot;&gt;&gt;
+            &lt;&lt;replace &quot;#audioMount&quot;&gt;&gt;
+                &lt;audio src=&quot;assets/voiceover/strongertogethervo_9_Q1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+                &lt;&lt;/replace&gt;&gt;
             &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
         
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="87" name="question1" tags="nobr" position="850,1100" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
+&lt;&lt;include &quot;footerquestions&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="90" name="question1" tags="nobr" position="1225,1100" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
 &lt;p&gt;Today, you came together to face the monster. &lt;/p&gt;
 &lt;p&gt;Some things went well, others less well, but you stuck it out: you were resilient.&lt;/p&gt; 
 &lt;p&gt;If you were going to give your High Street an award - a blue plaque, say - to hang on the wall and commemorate this street and your response to the attack - what would it say? &lt;/p&gt;
 
 &lt;&lt;timed 3s&gt;&gt;
-    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainerQ&quot;&gt;&gt;
     &lt;&lt;button &quot;Next question&quot;&gt;&gt;
-        &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
+        &lt;&lt;replace &quot;#nextButtonContainerQ&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
          &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
             &lt;&lt;include &quot;question2&quot;&gt;&gt;
+            &lt;&lt;replace &quot;#audioMount&quot;&gt;&gt;
+                &lt;audio src=&quot;assets/voiceover/strongertogethervo_9_Q2.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+                &lt;&lt;/replace&gt;&gt;
             &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/button&gt;&gt;
-    &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="88" name="question2" tags="nobr" position="975,1100" size="100,100">&lt;h2&gt;Question&lt;/h2&gt;
+      &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="91" name="question2" tags="nobr" position="100,1225" size="100,100">&lt;h2&gt;Question&lt;/h2&gt;
 &lt;p&gt;If you were to play again, how would you play differently? &lt;/p&gt;
 
   &lt;&lt;timed 3s&gt;&gt;
-    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainerQ&quot;&gt;&gt;
     &lt;&lt;button &quot;Next question&quot;&gt;&gt;
-        &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
+        &lt;&lt;replace &quot;#nextButtonContainerQ&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
          &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
             &lt;&lt;if $rolledagain is true&gt;&gt;
                 &lt;&lt;include &quot;question3&quot;&gt;&gt;
+                 &lt;&lt;replace &quot;#audioMount&quot;&gt;&gt;
+                &lt;audio src=&quot;assets/voiceover/strongertogethervo_9_Q3.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+                &lt;&lt;/replace&gt;&gt;
              &lt;&lt;else&gt;&gt;
              &lt;&lt;include &quot;question4&quot;&gt;&gt;
+              &lt;&lt;replace &quot;#audioMount&quot;&gt;&gt;
+                &lt;audio src=&quot;assets/voiceover/strongertogethervo_9_Q4.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+                &lt;&lt;/replace&gt;&gt;
             &lt;&lt;/if&gt;&gt;
             &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="89" name="question3" tags="nobr" position="1100,1100" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="92" name="question3" tags="nobr" position="225,1225" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
 &lt;p&gt;When it came to your fortune, you chose to roll the dice again. &lt;/p&gt;
 &lt;p&gt;At the end of the game, how do you feel about this choice? Would you do the same next time? &lt;/p&gt;
 
 
   &lt;&lt;timed 3s&gt;&gt;
-    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainerQ&quot;&gt;&gt;
     &lt;&lt;button &quot;Next question&quot;&gt;&gt;
-        &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
+        &lt;&lt;replace &quot;#nextButtonContainerQ&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
          &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
             &lt;&lt;include &quot;question4&quot;&gt;&gt;
+             &lt;&lt;replace &quot;#audioMount&quot;&gt;&gt;
+                &lt;audio src=&quot;assets/voiceover/strongertogethervo_9_Q4.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+                &lt;&lt;/replace&gt;&gt;
             &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="90" name="question4" tags="nobr" position="1225,1100" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="93" name="question4" tags="nobr" position="350,1225" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
 &lt;p&gt;Today you played as a character, but we all live on streets with our own communities, homes and neighbours. &lt;/p&gt;
 &lt;p&gt;We’re going to invite you to take a step away from the game, back to yourself&lt;/p&gt;
 &lt;p&gt;How did the game make you think about community resilience on your own street? &lt;/p&gt;
 
 &lt;&lt;timed 3s&gt;&gt;
-    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainerQ&quot;&gt;&gt;
     &lt;&lt;button &quot;End&quot;&gt;&gt;
         &lt;&lt;goto &quot;end&quot;&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="91" name="end" tags="nobr" position="100,1225" size="100,100">&lt;&lt;set $prevpass to &quot;outro3&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="94" name="end" tags="nobr" position="475,1225" size="100,100">&lt;&lt;set $prevpass to &quot;outro3&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;end&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;end&quot;&gt;&gt;
+
 &lt;&lt;timed 0.1s&gt;&gt;
         &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt;
         &lt;&lt;if $withVoiceover is true&gt;&gt;
-
+              &lt;&lt;timed 0.2s&gt;&gt;
+            &lt;audio src=&quot;assets/voiceover/strongertogethervo_10.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+             &lt;&lt;/timed&gt;&gt;
+             &lt;&lt;timed 3.5s&gt;&gt;
+            &lt;&lt;audio &quot;meow&quot; &quot;play&quot;&gt;&gt;
+            &lt;&lt;/timed&gt;&gt;
              &lt;&lt;else&gt;&gt;
-            &lt;&lt;audio &quot;meow&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+            &lt;&lt;audio &quot;meow&quot; &quot;play&quot; &gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
 &lt;main&gt;

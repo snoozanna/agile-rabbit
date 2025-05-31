@@ -76,8 +76,120 @@ $(document).on(':passagedisplay', function(ev) {
     }
  });
 
+setup.chooseStoryAudio = () => {
+  const storyAudioNeeded = State.variables.storyAudioNeeded;
+  const storyMonsterNeeded = State.variables.storyMonsterNeeded;
+  const audio = document.getElementById("audioPlayer");
+    console.log("audio", audio)
+  if (!audio) {
+    console.error("Audio element with ID 'audioPlayer' not found.");
+    return;
+  }
+
+  // Remove any previously attached 'ended' event to avoid duplicates
+  audio.replaceWith(audio.cloneNode(true));
+  const freshAudio = document.getElementById("audioPlayer");
+
+  // Build audio file paths based on storyAudioNeeded numbers
+  const audioFiles = storyAudioNeeded.map(num => 
+    `assets/voiceover/strongertogethervo_7_${storyMonsterNeeded}_2_S${num}.mp3`
+  );
+
+  let currentTrack = 0;
+
+  function playNext() {
+    if (currentTrack < audioFiles.length) {
+      freshAudio.src = audioFiles[currentTrack];
+      freshAudio.play().catch(err => {
+        console.error("Audio play failed:", err);
+      });
+      currentTrack++;
+    }
+  }
+
+  freshAudio.addEventListener("ended", playNext);
+
+  // Start playback
+  playNext();
+};
+
+setup.chooseFortuneAudio = () => {
+  const diceroll = State.variables.playerchoices.diceroll;
+  const storyMonsterNeeded = State.variables.storyMonsterNeeded;
+  const audio = document.getElementById("audioPlayer");
+
+  console.log("audio", audio);
+
+  if (!audio) {
+    console.error("Audio element with ID 'audioPlayer' not found.");
+    return;
+  }
+
+  // Replace audio element to remove any existing 'ended' listeners
+  audio.replaceWith(audio.cloneNode(true));
+  const freshAudio = document.getElementById("audioPlayer");
+
+  // Determine audio filename based on dice roll
+  let suffix = "";
+  if (diceroll === 1 || diceroll === 2) {
+    suffix = "F12";
+  } else if (diceroll === 3 || diceroll === 4) {
+    suffix = "F34";
+  } else if (diceroll === 5 || diceroll === 6) {
+    suffix = "F56";
+  } else {
+    console.error("Invalid dice roll:", diceroll);
+    return;
+  }
+
+  const audioFile = `assets/voiceover/strongertogethervo_7_${storyMonsterNeeded}_3_${suffix}.mp3`;
+
+  // Assign and play the selected audio file
+  freshAudio.src = audioFile;
+  freshAudio.play().catch(err => {
+    console.error("Audio play failed:", err);
+  });
+};
+
+setup.chooseImpactsAudio = () => {
+  const impactsAudioNeeded = State.variables.impactsAudioNeeded;
+  const storyMonsterNeeded = State.variables.storyMonsterNeeded;
+  const audio = document.getElementById("audioPlayer");
+
+  if (!audio) {
+    console.error("Audio element with ID 'audioPlayer' not found.");
+    return;
+  }
+
+  // Remove any previously attached 'ended' event to avoid duplicates
+  audio.replaceWith(audio.cloneNode(true));
+  const freshAudio = document.getElementById("audioPlayer");
+
+  // Build audio file paths based on storyAudioNeeded numbers
+  const audioFiles = impactsAudioNeeded.map(num => 
+    `assets/voiceover/strongertogethervo_7_${storyMonsterNeeded}_5_N${num}.mp3`
+  );
+
+  let currentTrack = 0;
+
+  function playNext() {
+    if (currentTrack < audioFiles.length) {
+      freshAudio.src = audioFiles[currentTrack];
+      freshAudio.play().catch(err => {
+        console.error("Audio play failed:", err);
+      });
+      currentTrack++;
+    }
+  }
+
+  freshAudio.addEventListener("ended", playNext);
+
+  // Start playback
+  playNext();
+};
+
 :: StoryInit
-<<cacheaudio "opening" "assets/audio/StrongerTogetherSFX_1 opening-recovery.mp3">>
+<<cacheaudio "opening" "assets/audio/StrongerTogetherSFX_v2_1opening-recovery.mp3">>
 <<cacheaudio "neighbour" "assets/audio/StrongerTogetherSFX_2 neighbours-recovery.mp3">>
 <<cacheaudio "forecast" "assets/audio/StrongerTogetherSFX_3 forecast.mp3">>
 <<cacheaudio "prep" "assets/audio/StrongerTogetherSFX_4 preparation.mp3">>
@@ -155,6 +267,17 @@ $(document).on(':passagedisplay', function(ev) {
      </div>
 </footer>
 
+:: footerquestions[nobr]
+<<set $showWallet to false>>
+<footer class="grid-item footer">
+  <<link [img[assets/img/back-black.png]]>>
+        <<goto $prevpass>>
+    <</link>>
+ 
+    <div id="nextButtonContainerQ">
+     </div>
+</footer>
+
 :: footersimpleappears[nobr]
 <<set $showWallet to false>>
 <footer class="grid-item footer">
@@ -179,7 +302,6 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $pass to "landing">>
 <<set $nextpass to "intro1">>
 <<set $withVoiceover to false>>
-
 <<set $playerchoices to {
     chosenmonsters: [],
     finalmonster: [],
@@ -196,17 +318,29 @@ $(document).on(':passagedisplay', function(ev) {
     percentage:0
 }>>
 <<audio ":all" stop>>
+<audio src="assets/voiceover/strongertogethervo_0_1.mp3" autoplay >Audio is not supported on your device</audio>
 
 
+<main class="landing grid-wrapper split">
+<div class="info-container grid-item cards">
+         <div class="inline-img-container">
+         <div class="inline-img-wrapper ">
+    <img src="assets/img/logo-189.png" alt="Logo"/></div>
+        </div>
+     </div>
+<div class="grid-item explanation">
+    <h1>Welcome to Stronger Together</h1>
+    <br/>
+    <h2>A card game about community resilience </h2>
+    <br/>
+      <div>
+          <<button "Enter">>
+                <<goto $nextpass>>
+            <</button>>
+      </div>
+    
 
-<main class="landing">
-<h1>Welcome to Stronger Together</h1>
-<br/>
-<h2>A card game about community resilience </h2>
-<br/>
-  <<button "Enter">>
-        <<goto $nextpass>>
-    <</button>>
+</div>
 </main>
 
 /* <<include "wallet">> */
@@ -238,19 +372,20 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $pass to "intro1">>
 <<set $nextpass to "intro2">>
 <<audio ":all" "stop">>
+<audio src="assets/voiceover/strongertogethervo_0_2.mp3" autoplay>Audio is not supported on your device</audio>
 <<include "_templateIntro">>
 
 
 :: intro1-text [nobr]
-<p>Before you begin: </p>
+<h2>Before you begin: </h2>
 
 <p>Lay out your game board as below</p>
 
   <div class="inline-img-container">
   <div class="inline-img-wrapper arcardhor">
-        <h3>Game Board</h3><img src="assets/img/board.jpg" alt="Demo Game Board"/>
+        <h3>Game Board</h3><img src="assets/img/board.png" alt="Demo Game Board"/>
 </div></div>
-
+<br/>
 <p>Choose someone to play your <span class="accent">Facilitator</span>, they’ll lead you through the game.</p>
 <p>The facilitator can play, or sit on the outside, totally up to you. </p>
 <br/>
@@ -265,7 +400,7 @@ $(document).on(':passagedisplay', function(ev) {
 
 <p>If you have no voiceover, your facilitator will need to read the text aloud: </p>
 
-<p>If you want no sound at all, please turn your volume down</p>
+<p>If you want no sound at all, please turn your volume down.</p>
 
 
 
@@ -274,21 +409,23 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $pass to "intro2">>
 <<set $nextpass to "intro3">>
 <<if $withVoiceover is true>>
-    /* <audio src="" autoplay loop>Audio is not supported on your device</audio> */
+    <<timed 1s>>
+    <audio src="assets/voiceover/strongertogethervo_1_1+2.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+    <<audio "opening" "play" "loop">>
 <<else>>
-    /* <audio src="assets/audio/StrongerTogetherSFX_1 opening-recovery.mp3" autoplay loop>Audio is not supported on your device</audio> */
     <<audio "opening" "play" "loop">>
 <</if>>
 
-<<include "_templateIntro">>
-
-
-
-
-:: intro2-text [nobr]
-
-<br/>
-<h2>This is Stronger Together.</h2>
+<main class="landing grid-wrapper split">
+<div class="info-container grid-item cards">
+         <div class="inline-img-container">
+         <div class="inline-img-wrapper ">
+    <img src="assets/img/logo-189.png" alt="Logo"/></div>
+        </div>
+     </div>
+<div class="grid-item explanation">
+   <h2>This is Stronger Together.</h2>
 <br/>
 <p>A card game offering a 30 minute introduction to community resilience. </p>
 <p>It’s designed for communities of all kinds to play together. </p>
@@ -297,6 +434,9 @@ $(document).on(':passagedisplay', function(ev) {
 <p>This isn’t a game about a group of politicians around a table. </p>
 <p>It's about how communities themselves might embrace what they already have, and come together for their people and their place.</p>
 
+</div>
+</main>
+<<include "footeroptionappears">>
 
 <<timed 3s>>
     <<replace "#nextButtonContainer">>
@@ -305,19 +445,34 @@ $(document).on(':passagedisplay', function(ev) {
         <</button>>
     <</replace>>
 <</timed>>
+
+
+
 
 :: intro3 [nobr]
 <<set $prevpass to "intro2">>
 <<set $pass to "intro3">>
 <<set $nextpass to "intro3b">>
-
-<<include "_templateIntro">>
-
-
-:: intro3-text [nobr]
+<<if $withVoiceover is true>>
+    <<timed 0.2s>>
+    <audio src="assets/voiceover/strongertogethervo_2_1.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
+<main class="landing grid-wrapper split">
+<div class="info-container grid-item cards">
+         <div class="inline-img-container">
+         <div class="inline-img-wrapper ">
+    <img src="assets/img/cat.png" alt="Logo"/></div>
+        </div>
+     </div>
+<div class="grid-item explanation">
 <p>You will play as neighbours on a single street - High Street - it’s the most common street name in the UK. </p>
 <p>High Street could be anywhere in the country. There are some houses, a block of flats, a couple of shops and a stray cat named Dot.</p>
 
+
+</div>
+</main>
+<<include "footeroptionappears">>
 
 <<timed 3s>>
     <<replace "#nextButtonContainer">>
@@ -327,11 +482,18 @@ $(document).on(':passagedisplay', function(ev) {
     <</replace>>
 <</timed>>
 
+
+
+
 :: intro3b [nobr]
 <<set $prevpass to "intro3">>
 <<set $pass to "intro3b">>
 <<set $nextpass to "playercards">>
-
+<<if $withVoiceover is true>>
+    <<timed 0.2s>>
+    <audio src="assets/voiceover/strongertogethervo_2_2.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 <<include "_templateIntro">>
 
 
@@ -341,26 +503,26 @@ $(document).on(':passagedisplay', function(ev) {
 <span id="line3"></span>
 <span id="line4"></span>
 <span id="line5"></span>
-<<timed 1s>>
+<<timed 0.1s>>
     <<replace "#line1">><p>As the residents of High Street, the disaster you will face is...</p><</replace>>
 <</timed>>
 <<timed 3s>>
     <<replace "#line2">><<type 60ms>><p>...</p><</type>><</replace>>
 <</timed>>
-<<timed 5s>>
+<<timed 4s>>
     <<replace "#line3">><<type 60ms>><p>...</p><</type>><</replace>>
 <</timed>>
-<<timed 7s>>
+<<timed 5s>>
     <<replace "#line4">><h2>A MONSTER ATTACK!</h2><</replace>>
 <</timed>>
-<<timed 9s>>
+<<timed 7.5s>>
     <<replace "#line5">>
         <br/>
         <p>The aim of this game is to prepare for, respond to and recover well from this attack. </p>
     <</replace>>
 <</timed>>
 
-<<timed 11s>>
+<<timed 13s>>
     <<append "#line5">>
         <br/>
         <p>Good luck!</p>
@@ -380,7 +542,11 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "intro3">>
 <<set $pass to "playercards">>
 <<set $nextpass to "playercards-b">>
-
+<<if $withVoiceover is true>>
+    <<timed 0.2s>>
+    <audio src="assets/voiceover/strongertogethervo_2_3.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 <main class="grid-wrapper">
  <div class="info-container grid-item cards">
          <div class="inline-img-container">
@@ -413,10 +579,10 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "playercards">>
 <<set $pass to "playercards-b">>
 <<set $nextpass to "playercards-c">>
-
 <<audio ":all" "stop"  >>
 <<if $withVoiceover is true>>
-
+    <audio src="assets/voiceover/strongertogethervo_2_4.mp3" autoplay>Audio is not supported on your device</audio>
+     <<audio "neighbour" "play" "loop">>
 <<else>>
     <<audio "neighbour" "play" "loop">>
 <</if>>
@@ -446,7 +612,11 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "playercards-b">>
 <<set $pass to "playercards-c">>
 <<set $nextpass to "monstercards-preintro">>
-
+<<if $withVoiceover is true>>
+    <<timed 0.2s>>
+    <audio src="assets/voiceover/strongertogethervo_2_5.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 
  <<timed 5s>>
   <<include "2headertimer">>
@@ -616,11 +786,43 @@ $(document).on(':passagedisplay', function(ev) {
         <</replace>>
         <</timed>>
 
+:: 5mtimerquestions [nobr]
+  /* <<set $seconds to 3>> */
+  <<set $seconds to 300>>
+<span id="countdown"><span class="secs"></span> <span class="extra"></span></span>
+
+
+<<silently>>
+	<<repeat 1s>>
+		<<set $seconds to $seconds - 1>>
+		<<if $seconds gt 0>>
+			<<replace "#countdown">>
+				<<if $seconds >= 60>>
+					<<set _min to Math.floor($seconds / 60)>>
+					<<set _sec to $seconds % 60>>
+					<span class="secs">_min:<<if _sec lt 10>>0<</if>>_sec</span>
+				<<else>>
+					<span class="secs">$seconds </span>
+				<</if>>
+			<</replace>>
+		<<else>>
+			<<replace "#countdown">><strong>Time's up</strong><</replace>>
+			<<stop>>
+		<</if>>
+	<</repeat>>
+<</silently>>
+
+
+
 :: monstercards-preintro [nobr]
 <<set $prevpass to "playercards-c">>
 <<set $pass to "monstercards-preintro">>
 <<set $nextpass to "monstercards-intro">>
-
+<<if $withVoiceover is true>>
+    <<timed 0.2s>>
+    <audio src="assets/voiceover/strongertogethervo_2_6+7.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 <main class="">
     <div class="explanation">
    <p>Excellent, you have now met some of your neighbours.</p>
@@ -650,7 +852,11 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "monstercards-preintro">>
 <<set $pass to "monstercards-intro">>
 <<set $nextpass to "forecasttrans">>
-
+<<if $withVoiceover is true>>
+    <<timed 0.2s>>
+    <audio src="assets/voiceover/strongertogethervo_3_1.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 <main class="grid-wrapper">
  <div class="info-container grid-item cards">
   <div class="inline-img-container">
@@ -688,7 +894,8 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $pass to "forecasttrans">>
 <<set $nextpass to "monstercards">>
 <<audio ":all" stop>>
-<<if $withVoiceover is true>>
+<<if $withVoiceover is true>>    
+     <<audio "forecast" "play" "loop">>
 <<else>>
     <<audio "forecast" "play" "loop">>
 <</if>>
@@ -712,7 +919,14 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "monstercards-intro">>
 <<set $pass to "monstercards">>
 <<set $nextpass to "chosenMonsterForecast-intro">>
-
+<<if $withVoiceover is true>>    
+    <<timed 0.1s>>
+    <audio src="assets/voiceover/strongertogethervo_3_2.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+    <<timed 7s>>
+     <audio src="assets/voiceover/strongertogethervo_3_3.mp3" autoplay>Audio is not supported on your device</audio>
+     <</timed>>
+<</if>>
 <main class="">
     <div class="explanation">
 
@@ -847,9 +1061,18 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $nextpass to "chosenMonsterForecast">>
 <<audio ":all" stop>>
 <<if $withVoiceover is true>>
+    <<timed 1s>>
+     <audio src="assets/voiceover/strongertogethervo_4_1.mp3" autoplay>Audio is not supported on your device</audio>
+     <</timed>>
+     <<timed 19s>>
+     <audio src="assets/voiceover/strongertogethervo_4_2.mp3" autoplay>Audio is not supported on your device</audio>
+     <</timed>>
+     <<audio "prep" "play" "loop">>
 <<else>>
     <<audio "prep" "play" "loop">>
 <</if>>
+
+
 <main class="grid-wrapper split">
  <div class="inline-img-container cards-selection grid-item cards wrap">
     <div class="inline-img-wrapper arcard">
@@ -886,6 +1109,14 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "chosenMonsterForecast-intro">>
 <<set $pass to "chosenMonsterForecast">>
 <<set $nextpass to "actions">>
+<<if $withVoiceover is true>>
+    <<timed 1s>>
+     <audio src="" autoplay>Audio is not supported on your device</audio>
+     <</timed>>
+     <<timed 3s>>
+     <audio src="assets/voiceover/strongertogethervo_4_3.mp3" autoplay>Audio is not supported on your device</audio>
+     <</timed>>
+<</if>>
 <<timed 5s>>
     <<include "headertimer">>
 <</timed>>
@@ -939,6 +1170,11 @@ $(document).on(':passagedisplay', function(ev) {
 
 </header>
 
+:: questionsheadertimer [nobr]
+<header class="timer">
+      <<include "5mtimerquestions">>
+</header>
+
 :: chosenmonstersdisplay [nobr]
  <<set $img1 to "assets/img/" + "Demo_" + $playerchoices.chosenmonsters[0] + ".png">>
  <<set $img2 to "assets/img/" + "Demo_" + $playerchoices.chosenmonsters[1] + ".png" >>
@@ -984,6 +1220,10 @@ $(document).on(':passagedisplay', function(ev) {
     {type: "connect", actionnum: 4, text: "Connect to the local school or faith space.", id:11},
     {type: "connect", actionnum: 5, text: "Sign up for alerts and warnings.", id:12}
 ]>>
+<<if $withVoiceover is true>>
+    <audio src="assets/voiceover/strongertogethervo_4_4.mp3" autoplay>Audio is not supported on your device</audio>
+<<else>>
+<</if>>
 
 
 <main class="">
@@ -1080,6 +1320,10 @@ $(document).on(':passagedisplay', function(ev) {
 <<set $prevpass to "actions">>
 <<set $pass to "postactionchoice">>
 <<set $nextpass to "fortunetrans">>
+<<if $withVoiceover is true>>
+    <audio src="assets/voiceover/strongertogethervo_4_5.mp3" autoplay>Audio is not supported on your device</audio>
+<<else>>
+<</if>>
 
 <main class="">
     <div class="explanation">
@@ -1107,7 +1351,7 @@ $(document).on(':passagedisplay', function(ev) {
  <div class="info-container grid-item cards fadeIn10 fortunetrans">
   <div class="inline-img-container">
     <div class="inline-img-wrapper arcardbig">
-     <img src="assets/img/fortunes.png" alt="Fortune"/>
+     <img src="assets/img/goodfortune.png" alt="Fortune"/>
     </div>
     </div>
     </div>
@@ -1169,6 +1413,10 @@ Your local council has had the money and resources to put some time into disaste
 ]
   >>
 <<set $diceroll to "">>
+<<if $withVoiceover is true>>
+    <audio src="assets/voiceover/strongertogethervo_5_1.mp3" autoplay>Audio is not supported on your device</audio>
+<<else>>
+<</if>>
 
 <main class="grid-wrapper">
  <div class="info-container grid-item cards">
@@ -1219,25 +1467,70 @@ Your local council has had the money and resources to put some time into disaste
 </main>
 <<timed 3.5s>><<goto $nextpass>><</timed>>
 
+:: choosediceaudio [nobr]
+<<if $diceoptions[$diceroll].num === 1 or $diceoptions[$diceroll].num === 2>>
+    <<timed 0.1s>>
+    <<replace "#audio">>
+        <audio src="assets/voiceover/strongertogethervo_5_2_thingsarentgreat.mp3" autoplay >Audio is not supported on your device</audio>
+        <</replace>>
+    <</timed>>
+<<elseif $diceoptions[$diceroll].num === 3 or $diceoptions[$diceroll].num === 4>>
+    <<timed 0.1s>>
+    <<replace "#audio">>
+        <audio src="assets/voiceover/strongertogethervo_5_2_fortunate.mp3" autoplay >Audio is not supported on your device</audio>
+        <</replace>>
+    <</timed>>
+<<elseif $diceoptions[$diceroll].num === 5 or $diceoptions[$diceroll].num === 6>>
+    <<timed 0.1s>>
+    <<replace "#audio">>
+        <audio src="assets/voiceover/strongertogethervo_5_2_veryfortunate.mp3" autoplay >Audio is not supported on your device</audio>
+        <</replace>>
+    <</timed>>
+    <</if>>
+
+:: chosetimeafterdiceaudio [nobr]
+<<if $diceoptions[$diceroll].num === 1 or $diceoptions[$diceroll].num === 2>>
+    <<timed 33.5s>>
+    <<replace "#audio">>
+        <audio src="assets/voiceover/strongertogethervo_5_3.mp3" autoplay >Audio is not supported on your device</audio>
+        <</replace>>
+    <</timed>>
+<<elseif $diceoptions[$diceroll].num === 3 or $diceoptions[$diceroll].num === 4>>
+    <<timed 16.5s>>
+    <<replace "#audio">>
+        <audio src="assets/voiceover/strongertogethervo_5_3.mp3" autoplay >Audio is not supported on your device</audio>
+        <</replace>>
+    <</timed>>
+<<elseif $diceoptions[$diceroll].num === 5 or $diceoptions[$diceroll].num === 6>>
+    <<timed 17.5s>>
+    <<replace "#audio">>
+        <audio src="assets/voiceover/strongertogethervo_5_3.mp3" autoplay >Audio is not supported on your device</audio>
+        <</replace>>
+    <</timed>>
+    <</if>>
 
 :: diceresults [nobr]
 <<set $prevpass to "predice">>
 <<set $pass to "diceresults">>
 <<set $nextpass to "forecast">>
-
+<<include "choosediceaudio">>
+<<include "chosetimeafterdiceaudio">>
+<div id="audio"></div>
 <main>
-   <div class="result">
-   <h2>You rolled a $diceoptions[$diceroll].num</h2>
-   
-        <p>$diceoptions[$diceroll].text1</p>
-        <br/>
-        <div id="proposedChangeMount"></div>
-        <br/>
-       <p> $diceoptions[$diceroll].text2</p>
-        <br/>
-    <br/>
+   <div class="result grid-wrapper">
+
+        <div class="grid-item explanation">
+         <h2>You rolled a $diceoptions[$diceroll].num</h2>
+            <p>$diceoptions[$diceroll].text1</p>
+            <br/>
+            <div id="proposedChangeMount"></div>
+            <br/>
+           <p> $diceoptions[$diceroll].text2</p>
+           <br/>
+        </div>
+        
     <<if $diceoptions[$diceroll].wildcards isnot 0>>
-    <div class="inline-img-container wildcards">
+    <div class="inline-img-container wildcards grid-item crd">
         <<for _i to 0; _i lt $diceoptions[$diceroll].wildcards; _i++>>
             <div class="inline-img-wrapper arcard">
                 <img src="assets/img/wildcard.png" alt="Wildcard"/>
@@ -1311,7 +1604,11 @@ console.log(State.variables)
 <<set $prevpass to "diceresults">>
 <<set $pass to "forecast">>
 <<set $nextpass to "storyintro">>
-
+<<if $withVoiceover is true>>
+    <<timed 0.2s>>
+    <audio src="assets/voiceover/strongertogethervo_6_1.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 <main class="grid-wrapper split">
 <div class="explanation grid-item">
 <h2>Disaster looms.</h2>
@@ -1425,7 +1722,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<for _i to 0; _i lt 5; _i++>>
     <<if _optimalForMonster.includes($playerchoices.chosenactions[_i])>>
         <<print "includes:" + $playerchoices.chosenactions[_i]>>
-        <<set _bonusScore += 1>>
+        <<set _bonusScore += 0.8>>
     <</if>>
 <</for>>
 
@@ -1436,42 +1733,21 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 
 
 
-/* <<timed 1s>>
-Player chosen actions: $playerchoices.chosenactions
-<br/>
-Final monster: _finalMonster
-<br/>
-Base score: _baseScore
-<br/>
-Optimal for monster: _optimalForMonster
-<br/>
-Bonus Score:  _bonusScore
-<br/>
-You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impact.
-<</timed>> */
-
-
-/* <<if _percentage >= 90>>
-    Exceptional work – your preparation was nearly perfect.
-<<elseif _percentage >= 70>>
-    Great job – your planning paid off, and it made a real difference.
-<<elseif _percentage >= 50>>
-    Not bad – you took important steps, but there’s room to improve.
-<<else>>
-    The storm hit hard – next time, a few more key actions might help turn the tide.
-<</if>> */
-
 
 
 :: storyintro [nobr]
 <<set $prevpass to "forecast">>
 <<set $pass to "storyintro">>
 <<set $nextpass to "">>
-<<include "chosemonsterpath">>
+<<include "choosemonsterpath">>
+
     <<timed 0.1s>>
         /* <<audio ":all" "stop"  >> */
-        <<if $withVoiceover is true>>
-
+ <<if $withVoiceover is true>>
+    <<audio $audioMonster "play">>    
+    <<timed 3s>>
+      <audio src="assets/voiceover/strongertogethervo_6_2.mp3" autoplay >Audio is not supported on your device</audio> 
+      <</timed>>
       <<else>>
       <<audio $audioMonster "play">>
         <</if>>
@@ -1501,7 +1777,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<include "footeroptionappears">>
 
 
-:: chosemonsterpath [nobr]
+:: choosemonsterpath [nobr]
 <<if $playerchoices.finalmonster is "Gale">>
     <<set $nextpass to "galeintro">>
     <<set $audioMonster to "galemonster">>
@@ -1523,7 +1799,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $prevpass to "storyintro">>
 <<set $pass to "galeintro">>
 <<set $nextpass to "galestory">>
-
+<<if $withVoiceover is true>>
+    <<audio "neighbour" "play" "loop">>
+    <<timed 1s>>
+    <audio src="assets/voiceover/strongertogethervo_7_GALE_1.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>  
+<<else>>
+    <<audio "neighbour" "play" "loop">>
+<</if>>
 <main class="">
     <div class="explanation">
 <p> Gale swirls into High Street, moving faster than anticipated. </p>
@@ -1555,18 +1838,21 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <<else>>
     <<set $nextpass to "galefortune">>
 <</if>>
+<<set $storyAudioNeeded to []>>
+<<set $storyMonsterNeeded to "GALE">>
     <<timed 0.1s>>
-        /* <<audio ":all" "stop"  >> */
-        <<if $withVoiceover is true>>
 
+        <<if $withVoiceover is true>>
+            <<audio "success1" "play">>
              <<else>>
             <<audio "success1" "play">>
         <</if>>
     <</timed>>
-
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 <main class="">
     <div class="explanation">
 <<if $playerchoices.chosenactions.includes(12)>>
+    <<run $storyAudioNeeded.push(12)>>
 <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/12.png" alt="action card"/>
@@ -1576,6 +1862,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
 <<if $playerchoices.chosenactions.includes(8)>>
+    <<run $storyAudioNeeded.push(8)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/8.png" alt="action card"/>
@@ -1591,6 +1878,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
  <<if $playerchoices.chosenactions.includes(3)>>
+    <<run $storyAudioNeeded.push(3)>>
 <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/3.png" alt="action card"/>
@@ -1600,6 +1888,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(7)>>
+    <<run $storyAudioNeeded.push(7)>>
 <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/7.png" alt="action card"/>
@@ -1609,6 +1898,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(5)>>
+    <<run $storyAudioNeeded.push(5)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/5.png" alt="action card"/>
@@ -1618,6 +1908,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(10)>>
+    <<run $storyAudioNeeded.push(10)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/10.png" alt="action card"/>
@@ -1638,11 +1929,19 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseStoryAudio()>>
+    <</if>>
+<</timed>>
+
 :: galefortune [nobr]
 <<set $prevpass to "galestory">>
 <<set $pass to "galefortune">>
 <<set $nextpass to "gale-poststory">>
 
+<<set $storyMonsterNeeded to "GALE">>
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 <main class="">
     <div class="explanation">
     <div id="mount"></div>
@@ -1695,7 +1994,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
-
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseFortuneAudio()>>
+    <</if>>
+<</timed>>
 
 :: gale-poststory[nobr]
 
@@ -1706,6 +2009,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <</if>>
 <<set $pass to "gale-poststory">>
 <<set $nextpass to "galeimpacts">>
+<<if $withVoiceover is true>>
+    <<timed 0.2s>>
+    <audio src="assets/voiceover/strongertogethervo_7_GALE_4.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 
 <main class="">
     <div class="explanation">
@@ -1734,18 +2042,22 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <<else>>
     <<set $nextpass to "recoverytrans">>
 <</if>>
+<<set $impactsAudioNeeded to []>>
+<<set $storyMonsterNeeded to "GALE">>
+
 <<timed 0.1s>>
         /* <<audio ":all" "stop"  >> */
         <<if $withVoiceover is true>>
-
+            <<audio "success2" "play">>
              <<else>>
             <<audio "success2" "play">>
         <</if>>
     <</timed>>
-
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 <main class="">
     <div class="explanation">
 <<if !$playerchoices.chosenactions.includes(12)>>
+    <<run $impactsAudioNeeded.push(12)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/12.png" alt="action card"/>
@@ -1755,6 +2067,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
 <<if !$playerchoices.chosenactions.includes(8)>>
+    <<run $impactsAudioNeeded.push(8)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/8.png" alt="action card"/>
@@ -1771,6 +2084,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
  <<if !$playerchoices.chosenactions.includes(3)>>
+    <<run $impactsAudioNeeded.push(3)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/3.png" alt="action card"/>
@@ -1780,6 +2094,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(7)>>
+    <<run $impactsAudioNeeded.push(7)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/7.png" alt="action card"/>
@@ -1789,6 +2104,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(5)>>
+    <<run $impactsAudioNeeded.push(5)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/5.png" alt="action card"/>
@@ -1798,6 +2114,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(10)>>
+    <<run $impactsAudioNeeded.push(10)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/10.png" alt="action card"/>
@@ -1818,11 +2135,18 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseImpactsAudio()>>
+    <</if>>
+<</timed>>
+
 :: galefortuneimpacts [nobr]
 <<set $prevpass to "galeimpacts">>
 <<set $pass to "galefortuneimpacts">>
 <<set $nextpass to "recoverytrans">>
-
+<<set $storyMonsterNeeded to "GALE">>
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 
 <main class="">
     <div class="explanation">
@@ -1858,12 +2182,24 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseFortuneAudio()>>
+    <</if>>
+<</timed>>
 
 :: infernointro [nobr]
 <<set $prevpass to "storyintro">>
 <<set $pass to "infernointro">>
 <<set $nextpass to "infernostory">>
-
+<<if $withVoiceover is true>>
+    <<audio "neighbour" "play" "loop">>
+    <<timed 1s>>
+    /* <audio src="assets/voiceover/strongertogethervo_7_GALE_1.mp3" autoplay>Audio is not supported on your device</audio> */
+    <</timed>>  
+<<else>>
+    <<audio "neighbour" "play" "loop">>
+<</if>>
 
 <main class="">
     <div class="explanation">
@@ -1898,19 +2234,22 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<else>>
     <<set $nextpass to "infernofortune">>
 <</if>>
+<<set $storyAudioNeeded to []>>
+<<set $storyMonsterNeeded to "INF">>
     <<timed 0.1s>>
         /* <<audio ":all" "stop"  >> */
         <<if $withVoiceover is true>>
-
+            <<audio "success1" "play">>
              <<else>>
             <<audio "success1" "play">>
         <</if>>
     <</timed>>
-
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 <main class="">
 
     <div class="explanation">
 <<if $playerchoices.chosenactions.includes(2)>>
+    <<run $storyAudioNeeded.push(2)>>
 <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/2.png" alt="action card"/>
@@ -1920,6 +2259,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
 <<if $playerchoices.chosenactions.includes(8)>>
+    <<run $storyAudioNeeded.push(8)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/8.png" alt="action card"/>
@@ -1936,6 +2276,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
  <<if $playerchoices.chosenactions.includes(9)>>
+    <<run $storyAudioNeeded.push(9)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/9.png" alt="action card"/>
@@ -1951,6 +2292,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(5)>>
+    <<run $storyAudioNeeded.push(5)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/5.png" alt="action card"/>
@@ -1960,6 +2302,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(11)>>
+    <<run $storyAudioNeeded.push(11)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/11.png" alt="action card"/>
@@ -1969,6 +2312,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(6)>>
+    <<run $storyAudioNeeded.push(6)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/6.png" alt="action card"/>
@@ -1990,6 +2334,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseStoryAudio()>>
+    <</if>>
+<</timed>>
 
 
 
@@ -1997,8 +2346,8 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $prevpass to "infernostory">>
 <<set $pass to "infernofortune">>
 <<set $nextpass to "inferno-poststory">>
-
-
+<<set $storyMonsterNeeded to "INF">>
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 <main class="">
     <div class="explanation">
     <div id="mount"></div>
@@ -2052,6 +2401,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseFortuneAudio()>>
+    <</if>>
+<</timed>>
 
 :: inferno-poststory[nobr]
 <<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
@@ -2061,6 +2415,12 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <</if>>
 <<set $pass to "inferno-poststory">>
 <<set $nextpass to "infernoimpacts">>
+
+<<if $withVoiceover is true>>
+    <<timed 0.2s>>
+    <audio src="assets/voiceover/strongertogethervo_7_INF_4.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 
 <main class="">
     <div class="explanation">
@@ -2091,6 +2451,8 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <<else>>
     <<set $nextpass to "recoverytrans">>
 <</if>>
+<<set $impactsAudioNeeded to []>>
+<<set $storyMonsterNeeded to "INF">>
 <<timed 0.1s>>
         /* <<audio ":all" "stop"  >> */
         <<if $withVoiceover is true>>
@@ -2099,10 +2461,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
             <<audio "success2" "play">>
         <</if>>
     <</timed>>
-
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 <main class="">
     <div class="explanation">
 <<if !$playerchoices.chosenactions.includes(2)>>
+    <<run $impactsAudioNeeded.push(2)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/2.png" alt="action card"/>
@@ -2112,6 +2475,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
 <<if !$playerchoices.chosenactions.includes(8)>>
+    <<run $impactsAudioNeeded.push(8)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/8.png" alt="action card"/>
@@ -2125,6 +2489,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
  <<if !$playerchoices.chosenactions.includes(9)>>
+    <<run $impactsAudioNeeded.push(9)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/9.png" alt="action card"/>
@@ -2138,6 +2503,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(5)>>
+    <<run $impactsAudioNeeded.push(5)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/5.png" alt="action card"/>
@@ -2147,6 +2513,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(11)>>
+    <<run $impactsAudioNeeded.push(11)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/11.png" alt="action card"/>
@@ -2156,6 +2523,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(6)>>
+    <<run $impactsAudioNeeded.push(6)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/6.png" alt="action card"/>
@@ -2176,11 +2544,17 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseImpactsAudio()>>
+    <</if>>
+<</timed>>
 :: infernofortuneimpacts [nobr]
 <<set $prevpass to "infernoimpacts">>
 <<set $pass to "infernofortuneimpacts">>
 <<set $nextpass to "recoverytrans">>
-
+<<set $storyMonsterNeeded to "INF">>
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 
 <main class="">
     <div class="explanation">
@@ -2215,12 +2589,25 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseFortuneAudio()>>
+    <</if>>
+<</timed>>
+
 
 :: drenchintro [nobr]
 <<set $prevpass to "storyintro">>
 <<set $pass to "drenchintro">>
 <<set $nextpass to "drenchstory">>
-
+<<if $withVoiceover is true>>
+    <<audio "neighbour" "play" "loop">>
+    <<timed 1s>>
+    /* <audio src="assets/voiceover/strongertogethervo_7_GALE_1.mp3" autoplay>Audio is not supported on your device</audio> */
+    <</timed>>  
+<<else>>
+    <<audio "neighbour" "play" "loop">>
+<</if>>
 <main class="">
     <div class="explanation">
 <p>The skies open and Drench falls down, rushing along the slope of the street, pooling at drains and in potholes that can’t contain her. She slips and slides through cracks and gaps. No matter where you go she is around every corner. </p>
@@ -2250,19 +2637,22 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <<else>>
     <<set $nextpass to "drenchfortune">>
 <</if>>
+<<set $storyAudioNeeded to []>>
+<<set $storyMonsterNeeded to "DRE">>
 <<timed 0.1s>>
         /* <<audio ":all" "stop"  >> */
         <<if $withVoiceover is true>>
-
+             <<audio "success1" "play">>
              <<else>>
             <<audio "success1" "play">>
         <</if>>
     <</timed>>
 
-
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 <main class="">
     <div class="explanation">
 <<if $playerchoices.chosenactions.includes(12)>>
+    <<run $storyAudioNeeded.push(12)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/12.png" alt="action card"/>
@@ -2272,6 +2662,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
 <<if $playerchoices.chosenactions.includes(4)>>
+    <<run $storyAudioNeeded.push(4)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/4.png" alt="action card"/>
@@ -2281,6 +2672,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
  <<if $playerchoices.chosenactions.includes(7)>>
+    <<run $storyAudioNeeded.push(7)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/7.png" alt="action card"/>
@@ -2290,6 +2682,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(8)>>
+    <<run $storyAudioNeeded.push(8)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/8.png" alt="action card"/>
@@ -2305,6 +2698,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(6)>>
+    <<run $storyAudioNeeded.push(6)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/6.png" alt="action card"/>
@@ -2314,6 +2708,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(11)>>
+    <<run $storyAudioNeeded.push(11)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/11.png" alt="action card"/>
@@ -2334,11 +2729,18 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseStoryAudio()>>
+    <</if>>
+<</timed>>
+
 :: drenchfortune [nobr]
 <<set $prevpass to "drenchstory">>
 <<set $pass to "drenchfortune">>
 <<set $nextpass to "drench-poststory">>
-
+<<set $storyMonsterNeeded to "DRE">>
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 <main class="">
   
     <div class="explanation">
@@ -2389,6 +2791,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseFortuneAudio()>>
+    <</if>>
+<</timed>>
 
 
 :: drench-poststory[nobr]
@@ -2399,6 +2806,12 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <</if>>
 <<set $pass to "drench-poststory">>
 <<set $nextpass to "drenchimpacts">>
+
+<<if $withVoiceover is true>>
+    <<timed 0.2s>>
+    <audio src="assets/voiceover/strongertogethervo_7_DRE_4.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 
 <main class="">
     <div class="explanation">
@@ -2430,18 +2843,20 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <<else>>
     <<set $nextpass to "recoverytrans">>
 <</if>>
+<<set $impactsAudioNeeded to []>>
+<<set $storyMonsterNeeded to "DRE">>
 <<timed 0.1s>>
-        /* <<audio ":all" "stop"  >> */
         <<if $withVoiceover is true>>
-
+            <<audio "success2" "play">>
              <<else>>
             <<audio "success2" "play">>
         <</if>>
     <</timed>>
-
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 <main class="">
     <div class="explanation">
 <<if !$playerchoices.chosenactions.includes(12)>>
+    <<run $impactsAudioNeeded.push(12)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/12.png" alt="action card"/>
@@ -2451,6 +2866,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
 <<if !$playerchoices.chosenactions.includes(4)>>
+    <<run $impactsAudioNeeded.push(4)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/4.png" alt="action card"/>
@@ -2461,6 +2877,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
  <<if !$playerchoices.chosenactions.includes(7)>>
+    <<run $impactsAudioNeeded.push(7)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/7.png" alt="action card"/>
@@ -2471,6 +2888,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(8)>>
+    <<run $impactsAudioNeeded.push(8)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/8.png" alt="action card"/>
@@ -2484,6 +2902,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(11)>>
+    <<run $impactsAudioNeeded.push(11)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/11.png" alt="action card"/>
@@ -2493,6 +2912,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(6)>>
+    <<run $impactsAudioNeeded.push(6)>>
      <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/6.png" alt="action card"/>
@@ -2513,13 +2933,18 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
-/* <<include "wallet">> */
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseImpactsAudio()>>
+    <</if>>
+<</timed>>
 
 :: drenchfortuneimpacts [nobr]
 <<set $prevpass to "drenchimpacts">>
 <<set $pass to "drenchfortuneimpacts">>
 <<set $nextpass to "recoverytrans">>
-
+<<set $storyMonsterNeeded to "DRE">>
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 
 <main class="">
     <div class="explanation">
@@ -2553,12 +2978,24 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseFortuneAudio()>>
+    <</if>>
+<</timed>>
 
 :: crystalintro [nobr]
 <<set $prevpass to "storyintro">>
 <<set $pass to "crystalintro">>
 <<set $nextpass to "crystalstory">>
-
+<<if $withVoiceover is true>>
+    <<audio "neighbour" "play" "loop">>
+    <<timed 1s>>
+    /* <audio src="assets/voiceover/strongertogethervo_7_GALE_1.mp3" autoplay>Audio is not supported on your device</audio> */
+    <</timed>>  
+<<else>>
+    <<audio "neighbour" "play" "loop">>
+<</if>>
 <main class="">
     <div class="explanation">
 <p>Crystal crawls into High Street. She greets you with a frosty reception. </p>
@@ -2591,18 +3028,21 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <<else>>
     <<set $nextpass to "crystalfortune">>
 <</if>>
+<<set $storyAudioNeeded to []>>
+<<set $storyMonsterNeeded to "CRY">>
 <<timed 0.1s>>
         /* <<audio ":all" "stop"  >> */
         <<if $withVoiceover is true>>
-
+            <<audio "success1" "play">>
              <<else>>
             <<audio "success1" "play">>
         <</if>>
     <</timed>>
-
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 <main class="">
     <div class="explanation">
 <<if $playerchoices.chosenactions.includes(1)>>
+     <<run $storyAudioNeeded.push(1)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/1.png" alt="action card"/>
@@ -2612,6 +3052,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
 <<if $playerchoices.chosenactions.includes(9)>>
+     <<run $storyAudioNeeded.push(9)>>
     <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/9.png" alt="action card"/>
@@ -2627,6 +3068,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
  <<if $playerchoices.chosenactions.includes(5)>>
+     <<run $storyAudioNeeded.push(5)>>
       <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/5.png" alt="action card"/>
@@ -2636,6 +3078,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(6)>>
+     <<run $storyAudioNeeded.push(6)>>
       <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/6.png" alt="action card"/>
@@ -2646,6 +3089,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(11)>>
+     <<run $storyAudioNeeded.push(11)>>
       <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/11.png" alt="action card"/>
@@ -2655,6 +3099,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if $playerchoices.chosenactions.includes(10)>>
+     <<run $storyAudioNeeded.push(10)>>
       <div class="story-line-container">
   <div class="inline-img-wrapper ">
       <img src="assets/img/10.png" alt="action card"/>
@@ -2675,13 +3120,18 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
-/* <<include "wallet">> */
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseStoryAudio()>>
+    <</if>>
+<</timed>>
 
 :: crystalfortune [nobr]
 <<set $prevpass to "crystalstory">>
 <<set $pass to "crystalfortune">>
 <<set $nextpass to "crystal-poststory">>
-
+<<set $storyMonsterNeeded to "CRY">>
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 
 <main class="">
     <div class="explanation">
@@ -2737,6 +3187,12 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseFortuneAudio()>>
+    <</if>>
+<</timed>>
+
 :: crystal-poststory[nobr]
 <<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
     <<set $prevpass to "crystalstory">>
@@ -2745,6 +3201,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <</if>>
 <<set $pass to "crystal-poststory">>
 <<set $nextpass to "crystalimpacts">>
+<<if $withVoiceover is true>>
+    <<timed 0.2s>>
+    <audio src="assets/voiceover/strongertogethervo_7_CRY_4.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 
 <main class="">
     <div class="explanation">
@@ -2775,18 +3236,20 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <<else>>
     <<set $nextpass to "recoverytrans">>
 <</if>>
+<<set $impactsAudioNeeded to []>>
+<<set $storyMonsterNeeded to "CRY">>
 <<timed 0.1s>>
-        /* <<audio ":all" "stop"  >> */
         <<if $withVoiceover is true>>
-
+            <<audio "success2" "play">>
              <<else>>
             <<audio "success2" "play">>
         <</if>>
     <</timed>>
-
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 <main class="">
     <div class="explanation">
 <<if !$playerchoices.chosenactions.includes(1)>>
+    <<run $impactsAudioNeeded.push(1)>>
        <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/1.png" alt="action card"/>
@@ -2796,6 +3259,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
 <<if !$playerchoices.chosenactions.includes(9)>>
+    <<run $impactsAudioNeeded.push(9)>>
        <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/9.png" alt="action card"/>
@@ -2811,6 +3275,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
  <<if !$playerchoices.chosenactions.includes(5)>>
+    <<run $impactsAudioNeeded.push(5)>>
        <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/5.png" alt="action card"/>
@@ -2821,6 +3286,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(6)>>
+    <<run $impactsAudioNeeded.push(6)>>
        <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/6.png" alt="action card"/>
@@ -2830,6 +3296,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(11)>>
+    <<run $impactsAudioNeeded.push(11)>>
        <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/11.png" alt="action card"/>
@@ -2839,6 +3306,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
  <</if>>
 
   <<if !$playerchoices.chosenactions.includes(10)>>
+    <<run $impactsAudioNeeded.push(10)>>
        <div class="story-line-container">
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/10.png" alt="action card"/>
@@ -2859,11 +3327,18 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseImpactsAudio()>>
+    <</if>>
+<</timed>>
+
 :: crystalfortuneimpacts [nobr]
 <<set $prevpass to "crystalimpacts">>
 <<set $pass to "crystalfortuneimpacts">>
 <<set $nextpass to "recoverytrans">>
-
+<<set $storyMonsterNeeded to "CRY">>
+<div id="audioMount"> <audio id="audioPlayer" autoplay>Audio is not supported on your device</audio></div>
 
 <main class="">
     <div class="explanation">
@@ -2898,6 +3373,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
     <</replace>>
 <</timed>>
 
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseFortuneAudio()>>
+    <</if>>
+<</timed>>
 
 :: recoverytrans [nobr]
 <<set $prevpass to "storyintro">>
@@ -2906,7 +3386,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<timed 0.1s>>
         <<audio ":all" "stop"  >>
         <<if $withVoiceover is true>>
-
+            <<audio "aftermath" "play" "loop">>
              <<else>>
             <<audio "aftermath" "play" "loop">>
         <</if>>
@@ -2931,7 +3411,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $prevpass to "storyintro">>
 <<set $pass to "aftermathintro">>
 <<set $nextpass to "aftermath">>
-
+<<if $withVoiceover is true>>
+    <<timed 0.1s>>
+    <audio src="assets/voiceover/strongertogethervo_8_1.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 <main class="grid-wrapper">
 <div class="info-container grid-item cards">
          <div class="inline-img-container">
@@ -2968,7 +3452,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $prevpass to "aftermathintro">>
 <<set $pass to "aftermath">>
 <<set $nextpass to "aftermath2">>
-
+<<if $withVoiceover is true>>
+    <<timed 0.1s>>
+    <audio src="assets/voiceover/strongertogethervo_8_2.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 
 <main class="timer">
 <br/>
@@ -2996,7 +3484,12 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $prevpass to "aftermath">>
 <<set $pass to "aftermath2">>
 <<set $nextpass to "outro">>
- <<timed 5s>>
+<<if $withVoiceover is true>>
+    <<timed 0.1s>>
+    <audio src="assets/voiceover/strongertogethervo_8_3.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
+ <<timed 7s>>
         <<include "3headertimer">>
         <</timed>>
 
@@ -3018,10 +3511,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<include "footeroptionappears">>
 
 :: outro [nobr]
-<<set $prevpass to "aftermath">>
+<<set $prevpass to "aftermath2">>
 <<set $pass to "outro">>
 <<set $nextpass to "record">>
-
+<<if $withVoiceover is true>>
+    <<timed 0.1s>>
+    <audio src="assets/voiceover/strongertogethervo_8_4.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 <main>
  <br/>
 <h2>Now, you need to pick a pitch.</h2>
@@ -3051,7 +3548,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $prevpass to "outro">>
 <<set $pass to "record">>
 <<set $nextpass to "postrecord">>
-
+<<if $withVoiceover is true>>
+    <<timed 0.1s>>
+    <audio src="assets/voiceover/strongertogethervo_8_5.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 <main>
  
 <p>Now you have your pitch, we want you to tell us what it is. </p>
@@ -3077,6 +3578,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $pass to "postrecord">>
 <<set $nextpass to "outro2">>
 <<set $improvement to 100- $playerchoices.percentage>>
+<<if $withVoiceover is true>>
+    <<timed 0.1s>>
+    <audio src="assets/voiceover/strongertogethervo_8_6.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 <main>
  
 <p>On High Street, your plan is put into action. </p>
@@ -3086,7 +3592,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <br/>
 <p>You made some good choices. </p>
 <p>You made some less good ones. </p>
-<p> You could have made choices that were <span class="accent">$improvement%</span> better. </p>
+
 
 
 <<timed 3s>>
@@ -3103,7 +3609,11 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $prevpass to "postrecord">>
 <<set $pass to "outro2">>
 <<set $nextpass to "outro3">>
-
+<<if $withVoiceover is true>>
+    <<timed 0.1s>>
+    <audio src="assets/voiceover/strongertogethervo_8_7.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
 <main>
 
 <h2>You faced this monster as a street. </h2>
@@ -3129,8 +3639,15 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $prevpass to "outro2">>
 <<set $pass to "outro3">>
 <<set $nextpass to "end">>
-<<timed 5s>>
-  <<include "5headertimer">>
+<<if $withVoiceover is true>>
+    <<timed 0.1s>>
+   <div id="audioMount">     
+    <audio src="assets/voiceover/strongertogethervo_8_8.mp3" autoplay>Audio is not supported on your device</audio>
+    </div>
+    <</timed>>
+<</if>>
+<<timed 7s>>
+  <<include "questionsheadertimer">>
 <</timed>>
 <main class="grid-wrapper">
 <div class="info-container grid-item cards">
@@ -3150,18 +3667,21 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 </div>
     
 <<timed 3s>>
-    <<replace "#nextButtonContainer">>
+    <<replace "#nextButtonContainerQ">>
     <<button "We're ready">>
-        <<replace "#nextButtonContainer">><</replace>>
+        <<replace "#nextButtonContainerQ">><</replace>>
          <<replace "#mount">>
             <<include "question1">>
+            <<replace "#audioMount">>
+                <audio src="assets/voiceover/strongertogethervo_9_Q1.mp3" autoplay>Audio is not supported on your device</audio>
+                <</replace>>
             <</replace>>
         <</button>>
     <</replace>>
 <</timed>>
         
 </main>
-<<include "footeroptionappears">>
+<<include "footerquestions">>
 
 
 
@@ -3172,14 +3692,17 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <p>If you were going to give your High Street an award - a blue plaque, say - to hang on the wall and commemorate this street and your response to the attack - what would it say? </p>
 
 <<timed 3s>>
-    <<replace "#nextButtonContainer">>
+    <<replace "#nextButtonContainerQ">>
     <<button "Next question">>
-        <<replace "#nextButtonContainer">><</replace>>
+        <<replace "#nextButtonContainerQ">><</replace>>
          <<replace "#mount">>
             <<include "question2">>
+            <<replace "#audioMount">>
+                <audio src="assets/voiceover/strongertogethervo_9_Q2.mp3" autoplay>Audio is not supported on your device</audio>
+                <</replace>>
             <</replace>>
         <</button>>
-    <</replace>>
+      <</replace>>
 <</timed>>
 
 :: question2 [nobr]
@@ -3189,14 +3712,20 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <p>If you were to play again, how would you play differently? </p>
 
   <<timed 3s>>
-    <<replace "#nextButtonContainer">>
+    <<replace "#nextButtonContainerQ">>
     <<button "Next question">>
-        <<replace "#nextButtonContainer">><</replace>>
+        <<replace "#nextButtonContainerQ">><</replace>>
          <<replace "#mount">>
             <<if $rolledagain is true>>
                 <<include "question3">>
+                 <<replace "#audioMount">>
+                <audio src="assets/voiceover/strongertogethervo_9_Q3.mp3" autoplay>Audio is not supported on your device</audio>
+                <</replace>>
              <<else>>
              <<include "question4">>
+              <<replace "#audioMount">>
+                <audio src="assets/voiceover/strongertogethervo_9_Q4.mp3" autoplay>Audio is not supported on your device</audio>
+                <</replace>>
             <</if>>
             <</replace>>
         <</button>>
@@ -3214,11 +3743,14 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 
 
   <<timed 3s>>
-    <<replace "#nextButtonContainer">>
+    <<replace "#nextButtonContainerQ">>
     <<button "Next question">>
-        <<replace "#nextButtonContainer">><</replace>>
+        <<replace "#nextButtonContainerQ">><</replace>>
          <<replace "#mount">>
             <<include "question4">>
+             <<replace "#audioMount">>
+                <audio src="assets/voiceover/strongertogethervo_9_Q4.mp3" autoplay>Audio is not supported on your device</audio>
+                <</replace>>
             <</replace>>
         <</button>>
     <</replace>>
@@ -3233,7 +3765,7 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <p>How did the game make you think about community resilience on your own street? </p>
 
 <<timed 3s>>
-    <<replace "#nextButtonContainer">>
+    <<replace "#nextButtonContainerQ">>
     <<button "End">>
         <<goto "end">>
         <</button>>
@@ -3247,12 +3779,18 @@ You managed to hold off <<_percentage>>% of the $playerchoices.finalmonster impa
 <<set $prevpass to "outro3">>
 <<set $pass to "end">>
 <<set $nextpass to "end">>
+
 <<timed 0.1s>>
         <<audio ":all" "stop"  >>
         <<if $withVoiceover is true>>
-
+              <<timed 0.2s>>
+            <audio src="assets/voiceover/strongertogethervo_10.mp3" autoplay>Audio is not supported on your device</audio>
+             <</timed>>
+             <<timed 3.5s>>
+            <<audio "meow" "play">>
+            <</timed>>
              <<else>>
-            <<audio "meow" "play" "loop">>
+            <<audio "meow" "play" >>
         <</if>>
     <</timed>>
 <main>
