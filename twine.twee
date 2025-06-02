@@ -151,6 +151,30 @@ setup.chooseFortuneAudio = () => {
   });
 };
 
+setup.chooseIntroAudio = () => {
+  const storyMonsterNeeded = State.variables.storyMonsterNeeded;
+  const audio = document.getElementById("audioPlayer");
+  const percentage = State.variables.playerchoices.percentage
+
+  console.log("percentage", percentage);
+
+  if (!audio) {
+    console.error("Audio element with ID 'audioPlayer' not found.");
+    return;
+  }
+
+  // Replace audio element to remove any existing 'ended' listeners
+  audio.replaceWith(audio.cloneNode(true));
+  const freshAudio = document.getElementById("audioPlayer");
+  const audioFile = `assets/voiceover/strongertogethervo_7_${storyMonsterNeeded}_1_${percentage}.mp3`;
+console.log("audioFile", audioFile)
+  // Assign and play the selected audio file
+  freshAudio.src = audioFile;
+  freshAudio.play().catch(err => {
+    console.error("Audio play failed:", err);
+  });
+};
+
 setup.chooseImpactsAudio = () => {
   const impactsAudioNeeded = State.variables.impactsAudioNeeded;
   const storyMonsterNeeded = State.variables.storyMonsterNeeded;
@@ -192,6 +216,8 @@ setup.chooseImpactsAudio = () => {
 <<cacheaudio "opening" "assets/audio/StrongerTogetherSFX_v2_1opening-recovery.mp3">>
 <<cacheaudio "neighbour" "assets/audio/StrongerTogetherSFX_2 neighbours-recovery.mp3">>
 <<cacheaudio "forecast" "assets/audio/StrongerTogetherSFX_3 forecast.mp3">>
+<<cacheaudio "fortune" "assets/audio/StrongerTogetherSFX_4.5 Fortune.mp3">>
+<<cacheaudio "battle" "assets/audio/StrongerTogetherSFX_v2_5 battle_short.mp3">>
 <<cacheaudio "prep" "assets/audio/StrongerTogetherSFX_4 preparation.mp3">>
 <<cacheaudio "diceroll" "assets/audio/StrongerTogetherSFX_dice roll.mp3">>
 <<cacheaudio "diceshake" "assets/audio/StrongerTogetherSFX_dice shake.mp3">>
@@ -1064,9 +1090,6 @@ setup.chooseImpactsAudio = () => {
     <<timed 1s>>
      <audio src="assets/voiceover/strongertogethervo_4_1.mp3" autoplay>Audio is not supported on your device</audio>
      <</timed>>
-     <<timed 19s>>
-     <audio src="assets/voiceover/strongertogethervo_4_2.mp3" autoplay>Audio is not supported on your device</audio>
-     <</timed>>
      <<audio "prep" "play" "loop">>
 <<else>>
     <<audio "prep" "play" "loop">>
@@ -1111,10 +1134,7 @@ setup.chooseImpactsAudio = () => {
 <<set $nextpass to "actions">>
 <<if $withVoiceover is true>>
     <<timed 1s>>
-     <audio src="" autoplay>Audio is not supported on your device</audio>
-     <</timed>>
-     <<timed 3s>>
-     <audio src="assets/voiceover/strongertogethervo_4_3.mp3" autoplay>Audio is not supported on your device</audio>
+     <audio src="assets/voiceover/strongertogethervo_4_2.mp3" autoplay>Audio is not supported on your device</audio>
      <</timed>>
 <</if>>
 <<timed 5s>>
@@ -1346,12 +1366,18 @@ setup.chooseImpactsAudio = () => {
 <<set $prevpass to "postactionchoice">>
 <<set $pass to "fortunetrans">>
 <<set $nextpass to "predice">>
+<<audio ":all" stop>>
+<<if $withVoiceover is true>>    
+     <<audio "fortune" "play" "loop">>
+<<else>>
+    <<audio "fortune" "play" "loop">>
+<</if>>
 
 <main class="cards-selection">
  <div class="info-container grid-item cards fadeIn10 fortunetrans">
   <div class="inline-img-container">
     <div class="inline-img-wrapper arcardbig">
-     <img src="assets/img/goodfortune.png" alt="Fortune"/>
+     <img src="assets/img/fortunes.png" alt="Fortune"/>
     </div>
     </div>
     </div>
@@ -1422,7 +1448,7 @@ Your local council has had the money and resources to put some time into disaste
  <div class="info-container grid-item cards">
          <div class="inline-img-container">
          <div class="inline-img-wrapper arcard">
-    <img src="assets/img/goodfortune.png" alt="Fortune Card"/></div>
+    <img src="assets/img/fortunes.png" alt="Fortune Card"/></div>
         </div>
      </div>
 
@@ -1749,11 +1775,17 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <<timed 0.1s>>
         /* <<audio ":all" "stop"  >> */
  <<if $withVoiceover is true>>
-    <<audio $audioMonster "play">>    
+    <<audio ":all" stop>>
+    <<audio "battle" "play">>
+    <<timed 1s>> 
+           <<audio $audioMonster "play">>  
+        <</timed>>     
     <<timed 3s>>
       <audio src="assets/voiceover/strongertogethervo_6_2.mp3" autoplay >Audio is not supported on your device</audio> 
       <</timed>>
       <<else>>
+        <<audio ":all" stop>>
+    <<audio "battle" "play">> 
       <<audio $audioMonster "play">>
         <</if>>
         <</timed>>
@@ -1804,14 +1836,9 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<set $prevpass to "storyintro">>
 <<set $pass to "galeintro">>
 <<set $nextpass to "galestory">>
-<<if $withVoiceover is true>>
-    <<audio "neighbour" "play" "loop">>
-    <<timed 1s>>
-    <audio src="assets/voiceover/strongertogethervo_7_GALE_1.mp3" autoplay>Audio is not supported on your device</audio>
-    <</timed>>  
-<<else>>
-    <<audio "neighbour" "play" "loop">>
-<</if>>
+<<set $storyMonsterNeeded to "GALE">>
+
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 <main class="">
     <div class="explanation">
 <p> Gale swirls into High Street, moving faster than anticipated. </p>
@@ -1831,6 +1858,12 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             <<goto $nextpass>>
         <</button>>
     <</replace>>
+<</timed>>
+
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseIntroAudio()>>
+    <</if>>
 <</timed>>
 
 
@@ -2197,14 +2230,9 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<set $prevpass to "storyintro">>
 <<set $pass to "infernointro">>
 <<set $nextpass to "infernostory">>
-<<if $withVoiceover is true>>
-    <<audio "neighbour" "play" "loop">>
-    <<timed 1s>>
-    /* <audio src="assets/voiceover/strongertogethervo_7_GALE_1.mp3" autoplay>Audio is not supported on your device</audio> */
-    <</timed>>  
-<<else>>
-    <<audio "neighbour" "play" "loop">>
-<</if>>
+<<set $storyMonsterNeeded to "INF">>
+
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 
 <main class="">
     <div class="explanation">
@@ -2228,7 +2256,11 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <</replace>>
 <</timed>>
 
-/* <<include "wallet">> */
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseIntroAudio()>>
+    <</if>>
+<</timed>>
 
 
 :: infernostory[nobr]
@@ -2605,14 +2637,8 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<set $prevpass to "storyintro">>
 <<set $pass to "drenchintro">>
 <<set $nextpass to "drenchstory">>
-<<if $withVoiceover is true>>
-    <<audio "neighbour" "play" "loop">>
-    <<timed 1s>>
-    /* <audio src="assets/voiceover/strongertogethervo_7_GALE_1.mp3" autoplay>Audio is not supported on your device</audio> */
-    <</timed>>  
-<<else>>
-    <<audio "neighbour" "play" "loop">>
-<</if>>
+<<set $storyMonsterNeeded to "DRE">>
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 <main class="">
     <div class="explanation">
 <p>The skies open and Drench falls down, rushing along the slope of the street, pooling at drains and in potholes that can’t contain her. She slips and slides through cracks and gaps. No matter where you go she is around every corner. </p>
@@ -2631,7 +2657,11 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
         <</button>>
     <</replace>>
 <</timed>>
-
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseIntroAudio()>>
+    <</if>>
+<</timed>>
 
 
 :: drenchstory[nobr]
@@ -2993,14 +3023,8 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<set $prevpass to "storyintro">>
 <<set $pass to "crystalintro">>
 <<set $nextpass to "crystalstory">>
-<<if $withVoiceover is true>>
-    <<audio "neighbour" "play" "loop">>
-    <<timed 1s>>
-    /* <audio src="assets/voiceover/strongertogethervo_7_GALE_1.mp3" autoplay>Audio is not supported on your device</audio> */
-    <</timed>>  
-<<else>>
-    <<audio "neighbour" "play" "loop">>
-<</if>>
+<<set $storyMonsterNeeded to "CRY">>
+<div id="audioMount"> <audio id="audioPlayer"  autoplay>Audio is not supported on your device</audio></div>
 <main class="">
     <div class="explanation">
 <p>Crystal crawls into High Street. She greets you with a frosty reception. </p>
@@ -3022,6 +3046,11 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <</replace>>
 <</timed>>
 
+<<timed 2s>>
+    <<if $withVoiceover is true>>
+        <<run setup.chooseIntroAudio()>>
+    <</if>>
+<</timed>>
 
 
 :: crystalstory[nobr]

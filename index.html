@@ -236,6 +236,30 @@ setup.chooseFortuneAudio = () => {
   });
 };
 
+setup.chooseIntroAudio = () => {
+  const storyMonsterNeeded = State.variables.storyMonsterNeeded;
+  const audio = document.getElementById("audioPlayer");
+  const percentage = State.variables.playerchoices.percentage
+
+  console.log("percentage", percentage);
+
+  if (!audio) {
+    console.error("Audio element with ID 'audioPlayer' not found.");
+    return;
+  }
+
+  // Replace audio element to remove any existing 'ended' listeners
+  audio.replaceWith(audio.cloneNode(true));
+  const freshAudio = document.getElementById("audioPlayer");
+  const audioFile = `assets/voiceover/strongertogethervo_7_${storyMonsterNeeded}_1_${percentage}.mp3`;
+console.log("audioFile", audioFile)
+  // Assign and play the selected audio file
+  freshAudio.src = audioFile;
+  freshAudio.play().catch(err => {
+    console.error("Audio play failed:", err);
+  });
+};
+
 setup.chooseImpactsAudio = () => {
   const impactsAudioNeeded = State.variables.impactsAudioNeeded;
   const storyMonsterNeeded = State.variables.storyMonsterNeeded;
@@ -274,6 +298,8 @@ setup.chooseImpactsAudio = () => {
 };</script><tw-passagedata pid="1" name="StoryInit" tags="" position="100,100" size="100,100">&lt;&lt;cacheaudio &quot;opening&quot; &quot;assets/audio/StrongerTogetherSFX_v2_1opening-recovery.mp3&quot;&gt;&gt;
 &lt;&lt;cacheaudio &quot;neighbour&quot; &quot;assets/audio/StrongerTogetherSFX_2 neighbours-recovery.mp3&quot;&gt;&gt;
 &lt;&lt;cacheaudio &quot;forecast&quot; &quot;assets/audio/StrongerTogetherSFX_3 forecast.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;fortune&quot; &quot;assets/audio/StrongerTogetherSFX_4.5 Fortune.mp3&quot;&gt;&gt;
+&lt;&lt;cacheaudio &quot;battle&quot; &quot;assets/audio/StrongerTogetherSFX_v2_5 battle_short.mp3&quot;&gt;&gt;
 &lt;&lt;cacheaudio &quot;prep&quot; &quot;assets/audio/StrongerTogetherSFX_4 preparation.mp3&quot;&gt;&gt;
 &lt;&lt;cacheaudio &quot;diceroll&quot; &quot;assets/audio/StrongerTogetherSFX_dice roll.mp3&quot;&gt;&gt;
 &lt;&lt;cacheaudio &quot;diceshake&quot; &quot;assets/audio/StrongerTogetherSFX_dice shake.mp3&quot;&gt;&gt;
@@ -1031,9 +1057,6 @@ setup.chooseImpactsAudio = () => {
     &lt;&lt;timed 1s&gt;&gt;
      &lt;audio src=&quot;assets/voiceover/strongertogethervo_4_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
      &lt;&lt;/timed&gt;&gt;
-     &lt;&lt;timed 19s&gt;&gt;
-     &lt;audio src=&quot;assets/voiceover/strongertogethervo_4_2.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
-     &lt;&lt;/timed&gt;&gt;
      &lt;&lt;audio &quot;prep&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
     &lt;&lt;audio &quot;prep&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
@@ -1074,10 +1097,7 @@ setup.chooseImpactsAudio = () => {
 &lt;&lt;set $nextpass to &quot;actions&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
     &lt;&lt;timed 1s&gt;&gt;
-     &lt;audio src=&quot;&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
-     &lt;&lt;/timed&gt;&gt;
-     &lt;&lt;timed 3s&gt;&gt;
-     &lt;audio src=&quot;assets/voiceover/strongertogethervo_4_3.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+     &lt;audio src=&quot;assets/voiceover/strongertogethervo_4_2.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
      &lt;&lt;/timed&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;timed 5s&gt;&gt;
@@ -1259,12 +1279,18 @@ setup.chooseImpactsAudio = () => {
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="fortunetrans" tags="nobr" position="475,600" size="100,100">&lt;&lt;set $prevpass to &quot;postactionchoice&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;fortunetrans&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;predice&quot;&gt;&gt;
+&lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;    
+     &lt;&lt;audio &quot;fortune&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+&lt;&lt;else&gt;&gt;
+    &lt;&lt;audio &quot;fortune&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;
 
 &lt;main class=&quot;cards-selection&quot;&gt;
  &lt;div class=&quot;info-container grid-item cards fadeIn10 fortunetrans&quot;&gt;
   &lt;div class=&quot;inline-img-container&quot;&gt;
     &lt;div class=&quot;inline-img-wrapper arcardbig&quot;&gt;
-     &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Fortune&quot;/&gt;
+     &lt;img src=&quot;assets/img/fortunes.png&quot; alt=&quot;Fortune&quot;/&gt;
     &lt;/div&gt;
     &lt;/div&gt;
     &lt;/div&gt;
@@ -1331,7 +1357,7 @@ Your local council has had the money and resources to put some time into disaste
  &lt;div class=&quot;info-container grid-item cards&quot;&gt;
          &lt;div class=&quot;inline-img-container&quot;&gt;
          &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-    &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Fortune Card&quot;/&gt;&lt;/div&gt;
+    &lt;img src=&quot;assets/img/fortunes.png&quot; alt=&quot;Fortune Card&quot;/&gt;&lt;/div&gt;
         &lt;/div&gt;
      &lt;/div&gt;
 
@@ -1617,11 +1643,17 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;timed 0.1s&gt;&gt;
         /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
  &lt;&lt;if $withVoiceover is true&gt;&gt;
-    &lt;&lt;audio $audioMonster &quot;play&quot;&gt;&gt;    
+    &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
+    &lt;&lt;audio &quot;battle&quot; &quot;play&quot;&gt;&gt;
+    &lt;&lt;timed 1s&gt;&gt; 
+           &lt;&lt;audio $audioMonster &quot;play&quot;&gt;&gt;  
+        &lt;&lt;/timed&gt;&gt;     
     &lt;&lt;timed 3s&gt;&gt;
       &lt;audio src=&quot;assets/voiceover/strongertogethervo_6_2.mp3&quot; autoplay &gt;Audio is not supported on your device&lt;/audio&gt; 
       &lt;&lt;/timed&gt;&gt;
       &lt;&lt;else&gt;&gt;
+        &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
+    &lt;&lt;audio &quot;battle&quot; &quot;play&quot;&gt;&gt; 
       &lt;&lt;audio $audioMonster &quot;play&quot;&gt;&gt;
         &lt;&lt;/if&gt;&gt;
         &lt;&lt;/timed&gt;&gt;
@@ -1665,14 +1697,9 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="galeintro" tags="nobr" position="850,725" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;galeintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;galestory&quot;&gt;&gt;
-&lt;&lt;if $withVoiceover is true&gt;&gt;
-    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
-    &lt;&lt;timed 1s&gt;&gt;
-    &lt;audio src=&quot;assets/voiceover/strongertogethervo_7_GALE_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
-    &lt;&lt;/timed&gt;&gt;  
-&lt;&lt;else&gt;&gt;
-    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
-&lt;&lt;/if&gt;&gt;
+&lt;&lt;set $storyMonsterNeeded to &quot;GALE&quot;&gt;&gt;
+
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;p&gt; Gale swirls into High Street, moving faster than anticipated. &lt;/p&gt;
@@ -1692,6 +1719,12 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseIntroAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="galestory" tags="nobr" position="975,725" size="100,100">&lt;&lt;set $prevpass to &quot;galeintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;galestory&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
@@ -2037,14 +2070,9 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="63" name="infernointro" tags="nobr" position="350,850" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;infernointro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;infernostory&quot;&gt;&gt;
-&lt;&lt;if $withVoiceover is true&gt;&gt;
-    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
-    &lt;&lt;timed 1s&gt;&gt;
-    /* &lt;audio src=&quot;assets/voiceover/strongertogethervo_7_GALE_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt; */
-    &lt;&lt;/timed&gt;&gt;  
-&lt;&lt;else&gt;&gt;
-    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
-&lt;&lt;/if&gt;&gt;
+&lt;&lt;set $storyMonsterNeeded to &quot;INF&quot;&gt;&gt;
+
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
@@ -2068,7 +2096,11 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 
-/* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="64" name="infernostory" tags="nobr" position="475,850" size="100,100">&lt;&lt;set $prevpass to &quot;infernointro&quot;&gt;&gt;
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseIntroAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="64" name="infernostory" tags="nobr" position="475,850" size="100,100">&lt;&lt;set $prevpass to &quot;infernointro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;infernostory&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;inferno-poststory&quot;&gt;&gt;
@@ -2424,14 +2456,8 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="drenchintro" tags="nobr" position="1100,850" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;drenchintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;drenchstory&quot;&gt;&gt;
-&lt;&lt;if $withVoiceover is true&gt;&gt;
-    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
-    &lt;&lt;timed 1s&gt;&gt;
-    /* &lt;audio src=&quot;assets/voiceover/strongertogethervo_7_GALE_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt; */
-    &lt;&lt;/timed&gt;&gt;  
-&lt;&lt;else&gt;&gt;
-    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
-&lt;&lt;/if&gt;&gt;
+&lt;&lt;set $storyMonsterNeeded to &quot;DRE&quot;&gt;&gt;
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;p&gt;The skies open and Drench falls down, rushing along the slope of the street, pooling at drains and in potholes that can’t contain her. She slips and slides through cracks and gaps. No matter where you go she is around every corner. &lt;/p&gt;
@@ -2449,6 +2475,11 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseIntroAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="70" name="drenchstory" tags="nobr" position="1225,850" size="100,100">&lt;&lt;set $prevpass to &quot;drenchintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;drenchstory&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
@@ -2791,14 +2822,8 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="75" name="crystalintro" tags="nobr" position="600,975" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;crystalintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;crystalstory&quot;&gt;&gt;
-&lt;&lt;if $withVoiceover is true&gt;&gt;
-    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
-    &lt;&lt;timed 1s&gt;&gt;
-    /* &lt;audio src=&quot;assets/voiceover/strongertogethervo_7_GALE_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt; */
-    &lt;&lt;/timed&gt;&gt;  
-&lt;&lt;else&gt;&gt;
-    &lt;&lt;audio &quot;neighbour&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
-&lt;&lt;/if&gt;&gt;
+&lt;&lt;set $storyMonsterNeeded to &quot;CRY&quot;&gt;&gt;
+&lt;div id=&quot;audioMount&quot;&gt; &lt;audio id=&quot;audioPlayer&quot;  autoplay&gt;Audio is not supported on your device&lt;/audio&gt;&lt;/div&gt;
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
 &lt;p&gt;Crystal crawls into High Street. She greets you with a frosty reception. &lt;/p&gt;
@@ -2818,6 +2843,12 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+
+&lt;&lt;timed 2s&gt;&gt;
+    &lt;&lt;if $withVoiceover is true&gt;&gt;
+        &lt;&lt;run setup.chooseIntroAudio()&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="76" name="crystalstory" tags="nobr" position="725,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystalintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;crystalstory&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;crystalfortune&quot;&gt;&gt;
