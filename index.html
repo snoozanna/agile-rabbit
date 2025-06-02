@@ -416,7 +416,7 @@ setup.chooseImpactsAudio = () => {
 &lt;audio src=&quot;assets/voiceover/strongertogethervo_0_2.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
 &lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="intro1-text" tags="nobr" position="350,225" size="100,100">&lt;h2&gt;Before you begin: &lt;/h2&gt;
 
-&lt;p&gt;Lay out your game board as below&lt;/p&gt;
+&lt;p&gt;Lay out your cards as below.&lt;/p&gt;
 
   &lt;div class=&quot;inline-img-container&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper arcardhor&quot;&gt;
@@ -435,7 +435,7 @@ setup.chooseImpactsAudio = () => {
     &lt;&lt;goto $nextpass&gt;&gt;
     &lt;&lt;/button&gt;&gt; &lt;/p&gt;
 
-&lt;p&gt;If you have no voiceover, your facilitator will need to read the text aloud: &lt;/p&gt;
+&lt;p&gt;If you have no voiceover, your facilitator will need to read the text aloud. &lt;/p&gt;
 
 &lt;p&gt;If you want no sound at all, please turn your volume down.&lt;/p&gt;</tw-passagedata><tw-passagedata pid="14" name="intro2" tags="nobr" position="475,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro1&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro2&quot;&gt;&gt;
@@ -1331,7 +1331,7 @@ Your local council has had the money and resources to put some time into disaste
  &lt;div class=&quot;info-container grid-item cards&quot;&gt;
          &lt;div class=&quot;inline-img-container&quot;&gt;
          &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-    &lt;img src=&quot;assets/img/fortunes.png&quot; alt=&quot;Fortune Card&quot;/&gt;&lt;/div&gt;
+    &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Fortune Card&quot;/&gt;&lt;/div&gt;
         &lt;/div&gt;
      &lt;/div&gt;
 
@@ -1409,8 +1409,13 @@ Your local council has had the money and resources to put some time into disaste
     &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="diceresults" tags="nobr" position="1100,600" size="100,100">&lt;&lt;set $prevpass to &quot;predice&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;diceresults&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;forecast&quot;&gt;&gt;
-&lt;&lt;include &quot;choosediceaudio&quot;&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+ &lt;&lt;include &quot;choosediceaudio&quot;&gt;&gt;
 &lt;&lt;include &quot;chosetimeafterdiceaudio&quot;&gt;&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+
 &lt;div id=&quot;audio&quot;&gt;&lt;/div&gt;
 &lt;main&gt;
    &lt;div class=&quot;result grid-wrapper&quot;&gt;
@@ -1429,7 +1434,7 @@ Your local council has had the money and resources to put some time into disaste
     &lt;div class=&quot;inline-img-container wildcards grid-item crd&quot;&gt;
         &lt;&lt;for _i to 0; _i lt $diceoptions[$diceroll].wildcards; _i++&gt;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
             &lt;/div&gt;
         &lt;&lt;/for&gt;&gt;
     &lt;/div&gt;
@@ -1805,7 +1810,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;p&gt;You get a Good Fortune Card: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
     &lt;p&gt;In the days following Gale’s visit the fire service are sent to High Street. They clear trees and debris, ensuring all key roads can be accessed and no properties remain at risk. &lt;/p&gt;
@@ -1822,10 +1827,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;p&gt;You get two Good Fortune Cards: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
             &lt;/div&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
  &lt;p&gt;  In the days following Gale’s visit the fire service are sent to High Street. They clear trees and debris, ensuring all key roads can be accessed and no properties remain at risk. &lt;/p&gt;
@@ -2190,7 +2195,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;p&gt;You get a Good Fortune Card: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
     &lt;p&gt;As the heat reaches dangerous levels, local community health workers set up a first aid tent on High Street, providing emergency medical care and handing out water, cold compresses and rehydration sachets. &lt;/p&gt;
@@ -2207,10 +2212,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;p&gt;You get two Good Fortune Cards: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
             &lt;/div&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
  &lt;p&gt; As the heat reaches dangerous levels, local community health workers set up a first aid tent on High Street, providing emergency medical care and handing out water, cold compresses and rehydration sachets. &lt;/p&gt;
@@ -2563,7 +2568,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;p&gt;You get a Good Fortune Card: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
     &lt;p&gt;Emergency services are dispatched to High Street to help people who remain stranded by the lingering floods. A family climbs out of their top floor window, and one man is rescued from his car. &lt;/p&gt;
@@ -2578,10 +2583,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;p&gt;You get two Good Fortune Cards: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
             &lt;/div&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
  &lt;p&gt;Emergency services are dispatched to High Street to help people who remain stranded by the lingering floods. A family climbs out of their top floor window, and one man is rescued from his car. &lt;/p&gt;
@@ -2935,7 +2940,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;p&gt;You get a Good Fortune Card: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
     &lt;p&gt;A group of healthcare workers deliver home visits across High Street, to check in on vulnerable members of the community, and provide emergency support where needed. &lt;/p&gt;
@@ -2952,10 +2957,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;p&gt;You get two Good Fortune Cards: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
             &lt;/div&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/wildcard.png&quot; alt=&quot;Wildcard&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
  &lt;p&gt;A group of healthcare workers deliver home visits across High Street, to check in on vulnerable members of the community, and provide emergency support where needed. &lt;/p&gt;
@@ -3263,7 +3268,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;h2&gt;Together, you will decide how to use your skills, resources and talents to build morale and put High Street on the road to recovery. &lt;/h2&gt;
 &lt;br/&gt;
 &lt;p&gt;Your plan could be practical: putting together a team to mend broken windows. &lt;/p&gt;
-&lt;p&gt;or fantastical: hosting an immersive unicorn party &lt;/p&gt;
+&lt;p&gt;or fantastical: hosting an immersive unicorn party. &lt;/p&gt;
 &lt;p&gt;Or a bit of both!&lt;/p&gt;
 &lt;br/&gt;
 &lt;p&gt;Facilitator, spend three minutes on this discussion. &lt;/p&gt;
@@ -3420,9 +3425,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
         &lt;&lt;replace &quot;#nextButtonContainerQ&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
          &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
             &lt;&lt;include &quot;question1&quot;&gt;&gt;
+            &lt;&lt;if $withVoiceover is true&gt;&gt;
+                &lt;&lt;timed 0.1s&gt;&gt;
             &lt;&lt;replace &quot;#audioMount&quot;&gt;&gt;
                 &lt;audio src=&quot;assets/voiceover/strongertogethervo_9_Q1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
                 &lt;&lt;/replace&gt;&gt;
+                &lt;&lt;/timed&gt;&gt;
+                &lt;&lt;/if&gt;&gt;
             &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
@@ -3432,7 +3441,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;include &quot;footerquestions&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="90" name="question1" tags="nobr" position="1225,1100" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
 &lt;p&gt;Today, you came together to face the monster. &lt;/p&gt;
 &lt;p&gt;Some things went well, others less well, but you stuck it out: you were resilient.&lt;/p&gt; 
-&lt;p&gt;If you were going to give your High Street an award - a blue plaque, say - to hang on the wall and commemorate this street and your response to the attack - what would it say? &lt;/p&gt;
+&lt;p&gt;If you were going to give your High Street an award - a blue plaque, say - to hang on the wall and commemorate this street and your response to the attack - what would you say? &lt;/p&gt;
 
 &lt;&lt;timed 3s&gt;&gt;
     &lt;&lt;replace &quot;#nextButtonContainerQ&quot;&gt;&gt;
@@ -3440,9 +3449,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
         &lt;&lt;replace &quot;#nextButtonContainerQ&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
          &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
             &lt;&lt;include &quot;question2&quot;&gt;&gt;
+            &lt;&lt;if $withVoiceover is true&gt;&gt;
+                &lt;&lt;timed 0.1s&gt;&gt;
             &lt;&lt;replace &quot;#audioMount&quot;&gt;&gt;
                 &lt;audio src=&quot;assets/voiceover/strongertogethervo_9_Q2.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
                 &lt;&lt;/replace&gt;&gt;
+                &lt;&lt;/timed&gt;&gt;
+                &lt;&lt;/if&gt;&gt;
             &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/button&gt;&gt;
       &lt;&lt;/replace&gt;&gt;
@@ -3456,14 +3469,22 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
          &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
             &lt;&lt;if $rolledagain is true&gt;&gt;
                 &lt;&lt;include &quot;question3&quot;&gt;&gt;
-                 &lt;&lt;replace &quot;#audioMount&quot;&gt;&gt;
-                &lt;audio src=&quot;assets/voiceover/strongertogethervo_9_Q3.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
-                &lt;&lt;/replace&gt;&gt;
+                &lt;&lt;if $withVoiceover is true&gt;&gt;
+                    &lt;&lt;timed 0.1s&gt;&gt;
+                     &lt;&lt;replace &quot;#audioMount&quot;&gt;&gt;
+                    &lt;audio src=&quot;assets/voiceover/strongertogethervo_9_Q3.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+                    &lt;&lt;/replace&gt;&gt;
+                    &lt;&lt;/timed&gt;&gt;
+                &lt;&lt;/if&gt;&gt;
              &lt;&lt;else&gt;&gt;
-             &lt;&lt;include &quot;question4&quot;&gt;&gt;
-              &lt;&lt;replace &quot;#audioMount&quot;&gt;&gt;
-                &lt;audio src=&quot;assets/voiceover/strongertogethervo_9_Q4.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
-                &lt;&lt;/replace&gt;&gt;
+                &lt;&lt;include &quot;question4&quot;&gt;&gt;
+                &lt;&lt;if $withVoiceover is true&gt;&gt;
+                    &lt;&lt;timed 0.1s&gt;&gt;
+                &lt;&lt;replace &quot;#audioMount&quot;&gt;&gt;
+                    &lt;audio src=&quot;assets/voiceover/strongertogethervo_9_Q4.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+                    &lt;&lt;/replace&gt;&gt;
+                    &lt;&lt;/timed&gt;&gt;
+                    &lt;&lt;/if&gt;&gt;
             &lt;&lt;/if&gt;&gt;
             &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/button&gt;&gt;
@@ -3479,15 +3500,19 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
         &lt;&lt;replace &quot;#nextButtonContainerQ&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
          &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
             &lt;&lt;include &quot;question4&quot;&gt;&gt;
+            &lt;&lt;if $withVoiceover is true&gt;&gt;
+             &lt;&lt;timed 0.1s&gt;&gt;
              &lt;&lt;replace &quot;#audioMount&quot;&gt;&gt;
                 &lt;audio src=&quot;assets/voiceover/strongertogethervo_9_Q4.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
                 &lt;&lt;/replace&gt;&gt;
+                &lt;&lt;/timed&gt;&gt;
+                &lt;&lt;/if&gt;&gt;
             &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="93" name="question4" tags="nobr" position="350,1225" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
 &lt;p&gt;Today you played as a character, but we all live on streets with our own communities, homes and neighbours. &lt;/p&gt;
-&lt;p&gt;We’re going to invite you to take a step away from the game, back to yourself&lt;/p&gt;
+&lt;p&gt;We’re going to invite you to take a step away from the game, back to yourself.&lt;/p&gt;
 &lt;p&gt;How did the game make you think about community resilience on your own street? &lt;/p&gt;
 
 &lt;&lt;timed 3s&gt;&gt;

@@ -379,7 +379,7 @@ setup.chooseImpactsAudio = () => {
 :: intro1-text [nobr]
 <h2>Before you begin: </h2>
 
-<p>Lay out your game board as below</p>
+<p>Lay out your cards as below.</p>
 
   <div class="inline-img-container">
   <div class="inline-img-wrapper arcardhor">
@@ -398,7 +398,7 @@ setup.chooseImpactsAudio = () => {
     <<goto $nextpass>>
     <</button>> </p>
 
-<p>If you have no voiceover, your facilitator will need to read the text aloud: </p>
+<p>If you have no voiceover, your facilitator will need to read the text aloud. </p>
 
 <p>If you want no sound at all, please turn your volume down.</p>
 
@@ -1422,7 +1422,7 @@ Your local council has had the money and resources to put some time into disaste
  <div class="info-container grid-item cards">
          <div class="inline-img-container">
          <div class="inline-img-wrapper arcard">
-    <img src="assets/img/fortunes.png" alt="Fortune Card"/></div>
+    <img src="assets/img/goodfortune.png" alt="Fortune Card"/></div>
         </div>
      </div>
 
@@ -1513,8 +1513,13 @@ Your local council has had the money and resources to put some time into disaste
 <<set $prevpass to "predice">>
 <<set $pass to "diceresults">>
 <<set $nextpass to "forecast">>
-<<include "choosediceaudio">>
+<<if $withVoiceover is true>>
+    <<timed 0.1s>>
+ <<include "choosediceaudio">>
 <<include "chosetimeafterdiceaudio">>
+    <</timed>>
+<</if>>
+
 <div id="audio"></div>
 <main>
    <div class="result grid-wrapper">
@@ -1533,7 +1538,7 @@ Your local council has had the money and resources to put some time into disaste
     <div class="inline-img-container wildcards grid-item crd">
         <<for _i to 0; _i lt $diceoptions[$diceroll].wildcards; _i++>>
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
             </div>
         <</for>>
     </div>
@@ -1952,7 +1957,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <p>You get a Good Fortune Card: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
             </div>
     </div>
     <p>In the days following Gale’s visit the fire service are sent to High Street. They clear trees and debris, ensuring all key roads can be accessed and no properties remain at risk. </p>
@@ -1969,10 +1974,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <p>You get two Good Fortune Cards: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
             </div>
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
             </div>
     </div>
  <p>  In the days following Gale’s visit the fire service are sent to High Street. They clear trees and debris, ensuring all key roads can be accessed and no properties remain at risk. </p>
@@ -2359,7 +2364,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <p>You get a Good Fortune Card: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
             </div>
     </div>
     <p>As the heat reaches dangerous levels, local community health workers set up a first aid tent on High Street, providing emergency medical care and handing out water, cold compresses and rehydration sachets. </p>
@@ -2376,10 +2381,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <p>You get two Good Fortune Cards: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
             </div>
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
             </div>
     </div>
  <p> As the heat reaches dangerous levels, local community health workers set up a first aid tent on High Street, providing emergency medical care and handing out water, cold compresses and rehydration sachets. </p>
@@ -2752,7 +2757,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <p>You get a Good Fortune Card: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
             </div>
     </div>
     <p>Emergency services are dispatched to High Street to help people who remain stranded by the lingering floods. A family climbs out of their top floor window, and one man is rescued from his car. </p>
@@ -2767,10 +2772,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <p>You get two Good Fortune Cards: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
             </div>
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
             </div>
     </div>
  <p>Emergency services are dispatched to High Street to help people who remain stranded by the lingering floods. A family climbs out of their top floor window, and one man is rescued from his car. </p>
@@ -3145,7 +3150,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <p>You get a Good Fortune Card: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
             </div>
     </div>
     <p>A group of healthcare workers deliver home visits across High Street, to check in on vulnerable members of the community, and provide emergency support where needed. </p>
@@ -3162,10 +3167,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <p>You get two Good Fortune Cards: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
             </div>
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/wildcard.png" alt="Wildcard"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
             </div>
     </div>
  <p>A group of healthcare workers deliver home visits across High Street, to check in on vulnerable members of the community, and provide emergency support where needed. </p>
@@ -3498,7 +3503,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <h2>Together, you will decide how to use your skills, resources and talents to build morale and put High Street on the road to recovery. </h2>
 <br/>
 <p>Your plan could be practical: putting together a team to mend broken windows. </p>
-<p>or fantastical: hosting an immersive unicorn party </p>
+<p>or fantastical: hosting an immersive unicorn party. </p>
 <p>Or a bit of both!</p>
 <br/>
 <p>Facilitator, spend three minutes on this discussion. </p>
@@ -3672,9 +3677,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
         <<replace "#nextButtonContainerQ">><</replace>>
          <<replace "#mount">>
             <<include "question1">>
+            <<if $withVoiceover is true>>
+                <<timed 0.1s>>
             <<replace "#audioMount">>
                 <audio src="assets/voiceover/strongertogethervo_9_Q1.mp3" autoplay>Audio is not supported on your device</audio>
                 <</replace>>
+                <</timed>>
+                <</if>>
             <</replace>>
         <</button>>
     <</replace>>
@@ -3689,7 +3698,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <h2>Question </h2>
 <p>Today, you came together to face the monster. </p>
 <p>Some things went well, others less well, but you stuck it out: you were resilient.</p> 
-<p>If you were going to give your High Street an award - a blue plaque, say - to hang on the wall and commemorate this street and your response to the attack - what would it say? </p>
+<p>If you were going to give your High Street an award - a blue plaque, say - to hang on the wall and commemorate this street and your response to the attack - what would you say? </p>
 
 <<timed 3s>>
     <<replace "#nextButtonContainerQ">>
@@ -3697,9 +3706,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
         <<replace "#nextButtonContainerQ">><</replace>>
          <<replace "#mount">>
             <<include "question2">>
+            <<if $withVoiceover is true>>
+                <<timed 0.1s>>
             <<replace "#audioMount">>
                 <audio src="assets/voiceover/strongertogethervo_9_Q2.mp3" autoplay>Audio is not supported on your device</audio>
                 <</replace>>
+                <</timed>>
+                <</if>>
             <</replace>>
         <</button>>
       <</replace>>
@@ -3718,14 +3731,22 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
          <<replace "#mount">>
             <<if $rolledagain is true>>
                 <<include "question3">>
-                 <<replace "#audioMount">>
-                <audio src="assets/voiceover/strongertogethervo_9_Q3.mp3" autoplay>Audio is not supported on your device</audio>
-                <</replace>>
+                <<if $withVoiceover is true>>
+                    <<timed 0.1s>>
+                     <<replace "#audioMount">>
+                    <audio src="assets/voiceover/strongertogethervo_9_Q3.mp3" autoplay>Audio is not supported on your device</audio>
+                    <</replace>>
+                    <</timed>>
+                <</if>>
              <<else>>
-             <<include "question4">>
-              <<replace "#audioMount">>
-                <audio src="assets/voiceover/strongertogethervo_9_Q4.mp3" autoplay>Audio is not supported on your device</audio>
-                <</replace>>
+                <<include "question4">>
+                <<if $withVoiceover is true>>
+                    <<timed 0.1s>>
+                <<replace "#audioMount">>
+                    <audio src="assets/voiceover/strongertogethervo_9_Q4.mp3" autoplay>Audio is not supported on your device</audio>
+                    <</replace>>
+                    <</timed>>
+                    <</if>>
             <</if>>
             <</replace>>
         <</button>>
@@ -3748,9 +3769,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
         <<replace "#nextButtonContainerQ">><</replace>>
          <<replace "#mount">>
             <<include "question4">>
+            <<if $withVoiceover is true>>
+             <<timed 0.1s>>
              <<replace "#audioMount">>
                 <audio src="assets/voiceover/strongertogethervo_9_Q4.mp3" autoplay>Audio is not supported on your device</audio>
                 <</replace>>
+                <</timed>>
+                <</if>>
             <</replace>>
         <</button>>
     <</replace>>
@@ -3761,7 +3786,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 
 <h2>Question </h2>
 <p>Today you played as a character, but we all live on streets with our own communities, homes and neighbours. </p>
-<p>We’re going to invite you to take a step away from the game, back to yourself</p>
+<p>We’re going to invite you to take a step away from the game, back to yourself.</p>
 <p>How did the game make you think about community resilience on your own street? </p>
 
 <<timed 3s>>
