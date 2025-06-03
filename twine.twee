@@ -1149,7 +1149,6 @@ setup.chooseImpactsAudio = () => {
  <<timed 5s>>
     <p>The clock is ticking.</p>
     <p>You’ve got five minutes to choose your actions.</p>
-    <p>Go!</p>
     <</timed>>
     </div>
 /* <div class="grid-item cards"> */
@@ -1845,7 +1844,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <p>Even inside with all doors and windows shut, you can hear her whistling, rattling, slamming, desperate to get in. </p>
 
 <p>Thanks to your choices, you manage <span class="accent">$playerchoices.percentage%</span> of Gale’s impacts.</p>
-<p>Let’s see how you did...</p>
+
 
 
 </div>
@@ -2240,7 +2239,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <p>Inside and out the air is thick, heavy and still, no cool, no breeze. The thermometer climbs higher and higher. </p>
 <br/>
 <p>Thanks to your choices, you manage <span class="accent">$playerchoices.percentage%</span> of Inferno’s impacts.</p>
-<p>Let’s see how you did...</p>
+
 
 
 
@@ -2644,7 +2643,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <p>The skies open and Drench falls down, rushing along the slope of the street, pooling at drains and in potholes that can’t contain her. She slips and slides through cracks and gaps. No matter where you go she is around every corner. </p>
 
 <p>Thanks to your choices, you manage <span class="accent">$playerchoices.percentage%</span> of Drench’s impacts.</p>
-<p>Let’s see how you did...</p>
+
 
 </div>
 </main>
@@ -3031,7 +3030,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <p>She gathers snow, sleet and ice, depositing them along the street: in front of doors, around cars, at central intersections on major roads. </p>
 <br/>
 <p>Thanks to your choices, you manage <span class="accent">$playerchoices.percentage%</span> of Crystal’s impacts.</p>
-<p>Let’s see how you did...</p>
+
 
 
 </div>
