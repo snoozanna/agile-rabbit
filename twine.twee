@@ -1776,7 +1776,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
         /* <<audio ":all" "stop"  >> */
  <<if $withVoiceover is true>>
     <<audio ":all" stop>>
-    <<audio "battle" "play">>
+    <<audio "forecast" "play">>
     <<timed 1s>> 
            <<audio $audioMonster "play">>  
         <</timed>>     
@@ -1785,7 +1785,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
       <</timed>>
       <<else>>
         <<audio ":all" stop>>
-    <<audio "battle" "play">> 
+    <<audio "forecast" "play">> 
       <<audio $audioMonster "play">>
         <</if>>
         <</timed>>
@@ -3673,6 +3673,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<set $prevpass to "outro2">>
 <<set $pass to "outro3">>
 <<set $nextpass to "end">>
+<<audio ":all" stop>>
 <<if $withVoiceover is true>>
     <<timed 0.1s>>
    <div id="audioMount">     

@@ -1644,7 +1644,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
         /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
  &lt;&lt;if $withVoiceover is true&gt;&gt;
     &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
-    &lt;&lt;audio &quot;battle&quot; &quot;play&quot;&gt;&gt;
+    &lt;&lt;audio &quot;forecast&quot; &quot;play&quot;&gt;&gt;
     &lt;&lt;timed 1s&gt;&gt; 
            &lt;&lt;audio $audioMonster &quot;play&quot;&gt;&gt;  
         &lt;&lt;/timed&gt;&gt;     
@@ -1653,7 +1653,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
       &lt;&lt;/timed&gt;&gt;
       &lt;&lt;else&gt;&gt;
         &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
-    &lt;&lt;audio &quot;battle&quot; &quot;play&quot;&gt;&gt; 
+    &lt;&lt;audio &quot;forecast&quot; &quot;play&quot;&gt;&gt; 
       &lt;&lt;audio $audioMonster &quot;play&quot;&gt;&gt;
         &lt;&lt;/if&gt;&gt;
         &lt;&lt;/timed&gt;&gt;
@@ -3423,6 +3423,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="89" name="outro3" tags="nobr" position="1100,1100" size="100,100">&lt;&lt;set $prevpass to &quot;outro2&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;outro3&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;end&quot;&gt;&gt;
+&lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
     &lt;&lt;timed 0.1s&gt;&gt;
    &lt;div id=&quot;audioMount&quot;&gt;     
