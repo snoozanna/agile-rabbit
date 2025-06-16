@@ -393,6 +393,7 @@ setup.chooseImpactsAudio = () => {
     score:0,
     percentage:0
 }&gt;&gt;
+&lt;&lt;set $reducedVol to 0.6&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
 &lt;audio src=&quot;assets/voiceover/strongertogethervo_0_1.mp3&quot; autoplay &gt;Audio is not supported on your device&lt;/audio&gt;
 
@@ -1054,10 +1055,10 @@ setup.chooseImpactsAudio = () => {
 &lt;&lt;set $nextpass to &quot;chosenMonsterForecast&quot;&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
-    &lt;&lt;timed 1s&gt;&gt;
+    &lt;&lt;timed 2s&gt;&gt;
      &lt;audio src=&quot;assets/voiceover/strongertogethervo_4_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
      &lt;&lt;/timed&gt;&gt;
-     &lt;&lt;audio &quot;prep&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+     &lt;&lt;audio &quot;prep&quot; volume 1 fadeoverto 4 $reducedVol loop&gt;&gt;
 &lt;&lt;else&gt;&gt;
     &lt;&lt;audio &quot;prep&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -1280,11 +1281,11 @@ setup.chooseImpactsAudio = () => {
 &lt;&lt;set $nextpass to &quot;predice&quot;&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;    
-     &lt;&lt;audio &quot;fortune&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
+     &lt;&lt;audio &quot;fortune&quot; &quot;play&quot; volume 1 &quot;loop&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
     &lt;&lt;audio &quot;fortune&quot; &quot;play&quot; &quot;loop&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-
+&lt;&lt;set $reducedVol to 0.6&gt;&gt;
 &lt;main class=&quot;cards-selection&quot;&gt;
  &lt;div class=&quot;info-container grid-item cards fadeIn10 fortunetrans&quot;&gt;
   &lt;div class=&quot;inline-img-container&quot;&gt;
@@ -1348,6 +1349,7 @@ Your local council has had the money and resources to put some time into disaste
   &gt;&gt;
 &lt;&lt;set $diceroll to &quot;&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;audio &quot;fortune&quot; volume $reducedVol&gt;&gt;
     &lt;audio src=&quot;assets/voiceover/strongertogethervo_5_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
 &lt;&lt;else&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -1643,7 +1645,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
         /* &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt; */
  &lt;&lt;if $withVoiceover is true&gt;&gt;
     &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
-    &lt;&lt;audio &quot;forecast&quot; &quot;play&quot;&gt;&gt;
+    &lt;&lt;audio &quot;forecast&quot; volume 1 fadeoverto 4 $reducedVol loop&gt;&gt;
     &lt;&lt;timed 1s&gt;&gt; 
            &lt;&lt;audio $audioMonster &quot;play&quot;&gt;&gt;  
         &lt;&lt;/timed&gt;&gt;     
@@ -3222,6 +3224,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;set $pass to &quot;aftermathintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;aftermath&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
+       &lt;&lt;audio &quot;aftermath&quot; volume 1 fadeoverto 2 $reducedVol loop&gt;&gt;
     &lt;&lt;timed 0.1s&gt;&gt;
     &lt;audio src=&quot;assets/voiceover/strongertogethervo_8_1.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
     &lt;&lt;/timed&gt;&gt;

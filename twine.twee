@@ -343,6 +343,7 @@ setup.chooseImpactsAudio = () => {
     score:0,
     percentage:0
 }>>
+<<set $reducedVol to 0.6>>
 <<audio ":all" stop>>
 <audio src="assets/voiceover/strongertogethervo_0_1.mp3" autoplay >Audio is not supported on your device</audio>
 
@@ -1087,10 +1088,10 @@ setup.chooseImpactsAudio = () => {
 <<set $nextpass to "chosenMonsterForecast">>
 <<audio ":all" stop>>
 <<if $withVoiceover is true>>
-    <<timed 1s>>
+    <<timed 2s>>
      <audio src="assets/voiceover/strongertogethervo_4_1.mp3" autoplay>Audio is not supported on your device</audio>
      <</timed>>
-     <<audio "prep" "play" "loop">>
+     <<audio "prep" volume 1 fadeoverto 4 $reducedVol loop>>
 <<else>>
     <<audio "prep" "play" "loop">>
 <</if>>
@@ -1367,11 +1368,11 @@ setup.chooseImpactsAudio = () => {
 <<set $nextpass to "predice">>
 <<audio ":all" stop>>
 <<if $withVoiceover is true>>    
-     <<audio "fortune" "play" "loop">>
+     <<audio "fortune" "play" volume 1 "loop">>
 <<else>>
     <<audio "fortune" "play" "loop">>
 <</if>>
-
+<<set $reducedVol to 0.6>>
 <main class="cards-selection">
  <div class="info-container grid-item cards fadeIn10 fortunetrans">
   <div class="inline-img-container">
@@ -1439,6 +1440,7 @@ Your local council has had the money and resources to put some time into disaste
   >>
 <<set $diceroll to "">>
 <<if $withVoiceover is true>>
+    <<audio "fortune" volume $reducedVol>>
     <audio src="assets/voiceover/strongertogethervo_5_1.mp3" autoplay>Audio is not supported on your device</audio>
 <<else>>
 <</if>>
@@ -1775,7 +1777,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
         /* <<audio ":all" "stop"  >> */
  <<if $withVoiceover is true>>
     <<audio ":all" stop>>
-    <<audio "forecast" "play">>
+    <<audio "forecast" volume 1 fadeoverto 4 $reducedVol loop>>
     <<timed 1s>> 
            <<audio $audioMonster "play">>  
         <</timed>>     
@@ -3445,6 +3447,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<set $pass to "aftermathintro">>
 <<set $nextpass to "aftermath">>
 <<if $withVoiceover is true>>
+       <<audio "aftermath" volume 1 fadeoverto 2 $reducedVol loop>>
     <<timed 0.1s>>
     <audio src="assets/voiceover/strongertogethervo_8_1.mp3" autoplay>Audio is not supported on your device</audio>
     <</timed>>
