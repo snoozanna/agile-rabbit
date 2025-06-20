@@ -3424,8 +3424,16 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 
 
 &lt;br/&gt;
-&lt;iframe src=&quot;https://www.speakpipe.com/widget/inline/kp6xzmubni8enwhrhvqo1sx5cbst92iy&quot; allow=&quot;microphone&quot; width=&quot;100%&quot; height=&quot;200&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
-    
+/* &lt;iframe src=&quot;https://www.speakpipe.com/widget/inline/kp6xzmubni8enwhrhvqo1sx5cbst92iy&quot; allow=&quot;microphone&quot; width=&quot;100%&quot; height=&quot;200&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt; */
+&lt;div id=&quot;mount&quot;&gt;
+&lt;&lt;button &quot;Start recording&quot;&gt;&gt;
+    &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
+     &lt;&lt;include &quot;recordingtimer&quot;&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+    &lt;&lt;/button&gt;&gt;
+    &lt;/div&gt;
+
+
 &lt;&lt;timed 3s&gt;&gt;
     &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
     &lt;&lt;button &quot;I&#39;ve finished recording&quot;&gt;&gt;
@@ -3434,7 +3442,24 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="90" name="postrecord" tags="nobr" position="1225,1100" size="100,100">&lt;&lt;set $prevpass to &quot;record&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="90" name="recordingtimer" tags="nobr" position="1225,1100" size="100,100">&lt;h3&gt;&lt;span id=&quot;countup&quot;&gt;🎙️ Recording... 0:00&lt;/span&gt;&lt;/h3&gt;
+&lt;div id=&quot;finishButtonContainer&quot; style=&quot;margin-top: 1em;&quot;&gt;&lt;/div&gt;
+
+&lt;&lt;set $seconds = 0&gt;&gt;
+
+&lt;&lt;silently&gt;&gt;
+	&lt;&lt;repeat 1s&gt;&gt;
+		&lt;&lt;set $seconds += 1&gt;&gt;
+		&lt;&lt;set _min to Math.floor($seconds / 60)&gt;&gt;
+		&lt;&lt;set _sec to $seconds % 60&gt;&gt;
+		&lt;&lt;replace &quot;#countup&quot;&gt;&gt;
+			&lt;h3&gt;
+			    🎙️ Recording... 
+                &lt;span class=&quot;secs&quot;&gt;_min:&lt;&lt;if _sec lt 10&gt;&gt;0&lt;&lt;/if&gt;&gt;_sec&lt;/span&gt;
+			&lt;/h3&gt;
+		&lt;&lt;/replace&gt;&gt;
+	&lt;&lt;/repeat&gt;&gt;
+&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="91" name="postrecord" tags="nobr" position="100,1225" size="100,100">&lt;&lt;set $prevpass to &quot;record&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;postrecord&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;postrecord2&quot;&gt;&gt;
 &lt;&lt;set $improvement to 100- $playerchoices.percentage&gt;&gt;
@@ -3466,7 +3491,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="91" name="postrecord2" tags="nobr" position="100,1225" size="100,100">&lt;&lt;set $prevpass to &quot;postrecord&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="92" name="postrecord2" tags="nobr" position="225,1225" size="100,100">&lt;&lt;set $prevpass to &quot;postrecord&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;postrecord2&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;outro2&quot;&gt;&gt;
 
@@ -3495,7 +3520,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="92" name="outro2" tags="nobr" position="225,1225" size="100,100">&lt;&lt;set $prevpass to &quot;postrecord2&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="93" name="outro2" tags="nobr" position="350,1225" size="100,100">&lt;&lt;set $prevpass to &quot;postrecord2&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;outro2&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;outro3&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -3521,7 +3546,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="93" name="outro3" tags="nobr" position="350,1225" size="100,100">&lt;&lt;set $prevpass to &quot;outro2&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="94" name="outro3" tags="nobr" position="475,1225" size="100,100">&lt;&lt;set $prevpass to &quot;outro2&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;outro3&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;end&quot;&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
@@ -3571,7 +3596,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;/timed&gt;&gt;
         
 &lt;/main&gt;
-&lt;&lt;include &quot;footerquestions&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="94" name="question1" tags="nobr" position="475,1225" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
+&lt;&lt;include &quot;footerquestions&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="95" name="question1" tags="nobr" position="600,1225" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
 &lt;p&gt;Today, you came together to face the Monster. &lt;/p&gt;
 &lt;p&gt;Some things went well, others less well, but you stuck it out: you were resilient.&lt;/p&gt; 
 &lt;p&gt;If you were going to give your High Street an award - a blue plaque, say - to hang on the wall and commemorate this street and your response to the attack - what would you say? &lt;/p&gt;
@@ -3592,7 +3617,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/button&gt;&gt;
       &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="95" name="question2" tags="nobr" position="600,1225" size="100,100">&lt;h2&gt;Question&lt;/h2&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="96" name="question2" tags="nobr" position="725,1225" size="100,100">&lt;h2&gt;Question&lt;/h2&gt;
 &lt;p&gt;If you were to play again, how would you play differently? &lt;/p&gt;
 
   &lt;&lt;timed 3s&gt;&gt;
@@ -3622,7 +3647,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="96" name="question3" tags="nobr" position="725,1225" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="97" name="question3" tags="nobr" position="850,1225" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
 &lt;p&gt;When it came to your fortune, you chose to roll the dice again. &lt;/p&gt;
 &lt;p&gt;At the end of the game, how do you feel about this choice? Would you do the same next time? &lt;/p&gt;
 
@@ -3643,7 +3668,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="97" name="question4" tags="nobr" position="850,1225" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="98" name="question4" tags="nobr" position="975,1225" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
 &lt;p&gt;Today you played as a character, but we all live on streets with our own communities, homes and neighbours. &lt;/p&gt;
 &lt;p&gt;We’re going to invite you to take a step away from the game, back to yourself.&lt;/p&gt;
 &lt;p&gt;How did the game make you think about community resilience on your own street? &lt;/p&gt;
@@ -3654,7 +3679,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
         &lt;&lt;goto &quot;end&quot;&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="98" name="end" tags="nobr" position="975,1225" size="100,100">&lt;&lt;set $prevpass to &quot;outro3&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="99" name="end" tags="nobr" position="1100,1225" size="100,100">&lt;&lt;set $prevpass to &quot;outro3&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;end&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;end&quot;&gt;&gt;
 

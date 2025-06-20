@@ -3676,8 +3676,16 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 
 
 <br/>
-<iframe src="https://www.speakpipe.com/widget/inline/kp6xzmubni8enwhrhvqo1sx5cbst92iy" allow="microphone" width="100%" height="200" frameborder="0"></iframe>
-    
+/* <iframe src="https://www.speakpipe.com/widget/inline/kp6xzmubni8enwhrhvqo1sx5cbst92iy" allow="microphone" width="100%" height="200" frameborder="0"></iframe> */
+<div id="mount">
+<<button "Start recording">>
+    <<replace "#mount">>
+     <<include "recordingtimer">>
+    <</replace>>
+    <</button>>
+    </div>
+
+
 <<timed 3s>>
     <<replace "#nextButtonContainer">>
     <<button "I've finished recording">>
@@ -3687,6 +3695,30 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <</timed>>
 </main>
 <<include "footeroptionappears">>
+
+
+:: recordingtimer [nobr]
+<h3><span id="countup">🎙️ Recording... 0:00</span></h3>
+<div id="finishButtonContainer" style="margin-top: 1em;"></div>
+
+<<set $seconds = 0>>
+
+<<silently>>
+	<<repeat 1s>>
+		<<set $seconds += 1>>
+		<<set _min to Math.floor($seconds / 60)>>
+		<<set _sec to $seconds % 60>>
+		<<replace "#countup">>
+			<h3>
+			    🎙️ Recording... 
+                <span class="secs">_min:<<if _sec lt 10>>0<</if>>_sec</span>
+			</h3>
+		<</replace>>
+	<</repeat>>
+<</silently>>
+
+
+
 
 :: postrecord [nobr]
 <<set $prevpass to "record">>
