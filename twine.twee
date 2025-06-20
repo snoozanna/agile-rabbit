@@ -397,7 +397,7 @@ setup.chooseImpactsAudio = () => {
 :: intro1 [nobr]
 <<set $prevpass to "landing">>
 <<set $pass to "intro1">>
-<<set $nextpass to "intro2">>
+<<set $nextpass to "intro1b">>
 <<audio ":all" "stop">>
 <audio src="assets/voiceover/strongertogethervo_0_2.mp3" autoplay>Audio is not supported on your device</audio>
 <<include "_templateIntro">>
@@ -413,26 +413,56 @@ setup.chooseImpactsAudio = () => {
         <h3>Game Board</h3><img src="assets/img/board.png" alt="Demo Game Board"/>
 </div></div>
 <br/>
-<p>Choose someone to play your <span class="accent">Facilitator</span>, they’ll lead you through the game.</p>
+<p>Choose someone to play your <span class="accent">facilitator</span>, they’ll lead you through the game.</p>
 <p>The facilitator can play, or sit on the outside, totally up to you. </p>
+
+
+<<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: intro1b [nobr]
+<<set $prevpass to "intro1">>
+<<set $pass to "intro1b">>
+<<set $nextpass to "intro2">>
+<<audio ":all" "stop">>
+<audio src="assets/voiceover/strongertogethervo_0_2.mp3" autoplay>Audio is not supported on your device</audio>
+<<include "_templateIntro">>
+
+
+:: intro1b-text [nobr]
+<p>Turn the volume on your device up. </p>
 <br/>
-<p>Let us know if you want to play <<button "With Voiceover">>
+<p>Stronger Together has a voiceover which reads out the text on the screen. </p>
+<br/>
+<p>You can choose to play <span class="accent">With Voiceover</span>, or with <span class="accent">No Voiceover</span>.  </p>
+<br/>
+<p>If you have no voiceover, your facilitator will need to read the text aloud. </p>
+<br/>
+<p>With both options there is a soundtrack that accompanies the game.</p> 
+<p>If you would prefer no sound at all, please turn your volume down.</p>
+<br/><br/>
+<p>Play:</p> 
+<<button "With Voiceover">>
     <<set $withVoiceover to true>>
     <<goto $nextpass>>
-    <</button>> </p>
-<p>Or without <<button "Without Voiceover">>
+    <</button>> 
+   <br/><br/>
+<<button "No Voiceover">>
     <<set $withVoiceover to false>>
     <<goto $nextpass>>
-    <</button>> </p>
+    <</button>>
 
-<p>If you have no voiceover, your facilitator will need to read the text aloud. </p>
 
-<p>If you want no sound at all, please turn your volume down.</p>
 
 
 
 :: intro2 [nobr]
-<<set $prevpass to "intro1">>
+<<set $prevpass to "intro1b">>
 <<set $pass to "intro2">>
 <<set $nextpass to "intro3">>
 <<if $withVoiceover is true>>
@@ -585,7 +615,7 @@ setup.chooseImpactsAudio = () => {
 <p>Each player will play as a neighbour on High Street.  </p>
 <p>We’ll start by getting to know you. </p>
 <br/>
-<p>Facilitator, deal out the <span class="accent">Neighbour Cards</span> to each player. </p>
+<p><i>Facilitator, deal out the <span class="accent">Neighbour Cards</span> to each player.</i> </p>
     <p>Leave the remaining Neighbour Cards in the pile.  </p>
         
 </div>
@@ -654,7 +684,7 @@ setup.chooseImpactsAudio = () => {
     <div class="grid-item explanation">
 <p>Take the time to introduce yourselves to your fellow neighbours on High Street. </p>
 <p>Share your house number, and your interesting and peculiar skills & facts. </p>
-<p>Facilitator, we recommend 2 minutes for this. </p>
+<p><i>Facilitator, we recommend 2 minutes for this.</i> </p>
 
 
     </div>
@@ -844,7 +874,7 @@ setup.chooseImpactsAudio = () => {
 :: monstercards-preintro [nobr]
 <<set $prevpass to "playercards-c">>
 <<set $pass to "monstercards-preintro">>
-<<set $nextpass to "monstercards-intro">>
+<<set $nextpass to "monstercards-preintrob">>
 <<if $withVoiceover is true>>
     <<timed 0.2s>>
     <audio src="assets/voiceover/strongertogethervo_2_6+7.mp3" autoplay>Audio is not supported on your device</audio>
@@ -855,13 +885,38 @@ setup.chooseImpactsAudio = () => {
    <p>Excellent, you have now met some of your neighbours.</p>
 <p>For this game, you, as a group, are playing as the representatives of High Street.</p> 
 <p>You will be responsible for helping the whole street prepare for the disaster that looms on the horizon...</p>
-<p>the monster that is coming.</p> 
+<p>the Monster that is coming.</p> 
+
+</div>
+</main>
+<<include "footeroptionappears">>
+
+ <<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+
+:: monstercards-preintrob [nobr]
+<<set $prevpass to "monstercards-preintro">>
+<<set $pass to "monstercards-preintrob">>
+<<set $nextpass to "monstercards-intro">>
+<<if $withVoiceover is true>>
+    <<timed 0.2s>>
+    <audio src="assets/voiceover/strongertogethervo_2_6+7.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
+<main class="">
+    <div class="explanation">
 
 <p>You have chosen to be this representative.</p>
-<p>Actually, let’s be honest... you’re the representatives because you’re the people who turned up to the community planning meeting. </p>
+<p>And let’s be honest... you’re the representatives because you’re the people who turned up to the community planning meeting. </p>
 
 <p>There are other people on High Street too, doors not yet opened. </p>
 <p>Any choice you make will impact your neighbours as much as it impacts all of you. </p>
+
 
 </div>
 </main>
@@ -876,7 +931,7 @@ setup.chooseImpactsAudio = () => {
 <</timed>>
 
 :: monstercards-intro [nobr]
-<<set $prevpass to "monstercards-preintro">>
+<<set $prevpass to "monstercards-preintrob">>
 <<set $pass to "monstercards-intro">>
 <<set $nextpass to "forecasttrans">>
 <<if $withVoiceover is true>>
@@ -894,15 +949,15 @@ setup.chooseImpactsAudio = () => {
 </div>
     <div class="grid-item explanation">
     <h2>Now to the attack... </h2>
-<p>There are four possible monsters that might strike: </p>
+<p>There are four possible Monsters that might strike: </p>
 
-<h3>Gale, <span class="unbold">a monster made of wind</span></h3>
-<h3>Drench, <span class="unbold" >a monster made of water</span> </h3>
-<h3>Inferno, <span class="unbold">a monster made of heat & fire</span></h3>
-<h3>Crystal, <span class="unbold">a monster made of snow & ice</span></h3> 
+<h3>Gale, <span class="unbold">a Monster made of wind</span></h3>
+<h3>Drench, <span class="unbold" >a Monster made of water</span> </h3>
+<h3>Inferno, <span class="unbold">a Monster made of heat & fire</span></h3>
+<h3>Crystal, <span class="unbold">a Monster made of snow & ice</span></h3> 
 
 
-<p>Before you decide how to prepare for the monster attack, you’re going to get a forecast. </p>
+<p>Before you decide how to prepare for the Monster attack, you’re going to get a forecast. </p>
 
 </div>
 </main>
@@ -970,7 +1025,7 @@ setup.chooseImpactsAudio = () => {
 <!-- Gale -->
 <div id="galeChoice" class="card-selection-item arcard">
 
-    <<link [img[assets/img/Demo_Gale.png]]>>
+    <<link [img[assets/img/Demo_Galeforecast.png]]>>
         <<if $playerchoices.chosenmonsters.includes("Gale")>>
             <<set $playerchoices.chosenmonsters.delete("Gale")>>
             <<toggleclass "#galeChoice" "chosen">>
@@ -988,7 +1043,7 @@ setup.chooseImpactsAudio = () => {
 
 <!-- Inferno -->
 <div id="infernoChoice" class="card-selection-item arcard">
-    <<link [img[assets/img/Demo_Inferno.png]]>>
+    <<link [img[assets/img/Demo_Infernoforecast.png]]>>
         <<if $playerchoices.chosenmonsters.includes("Inferno")>>
             <<set $playerchoices.chosenmonsters.delete("Inferno")>>
             <<toggleclass "#infernoChoice" "chosen">>
@@ -1006,7 +1061,7 @@ setup.chooseImpactsAudio = () => {
 
 <!-- Drench -->
 <div id="drenchChoice" class="card-selection-item arcard">
-    <<link [img[assets/img/Demo_Drench.png]]>>
+    <<link [img[assets/img/Demo_Drenchforecast.png]]>>
         <<if $playerchoices.chosenmonsters.includes("Drench")>>
             <<set $playerchoices.chosenmonsters.delete("Drench")>>
             <<toggleclass "#drenchChoice" "chosen">>
@@ -1024,7 +1079,7 @@ setup.chooseImpactsAudio = () => {
 
 <!-- Crystal -->
 <div id="crystalChoice" class="card-selection-item arcard">
-    <<link [img[assets/img/Demo_Crystal.png]]>>
+    <<link [img[assets/img/Demo_Crystalforecast.png]]>>
         <<if $playerchoices.chosenmonsters.includes("Crystal")>>
             <<set $playerchoices.chosenmonsters.delete("Crystal")>>
             <<toggleclass "#crystalChoice" "chosen">>
@@ -1042,7 +1097,7 @@ setup.chooseImpactsAudio = () => {
 
 </div>
 <br/>
-<p>The monster attack will be one of these two cards, but it’s a 50 / 50 chance. </p>
+<p>The Monster attack will be one of these two cards, but it’s a 50 / 50 chance.  </p>
 
     </main>
 
@@ -1109,12 +1164,12 @@ setup.chooseImpactsAudio = () => {
 
     <div class="grid-item explanation">
 <p>Now you know what could be coming, there is a chance to prepare. </p>
-<p>There are different actions you might take to get ready for the monster attack. </p>
+<p>There are different actions you might take to get ready for the Monster attack. </p>
 
 <p><span class="accent">Prepare</span> actions, physical preparations for neighbours to do at home or on the street.  </p>
  <p><span class="accent">Connect</span> actions, connecting to your neighbours and local community. </p>
  <br/>
- <p>Facilitator, lay out the <span class="accent">Prepare</span> and <span class="accent">Connect</span> actions on the table.</p>
+
  </div>
 </main>
 
@@ -1144,8 +1199,8 @@ setup.chooseImpactsAudio = () => {
 
 <main class="timer grid-wrapper split">
     <div class=" grid-item explanation">
-
-<p>You need to choose FIVE actions to prepare for the monster attack. </p>
+<p><i>Facilitator, lay out the <span class="accent">Prepare</span> and <span class="accent">Connect</span> actions on the table.</i></p>
+<p>You need to choose FIVE actions to prepare for the Monster attack. </p>
 <br/>
  <<timed 5s>>
     <p>The clock is ticking.</p>
@@ -1227,18 +1282,18 @@ setup.chooseImpactsAudio = () => {
 <<set $pass to "actions">>
 <<set $nextpass to "postactionchoice">>
 <<set $actionsoptions to [
-    {type: "prepare", actionnum: 1, text: "Lay out some salt.", id:1},
-    {type: "prepare", actionnum: 2, text: "Gather drinks and ice." , id:2},
-    {type: "prepare", actionnum: 3, text: "Clear away or secure objects.", id:3},
-    {type: "prepare", actionnum: 4, text: "Set up barriers, blocks, and absorbent pads.", id:4},
-    {type: "prepare", actionnum: 5, text: "Gather together an emergency kit.", id:5},
-    {type: "prepare", actionnum: 6, text: "Have a plan.", id:6},
-    {type: "prepare", actionnum: 7, text: "Move precious belongings.", id:7},
-    {type: "connect", actionnum: 1, text: "Set up a messaging group.", id:8},
-    {type: "connect", actionnum: 2, text: "Go door-knocking.", id:9},
-    {type: "connect", actionnum: 3, text: "Connect to the community centre.", id:10},
-    {type: "connect", actionnum: 4, text: "Connect to the local school or faith space.", id:11},
-    {type: "connect", actionnum: 5, text: "Sign up for alerts and warnings.", id:12}
+    {type: "prepare", letter:"A" , actionnum: 1, text: "Lay out some salt or grit.", id:1},
+    {type: "prepare", letter:"B" , actionnum: 2, text: "Gather water and ice." , id:2},
+    {type: "prepare", letter:"C" , actionnum: 3, text: "Clear away or secure outdoor objects.", id:3},
+    {type: "prepare", letter:"D" , actionnum: 4, text: "Set up barriers, blocks, and absorbent pads.", id:4},
+    {type: "prepare", letter:"E" , actionnum: 5, text: "Gather an emergency kit.", id:5},
+    {type: "prepare", letter:"F" , actionnum: 6, text: "Have a plan.", id:6},
+    {type: "prepare", letter:"G" , actionnum: 7, text: "Move precious belongings inside homes.", id:7},
+    {type: "connect", letter: "H", actionnum: 1, text: "Set up a messaging group.", id:8},
+    {type: "connect", letter: "I", actionnum: 2, text: "Go door-knocking.", id:9},
+    {type: "connect", letter: "J", actionnum: 3, text: "Connect to the community centre.", id:10},
+    {type: "connect", letter: "K", actionnum: 4, text: "Connect to the local school or faith space.", id:11},
+    {type: "connect", letter: "L", actionnum: 5, text: "Sign up for alerts and warnings.", id:12}
 ]>>
 <<if $withVoiceover is true>>
     <audio src="assets/voiceover/strongertogethervo_4_4.mp3" autoplay>Audio is not supported on your device</audio>
@@ -1275,9 +1330,11 @@ setup.chooseImpactsAudio = () => {
   <<capture _i>>
     <<set $text to ($actionsoptions[_i].text)>>
     
+<div class="actions-item-wrapper">
 <div sc-eval:class="'actions-item actions-item' + ($actionsoptions[_i].id)" sc-eval:id="'action' + [_i]" sc-eval:data-id="'action' + [_i]">
-   <h3>$actionsoptions[_i].type</h3> $text
-   <br/>
+   <h3>$actionsoptions[_i].letter</h3> 
+   <div>
+   <h4>$text</h4>
 
      <div sc-eval:id="'chooseBtn'+ $actionsoptions[_i].id" class="chooseBtn">
          <<button "> Choose">>
@@ -1291,6 +1348,8 @@ setup.chooseImpactsAudio = () => {
         <</timed>>       
          <</button>>
      </div>
+           </div>
+           </div>
            </div>
        <</capture>>
    <</for>>
@@ -1397,43 +1456,43 @@ setup.chooseImpactsAudio = () => {
     {num:1, 
     text1: `Things aren’t great.  
 Local resources are depleted, so minimal thought and effort has gone into preparing for disaster. 
-Because of poor planning and lack of investment, you’re facing the monster attack entirely by yourselves. 
-You won’t receive any Good Fortune Cards. Instead, during the attack you’ll face one <span class='accent'>Unpredictable Outcome</span>.`, 
-    text2:`You’ll need to come together as a street, using your own skills and resources to respond. 
+Because of poor planning and lack of investment, you’re facing the Monster attack entirely by yourselves. 
+You won’t receive any <span class='accent'>Good Fortune Tokens</span>. Instead, during the attack you’ll face <span class='accent'>one Unpredictable Outcome</span>.`, 
+    text2:`You’ll need to come together as a street, and one of you will use your skills and resources to respond. 
 Your facilitator will lead you through this when the moment comes.`,
      wildcards: 0, 
     changedactions: 2},
      {num:2, 
      text1: `Things aren’t great.  
 Local resources are depleted, so minimal thought and effort has gone into preparing for disaster. 
-Because of poor planning and lack of investment, you’re facing the monster attack entirely by yourselves. 
-You won’t receive any Good Fortune Cards. Instead, during the attack you’ll face one <span class='accent'>Unpredictable Outcome</span>.`, 
-    text2:`You’ll need to come together as a street, using your own skills and resources to respond. 
+Because of poor planning and lack of investment, you’re facing the Monster attack entirely by yourselves. 
+You won’t receive any <span class='accent'>Good Fortune Tokens</span>. Instead, during the attack you’ll face <span class='accent'>one Unpredictable Outcome</span>.`, 
+    text2:`You’ll need to come together as a street, and one of you will use your skills and resources to respond. 
 Your facilitator will lead you through this when the moment comes.`,
      wildcards: 0, 
     changedactions: 2},
      {num:3, 
     text1: `You are fortunate. 
 Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
-    text2:`During the monster attack you’ll be able to access one <span class='accent'>Good Fortune Card</span>.`,
+    text2:`During the Monster attack you’ll access <span class='accent'> one Good Fortune Token</span>.`,
      wildcards: 1, 
     changedactions: 0},
      {num:4, 
     text1: `You are fortunate. 
 Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
-    text2:`During the monster attack you’ll be able to access one <span class='accent'>Good Fortune Card</span>.`,
+    text2:`During the Monster attack you’ll access <span class='accent'> one Good Fortune Token</span>.`,
      wildcards: 1, 
     changedactions: 0},
      {num:5, 
     text1: `You are very fortunate. 
-Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
-    text2:`During the monster attack you’ll be able to access two <span class='accent'>Good Fortune Cards</span>.`,
+Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available.`, 
+    text2:`During the Monster attack you’ll access <span class='accent'>two Good Fortune Tokens</span>.`,
      wildcards: 2, 
     changedactions: 0},
     {num:6, 
-    text1: `You are very fortunate. 
-Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
-    text2:`During the monster attack you’ll be able to access two <span class='accent'>Good Fortune Cards</span>.`,
+   text1: `You are very fortunate. 
+Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available.`, 
+    text2:`During the Monster attack you’ll access <span class='accent'>two Good Fortune Tokens</span>.`,
      wildcards: 2, 
     changedactions: 0}
 ]
@@ -1460,7 +1519,7 @@ Your local council has had the money and resources to put some time into disaste
 <br/>
 <p>Life on different High Streets varies wildly across the UK. </p> 
 <br/>
-<p>Before the monster arrives, we’re going to find out just how unfair things are: how fortunate this High Street is. </p>
+<p>Before the Monster arrives, we’re going to find out just how unfair things are: how fortunate this High Street is. </p>
 <p>To do this you’ll roll a... [virtual] die. </p>
 <br/>
 <br/>
@@ -1645,13 +1704,12 @@ console.log(State.variables)
 <div class="explanation grid-item">
 <h2>Disaster looms.</h2>
 <br/>
-<p>The monster attack is moments away and we can finally see which monster is coming. </p>
+<p>The Monster attack is moments away and we can finally see which Monster is coming.  </p>
 <br/>
-<p>Shuffle the two monster cards.  </p>
-<p>Facilitator, hold them upside down. </p>
-<p>One player, choose a card to reveal the monster you will face.  </p>
+<p><i>Facilitator, shuffle the two Monster cards and hold them out upside down.</i> </p>
+<p>One player, choose a card to reveal the Monster you will face.   </p>
 <br/>
-<p>Now, select this monster below.  </p>
+<p><span class="accent">Now, select this Monster below. </span> </p>
 </div>
 <<include "choosefinalmonster">>
 <br/>
@@ -1793,7 +1851,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<set $imgfinalmonster to "assets/img/" + "Demo_" + $playerchoices.finalmonster + ".png">>
 <main class="grid-wrapper">
 <div class="grid-item explanation">
-    <h2>The monster closes in on High Street. </h2>
+    <h2>The Monster closes in on High Street. </h2>
     <h3>We’re going to uncover how this attack plays out.  </h3>
 </div>
 <br/>
@@ -1922,7 +1980,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   <div class="inline-img-wrapper ">
       <img src="assets/img/3.png" alt="action card"/>
     </div>
-    <p>Gale bangs at the doors of sheds, and pulls at the cables you’ve tied, but nothing escapes. Your neighbours and Dot, the stray cat, are safe from flying debris!  </p>
+    <p>Gale bangs at the doors of sheds, and pulls at the cables you’ve tied, but nothing escapes. Your neighbours are safe from flying debris! </p>
     </div>
  <</if>>
 
@@ -1988,10 +2046,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<timed 0.1s>>
  <<replace "#mount">>
     <h2>Your fortune also provides an additional benefit! </h2>
-    <p>You get a Good Fortune Card: </p>
+    <p>You get a Good Fortune Token: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Token"/>
             </div>
     </div>
     <p>In the days following Gale’s visit the fire service are sent to High Street. They clear trees and debris, ensuring all key roads can be accessed and no properties remain at risk. </p>
@@ -2005,13 +2063,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<replace "#mount">>
 
     <h2>Your fortune also provides additional benefits! </h2>
-    <p>You get two Good Fortune Cards: </p>
+    <p>You get two Good Fortune Tokens: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Token"/>
             </div>
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Token"/>
             </div>
     </div>
  <p>  In the days following Gale’s visit the fire service are sent to High Street. They clear trees and debris, ensuring all key roads can be accessed and no properties remain at risk. </p>
@@ -2128,7 +2186,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/3.png" alt="action card"/>
     </div>
-    <p>Gale bangs at the doors of sheds, lifting chairs and a trampoline into the air. One neighbour is hit by a flying parasol and goes to hospital. Fortunately, Dot, the stray cat, dodges all of the debris! </p>
+    <p>Gale bangs at the doors of sheds, lifting chairs and a trampoline into the air. One neighbour is hit by a flying parasol and goes to hospital. </p>
     </div>
  <</if>>
 
@@ -2193,15 +2251,20 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<timed 0.1s>>
  <<replace "#mount">>
     <<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
-     <p>Gale retreats and leaves what you can only call a rather large mess. </p>
+     <p>Gale retreats and leaves what you can only call a rather large mess...</p>
      <br/>   
-    <h2>There are fallen trees and debris over a major road causing some of the neighbours to be stuck. </h2>
+    <h2>Dot, the stray cat, is stuck between a broken fence and some fallen trees. </h2>
     <br/>
-<p>Due to your low fortune, there is no councillor to turn to. But you do have each other! </p>
-
+<p>Due to your low fortune, there is no councillor to turn to. But you do have each other!  </p>
+ <br/> 
 <p>You will use your skills to take action on this <span class="accent">Unpredictable Outcome.</span> </p>
 
-<p><i>Facilitator, invite the players to describe how they will use their skills to take action.</i> </p>
+<p>Discuss your skills and resources.</p> 
+
+<p>Together pick one neighbour who will take action to help Dot.</p> 
+
+ <br/> 
+<p><i>Facilitator, invite this player to describe how they will use their skills and resources to take action. </i> </p>
 
 <p><i>You will judge whether they have successfully filled the gap. </i></p>
 
@@ -2292,7 +2355,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   <div class="inline-img-wrapper ">
       <img src="assets/img/2.png" alt="action card"/>
     </div>
-    <p>The temperature rises, and you pass out water to make sure everyone is cool and hydrated. Even Dot, the stray cat, gets her fill!</p>
+    <p>The temperature rises, and you pass out the water and ice you gathered to make sure everyone is cool and hydrated.  </p>
     </div>
  <</if>>
 
@@ -2394,10 +2457,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<timed 0.1s>>
  <<replace "#mount">>
     <h2>Your fortune also provides an additional benefit! </h2>
-    <p>You get a Good Fortune Card: </p>
+    <p>You get a Good Fortune Token: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Token"/>
             </div>
     </div>
     <p>As the heat reaches dangerous levels, local community health workers set up a first aid tent on High Street, providing emergency medical care and handing out water, cold compresses and rehydration sachets. </p>
@@ -2411,13 +2474,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<replace "#mount">>
 
     <h2>Your fortune also provides additional benefits! </h2>
-    <p>You get two Good Fortune Cards: </p>
+    <p>You get two Good Fortune Tokens: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Token"/>
             </div>
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Token"/>
             </div>
     </div>
  <p> As the heat reaches dangerous levels, local community health workers set up a first aid tent on High Street, providing emergency medical care and handing out water, cold compresses and rehydration sachets. </p>
@@ -2465,7 +2528,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <p>Unfortunately, not everything goes quite as well. </p>
 <p>Due to the choices you made, there are some challenges you have to face. </p>
 
-<p>Here are Inferno’s impacts you’re left to contend with… </p>
+<p>Here are Inferno’s impacts you’re left to contend with...</p>
 
 
 </div>
@@ -2508,7 +2571,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/2.png" alt="action card"/>
     </div>
-    <p>As the temperature rises, some neighbours, especially those with existing health conditions, suffer. Two people are dehydrated and need to be taken to hospital. Fortunately, Dot, the stray cat, found some water and shade - your neighbours aren’t quite so lucky!  </p>
+    <p>As the temperature rises, some neighbours, especially those with existing health conditions, suffer. Two people are dehydrated and need to be taken to hospital.  </p>
     </div>
  <</if>>
 
@@ -2600,13 +2663,19 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<timed 0.1s>>
  <<replace "#mount">>
     <<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
-    <p>As the heat rises, your fear for your neighbours does too. </p>
-<p>With no emergency help available due to your low fortune, you will need to step in and fill the gap. 
-<br/><br/>
-<h2>Neighbours are hot, dehydrated and at risk. How can you ensure your neighbours will get the help they need? </h2>
-<br/>
-<p>You will use your skills to take action on this <span class="accent">Unpredictable Outcome.</span> </p>
+    <p>The heat rises and rises, High Street is under strain. </p>
 
+<br/><br/>
+<h2>Dot, the stray cat, is stuck up a tree. She is in direct sunlight and dehydrated, refusing to come down. </h2>
+<br/>
+<p>Due to your low fortune, there is no councillor to turn to. But you do have each other! </p>
+<p>You will use your skills to take action on this <span class="accent">Unpredictable Outcome.</span> </p>
+<br/>
+<p>Discuss your skills and resources. </p>
+
+<p>Together, pick one neighbour who will take action to help Dot.</p> 
+
+<br/>
 <p><i>Facilitator, invite the players to describe how they will use their skills to take action.</i> </p>
 
 <p><i>You will judge whether they have successfully filled the gap. </i></p>
@@ -2703,7 +2772,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   <div class="inline-img-wrapper ">
       <img src="assets/img/4.png" alt="action card"/>
     </div>
-<p>Drench arrives. The barriers, blocks and pads keep most of High Street water free, with no risk of disease or electric shock. Dot, the stray cat, is safe and well! </p>
+<p>Drench arrives. The barriers, blocks and pads keep most of High Street water free, with no risk of disease or electric shock. </p>
 </div>
  <</if>>
 
@@ -2785,10 +2854,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<timed 0.1s>>
  <<replace "#mount">>
     <h2>Your fortune also provides an additional benefit! </h2>
-    <p>You get a Good Fortune Card: </p>
+    <p>You get a Good Fortune Token: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Token"/>
             </div>
     </div>
     <p>Emergency services are dispatched to High Street to help people who remain stranded by the lingering floods. A family climbs out of their top floor window, and one man is rescued from his car. </p>
@@ -2800,13 +2869,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<timed 0.1s>>
  <<replace "#mount">>
     <h2>Your fortune also provides additional benefits! </h2>
-    <p>You get two Good Fortune Cards: </p>
+    <p>You get two Good Fortune Tokens: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Token"/>
             </div>
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Token"/>
             </div>
     </div>
  <p>Emergency services are dispatched to High Street to help people who remain stranded by the lingering floods. A family climbs out of their top floor window, and one man is rescued from his car. </p>
@@ -2907,7 +2976,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/4.png" alt="action card"/>
     </div>
-<p>Drench arrives and pours into buildings and homes. Then she stays. Two neighbours get respiratory infections from the floodwater, and a family is stuck upstairs in their house, with risk of electric shock below. Dot, the stray cat, manages to find shelter though! </p>
+<p>Drench arrives and pours into buildings and homes. Then she stays. Two neighbours get respiratory infections from the floodwater, and a family is stuck upstairs in their house, with risk of electric shock below. </p>
 </div>
 
  <</if>>
@@ -2988,12 +3057,18 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<timed 0.1s>>
  <<replace "#mount">>
     <<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
-    <p>Even though rain no longer falls, Drench and her impact lingers. </p>
+    <p>Drench starts her retreat and you are relieved to see High Street return.</p>
     <br/>
-<h2>The town hall is unrecognisable due to flood damage, but your local council says there is no money to fix it.  </h2>
+<h2>You find Dot stranded in the middle of a large, deep pond. Dot famously doesn’t like swimming and can’t escape.  </h2>
+<br/>
+<p>Due to your low fortune, there is no councillor to turn to. But you do have each other! </p>
 <br/>
 <p>You will use your skills to take action on this <span class="accent">Unpredictable Outcome.</span> </p>
+<br/>
+<p>Discuss your skills and resources. </p>
 
+<p>Together pick one neighbour who will take action to help Dot. </p>
+<br/>
 <p><i>Facilitator, invite the players to describe how they will use their skills to take action.</i> </p>
 
 <p><i>You will judge whether they have successfully filled the gap. </i></p>
@@ -3082,7 +3157,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   <div class="inline-img-wrapper ">
       <img src="assets/img/1.png" alt="action card"/>
     </div>
-    <p>Thanks to the salts laid out, there is no mark of Crystal on the streets. Neighbours venture out, and no one slips or falls. Dot, the stray cat, is safe! </p>
+    <p>Thanks to the salts laid out, there is no mark of Crystal on the streets. Neighbours venture out, and no one slips or falls. </p>
     </div>
  <</if>>
 
@@ -3177,10 +3252,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <<replace "#mount">>
 
     <h2>Your fortune also provides an additional benefit! </h2>
-    <p>You get a Good Fortune Card: </p>
+    <p>You get a Good Fortune Token: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Token"/>
             </div>
     </div>
     <p>A group of healthcare workers deliver home visits across High Street, to check in on vulnerable members of the community, and provide emergency support where needed. </p>
@@ -3194,13 +3269,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<replace "#mount">>
 
     <h2>Your fortune also provides additional benefits! </h2>
-    <p>You get two Good Fortune Cards: </p>
+    <p>You get two Good Fortune Tokens: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Token"/>
             </div>
             <div class="inline-img-wrapper arcard">
-                <img src="assets/img/goodfortune.png" alt="Good Fortune Card"/>
+                <img src="assets/img/goodfortune.png" alt="Good Fortune Token"/>
             </div>
     </div>
  <p>A group of healthcare workers deliver home visits across High Street, to check in on vulnerable members of the community, and provide emergency support where needed. </p>
@@ -3289,7 +3364,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   <div class="inline-img-wrapper grey ">
       <img src="assets/img/1.png" alt="action card"/>
     </div>
-    <p>With no grit, the streets are slippery and icy. A couple of neighbours venture out and slip and fall, resulting in a broken wrist and two sprained ankles. Dot, the stray cat, is safe though! </p>
+    <p>With no grit, the streets are slippery and icy. A couple of neighbours venture out and slip and fall, resulting in a broken wrist and two sprained ankles. </p>
     </div>
  <</if>>
 
@@ -3381,12 +3456,17 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<timed 0.1s>>
  <<replace "#mount">>
     <<if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2>>
-    <p>As the heat falls, your fear for your neighbours rises.</p>
-<p> Due to your low fortune, there is no additional help available. So the neighbours of High Street will need to step in and fill the gap. 
+    <p>Crystal retreats, leaving a bitter cold.</p>
+
 <br/>
-<h2>Neighbours are cold, isolated and at risk. How can you ensure your neighbours will get the help they need? </h2>
+<h2>You find Dot, the stray cat, stranded in the middle of a frozen pond.   </h2>
 <br/>
+<p>Due to your low fortune, there is no councillor to turn to. But you do have each other! </p>
 <p>You will use your skills to take action on this <span class="accent">Unpredictable Outcome.</span> </p>
+<br/>
+<p>Discuss your skills and resources. </p>
+<p>Together pick one neighbour who will take action to help Dot. </p>
+<br/>
 
 <p><i>Facilitator, invite the players to describe how they will use their skills to take action.</i> </p>
 
@@ -3461,11 +3541,11 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
      </div>
 
 <div class="grid-item explanation">
-    <h2>The monster retreats from High Street.  </h2>
+    <h2>The Monster retreats from High Street.  </h2>
     
     <h3>You’re left with the aftermath. </h3>
     
-    <p>While the street came together, you were not able to keep the monster completely at bay. </p>
+    <p>While the street came together, you were not able to keep the Monster completely at bay. </p>
     <p>You are left facing the consequences.  </p>
     <p>How will you recover? </p>
 </div>
@@ -3496,13 +3576,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 
 <main class="timer">
 <br/>
-<h2>The monster attack has left High Street reeling. </h2>
+<h2>The Monster attack has left High Street reeling. </h2>
 <br/>
 
 <p>Morale is low and neighbours across High Street are left scared and shaken. </p>
-<p>Despite your planning and preparations, the monster had a big impact, and there were some things you couldn’t predict. </p>
+<p>Despite your planning and preparations, the Monster had a big impact, and there were some things you couldn’t predict. </p>
 <p>Some neighbours have experienced damage to their homes, while others have experienced damage to their health. </p>
-<p>For everyone, the monster’s visit has left a lasting impression. </p>
+<p>For everyone, the Monster’s visit has left a lasting impression. </p>
 <p>High Street doesn’t feel the same. </p>
 
 </main>
@@ -3537,7 +3617,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <p>or fantastical: hosting an immersive unicorn party. </p>
 <p>Or a bit of both!</p>
 <br/>
-<p>Facilitator, spend three minutes on this discussion. </p>
+<p><i>Facilitator, spend three minutes on this discussion.</i> </p>
 <p>We recommend doing this by inviting everyone to share their pitch for an event, action or activity. </p>
 <p>Use your skills on your <span class="accent">Neighbour Cards</span></p>
 <p>When you’ve done that click ‘Move On’</p>
@@ -3591,10 +3671,9 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <</if>>
 <main>
  
-<p>Now you have your pitch, we want you to tell us what it is. </p>
-<p>When you’re ready, press ‘Start Recording’ below, speak into the microphone and tell us what you have planned. </p>
-<br/>
-<p>Summarise your pitch in 1 minute - the action you will take for High Street. </p>
+<p>Now you have your pitch, we want you to record it.</p>
+<p>When you’re ready, press ‘Start Recording’ below, speak into the microphone and describe the action you will take for your High Street. </p>
+
 
 <br/>
 <iframe src="https://www.speakpipe.com/widget/inline/kp6xzmubni8enwhrhvqo1sx5cbst92iy" allow="microphone" width="100%" height="200" frameborder="0"></iframe>
@@ -3612,7 +3691,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 :: postrecord [nobr]
 <<set $prevpass to "record">>
 <<set $pass to "postrecord">>
-<<set $nextpass to "outro2">>
+<<set $nextpass to "postrecord2">>
 <<set $improvement to 100- $playerchoices.percentage>>
 <<if $withVoiceover is true>>
     <<timed 0.1s>>
@@ -3623,11 +3702,46 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  
 <p>On High Street, your plan is put into action. </p>
 <br/>
-<p>You watch the practical and fantastical events unfold and reflect on all you have been through...</p>
+<p>You watch the practical and fantastical events unfold and reflect on all you have been through</p>
 <p>Dot is impressed.</p>
 <br/>
 <p>You made some good choices. </p>
-<p>You made some less good ones. </p>
+<p>You could have made some better ones.</p>
+<p>Every action was helpful. </p>
+<p>For each Monster, some actions are more useful than others.</p>
+
+
+
+
+<<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+</main>
+<<include "footeroptionappears">>
+
+:: postrecord2 [nobr]
+<<set $prevpass to "postrecord">>
+<<set $pass to "postrecord2">>
+<<set $nextpass to "outro2">>
+
+<<if $withVoiceover is true>>
+    <<timed 0.1s>>
+    <audio src="assets/voiceover/strongertogethervo_8_6.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
+<main>
+ 
+<p>When it comes to this kind of Monster attack, there is no way to win - High Street will always be impacted. </p>
+<br/>
+<p>But your choices are important!</p>
+<p>Not only in shaping what happens during the attack, but also in what happens after. </p>
+<p>Your resilience as a street puts you on the road to recovery. </p>
+<p>That and the practical, fantastical event you planned! </p>
+
 
 
 
@@ -3642,7 +3756,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<include "footeroptionappears">>
 
 :: outro2 [nobr]
-<<set $prevpass to "postrecord">>
+<<set $prevpass to "postrecord2">>
 <<set $pass to "outro2">>
 <<set $nextpass to "outro3">>
 <<if $withVoiceover is true>>
@@ -3652,11 +3766,11 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <</if>>
 <main>
 
-<h2>You faced this monster as a street. </h2>
+<h2>You faced this Monster as a street. </h2>
 <p>When you came together, you didn’t only keep the street safe, you looked after each other too. </p>
 <br/>
 <p>Well done! </p>
-<p>No matter what remains, know that High Street is on the road to recovery, and we are <span class="accent">Stronger Together.</span></p>
+
 
 
     
@@ -3696,9 +3810,9 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 
 <br/>
 <div class="grid-item explanation" id="mount">
-    <h2>That’s the end of the game! </h2>
-    <p>There is now time for you to debrief and discuss. </p>
-    <p>Talk through the questions and reflect together.  </p>
+ <h2> Now for the final part of the game: the debrief. </h2>
+<p>There are several questions for you to reflect on and discuss together. </p>
+<br/>
     
     <p><i>Facilitator, we recommend five minutes for this discussion.</i> </p>
 </div>
@@ -3728,7 +3842,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 
 :: question1 [nobr]
 <h2>Question </h2>
-<p>Today, you came together to face the monster. </p>
+<p>Today, you came together to face the Monster. </p>
 <p>Some things went well, others less well, but you stuck it out: you were resilient.</p> 
 <p>If you were going to give your High Street an award - a blue plaque, say - to hang on the wall and commemorate this street and your response to the attack - what would you say? </p>
 
@@ -3850,16 +3964,48 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             <<audio "meow" "play" >>
         <</if>>
     <</timed>>
-<main>
-<h3>Thanks for playing Stronger Together! </h3>
+<main class="grid-wrapper">
+<div class="info-container grid-item cards finalcat">
+     <div class="inline-img-container">
+        <div class="inline-img-wrapper arcard">
+         <img src="assets/img/cat.png" alt="Cat"/>
+        </div>
+    </div>
+    </div>
+
 <br/>
-  <div class="inline-img-container">
+
+<div class="grid-item explanation" id="mount">
+<p>No matter what played out, know that High Street is on the road to recovery, and we are <span class="accent">Stronger Together</span>. </p>
+<br/>
+<p>Thanks for playing! </p>
+<br/>
+<p>For more information on how to prepare for emergencies, please find information about the UK Government’s Prepare Campaign at the link <a href="https://prepare.campaign.gov.uk/" target="_blank" rel="noreferrer"><button>here</button></a> </p>
+<br/>
+<p>This game was developed by Mod for Blue Heart. </p>
+<p>This project is funded by Defra as part of the £200 million Flood and Coastal Innovation Programmes which is managed by the Environment Agency. The programmes will drive innovation in flood and coastal resilience and adaptation to a changing climate.</p>
+<p>You can read more about the programmes <a href="https://engageenvironmentagency.uk.engagementhq.com/innovation-programme " target="_blank" rel="noreferrer"><button>here</button></a></p>
+<br/><br/>
+<div class="inline-img-container wildcards">
   <div class="inline-img-wrapper arcard">
-    <img src="assets/img/cat.png" alt="Cat"/>
-</div></div>
+    <a href="https://www.blueheart.org.uk" target="_blank" rel="noreferrer">
+      <img src="assets/img/blue-heart-logo.png" alt="Blue Heart Logo"/>
+      </a>
+  </div>
+  <div class="inline-img-wrapper arcard">
+      <img src="assets/img/blue-heart-logo.png" alt="Blue Heart Logo"/>
+  </div>
+    </div>
+
+<br/>
+<p><i>Please note that no data will be saved from your playthrough of this game.</i> </p>
+
 <br/>
 <<button "Restart">>
      <<script>>Engine.restart()<</script>>
     <</button>>
+    </div>
 </main>
 <<include "footerend">>
+
+

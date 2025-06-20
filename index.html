@@ -438,7 +438,7 @@ setup.chooseImpactsAudio = () => {
 
 &lt;/header&gt;</tw-passagedata><tw-passagedata pid="12" name="intro1" tags="nobr" position="225,225" size="100,100">&lt;&lt;set $prevpass to &quot;landing&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro1&quot;&gt;&gt;
-&lt;&lt;set $nextpass to &quot;intro2&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;intro1b&quot;&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;&gt;&gt;
 &lt;audio src=&quot;assets/voiceover/strongertogethervo_0_2.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
 &lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="intro1-text" tags="nobr" position="350,225" size="100,100">&lt;h2&gt;Before you begin: &lt;/h2&gt;
@@ -450,21 +450,42 @@ setup.chooseImpactsAudio = () => {
         &lt;h3&gt;Game Board&lt;/h3&gt;&lt;img src=&quot;assets/img/board.png&quot; alt=&quot;Demo Game Board&quot;/&gt;
 &lt;/div&gt;&lt;/div&gt;
 &lt;br/&gt;
-&lt;p&gt;Choose someone to play your &lt;span class=&quot;accent&quot;&gt;Facilitator&lt;/span&gt;, they’ll lead you through the game.&lt;/p&gt;
+&lt;p&gt;Choose someone to play your &lt;span class=&quot;accent&quot;&gt;facilitator&lt;/span&gt;, they’ll lead you through the game.&lt;/p&gt;
 &lt;p&gt;The facilitator can play, or sit on the outside, totally up to you. &lt;/p&gt;
+
+
+&lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="intro1b" tags="nobr" position="475,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro1&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;intro1b&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;intro2&quot;&gt;&gt;
+&lt;&lt;audio &quot;:all&quot; &quot;stop&quot;&gt;&gt;
+&lt;audio src=&quot;assets/voiceover/strongertogethervo_0_2.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="intro1b-text" tags="nobr" position="600,225" size="100,100">&lt;p&gt;Turn the volume on your device up. &lt;/p&gt;
 &lt;br/&gt;
-&lt;p&gt;Let us know if you want to play &lt;&lt;button &quot;With Voiceover&quot;&gt;&gt;
+&lt;p&gt;Stronger Together has a voiceover which reads out the text on the screen. &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;You can choose to play &lt;span class=&quot;accent&quot;&gt;With Voiceover&lt;/span&gt;, or with &lt;span class=&quot;accent&quot;&gt;No Voiceover&lt;/span&gt;.  &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;If you have no voiceover, your facilitator will need to read the text aloud. &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;With both options there is a soundtrack that accompanies the game.&lt;/p&gt; 
+&lt;p&gt;If you would prefer no sound at all, please turn your volume down.&lt;/p&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;p&gt;Play:&lt;/p&gt; 
+&lt;&lt;button &quot;With Voiceover&quot;&gt;&gt;
     &lt;&lt;set $withVoiceover to true&gt;&gt;
     &lt;&lt;goto $nextpass&gt;&gt;
-    &lt;&lt;/button&gt;&gt; &lt;/p&gt;
-&lt;p&gt;Or without &lt;&lt;button &quot;Without Voiceover&quot;&gt;&gt;
+    &lt;&lt;/button&gt;&gt; 
+   &lt;br/&gt;&lt;br/&gt;
+&lt;&lt;button &quot;No Voiceover&quot;&gt;&gt;
     &lt;&lt;set $withVoiceover to false&gt;&gt;
     &lt;&lt;goto $nextpass&gt;&gt;
-    &lt;&lt;/button&gt;&gt; &lt;/p&gt;
-
-&lt;p&gt;If you have no voiceover, your facilitator will need to read the text aloud. &lt;/p&gt;
-
-&lt;p&gt;If you want no sound at all, please turn your volume down.&lt;/p&gt;</tw-passagedata><tw-passagedata pid="14" name="intro2" tags="nobr" position="475,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro1&quot;&gt;&gt;
+    &lt;&lt;/button&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="intro2" tags="nobr" position="725,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro1b&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro2&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;intro3&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -503,7 +524,7 @@ setup.chooseImpactsAudio = () => {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="intro3" tags="nobr" position="600,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro2&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="intro3" tags="nobr" position="850,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro2&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro3&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;intro3b&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -533,7 +554,7 @@ setup.chooseImpactsAudio = () => {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="intro3b" tags="nobr" position="725,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro3&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="intro3b" tags="nobr" position="975,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro3&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;intro3b&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;playercards&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -541,7 +562,7 @@ setup.chooseImpactsAudio = () => {
     &lt;audio src=&quot;assets/voiceover/strongertogethervo_2_2.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
     &lt;&lt;/timed&gt;&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="intro3b-text" tags="nobr" position="850,225" size="100,100">&lt;span id=&quot;line1&quot;&gt;&lt;/span&gt;
+&lt;&lt;include &quot;_templateIntro&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="intro3b-text" tags="nobr" position="1100,225" size="100,100">&lt;span id=&quot;line1&quot;&gt;&lt;/span&gt;
 &lt;span id=&quot;line2&quot;&gt;&lt;/span&gt;
 &lt;span id=&quot;line3&quot;&gt;&lt;/span&gt;
 &lt;span id=&quot;line4&quot;&gt;&lt;/span&gt;
@@ -578,7 +599,7 @@ setup.chooseImpactsAudio = () => {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="playercards" tags="nobr" position="975,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro3&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="playercards" tags="nobr" position="1225,225" size="100,100">&lt;&lt;set $prevpass to &quot;intro3&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;playercards&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;playercards-b&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -597,7 +618,7 @@ setup.chooseImpactsAudio = () => {
 &lt;p&gt;Each player will play as a neighbour on High Street.  &lt;/p&gt;
 &lt;p&gt;We’ll start by getting to know you. &lt;/p&gt;
 &lt;br/&gt;
-&lt;p&gt;Facilitator, deal out the &lt;span class=&quot;accent&quot;&gt;Neighbour Cards&lt;/span&gt; to each player. &lt;/p&gt;
+&lt;p&gt;&lt;i&gt;Facilitator, deal out the &lt;span class=&quot;accent&quot;&gt;Neighbour Cards&lt;/span&gt; to each player.&lt;/i&gt; &lt;/p&gt;
     &lt;p&gt;Leave the remaining Neighbour Cards in the pile.  &lt;/p&gt;
         
 &lt;/div&gt;
@@ -611,7 +632,7 @@ setup.chooseImpactsAudio = () => {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="playercards-b" tags="nobr" position="1100,225" size="100,100">&lt;&lt;set $prevpass to &quot;playercards&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="playercards-b" tags="nobr" position="100,350" size="100,100">&lt;&lt;set $prevpass to &quot;playercards&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;playercards-b&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;playercards-c&quot;&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; &quot;stop&quot;  &gt;&gt;
@@ -640,7 +661,7 @@ setup.chooseImpactsAudio = () => {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="playercards-c" tags="nobr" position="1225,225" size="100,100">&lt;&lt;set $prevpass to &quot;playercards-b&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="playercards-c" tags="nobr" position="225,350" size="100,100">&lt;&lt;set $prevpass to &quot;playercards-b&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;playercards-c&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;monstercards-preintro&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -658,12 +679,12 @@ setup.chooseImpactsAudio = () => {
     &lt;div class=&quot;grid-item explanation&quot;&gt;
 &lt;p&gt;Take the time to introduce yourselves to your fellow neighbours on High Street. &lt;/p&gt;
 &lt;p&gt;Share your house number, and your interesting and peculiar skills &amp; facts. &lt;/p&gt;
-&lt;p&gt;Facilitator, we recommend 2 minutes for this. &lt;/p&gt;
+&lt;p&gt;&lt;i&gt;Facilitator, we recommend 2 minutes for this.&lt;/i&gt; &lt;/p&gt;
 
 
     &lt;/div&gt;
     &lt;/main&gt;
-    &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="timer" tags="nobr" position="100,350" size="100,100">&lt;&lt;set $seconds to 300&gt;&gt;
+    &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="timer" tags="nobr" position="350,350" size="100,100">&lt;&lt;set $seconds to 300&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;/span&gt;
 
 &lt;&lt;silently&gt;&gt;
@@ -695,7 +716,7 @@ setup.chooseImpactsAudio = () => {
             &lt;&lt;goto $nextpass&gt;&gt;
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="3mtimer" tags="nobr" position="225,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
+        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="3mtimer" tags="nobr" position="475,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
   /* &lt;&lt;set $seconds to 1&gt;&gt; */
 &lt;&lt;set $seconds to 180&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;&lt;/span&gt;&lt;/span&gt;
@@ -733,7 +754,7 @@ setup.chooseImpactsAudio = () => {
              &lt;&lt;/button&gt;&gt;
             &lt;&lt;/if&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="2mtimer" tags="nobr" position="350,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
+        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="2mtimer" tags="nobr" position="600,350" size="100,100">/* &lt;&lt;audio &quot;30s&quot; &quot;play&quot; loop&gt;&gt; */
 /* &lt;&lt;set $seconds to 1&gt;&gt; */
 &lt;&lt;set $seconds to 120&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;&lt;/span&gt;&lt;/span&gt;
@@ -771,7 +792,7 @@ setup.chooseImpactsAudio = () => {
              &lt;&lt;/button&gt;&gt;
             &lt;&lt;/if&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="5mtimer" tags="nobr" position="475,350" size="100,100">/* &lt;&lt;set $seconds to 3&gt;&gt; */
+        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="5mtimer" tags="nobr" position="725,350" size="100,100">/* &lt;&lt;set $seconds to 3&gt;&gt; */
   &lt;&lt;set $seconds to 300&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;&lt;/span&gt;&lt;/span&gt;
 
@@ -802,7 +823,7 @@ setup.chooseImpactsAudio = () => {
             &lt;&lt;goto $nextpass&gt;&gt;
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="5mtimerquestions" tags="nobr" position="600,350" size="100,100">/* &lt;&lt;set $seconds to 3&gt;&gt; */
+        &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="5mtimerquestions" tags="nobr" position="850,350" size="100,100">/* &lt;&lt;set $seconds to 3&gt;&gt; */
   &lt;&lt;set $seconds to 300&gt;&gt;
 &lt;span id=&quot;countdown&quot;&gt;&lt;span class=&quot;secs&quot;&gt;&lt;/span&gt; &lt;span class=&quot;extra&quot;&gt;&lt;/span&gt;&lt;/span&gt;
 
@@ -825,9 +846,9 @@ setup.chooseImpactsAudio = () => {
 			&lt;&lt;stop&gt;&gt;
 		&lt;&lt;/if&gt;&gt;
 	&lt;&lt;/repeat&gt;&gt;
-&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="monstercards-preintro" tags="nobr" position="725,350" size="100,100">&lt;&lt;set $prevpass to &quot;playercards-c&quot;&gt;&gt;
+&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="28" name="monstercards-preintro" tags="nobr" position="975,350" size="100,100">&lt;&lt;set $prevpass to &quot;playercards-c&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;monstercards-preintro&quot;&gt;&gt;
-&lt;&lt;set $nextpass to &quot;monstercards-intro&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;monstercards-preintrob&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
     &lt;&lt;timed 0.2s&gt;&gt;
     &lt;audio src=&quot;assets/voiceover/strongertogethervo_2_6+7.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
@@ -838,13 +859,7 @@ setup.chooseImpactsAudio = () => {
    &lt;p&gt;Excellent, you have now met some of your neighbours.&lt;/p&gt;
 &lt;p&gt;For this game, you, as a group, are playing as the representatives of High Street.&lt;/p&gt; 
 &lt;p&gt;You will be responsible for helping the whole street prepare for the disaster that looms on the horizon...&lt;/p&gt;
-&lt;p&gt;the monster that is coming.&lt;/p&gt; 
-
-&lt;p&gt;You have chosen to be this representative.&lt;/p&gt;
-&lt;p&gt;Actually, let’s be honest... you’re the representatives because you’re the people who turned up to the community planning meeting. &lt;/p&gt;
-
-&lt;p&gt;There are other people on High Street too, doors not yet opened. &lt;/p&gt;
-&lt;p&gt;Any choice you make will impact your neighbours as much as it impacts all of you. &lt;/p&gt;
+&lt;p&gt;the Monster that is coming.&lt;/p&gt; 
 
 &lt;/div&gt;
 &lt;/main&gt;
@@ -856,7 +871,35 @@ setup.chooseImpactsAudio = () => {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="monstercards-intro" tags="nobr" position="850,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-preintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="monstercards-preintrob" tags="nobr" position="1100,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-preintro&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;monstercards-preintrob&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;monstercards-intro&quot;&gt;&gt;
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.2s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_2_6+7.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;main class=&quot;&quot;&gt;
+    &lt;div class=&quot;explanation&quot;&gt;
+
+&lt;p&gt;You have chosen to be this representative.&lt;/p&gt;
+&lt;p&gt;And let’s be honest... you’re the representatives because you’re the people who turned up to the community planning meeting. &lt;/p&gt;
+
+&lt;p&gt;There are other people on High Street too, doors not yet opened. &lt;/p&gt;
+&lt;p&gt;Any choice you make will impact your neighbours as much as it impacts all of you. &lt;/p&gt;
+
+
+&lt;/div&gt;
+&lt;/main&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;
+
+ &lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="monstercards-intro" tags="nobr" position="1225,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-preintrob&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;monstercards-intro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;forecasttrans&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -874,15 +917,15 @@ setup.chooseImpactsAudio = () => {
 &lt;/div&gt;
     &lt;div class=&quot;grid-item explanation&quot;&gt;
     &lt;h2&gt;Now to the attack... &lt;/h2&gt;
-&lt;p&gt;There are four possible monsters that might strike: &lt;/p&gt;
+&lt;p&gt;There are four possible Monsters that might strike: &lt;/p&gt;
 
-&lt;h3&gt;Gale, &lt;span class=&quot;unbold&quot;&gt;a monster made of wind&lt;/span&gt;&lt;/h3&gt;
-&lt;h3&gt;Drench, &lt;span class=&quot;unbold&quot; &gt;a monster made of water&lt;/span&gt; &lt;/h3&gt;
-&lt;h3&gt;Inferno, &lt;span class=&quot;unbold&quot;&gt;a monster made of heat &amp; fire&lt;/span&gt;&lt;/h3&gt;
-&lt;h3&gt;Crystal, &lt;span class=&quot;unbold&quot;&gt;a monster made of snow &amp; ice&lt;/span&gt;&lt;/h3&gt; 
+&lt;h3&gt;Gale, &lt;span class=&quot;unbold&quot;&gt;a Monster made of wind&lt;/span&gt;&lt;/h3&gt;
+&lt;h3&gt;Drench, &lt;span class=&quot;unbold&quot; &gt;a Monster made of water&lt;/span&gt; &lt;/h3&gt;
+&lt;h3&gt;Inferno, &lt;span class=&quot;unbold&quot;&gt;a Monster made of heat &amp; fire&lt;/span&gt;&lt;/h3&gt;
+&lt;h3&gt;Crystal, &lt;span class=&quot;unbold&quot;&gt;a Monster made of snow &amp; ice&lt;/span&gt;&lt;/h3&gt; 
 
 
-&lt;p&gt;Before you decide how to prepare for the monster attack, you’re going to get a forecast. &lt;/p&gt;
+&lt;p&gt;Before you decide how to prepare for the Monster attack, you’re going to get a forecast. &lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/main&gt;
@@ -894,7 +937,7 @@ setup.chooseImpactsAudio = () => {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="28" name="forecasttrans" tags="nobr" position="975,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-intro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="forecasttrans" tags="nobr" position="100,475" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-intro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;forecasttrans&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;monstercards&quot;&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
@@ -917,7 +960,7 @@ setup.chooseImpactsAudio = () => {
 
  &lt;&lt;timed 10s&gt;&gt;
  &lt;&lt;goto $nextpass&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="monstercards" tags="nobr" position="1100,350" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-intro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="32" name="monstercards" tags="nobr" position="225,475" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards-intro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;monstercards&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;    
@@ -944,7 +987,7 @@ setup.chooseImpactsAudio = () => {
 &lt;!-- Gale --&gt;
 &lt;div id=&quot;galeChoice&quot; class=&quot;card-selection-item arcard&quot;&gt;
 
-    &lt;&lt;link [img[assets/img/Demo_Gale.png]]&gt;&gt;
+    &lt;&lt;link [img[assets/img/Demo_Galeforecast.png]]&gt;&gt;
         &lt;&lt;if $playerchoices.chosenmonsters.includes(&quot;Gale&quot;)&gt;&gt;
             &lt;&lt;set $playerchoices.chosenmonsters.delete(&quot;Gale&quot;)&gt;&gt;
             &lt;&lt;toggleclass &quot;#galeChoice&quot; &quot;chosen&quot;&gt;&gt;
@@ -962,7 +1005,7 @@ setup.chooseImpactsAudio = () => {
 
 &lt;!-- Inferno --&gt;
 &lt;div id=&quot;infernoChoice&quot; class=&quot;card-selection-item arcard&quot;&gt;
-    &lt;&lt;link [img[assets/img/Demo_Inferno.png]]&gt;&gt;
+    &lt;&lt;link [img[assets/img/Demo_Infernoforecast.png]]&gt;&gt;
         &lt;&lt;if $playerchoices.chosenmonsters.includes(&quot;Inferno&quot;)&gt;&gt;
             &lt;&lt;set $playerchoices.chosenmonsters.delete(&quot;Inferno&quot;)&gt;&gt;
             &lt;&lt;toggleclass &quot;#infernoChoice&quot; &quot;chosen&quot;&gt;&gt;
@@ -980,7 +1023,7 @@ setup.chooseImpactsAudio = () => {
 
 &lt;!-- Drench --&gt;
 &lt;div id=&quot;drenchChoice&quot; class=&quot;card-selection-item arcard&quot;&gt;
-    &lt;&lt;link [img[assets/img/Demo_Drench.png]]&gt;&gt;
+    &lt;&lt;link [img[assets/img/Demo_Drenchforecast.png]]&gt;&gt;
         &lt;&lt;if $playerchoices.chosenmonsters.includes(&quot;Drench&quot;)&gt;&gt;
             &lt;&lt;set $playerchoices.chosenmonsters.delete(&quot;Drench&quot;)&gt;&gt;
             &lt;&lt;toggleclass &quot;#drenchChoice&quot; &quot;chosen&quot;&gt;&gt;
@@ -998,7 +1041,7 @@ setup.chooseImpactsAudio = () => {
 
 &lt;!-- Crystal --&gt;
 &lt;div id=&quot;crystalChoice&quot; class=&quot;card-selection-item arcard&quot;&gt;
-    &lt;&lt;link [img[assets/img/Demo_Crystal.png]]&gt;&gt;
+    &lt;&lt;link [img[assets/img/Demo_Crystalforecast.png]]&gt;&gt;
         &lt;&lt;if $playerchoices.chosenmonsters.includes(&quot;Crystal&quot;)&gt;&gt;
             &lt;&lt;set $playerchoices.chosenmonsters.delete(&quot;Crystal&quot;)&gt;&gt;
             &lt;&lt;toggleclass &quot;#crystalChoice&quot; &quot;chosen&quot;&gt;&gt;
@@ -1016,14 +1059,14 @@ setup.chooseImpactsAudio = () => {
 
 &lt;/div&gt;
 &lt;br/&gt;
-&lt;p&gt;The monster attack will be one of these two cards, but it’s a 50 / 50 chance. &lt;/p&gt;
+&lt;p&gt;The Monster attack will be one of these two cards, but it’s a 50 / 50 chance.  &lt;/p&gt;
 
     &lt;/main&gt;
 
     &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;
     &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;include &quot;checkChosenMonsterCards&quot;&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="checkChosenMonsterCards" tags="nobr" position="1225,350" size="100,100">&lt;&lt;if $playerchoices.chosenmonsters.includes(&quot;Gale&quot;)&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="33" name="checkChosenMonsterCards" tags="nobr" position="350,475" size="100,100">&lt;&lt;if $playerchoices.chosenmonsters.includes(&quot;Gale&quot;)&gt;&gt;
     &lt;&lt;addclass &quot;#galeChoice&quot; &quot;chosen&quot;&gt;&gt;
     &lt;&lt;/if&gt;&gt;
 &lt;&lt;if $playerchoices.chosenmonsters.includes(&quot;Drench&quot;)&gt;&gt;
@@ -1050,7 +1093,7 @@ setup.chooseImpactsAudio = () => {
 &lt;&lt;replace &quot;#chosenMonsterMount&quot;&gt;&gt;
     $playerchoices.chosenmonsters
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="chosenMonsterForecast-intro" tags="nobr" position="100,475" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="34" name="chosenMonsterForecast-intro" tags="nobr" position="475,475" size="100,100">&lt;&lt;set $prevpass to &quot;monstercards&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;chosenMonsterForecast&quot;&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
@@ -1076,12 +1119,12 @@ setup.chooseImpactsAudio = () => {
 
     &lt;div class=&quot;grid-item explanation&quot;&gt;
 &lt;p&gt;Now you know what could be coming, there is a chance to prepare. &lt;/p&gt;
-&lt;p&gt;There are different actions you might take to get ready for the monster attack. &lt;/p&gt;
+&lt;p&gt;There are different actions you might take to get ready for the Monster attack. &lt;/p&gt;
 
 &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;Prepare&lt;/span&gt; actions, physical preparations for neighbours to do at home or on the street.  &lt;/p&gt;
  &lt;p&gt;&lt;span class=&quot;accent&quot;&gt;Connect&lt;/span&gt; actions, connecting to your neighbours and local community. &lt;/p&gt;
  &lt;br/&gt;
- &lt;p&gt;Facilitator, lay out the &lt;span class=&quot;accent&quot;&gt;Prepare&lt;/span&gt; and &lt;span class=&quot;accent&quot;&gt;Connect&lt;/span&gt; actions on the table.&lt;/p&gt;
+
  &lt;/div&gt;
 &lt;/main&gt;
 
@@ -1093,7 +1136,7 @@ setup.chooseImpactsAudio = () => {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="32" name="chosenMonsterForecast" tags="nobr" position="225,475" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="chosenMonsterForecast" tags="nobr" position="600,475" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast-intro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;chosenMonsterForecast&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;actions&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -1107,8 +1150,8 @@ setup.chooseImpactsAudio = () => {
 
 &lt;main class=&quot;timer grid-wrapper split&quot;&gt;
     &lt;div class=&quot; grid-item explanation&quot;&gt;
-
-&lt;p&gt;You need to choose FIVE actions to prepare for the monster attack. &lt;/p&gt;
+&lt;p&gt;&lt;i&gt;Facilitator, lay out the &lt;span class=&quot;accent&quot;&gt;Prepare&lt;/span&gt; and &lt;span class=&quot;accent&quot;&gt;Connect&lt;/span&gt; actions on the table.&lt;/i&gt;&lt;/p&gt;
+&lt;p&gt;You need to choose FIVE actions to prepare for the Monster attack. &lt;/p&gt;
 &lt;br/&gt;
  &lt;&lt;timed 5s&gt;&gt;
     &lt;p&gt;The clock is ticking.&lt;/p&gt;
@@ -1123,25 +1166,25 @@ setup.chooseImpactsAudio = () => {
  
 &lt;/main&gt;
 
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="33" name="headertimer" tags="nobr" position="350,475" size="100,100">&lt;header class=&quot;timer&quot;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="headertimer" tags="nobr" position="725,475" size="100,100">&lt;header class=&quot;timer&quot;&gt;
 
       &lt;&lt;include &quot;timer&quot;&gt;&gt;
 
-&lt;/header&gt;</tw-passagedata><tw-passagedata pid="34" name="2headertimer" tags="nobr" position="475,475" size="100,100">&lt;header class=&quot;timer&quot;&gt;
+&lt;/header&gt;</tw-passagedata><tw-passagedata pid="37" name="2headertimer" tags="nobr" position="850,475" size="100,100">&lt;header class=&quot;timer&quot;&gt;
 
       &lt;&lt;include &quot;2mtimer&quot;&gt;&gt;
 
-&lt;/header&gt;</tw-passagedata><tw-passagedata pid="35" name="3headertimer" tags="nobr" position="600,475" size="100,100">&lt;header class=&quot;timer&quot;&gt;
+&lt;/header&gt;</tw-passagedata><tw-passagedata pid="38" name="3headertimer" tags="nobr" position="975,475" size="100,100">&lt;header class=&quot;timer&quot;&gt;
 
       &lt;&lt;include &quot;3mtimer&quot;&gt;&gt;
 
-&lt;/header&gt;</tw-passagedata><tw-passagedata pid="36" name="5headertimer" tags="nobr" position="725,475" size="100,100">&lt;header class=&quot;timer&quot;&gt;
+&lt;/header&gt;</tw-passagedata><tw-passagedata pid="39" name="5headertimer" tags="nobr" position="1100,475" size="100,100">&lt;header class=&quot;timer&quot;&gt;
 
       &lt;&lt;include &quot;5mtimer&quot;&gt;&gt;
 
-&lt;/header&gt;</tw-passagedata><tw-passagedata pid="37" name="questionsheadertimer" tags="nobr" position="850,475" size="100,100">&lt;header class=&quot;timer&quot;&gt;
+&lt;/header&gt;</tw-passagedata><tw-passagedata pid="40" name="questionsheadertimer" tags="nobr" position="1225,475" size="100,100">&lt;header class=&quot;timer&quot;&gt;
       &lt;&lt;include &quot;5mtimerquestions&quot;&gt;&gt;
-&lt;/header&gt;</tw-passagedata><tw-passagedata pid="38" name="chosenmonstersdisplay" tags="nobr" position="975,475" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;.png&quot;&gt;&gt;
+&lt;/header&gt;</tw-passagedata><tw-passagedata pid="41" name="chosenmonstersdisplay" tags="nobr" position="100,600" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;.png&quot;&gt;&gt;
  &lt;&lt;set $img2 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[1] + &quot;.png&quot; &gt;&gt;
 
 &lt;div class=&quot;cards-selection&quot;&gt;
@@ -1151,7 +1194,7 @@ setup.chooseImpactsAudio = () => {
     &lt;div class=&quot;card-selection-item arcard&quot;&gt;
         [img[$img2]]
     &lt;/div&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="39" name="chosenmonstersforecastdisplay" tags="nobr" position="1100,475" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;forecast.png&quot;&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="42" name="chosenmonstersforecastdisplay" tags="nobr" position="225,600" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;forecast.png&quot;&gt;&gt;
  &lt;&lt;set $img2 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[1] + &quot;forecast.png&quot; &gt;&gt;
 
 &lt;div class=&quot;cards-selection grid-item cards&quot;&gt;
@@ -1161,22 +1204,22 @@ setup.chooseImpactsAudio = () => {
     &lt;div class=&quot; inline-img-wrapper arcard&quot;&gt;
         [img[$img2]]
     &lt;/div&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="40" name="actions" tags="nobr" position="1225,475" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast&quot;&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="43" name="actions" tags="nobr" position="350,600" size="100,100">&lt;&lt;set $prevpass to &quot;chosenMonsterForecast&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;actions&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;postactionchoice&quot;&gt;&gt;
 &lt;&lt;set $actionsoptions to [
-    {type: &quot;prepare&quot;, actionnum: 1, text: &quot;Lay out some salt.&quot;, id:1},
-    {type: &quot;prepare&quot;, actionnum: 2, text: &quot;Gather drinks and ice.&quot; , id:2},
-    {type: &quot;prepare&quot;, actionnum: 3, text: &quot;Clear away or secure objects.&quot;, id:3},
-    {type: &quot;prepare&quot;, actionnum: 4, text: &quot;Set up barriers, blocks, and absorbent pads.&quot;, id:4},
-    {type: &quot;prepare&quot;, actionnum: 5, text: &quot;Gather together an emergency kit.&quot;, id:5},
-    {type: &quot;prepare&quot;, actionnum: 6, text: &quot;Have a plan.&quot;, id:6},
-    {type: &quot;prepare&quot;, actionnum: 7, text: &quot;Move precious belongings.&quot;, id:7},
-    {type: &quot;connect&quot;, actionnum: 1, text: &quot;Set up a messaging group.&quot;, id:8},
-    {type: &quot;connect&quot;, actionnum: 2, text: &quot;Go door-knocking.&quot;, id:9},
-    {type: &quot;connect&quot;, actionnum: 3, text: &quot;Connect to the community centre.&quot;, id:10},
-    {type: &quot;connect&quot;, actionnum: 4, text: &quot;Connect to the local school or faith space.&quot;, id:11},
-    {type: &quot;connect&quot;, actionnum: 5, text: &quot;Sign up for alerts and warnings.&quot;, id:12}
+    {type: &quot;prepare&quot;, letter:&quot;A&quot; , actionnum: 1, text: &quot;Lay out some salt or grit.&quot;, id:1},
+    {type: &quot;prepare&quot;, letter:&quot;B&quot; , actionnum: 2, text: &quot;Gather water and ice.&quot; , id:2},
+    {type: &quot;prepare&quot;, letter:&quot;C&quot; , actionnum: 3, text: &quot;Clear away or secure outdoor objects.&quot;, id:3},
+    {type: &quot;prepare&quot;, letter:&quot;D&quot; , actionnum: 4, text: &quot;Set up barriers, blocks, and absorbent pads.&quot;, id:4},
+    {type: &quot;prepare&quot;, letter:&quot;E&quot; , actionnum: 5, text: &quot;Gather an emergency kit.&quot;, id:5},
+    {type: &quot;prepare&quot;, letter:&quot;F&quot; , actionnum: 6, text: &quot;Have a plan.&quot;, id:6},
+    {type: &quot;prepare&quot;, letter:&quot;G&quot; , actionnum: 7, text: &quot;Move precious belongings inside homes.&quot;, id:7},
+    {type: &quot;connect&quot;, letter: &quot;H&quot;, actionnum: 1, text: &quot;Set up a messaging group.&quot;, id:8},
+    {type: &quot;connect&quot;, letter: &quot;I&quot;, actionnum: 2, text: &quot;Go door-knocking.&quot;, id:9},
+    {type: &quot;connect&quot;, letter: &quot;J&quot;, actionnum: 3, text: &quot;Connect to the community centre.&quot;, id:10},
+    {type: &quot;connect&quot;, letter: &quot;K&quot;, actionnum: 4, text: &quot;Connect to the local school or faith space.&quot;, id:11},
+    {type: &quot;connect&quot;, letter: &quot;L&quot;, actionnum: 5, text: &quot;Sign up for alerts and warnings.&quot;, id:12}
 ]&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
     &lt;audio src=&quot;assets/voiceover/strongertogethervo_4_4.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
@@ -1203,14 +1246,16 @@ setup.chooseImpactsAudio = () => {
 &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;
 &lt;&lt;timed 0.1s&gt;&gt;
     &lt;&lt;include &quot;checkChosenActions&quot;&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="actionslist" tags="nobr" position="100,600" size="100,100">&lt;div class=&quot;actions-list&quot;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="actionslist" tags="nobr" position="475,600" size="100,100">&lt;div class=&quot;actions-list&quot;&gt;
 &lt;&lt;for _i to 0; _i lt $actionsoptions.length; _i++&gt;&gt;
   &lt;&lt;capture _i&gt;&gt;
     &lt;&lt;set $text to ($actionsoptions[_i].text)&gt;&gt;
     
+&lt;div class=&quot;actions-item-wrapper&quot;&gt;
 &lt;div sc-eval:class=&quot;&#39;actions-item actions-item&#39; + ($actionsoptions[_i].id)&quot; sc-eval:id=&quot;&#39;action&#39; + [_i]&quot; sc-eval:data-id=&quot;&#39;action&#39; + [_i]&quot;&gt;
-   &lt;h3&gt;$actionsoptions[_i].type&lt;/h3&gt; $text
-   &lt;br/&gt;
+   &lt;h3&gt;$actionsoptions[_i].letter&lt;/h3&gt; 
+   &lt;div&gt;
+   &lt;h4&gt;$text&lt;/h4&gt;
 
      &lt;div sc-eval:id=&quot;&#39;chooseBtn&#39;+ $actionsoptions[_i].id&quot; class=&quot;chooseBtn&quot;&gt;
          &lt;&lt;button &quot;&gt; Choose&quot;&gt;&gt;
@@ -1225,10 +1270,12 @@ setup.chooseImpactsAudio = () => {
          &lt;&lt;/button&gt;&gt;
      &lt;/div&gt;
            &lt;/div&gt;
+           &lt;/div&gt;
+           &lt;/div&gt;
        &lt;&lt;/capture&gt;&gt;
    &lt;&lt;/for&gt;&gt;
 &lt;/div&gt;
-    /* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="42" name="checkChosenActions" tags="nobr" position="225,600" size="100,100">&lt;&lt;for _i to 0; _i lt $actionsoptions.length; _i++&gt;&gt;
+    /* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="45" name="checkChosenActions" tags="nobr" position="600,600" size="100,100">&lt;&lt;for _i to 0; _i lt $actionsoptions.length; _i++&gt;&gt;
     &lt;&lt;if $playerchoices.chosenactions.includes($actionsoptions[_i].id)&gt;&gt;
         &lt;&lt;set $class to &quot;.actions-item&quot; + (_i+1) &gt;&gt;
         &lt;&lt;addclass $class &quot;chosen&quot;&gt;&gt;
@@ -1253,7 +1300,7 @@ setup.chooseImpactsAudio = () => {
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="postactionchoice" tags="nobr" position="350,600" size="100,100">&lt;&lt;set $prevpass to &quot;actions&quot;&gt;&gt;
+    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="postactionchoice" tags="nobr" position="725,600" size="100,100">&lt;&lt;set $prevpass to &quot;actions&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;postactionchoice&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;fortunetrans&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -1276,7 +1323,7 @@ setup.chooseImpactsAudio = () => {
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="fortunetrans" tags="nobr" position="475,600" size="100,100">&lt;&lt;set $prevpass to &quot;postactionchoice&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="fortunetrans" tags="nobr" position="850,600" size="100,100">&lt;&lt;set $prevpass to &quot;postactionchoice&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;fortunetrans&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;predice&quot;&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
@@ -1299,50 +1346,50 @@ setup.chooseImpactsAudio = () => {
 
  &lt;&lt;timed 10s&gt;&gt;
      &lt;&lt;goto $nextpass&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="predice" tags="nobr" position="600,600" size="100,100">&lt;&lt;set $prevpass to &quot;actions&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="predice" tags="nobr" position="975,600" size="100,100">&lt;&lt;set $prevpass to &quot;actions&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;predice&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;diceresults&quot;&gt;&gt;
 &lt;&lt;set $diceoptions to [
     {num:1, 
     text1: `Things aren’t great.  
 Local resources are depleted, so minimal thought and effort has gone into preparing for disaster. 
-Because of poor planning and lack of investment, you’re facing the monster attack entirely by yourselves. 
-You won’t receive any Good Fortune Cards. Instead, during the attack you’ll face one &lt;span class=&#39;accent&#39;&gt;Unpredictable Outcome&lt;/span&gt;.`, 
-    text2:`You’ll need to come together as a street, using your own skills and resources to respond. 
+Because of poor planning and lack of investment, you’re facing the Monster attack entirely by yourselves. 
+You won’t receive any &lt;span class=&#39;accent&#39;&gt;Good Fortune Tokens&lt;/span&gt;. Instead, during the attack you’ll face &lt;span class=&#39;accent&#39;&gt;one Unpredictable Outcome&lt;/span&gt;.`, 
+    text2:`You’ll need to come together as a street, and one of you will use your skills and resources to respond. 
 Your facilitator will lead you through this when the moment comes.`,
      wildcards: 0, 
     changedactions: 2},
      {num:2, 
      text1: `Things aren’t great.  
 Local resources are depleted, so minimal thought and effort has gone into preparing for disaster. 
-Because of poor planning and lack of investment, you’re facing the monster attack entirely by yourselves. 
-You won’t receive any Good Fortune Cards. Instead, during the attack you’ll face one &lt;span class=&#39;accent&#39;&gt;Unpredictable Outcome&lt;/span&gt;.`, 
-    text2:`You’ll need to come together as a street, using your own skills and resources to respond. 
+Because of poor planning and lack of investment, you’re facing the Monster attack entirely by yourselves. 
+You won’t receive any &lt;span class=&#39;accent&#39;&gt;Good Fortune Tokens&lt;/span&gt;. Instead, during the attack you’ll face &lt;span class=&#39;accent&#39;&gt;one Unpredictable Outcome&lt;/span&gt;.`, 
+    text2:`You’ll need to come together as a street, and one of you will use your skills and resources to respond. 
 Your facilitator will lead you through this when the moment comes.`,
      wildcards: 0, 
     changedactions: 2},
      {num:3, 
     text1: `You are fortunate. 
 Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
-    text2:`During the monster attack you’ll be able to access one &lt;span class=&#39;accent&#39;&gt;Good Fortune Card&lt;/span&gt;.`,
+    text2:`During the Monster attack you’ll access &lt;span class=&#39;accent&#39;&gt; one Good Fortune Token&lt;/span&gt;.`,
      wildcards: 1, 
     changedactions: 0},
      {num:4, 
     text1: `You are fortunate. 
 Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
-    text2:`During the monster attack you’ll be able to access one &lt;span class=&#39;accent&#39;&gt;Good Fortune Card&lt;/span&gt;.`,
+    text2:`During the Monster attack you’ll access &lt;span class=&#39;accent&#39;&gt; one Good Fortune Token&lt;/span&gt;.`,
      wildcards: 1, 
     changedactions: 0},
      {num:5, 
     text1: `You are very fortunate. 
-Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
-    text2:`During the monster attack you’ll be able to access two &lt;span class=&#39;accent&#39;&gt;Good Fortune Cards&lt;/span&gt;.`,
+Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available.`, 
+    text2:`During the Monster attack you’ll access &lt;span class=&#39;accent&#39;&gt;two Good Fortune Tokens&lt;/span&gt;.`,
      wildcards: 2, 
     changedactions: 0},
     {num:6, 
-    text1: `You are very fortunate. 
-Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available. `, 
-    text2:`During the monster attack you’ll be able to access two &lt;span class=&#39;accent&#39;&gt;Good Fortune Cards&lt;/span&gt;.`,
+   text1: `You are very fortunate. 
+Your local council has had the money and resources to put some time into disaster preparation, so there’s extra help available.`, 
+    text2:`During the Monster attack you’ll access &lt;span class=&#39;accent&#39;&gt;two Good Fortune Tokens&lt;/span&gt;.`,
      wildcards: 2, 
     changedactions: 0}
 ]
@@ -1369,7 +1416,7 @@ Your local council has had the money and resources to put some time into disaste
 &lt;br/&gt;
 &lt;p&gt;Life on different High Streets varies wildly across the UK. &lt;/p&gt; 
 &lt;br/&gt;
-&lt;p&gt;Before the monster arrives, we’re going to find out just how unfair things are: how fortunate this High Street is. &lt;/p&gt;
+&lt;p&gt;Before the Monster arrives, we’re going to find out just how unfair things are: how fortunate this High Street is. &lt;/p&gt;
 &lt;p&gt;To do this you’ll roll a... [virtual] die. &lt;/p&gt;
 &lt;br/&gt;
 &lt;br/&gt;
@@ -1386,7 +1433,7 @@ Your local council has had the money and resources to put some time into disaste
     &lt;/div&gt;
 &lt;/main&gt;
 /* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */
-&lt;&lt;include &quot;footer&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="rolling" tags="nobr" position="725,600" size="100,100">&lt;&lt;audio &quot;diceroll&quot; &quot;play&quot;&gt;&gt;   
+&lt;&lt;include &quot;footer&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="rolling" tags="nobr" position="1100,600" size="100,100">&lt;&lt;audio &quot;diceroll&quot; &quot;play&quot;&gt;&gt;   
 &lt;main class=&quot;maindice&quot;&gt;
   &lt;div class=&quot;dice roll&quot;&gt;
     &lt;div class=&quot;dot top-left&quot;&gt;&lt;/div&gt;
@@ -1397,7 +1444,7 @@ Your local council has had the money and resources to put some time into disaste
   &lt;/div&gt;
   &lt;h2&gt;Rolling...&lt;/h2&gt;
 &lt;/main&gt;
-&lt;&lt;timed 3.5s&gt;&gt;&lt;&lt;goto $nextpass&gt;&gt;&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="choosediceaudio" tags="nobr" position="850,600" size="100,100">&lt;&lt;if $diceoptions[$diceroll].num === 1 or $diceoptions[$diceroll].num === 2&gt;&gt;
+&lt;&lt;timed 3.5s&gt;&gt;&lt;&lt;goto $nextpass&gt;&gt;&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="choosediceaudio" tags="nobr" position="1225,600" size="100,100">&lt;&lt;if $diceoptions[$diceroll].num === 1 or $diceoptions[$diceroll].num === 2&gt;&gt;
     &lt;&lt;timed 0.1s&gt;&gt;
     &lt;&lt;replace &quot;#audio&quot;&gt;&gt;
         &lt;audio src=&quot;assets/voiceover/strongertogethervo_5_2_thingsarentgreat.mp3&quot; autoplay &gt;Audio is not supported on your device&lt;/audio&gt;
@@ -1415,7 +1462,7 @@ Your local council has had the money and resources to put some time into disaste
         &lt;audio src=&quot;assets/voiceover/strongertogethervo_5_2_veryfortunate.mp3&quot; autoplay &gt;Audio is not supported on your device&lt;/audio&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="chosetimeafterdiceaudio" tags="nobr" position="975,600" size="100,100">&lt;&lt;if $diceoptions[$diceroll].num === 1 or $diceoptions[$diceroll].num === 2&gt;&gt;
+    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="chosetimeafterdiceaudio" tags="nobr" position="100,725" size="100,100">&lt;&lt;if $diceoptions[$diceroll].num === 1 or $diceoptions[$diceroll].num === 2&gt;&gt;
     &lt;&lt;timed 33.5s&gt;&gt;
     &lt;&lt;replace &quot;#audio&quot;&gt;&gt;
         &lt;audio src=&quot;assets/voiceover/strongertogethervo_5_3.mp3&quot; autoplay &gt;Audio is not supported on your device&lt;/audio&gt;
@@ -1433,7 +1480,7 @@ Your local council has had the money and resources to put some time into disaste
         &lt;audio src=&quot;assets/voiceover/strongertogethervo_5_3.mp3&quot; autoplay &gt;Audio is not supported on your device&lt;/audio&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="diceresults" tags="nobr" position="1100,600" size="100,100">&lt;&lt;set $prevpass to &quot;predice&quot;&gt;&gt;
+    &lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="diceresults" tags="nobr" position="225,725" size="100,100">&lt;&lt;set $prevpass to &quot;predice&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;diceresults&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;forecast&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -1500,7 +1547,7 @@ Your local council has had the money and resources to put some time into disaste
             
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
-    &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="50" name="wallet" tags="nobr" position="1225,600" size="100,100">&lt;div class=&quot;wallet&quot;&gt;
+    &lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="wallet" tags="nobr" position="350,725" size="100,100">&lt;div class=&quot;wallet&quot;&gt;
     &lt;h2&gt;Wallet&lt;/h2&gt;
     &lt;span&gt;Monsters: $playerchoices.chosenmonsters&lt;/span&gt;
     &lt;span&gt;Final Monster: $playerchoices.finalmonster&lt;/span&gt;
@@ -1519,7 +1566,7 @@ console.log(State.variables)
    &lt;&lt;print typeof $playerchoices&gt;&gt;
 &lt;&lt;print JSON.stringify($playerchoices)&gt;&gt;
 
-/* &lt;&lt;include &quot;footerwallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="51" name="forecast" tags="nobr" position="100,725" size="100,100">&lt;&lt;set $prevpass to &quot;diceresults&quot;&gt;&gt;
+/* &lt;&lt;include &quot;footerwallet&quot;&gt;&gt; */</tw-passagedata><tw-passagedata pid="54" name="forecast" tags="nobr" position="475,725" size="100,100">&lt;&lt;set $prevpass to &quot;diceresults&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;forecast&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -1531,20 +1578,19 @@ console.log(State.variables)
 &lt;div class=&quot;explanation grid-item&quot;&gt;
 &lt;h2&gt;Disaster looms.&lt;/h2&gt;
 &lt;br/&gt;
-&lt;p&gt;The monster attack is moments away and we can finally see which monster is coming. &lt;/p&gt;
+&lt;p&gt;The Monster attack is moments away and we can finally see which Monster is coming.  &lt;/p&gt;
 &lt;br/&gt;
-&lt;p&gt;Shuffle the two monster cards.  &lt;/p&gt;
-&lt;p&gt;Facilitator, hold them upside down. &lt;/p&gt;
-&lt;p&gt;One player, choose a card to reveal the monster you will face.  &lt;/p&gt;
+&lt;p&gt;&lt;i&gt;Facilitator, shuffle the two Monster cards and hold them out upside down.&lt;/i&gt; &lt;/p&gt;
+&lt;p&gt;One player, choose a card to reveal the Monster you will face.   &lt;/p&gt;
 &lt;br/&gt;
-&lt;p&gt;Now, select this monster below.  &lt;/p&gt;
+&lt;p&gt;&lt;span class=&quot;accent&quot;&gt;Now, select this Monster below. &lt;/span&gt; &lt;/p&gt;
 &lt;/div&gt;
 &lt;&lt;include &quot;choosefinalmonster&quot;&gt;&gt;
 &lt;br/&gt;
 
 &lt;/main&gt;
 /* &lt;&lt;include &quot;wallet&quot;&gt;&gt; */
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="52" name="choosefinalmonster" tags="nobr" position="225,725" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;forecast.png&quot; &gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="choosefinalmonster" tags="nobr" position="600,725" size="100,100">&lt;&lt;set $img1 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[0] + &quot;forecast.png&quot; &gt;&gt;
  &lt;&lt;set $img2 to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.chosenmonsters[1] + &quot;forecast.png&quot; &gt;&gt;
 
 
@@ -1578,7 +1624,7 @@ console.log(State.variables)
         &lt;&lt;/link&gt;&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-  &lt;&lt;include &quot;checkFinalMonsterChoice&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="53" name="checkFinalMonsterChoice" tags="nobr" position="350,725" size="100,100">&lt;&lt;timed 0.1s&gt;&gt; 
+  &lt;&lt;include &quot;checkFinalMonsterChoice&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="checkFinalMonsterChoice" tags="nobr" position="725,725" size="100,100">&lt;&lt;timed 0.1s&gt;&gt; 
     &lt;&lt;for _i to 0; _i lt 2; _i++&gt;&gt;
     &lt;&lt;if $playerchoices.finalmonster === $playerchoices.chosenmonsters[0]&gt;&gt;
         &lt;&lt;set _id to &quot;#card1&quot; &gt;&gt;
@@ -1607,7 +1653,7 @@ console.log(State.variables)
             &lt;&lt;/button&gt;&gt;
         &lt;&lt;/replace&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="54" name="workOutScore" tags="nobr" position="475,725" size="100,100">/* There is one point available for every action card selected, so every player / game should be getting a score of 5 / 10 as a minimum. 
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="workOutScore" tags="nobr" position="850,725" size="100,100">/* There is one point available for every action card selected, so every player / game should be getting a score of 5 / 10 as a minimum. 
 Then for each monster there are 6 optimal choices. For each of these selected, 1 should be added to the score. */
 
 &lt;&lt;set _baseScore = $playerchoices.chosenactions.length&gt;&gt;
@@ -1636,7 +1682,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;set _totalScore = _baseScore + _bonusScore&gt;&gt;
 &lt;&lt;set _percentage = Math.round((_totalScore / 10) * 100)&gt;&gt;
 &lt;&lt;set $playerchoices.score = _totalScore&gt;&gt;
-&lt;&lt;set $playerchoices.percentage = _percentage&gt;&gt;</tw-passagedata><tw-passagedata pid="55" name="storyintro" tags="nobr" position="600,725" size="100,100">&lt;&lt;set $prevpass to &quot;forecast&quot;&gt;&gt;
+&lt;&lt;set $playerchoices.percentage = _percentage&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="storyintro" tags="nobr" position="975,725" size="100,100">&lt;&lt;set $prevpass to &quot;forecast&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;&quot;&gt;&gt;
 &lt;&lt;include &quot;choosemonsterpath&quot;&gt;&gt;
@@ -1661,7 +1707,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;set $imgfinalmonster to &quot;assets/img/&quot; + &quot;Demo_&quot; + $playerchoices.finalmonster + &quot;.png&quot;&gt;&gt;
 &lt;main class=&quot;grid-wrapper&quot;&gt;
 &lt;div class=&quot;grid-item explanation&quot;&gt;
-    &lt;h2&gt;The monster closes in on High Street. &lt;/h2&gt;
+    &lt;h2&gt;The Monster closes in on High Street. &lt;/h2&gt;
     &lt;h3&gt;We’re going to uncover how this attack plays out.  &lt;/h3&gt;
 &lt;/div&gt;
 &lt;br/&gt;
@@ -1680,7 +1726,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
 
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="56" name="choosemonsterpath" tags="nobr" position="725,725" size="100,100">&lt;&lt;if $playerchoices.finalmonster is &quot;Gale&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="choosemonsterpath" tags="nobr" position="1100,725" size="100,100">&lt;&lt;if $playerchoices.finalmonster is &quot;Gale&quot;&gt;&gt;
     &lt;&lt;set $nextpass to &quot;galeintro&quot;&gt;&gt;
     &lt;&lt;set $audioMonster to &quot;galemonster&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -1695,7 +1741,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;if $playerchoices.finalmonster is &quot;Drench&quot;&gt;&gt;
     &lt;&lt;set $nextpass to &quot;drenchintro&quot;&gt;&gt;
     &lt;&lt;set $audioMonster to &quot;watermonster&quot;&gt;&gt;
-&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="57" name="galeintro" tags="nobr" position="850,725" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="galeintro" tags="nobr" position="1225,725" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;galeintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;galestory&quot;&gt;&gt;
 &lt;&lt;set $storyMonsterNeeded to &quot;GALE&quot;&gt;&gt;
@@ -1726,7 +1772,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseIntroAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="58" name="galestory" tags="nobr" position="975,725" size="100,100">&lt;&lt;set $prevpass to &quot;galeintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="galestory" tags="nobr" position="100,850" size="100,100">&lt;&lt;set $prevpass to &quot;galeintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;galestory&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;gale-poststory&quot;&gt;&gt;
@@ -1778,7 +1824,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/3.png&quot; alt=&quot;action card&quot;/&gt;
     &lt;/div&gt;
-    &lt;p&gt;Gale bangs at the doors of sheds, and pulls at the cables you’ve tied, but nothing escapes. Your neighbours and Dot, the stray cat, are safe from flying debris!  &lt;/p&gt;
+    &lt;p&gt;Gale bangs at the doors of sheds, and pulls at the cables you’ve tied, but nothing escapes. Your neighbours are safe from flying debris! &lt;/p&gt;
     &lt;/div&gt;
  &lt;&lt;/if&gt;&gt;
 
@@ -1828,7 +1874,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseStoryAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="59" name="galefortune" tags="nobr" position="1100,725" size="100,100">&lt;&lt;set $prevpass to &quot;galestory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="62" name="galefortune" tags="nobr" position="225,850" size="100,100">&lt;&lt;set $prevpass to &quot;galestory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;galefortune&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;gale-poststory&quot;&gt;&gt;
 
@@ -1841,10 +1887,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
     &lt;h2&gt;Your fortune also provides an additional benefit! &lt;/h2&gt;
-    &lt;p&gt;You get a Good Fortune Card: &lt;/p&gt;
+    &lt;p&gt;You get a Good Fortune Token: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Token&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
     &lt;p&gt;In the days following Gale’s visit the fire service are sent to High Street. They clear trees and debris, ensuring all key roads can be accessed and no properties remain at risk. &lt;/p&gt;
@@ -1858,13 +1904,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
 
     &lt;h2&gt;Your fortune also provides additional benefits! &lt;/h2&gt;
-    &lt;p&gt;You get two Good Fortune Cards: &lt;/p&gt;
+    &lt;p&gt;You get two Good Fortune Tokens: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Token&quot;/&gt;
             &lt;/div&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Token&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
  &lt;p&gt;  In the days following Gale’s visit the fire service are sent to High Street. They clear trees and debris, ensuring all key roads can be accessed and no properties remain at risk. &lt;/p&gt;
@@ -1890,7 +1936,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="60" name="gale-poststory" tags="nobr" position="1225,725" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="63" name="gale-poststory" tags="nobr" position="350,850" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $prevpass to &quot;galestory&quot;&gt;&gt;
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $prevpass to &quot;galefortune&quot;&gt;&gt;
@@ -1920,7 +1966,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="61" name="galeimpacts" tags="nobr" position="100,850" size="100,100">&lt;&lt;set $prevpass to &quot;gale-poststory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="64" name="galeimpacts" tags="nobr" position="475,850" size="100,100">&lt;&lt;set $prevpass to &quot;gale-poststory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;galeimpacts&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;galefortuneimpacts&quot;&gt;&gt;
@@ -1974,7 +2020,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/3.png&quot; alt=&quot;action card&quot;/&gt;
     &lt;/div&gt;
-    &lt;p&gt;Gale bangs at the doors of sheds, lifting chairs and a trampoline into the air. One neighbour is hit by a flying parasol and goes to hospital. Fortunately, Dot, the stray cat, dodges all of the debris! &lt;/p&gt;
+    &lt;p&gt;Gale bangs at the doors of sheds, lifting chairs and a trampoline into the air. One neighbour is hit by a flying parasol and goes to hospital. &lt;/p&gt;
     &lt;/div&gt;
  &lt;&lt;/if&gt;&gt;
 
@@ -2024,7 +2070,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseImpactsAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="62" name="galefortuneimpacts" tags="nobr" position="225,850" size="100,100">&lt;&lt;set $prevpass to &quot;galeimpacts&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="galefortuneimpacts" tags="nobr" position="600,850" size="100,100">&lt;&lt;set $prevpass to &quot;galeimpacts&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;galefortuneimpacts&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;set $storyMonsterNeeded to &quot;GALE&quot;&gt;&gt;
@@ -2036,15 +2082,20 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
     &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
-     &lt;p&gt;Gale retreats and leaves what you can only call a rather large mess. &lt;/p&gt;
+     &lt;p&gt;Gale retreats and leaves what you can only call a rather large mess...&lt;/p&gt;
      &lt;br/&gt;   
-    &lt;h2&gt;There are fallen trees and debris over a major road causing some of the neighbours to be stuck. &lt;/h2&gt;
+    &lt;h2&gt;Dot, the stray cat, is stuck between a broken fence and some fallen trees. &lt;/h2&gt;
     &lt;br/&gt;
-&lt;p&gt;Due to your low fortune, there is no councillor to turn to. But you do have each other! &lt;/p&gt;
-
+&lt;p&gt;Due to your low fortune, there is no councillor to turn to. But you do have each other!  &lt;/p&gt;
+ &lt;br/&gt; 
 &lt;p&gt;You will use your skills to take action on this &lt;span class=&quot;accent&quot;&gt;Unpredictable Outcome.&lt;/span&gt; &lt;/p&gt;
 
-&lt;p&gt;&lt;i&gt;Facilitator, invite the players to describe how they will use their skills to take action.&lt;/i&gt; &lt;/p&gt;
+&lt;p&gt;Discuss your skills and resources.&lt;/p&gt; 
+
+&lt;p&gt;Together pick one neighbour who will take action to help Dot.&lt;/p&gt; 
+
+ &lt;br/&gt; 
+&lt;p&gt;&lt;i&gt;Facilitator, invite this player to describe how they will use their skills and resources to take action. &lt;/i&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;i&gt;You will judge whether they have successfully filled the gap. &lt;/i&gt;&lt;/p&gt;
 
@@ -2068,7 +2119,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="63" name="infernointro" tags="nobr" position="350,850" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="66" name="infernointro" tags="nobr" position="725,850" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;infernointro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;infernostory&quot;&gt;&gt;
 &lt;&lt;set $storyMonsterNeeded to &quot;INF&quot;&gt;&gt;
@@ -2101,7 +2152,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseIntroAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="64" name="infernostory" tags="nobr" position="475,850" size="100,100">&lt;&lt;set $prevpass to &quot;infernointro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="infernostory" tags="nobr" position="850,850" size="100,100">&lt;&lt;set $prevpass to &quot;infernointro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;infernostory&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;inferno-poststory&quot;&gt;&gt;
@@ -2128,7 +2179,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/2.png&quot; alt=&quot;action card&quot;/&gt;
     &lt;/div&gt;
-    &lt;p&gt;The temperature rises, and you pass out water to make sure everyone is cool and hydrated. Even Dot, the stray cat, gets her fill!&lt;/p&gt;
+    &lt;p&gt;The temperature rises, and you pass out the water and ice you gathered to make sure everyone is cool and hydrated.  &lt;/p&gt;
     &lt;/div&gt;
  &lt;&lt;/if&gt;&gt;
 
@@ -2212,7 +2263,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseStoryAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="65" name="infernofortune" tags="nobr" position="600,850" size="100,100">&lt;&lt;set $prevpass to &quot;infernostory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="68" name="infernofortune" tags="nobr" position="975,850" size="100,100">&lt;&lt;set $prevpass to &quot;infernostory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;infernofortune&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;inferno-poststory&quot;&gt;&gt;
 &lt;&lt;set $storyMonsterNeeded to &quot;INF&quot;&gt;&gt;
@@ -2225,10 +2276,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
     &lt;h2&gt;Your fortune also provides an additional benefit! &lt;/h2&gt;
-    &lt;p&gt;You get a Good Fortune Card: &lt;/p&gt;
+    &lt;p&gt;You get a Good Fortune Token: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Token&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
     &lt;p&gt;As the heat reaches dangerous levels, local community health workers set up a first aid tent on High Street, providing emergency medical care and handing out water, cold compresses and rehydration sachets. &lt;/p&gt;
@@ -2242,13 +2293,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
 
     &lt;h2&gt;Your fortune also provides additional benefits! &lt;/h2&gt;
-    &lt;p&gt;You get two Good Fortune Cards: &lt;/p&gt;
+    &lt;p&gt;You get two Good Fortune Tokens: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Token&quot;/&gt;
             &lt;/div&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Token&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
  &lt;p&gt; As the heat reaches dangerous levels, local community health workers set up a first aid tent on High Street, providing emergency medical care and handing out water, cold compresses and rehydration sachets. &lt;/p&gt;
@@ -2274,7 +2325,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="66" name="inferno-poststory" tags="nobr" position="725,850" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="inferno-poststory" tags="nobr" position="1100,850" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $prevpass to &quot;infernostory&quot;&gt;&gt;
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $prevpass to &quot;infernofortune&quot;&gt;&gt;
@@ -2293,7 +2344,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;p&gt;Unfortunately, not everything goes quite as well. &lt;/p&gt;
 &lt;p&gt;Due to the choices you made, there are some challenges you have to face. &lt;/p&gt;
 
-&lt;p&gt;Here are Inferno’s impacts you’re left to contend with… &lt;/p&gt;
+&lt;p&gt;Here are Inferno’s impacts you’re left to contend with...&lt;/p&gt;
 
 
 &lt;/div&gt;
@@ -2307,7 +2358,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="67" name="infernoimpacts" tags="nobr" position="850,850" size="100,100">&lt;&lt;set $prevpass to &quot;inferno-poststory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="70" name="infernoimpacts" tags="nobr" position="1225,850" size="100,100">&lt;&lt;set $prevpass to &quot;inferno-poststory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;infernoimpacts&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;infernofortuneimpacts&quot;&gt;&gt;
@@ -2333,7 +2384,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/2.png&quot; alt=&quot;action card&quot;/&gt;
     &lt;/div&gt;
-    &lt;p&gt;As the temperature rises, some neighbours, especially those with existing health conditions, suffer. Two people are dehydrated and need to be taken to hospital. Fortunately, Dot, the stray cat, found some water and shade - your neighbours aren’t quite so lucky!  &lt;/p&gt;
+    &lt;p&gt;As the temperature rises, some neighbours, especially those with existing health conditions, suffer. Two people are dehydrated and need to be taken to hospital.  &lt;/p&gt;
     &lt;/div&gt;
  &lt;&lt;/if&gt;&gt;
 
@@ -2411,7 +2462,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseImpactsAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="68" name="infernofortuneimpacts" tags="nobr" position="975,850" size="100,100">&lt;&lt;set $prevpass to &quot;infernoimpacts&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="infernofortuneimpacts" tags="nobr" position="100,975" size="100,100">&lt;&lt;set $prevpass to &quot;infernoimpacts&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;infernofortuneimpacts&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;set $storyMonsterNeeded to &quot;INF&quot;&gt;&gt;
@@ -2423,13 +2474,19 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
     &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
-    &lt;p&gt;As the heat rises, your fear for your neighbours does too. &lt;/p&gt;
-&lt;p&gt;With no emergency help available due to your low fortune, you will need to step in and fill the gap. 
-&lt;br/&gt;&lt;br/&gt;
-&lt;h2&gt;Neighbours are hot, dehydrated and at risk. How can you ensure your neighbours will get the help they need? &lt;/h2&gt;
-&lt;br/&gt;
-&lt;p&gt;You will use your skills to take action on this &lt;span class=&quot;accent&quot;&gt;Unpredictable Outcome.&lt;/span&gt; &lt;/p&gt;
+    &lt;p&gt;The heat rises and rises, High Street is under strain. &lt;/p&gt;
 
+&lt;br/&gt;&lt;br/&gt;
+&lt;h2&gt;Dot, the stray cat, is stuck up a tree. She is in direct sunlight and dehydrated, refusing to come down. &lt;/h2&gt;
+&lt;br/&gt;
+&lt;p&gt;Due to your low fortune, there is no councillor to turn to. But you do have each other! &lt;/p&gt;
+&lt;p&gt;You will use your skills to take action on this &lt;span class=&quot;accent&quot;&gt;Unpredictable Outcome.&lt;/span&gt; &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;Discuss your skills and resources. &lt;/p&gt;
+
+&lt;p&gt;Together, pick one neighbour who will take action to help Dot.&lt;/p&gt; 
+
+&lt;br/&gt;
 &lt;p&gt;&lt;i&gt;Facilitator, invite the players to describe how they will use their skills to take action.&lt;/i&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;i&gt;You will judge whether they have successfully filled the gap. &lt;/i&gt;&lt;/p&gt;
@@ -2454,7 +2511,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="69" name="drenchintro" tags="nobr" position="1100,850" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="72" name="drenchintro" tags="nobr" position="225,975" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;drenchintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;drenchstory&quot;&gt;&gt;
 &lt;&lt;set $storyMonsterNeeded to &quot;DRE&quot;&gt;&gt;
@@ -2481,7 +2538,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseIntroAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="70" name="drenchstory" tags="nobr" position="1225,850" size="100,100">&lt;&lt;set $prevpass to &quot;drenchintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="73" name="drenchstory" tags="nobr" position="350,975" size="100,100">&lt;&lt;set $prevpass to &quot;drenchintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;drenchstory&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;drench-poststory&quot;&gt;&gt;
@@ -2518,7 +2575,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/4.png&quot; alt=&quot;action card&quot;/&gt;
     &lt;/div&gt;
-&lt;p&gt;Drench arrives. The barriers, blocks and pads keep most of High Street water free, with no risk of disease or electric shock. Dot, the stray cat, is safe and well! &lt;/p&gt;
+&lt;p&gt;Drench arrives. The barriers, blocks and pads keep most of High Street water free, with no risk of disease or electric shock. &lt;/p&gt;
 &lt;/div&gt;
  &lt;&lt;/if&gt;&gt;
 
@@ -2584,7 +2641,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseStoryAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="71" name="drenchfortune" tags="nobr" position="100,975" size="100,100">&lt;&lt;set $prevpass to &quot;drenchstory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="74" name="drenchfortune" tags="nobr" position="475,975" size="100,100">&lt;&lt;set $prevpass to &quot;drenchstory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;drenchfortune&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;drench-poststory&quot;&gt;&gt;
 &lt;&lt;set $storyMonsterNeeded to &quot;DRE&quot;&gt;&gt;
@@ -2597,10 +2654,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
     &lt;h2&gt;Your fortune also provides an additional benefit! &lt;/h2&gt;
-    &lt;p&gt;You get a Good Fortune Card: &lt;/p&gt;
+    &lt;p&gt;You get a Good Fortune Token: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Token&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
     &lt;p&gt;Emergency services are dispatched to High Street to help people who remain stranded by the lingering floods. A family climbs out of their top floor window, and one man is rescued from his car. &lt;/p&gt;
@@ -2612,13 +2669,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
     &lt;h2&gt;Your fortune also provides additional benefits! &lt;/h2&gt;
-    &lt;p&gt;You get two Good Fortune Cards: &lt;/p&gt;
+    &lt;p&gt;You get two Good Fortune Tokens: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Token&quot;/&gt;
             &lt;/div&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Token&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
  &lt;p&gt;Emergency services are dispatched to High Street to help people who remain stranded by the lingering floods. A family climbs out of their top floor window, and one man is rescued from his car. &lt;/p&gt;
@@ -2643,7 +2700,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="72" name="drench-poststory" tags="nobr" position="225,975" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="75" name="drench-poststory" tags="nobr" position="600,975" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $prevpass to &quot;drenchstory&quot;&gt;&gt;
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $prevpass to &quot;drenchfortune&quot;&gt;&gt;
@@ -2677,7 +2734,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="73" name="drenchimpacts" tags="nobr" position="350,975" size="100,100">&lt;&lt;set $prevpass to &quot;drench-poststory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="76" name="drenchimpacts" tags="nobr" position="725,975" size="100,100">&lt;&lt;set $prevpass to &quot;drench-poststory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;drenchimpacts&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;drenchfortuneimpacts&quot;&gt;&gt;
@@ -2712,7 +2769,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/4.png&quot; alt=&quot;action card&quot;/&gt;
     &lt;/div&gt;
-&lt;p&gt;Drench arrives and pours into buildings and homes. Then she stays. Two neighbours get respiratory infections from the floodwater, and a family is stuck upstairs in their house, with risk of electric shock below. Dot, the stray cat, manages to find shelter though! &lt;/p&gt;
+&lt;p&gt;Drench arrives and pours into buildings and homes. Then she stays. Two neighbours get respiratory infections from the floodwater, and a family is stuck upstairs in their house, with risk of electric shock below. &lt;/p&gt;
 &lt;/div&gt;
 
  &lt;&lt;/if&gt;&gt;
@@ -2778,7 +2835,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseImpactsAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="74" name="drenchfortuneimpacts" tags="nobr" position="475,975" size="100,100">&lt;&lt;set $prevpass to &quot;drenchimpacts&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="77" name="drenchfortuneimpacts" tags="nobr" position="850,975" size="100,100">&lt;&lt;set $prevpass to &quot;drenchimpacts&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;drenchfortuneimpacts&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;set $storyMonsterNeeded to &quot;DRE&quot;&gt;&gt;
@@ -2790,12 +2847,18 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
     &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
-    &lt;p&gt;Even though rain no longer falls, Drench and her impact lingers. &lt;/p&gt;
+    &lt;p&gt;Drench starts her retreat and you are relieved to see High Street return.&lt;/p&gt;
     &lt;br/&gt;
-&lt;h2&gt;The town hall is unrecognisable due to flood damage, but your local council says there is no money to fix it.  &lt;/h2&gt;
+&lt;h2&gt;You find Dot stranded in the middle of a large, deep pond. Dot famously doesn’t like swimming and can’t escape.  &lt;/h2&gt;
+&lt;br/&gt;
+&lt;p&gt;Due to your low fortune, there is no councillor to turn to. But you do have each other! &lt;/p&gt;
 &lt;br/&gt;
 &lt;p&gt;You will use your skills to take action on this &lt;span class=&quot;accent&quot;&gt;Unpredictable Outcome.&lt;/span&gt; &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;Discuss your skills and resources. &lt;/p&gt;
 
+&lt;p&gt;Together pick one neighbour who will take action to help Dot. &lt;/p&gt;
+&lt;br/&gt;
 &lt;p&gt;&lt;i&gt;Facilitator, invite the players to describe how they will use their skills to take action.&lt;/i&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;i&gt;You will judge whether they have successfully filled the gap. &lt;/i&gt;&lt;/p&gt;
@@ -2820,7 +2883,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="75" name="crystalintro" tags="nobr" position="600,975" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="78" name="crystalintro" tags="nobr" position="975,975" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;crystalintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;crystalstory&quot;&gt;&gt;
 &lt;&lt;set $storyMonsterNeeded to &quot;CRY&quot;&gt;&gt;
@@ -2850,7 +2913,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseIntroAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="76" name="crystalstory" tags="nobr" position="725,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystalintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="79" name="crystalstory" tags="nobr" position="1100,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystalintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;crystalstory&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;crystalfortune&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
@@ -2877,7 +2940,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   &lt;div class=&quot;inline-img-wrapper &quot;&gt;
       &lt;img src=&quot;assets/img/1.png&quot; alt=&quot;action card&quot;/&gt;
     &lt;/div&gt;
-    &lt;p&gt;Thanks to the salts laid out, there is no mark of Crystal on the streets. Neighbours venture out, and no one slips or falls. Dot, the stray cat, is safe! &lt;/p&gt;
+    &lt;p&gt;Thanks to the salts laid out, there is no mark of Crystal on the streets. Neighbours venture out, and no one slips or falls. &lt;/p&gt;
     &lt;/div&gt;
  &lt;&lt;/if&gt;&gt;
 
@@ -2954,7 +3017,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseStoryAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="77" name="crystalfortune" tags="nobr" position="850,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystalstory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="80" name="crystalfortune" tags="nobr" position="1225,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystalstory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;crystalfortune&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;crystal-poststory&quot;&gt;&gt;
 &lt;&lt;set $storyMonsterNeeded to &quot;CRY&quot;&gt;&gt;
@@ -2969,10 +3032,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
 
     &lt;h2&gt;Your fortune also provides an additional benefit! &lt;/h2&gt;
-    &lt;p&gt;You get a Good Fortune Card: &lt;/p&gt;
+    &lt;p&gt;You get a Good Fortune Token: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Token&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
     &lt;p&gt;A group of healthcare workers deliver home visits across High Street, to check in on vulnerable members of the community, and provide emergency support where needed. &lt;/p&gt;
@@ -2986,13 +3049,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
 
     &lt;h2&gt;Your fortune also provides additional benefits! &lt;/h2&gt;
-    &lt;p&gt;You get two Good Fortune Cards: &lt;/p&gt;
+    &lt;p&gt;You get two Good Fortune Tokens: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Token&quot;/&gt;
             &lt;/div&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Card&quot;/&gt;
+                &lt;img src=&quot;assets/img/goodfortune.png&quot; alt=&quot;Good Fortune Token&quot;/&gt;
             &lt;/div&gt;
     &lt;/div&gt;
  &lt;p&gt;A group of healthcare workers deliver home visits across High Street, to check in on vulnerable members of the community, and provide emergency support where needed. &lt;/p&gt;
@@ -3018,7 +3081,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="78" name="crystal-poststory" tags="nobr" position="975,975" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="81" name="crystal-poststory" tags="nobr" position="100,1100" size="100,100">&lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $prevpass to &quot;crystalstory&quot;&gt;&gt;
     &lt;&lt;else&gt;&gt;
     &lt;&lt;set $prevpass to &quot;crystalfortune&quot;&gt;&gt;
@@ -3050,7 +3113,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="79" name="crystalimpacts" tags="nobr" position="1100,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystal-poststory&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="82" name="crystalimpacts" tags="nobr" position="225,1100" size="100,100">&lt;&lt;set $prevpass to &quot;crystal-poststory&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;crystalimpacts&quot;&gt;&gt;
 &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
     &lt;&lt;set $nextpass to &quot;crystalfortuneimpacts&quot;&gt;&gt;
@@ -3075,7 +3138,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
   &lt;div class=&quot;inline-img-wrapper grey &quot;&gt;
       &lt;img src=&quot;assets/img/1.png&quot; alt=&quot;action card&quot;/&gt;
     &lt;/div&gt;
-    &lt;p&gt;With no grit, the streets are slippery and icy. A couple of neighbours venture out and slip and fall, resulting in a broken wrist and two sprained ankles. Dot, the stray cat, is safe though! &lt;/p&gt;
+    &lt;p&gt;With no grit, the streets are slippery and icy. A couple of neighbours venture out and slip and fall, resulting in a broken wrist and two sprained ankles. &lt;/p&gt;
     &lt;/div&gt;
  &lt;&lt;/if&gt;&gt;
 
@@ -3152,7 +3215,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseImpactsAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="80" name="crystalfortuneimpacts" tags="nobr" position="1225,975" size="100,100">&lt;&lt;set $prevpass to &quot;crystalimpacts&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="83" name="crystalfortuneimpacts" tags="nobr" position="350,1100" size="100,100">&lt;&lt;set $prevpass to &quot;crystalimpacts&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;crystalfortuneimpacts&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;set $storyMonsterNeeded to &quot;CRY&quot;&gt;&gt;
@@ -3164,12 +3227,17 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
     &lt;&lt;if $playerchoices.diceroll == 1 or $playerchoices.diceroll == 2&gt;&gt;
-    &lt;p&gt;As the heat falls, your fear for your neighbours rises.&lt;/p&gt;
-&lt;p&gt; Due to your low fortune, there is no additional help available. So the neighbours of High Street will need to step in and fill the gap. 
+    &lt;p&gt;Crystal retreats, leaving a bitter cold.&lt;/p&gt;
+
 &lt;br/&gt;
-&lt;h2&gt;Neighbours are cold, isolated and at risk. How can you ensure your neighbours will get the help they need? &lt;/h2&gt;
+&lt;h2&gt;You find Dot, the stray cat, stranded in the middle of a frozen pond.   &lt;/h2&gt;
 &lt;br/&gt;
+&lt;p&gt;Due to your low fortune, there is no councillor to turn to. But you do have each other! &lt;/p&gt;
 &lt;p&gt;You will use your skills to take action on this &lt;span class=&quot;accent&quot;&gt;Unpredictable Outcome.&lt;/span&gt; &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;Discuss your skills and resources. &lt;/p&gt;
+&lt;p&gt;Together pick one neighbour who will take action to help Dot. &lt;/p&gt;
+&lt;br/&gt;
 
 &lt;p&gt;&lt;i&gt;Facilitator, invite the players to describe how they will use their skills to take action.&lt;/i&gt; &lt;/p&gt;
 
@@ -3195,7 +3263,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $withVoiceover is true&gt;&gt;
         &lt;&lt;run setup.chooseFortuneAudio()&gt;&gt;
     &lt;&lt;/if&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="81" name="recoverytrans" tags="nobr" position="100,1100" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="84" name="recoverytrans" tags="nobr" position="475,1100" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;recoverytrans&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;aftermathintro&quot;&gt;&gt;
 &lt;&lt;timed 0.1s&gt;&gt;
@@ -3220,7 +3288,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 
  &lt;&lt;timed 10s&gt;&gt;
  &lt;&lt;goto $nextpass&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="82" name="aftermathintro" tags="nobr" position="225,1100" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="85" name="aftermathintro" tags="nobr" position="600,1100" size="100,100">&lt;&lt;set $prevpass to &quot;storyintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;aftermathintro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;aftermath&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -3238,11 +3306,11 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
      &lt;/div&gt;
 
 &lt;div class=&quot;grid-item explanation&quot;&gt;
-    &lt;h2&gt;The monster retreats from High Street.  &lt;/h2&gt;
+    &lt;h2&gt;The Monster retreats from High Street.  &lt;/h2&gt;
     
     &lt;h3&gt;You’re left with the aftermath. &lt;/h3&gt;
     
-    &lt;p&gt;While the street came together, you were not able to keep the monster completely at bay. &lt;/p&gt;
+    &lt;p&gt;While the street came together, you were not able to keep the Monster completely at bay. &lt;/p&gt;
     &lt;p&gt;You are left facing the consequences.  &lt;/p&gt;
     &lt;p&gt;How will you recover? &lt;/p&gt;
 &lt;/div&gt;
@@ -3255,7 +3323,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="83" name="aftermath" tags="nobr" position="350,1100" size="100,100">&lt;&lt;set $prevpass to &quot;aftermathintro&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="86" name="aftermath" tags="nobr" position="725,1100" size="100,100">&lt;&lt;set $prevpass to &quot;aftermathintro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;aftermath&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;aftermath2&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -3266,13 +3334,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 
 &lt;main class=&quot;timer&quot;&gt;
 &lt;br/&gt;
-&lt;h2&gt;The monster attack has left High Street reeling. &lt;/h2&gt;
+&lt;h2&gt;The Monster attack has left High Street reeling. &lt;/h2&gt;
 &lt;br/&gt;
 
 &lt;p&gt;Morale is low and neighbours across High Street are left scared and shaken. &lt;/p&gt;
-&lt;p&gt;Despite your planning and preparations, the monster had a big impact, and there were some things you couldn’t predict. &lt;/p&gt;
+&lt;p&gt;Despite your planning and preparations, the Monster had a big impact, and there were some things you couldn’t predict. &lt;/p&gt;
 &lt;p&gt;Some neighbours have experienced damage to their homes, while others have experienced damage to their health. &lt;/p&gt;
-&lt;p&gt;For everyone, the monster’s visit has left a lasting impression. &lt;/p&gt;
+&lt;p&gt;For everyone, the Monster’s visit has left a lasting impression. &lt;/p&gt;
 &lt;p&gt;High Street doesn’t feel the same. &lt;/p&gt;
 
 &lt;/main&gt;
@@ -3284,7 +3352,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;goto $nextpass&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="84" name="aftermath2" tags="nobr" position="475,1100" size="100,100">&lt;&lt;set $prevpass to &quot;aftermath&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="87" name="aftermath2" tags="nobr" position="850,1100" size="100,100">&lt;&lt;set $prevpass to &quot;aftermath&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;aftermath2&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;outro&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -3304,14 +3372,14 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;p&gt;or fantastical: hosting an immersive unicorn party. &lt;/p&gt;
 &lt;p&gt;Or a bit of both!&lt;/p&gt;
 &lt;br/&gt;
-&lt;p&gt;Facilitator, spend three minutes on this discussion. &lt;/p&gt;
+&lt;p&gt;&lt;i&gt;Facilitator, spend three minutes on this discussion.&lt;/i&gt; &lt;/p&gt;
 &lt;p&gt;We recommend doing this by inviting everyone to share their pitch for an event, action or activity. &lt;/p&gt;
 &lt;p&gt;Use your skills on your &lt;span class=&quot;accent&quot;&gt;Neighbour Cards&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;When you’ve done that click ‘Move On’&lt;/p&gt;
 
 
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="85" name="outro" tags="nobr" position="600,1100" size="100,100">&lt;&lt;set $prevpass to &quot;aftermath2&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="88" name="outro" tags="nobr" position="975,1100" size="100,100">&lt;&lt;set $prevpass to &quot;aftermath2&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;outro&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;record&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -3341,7 +3409,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="86" name="record" tags="nobr" position="725,1100" size="100,100">&lt;&lt;set $prevpass to &quot;outro&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="89" name="record" tags="nobr" position="1100,1100" size="100,100">&lt;&lt;set $prevpass to &quot;outro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;record&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;postrecord&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -3351,10 +3419,9 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;/if&gt;&gt;
 &lt;main&gt;
  
-&lt;p&gt;Now you have your pitch, we want you to tell us what it is. &lt;/p&gt;
-&lt;p&gt;When you’re ready, press ‘Start Recording’ below, speak into the microphone and tell us what you have planned. &lt;/p&gt;
-&lt;br/&gt;
-&lt;p&gt;Summarise your pitch in 1 minute - the action you will take for High Street. &lt;/p&gt;
+&lt;p&gt;Now you have your pitch, we want you to record it.&lt;/p&gt;
+&lt;p&gt;When you’re ready, press ‘Start Recording’ below, speak into the microphone and describe the action you will take for your High Street. &lt;/p&gt;
+
 
 &lt;br/&gt;
 &lt;iframe src=&quot;https://www.speakpipe.com/widget/inline/kp6xzmubni8enwhrhvqo1sx5cbst92iy&quot; allow=&quot;microphone&quot; width=&quot;100%&quot; height=&quot;200&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
@@ -3367,9 +3434,9 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="87" name="postrecord" tags="nobr" position="850,1100" size="100,100">&lt;&lt;set $prevpass to &quot;record&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="90" name="postrecord" tags="nobr" position="1225,1100" size="100,100">&lt;&lt;set $prevpass to &quot;record&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;postrecord&quot;&gt;&gt;
-&lt;&lt;set $nextpass to &quot;outro2&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;postrecord2&quot;&gt;&gt;
 &lt;&lt;set $improvement to 100- $playerchoices.percentage&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
     &lt;&lt;timed 0.1s&gt;&gt;
@@ -3380,11 +3447,14 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  
 &lt;p&gt;On High Street, your plan is put into action. &lt;/p&gt;
 &lt;br/&gt;
-&lt;p&gt;You watch the practical and fantastical events unfold and reflect on all you have been through...&lt;/p&gt;
+&lt;p&gt;You watch the practical and fantastical events unfold and reflect on all you have been through&lt;/p&gt;
 &lt;p&gt;Dot is impressed.&lt;/p&gt;
 &lt;br/&gt;
 &lt;p&gt;You made some good choices. &lt;/p&gt;
-&lt;p&gt;You made some less good ones. &lt;/p&gt;
+&lt;p&gt;You could have made some better ones.&lt;/p&gt;
+&lt;p&gt;Every action was helpful. &lt;/p&gt;
+&lt;p&gt;For each Monster, some actions are more useful than others.&lt;/p&gt;
+
 
 
 
@@ -3396,7 +3466,36 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="88" name="outro2" tags="nobr" position="975,1100" size="100,100">&lt;&lt;set $prevpass to &quot;postrecord&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="91" name="postrecord2" tags="nobr" position="100,1225" size="100,100">&lt;&lt;set $prevpass to &quot;postrecord&quot;&gt;&gt;
+&lt;&lt;set $pass to &quot;postrecord2&quot;&gt;&gt;
+&lt;&lt;set $nextpass to &quot;outro2&quot;&gt;&gt;
+
+&lt;&lt;if $withVoiceover is true&gt;&gt;
+    &lt;&lt;timed 0.1s&gt;&gt;
+    &lt;audio src=&quot;assets/voiceover/strongertogethervo_8_6.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
+    &lt;&lt;/timed&gt;&gt;
+&lt;&lt;/if&gt;&gt;
+&lt;main&gt;
+ 
+&lt;p&gt;When it comes to this kind of Monster attack, there is no way to win - High Street will always be impacted. &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;But your choices are important!&lt;/p&gt;
+&lt;p&gt;Not only in shaping what happens during the attack, but also in what happens after. &lt;/p&gt;
+&lt;p&gt;Your resilience as a street puts you on the road to recovery. &lt;/p&gt;
+&lt;p&gt;That and the practical, fantastical event you planned! &lt;/p&gt;
+
+
+
+
+&lt;&lt;timed 3s&gt;&gt;
+    &lt;&lt;replace &quot;#nextButtonContainer&quot;&gt;&gt;
+    &lt;&lt;button &quot;Move on&quot;&gt;&gt;
+            &lt;&lt;goto $nextpass&gt;&gt;
+        &lt;&lt;/button&gt;&gt;
+    &lt;&lt;/replace&gt;&gt;
+&lt;&lt;/timed&gt;&gt;
+&lt;/main&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="92" name="outro2" tags="nobr" position="225,1225" size="100,100">&lt;&lt;set $prevpass to &quot;postrecord2&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;outro2&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;outro3&quot;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
@@ -3406,11 +3505,11 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;/if&gt;&gt;
 &lt;main&gt;
 
-&lt;h2&gt;You faced this monster as a street. &lt;/h2&gt;
+&lt;h2&gt;You faced this Monster as a street. &lt;/h2&gt;
 &lt;p&gt;When you came together, you didn’t only keep the street safe, you looked after each other too. &lt;/p&gt;
 &lt;br/&gt;
 &lt;p&gt;Well done! &lt;/p&gt;
-&lt;p&gt;No matter what remains, know that High Street is on the road to recovery, and we are &lt;span class=&quot;accent&quot;&gt;Stronger Together.&lt;/span&gt;&lt;/p&gt;
+
 
 
     
@@ -3422,7 +3521,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;/replace&gt;&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;/main&gt;
-&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="89" name="outro3" tags="nobr" position="1100,1100" size="100,100">&lt;&lt;set $prevpass to &quot;outro2&quot;&gt;&gt;
+&lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="93" name="outro3" tags="nobr" position="350,1225" size="100,100">&lt;&lt;set $prevpass to &quot;outro2&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;outro3&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;end&quot;&gt;&gt;
 &lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
@@ -3446,9 +3545,9 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 
 &lt;br/&gt;
 &lt;div class=&quot;grid-item explanation&quot; id=&quot;mount&quot;&gt;
-    &lt;h2&gt;That’s the end of the game! &lt;/h2&gt;
-    &lt;p&gt;There is now time for you to debrief and discuss. &lt;/p&gt;
-    &lt;p&gt;Talk through the questions and reflect together.  &lt;/p&gt;
+ &lt;h2&gt; Now for the final part of the game: the debrief. &lt;/h2&gt;
+&lt;p&gt;There are several questions for you to reflect on and discuss together. &lt;/p&gt;
+&lt;br/&gt;
     
     &lt;p&gt;&lt;i&gt;Facilitator, we recommend five minutes for this discussion.&lt;/i&gt; &lt;/p&gt;
 &lt;/div&gt;
@@ -3472,8 +3571,8 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;/timed&gt;&gt;
         
 &lt;/main&gt;
-&lt;&lt;include &quot;footerquestions&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="90" name="question1" tags="nobr" position="1225,1100" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
-&lt;p&gt;Today, you came together to face the monster. &lt;/p&gt;
+&lt;&lt;include &quot;footerquestions&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="94" name="question1" tags="nobr" position="475,1225" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
+&lt;p&gt;Today, you came together to face the Monster. &lt;/p&gt;
 &lt;p&gt;Some things went well, others less well, but you stuck it out: you were resilient.&lt;/p&gt; 
 &lt;p&gt;If you were going to give your High Street an award - a blue plaque, say - to hang on the wall and commemorate this street and your response to the attack - what would you say? &lt;/p&gt;
 
@@ -3493,7 +3592,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/button&gt;&gt;
       &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="91" name="question2" tags="nobr" position="100,1225" size="100,100">&lt;h2&gt;Question&lt;/h2&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="95" name="question2" tags="nobr" position="600,1225" size="100,100">&lt;h2&gt;Question&lt;/h2&gt;
 &lt;p&gt;If you were to play again, how would you play differently? &lt;/p&gt;
 
   &lt;&lt;timed 3s&gt;&gt;
@@ -3523,7 +3622,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="92" name="question3" tags="nobr" position="225,1225" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="96" name="question3" tags="nobr" position="725,1225" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
 &lt;p&gt;When it came to your fortune, you chose to roll the dice again. &lt;/p&gt;
 &lt;p&gt;At the end of the game, how do you feel about this choice? Would you do the same next time? &lt;/p&gt;
 
@@ -3544,7 +3643,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;/replace&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="93" name="question4" tags="nobr" position="350,1225" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="97" name="question4" tags="nobr" position="850,1225" size="100,100">&lt;h2&gt;Question &lt;/h2&gt;
 &lt;p&gt;Today you played as a character, but we all live on streets with our own communities, homes and neighbours. &lt;/p&gt;
 &lt;p&gt;We’re going to invite you to take a step away from the game, back to yourself.&lt;/p&gt;
 &lt;p&gt;How did the game make you think about community resilience on your own street? &lt;/p&gt;
@@ -3555,7 +3654,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
         &lt;&lt;goto &quot;end&quot;&gt;&gt;
         &lt;&lt;/button&gt;&gt;
     &lt;&lt;/replace&gt;&gt;
-&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="94" name="end" tags="nobr" position="475,1225" size="100,100">&lt;&lt;set $prevpass to &quot;outro3&quot;&gt;&gt;
+&lt;&lt;/timed&gt;&gt;</tw-passagedata><tw-passagedata pid="98" name="end" tags="nobr" position="975,1225" size="100,100">&lt;&lt;set $prevpass to &quot;outro3&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;end&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;end&quot;&gt;&gt;
 
@@ -3572,17 +3671,47 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
             &lt;&lt;audio &quot;meow&quot; &quot;play&quot; &gt;&gt;
         &lt;&lt;/if&gt;&gt;
     &lt;&lt;/timed&gt;&gt;
-&lt;main&gt;
-&lt;h3&gt;Thanks for playing Stronger Together! &lt;/h3&gt;
+&lt;main class=&quot;grid-wrapper&quot;&gt;
+&lt;div class=&quot;info-container grid-item cards finalcat&quot;&gt;
+     &lt;div class=&quot;inline-img-container&quot;&gt;
+        &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+         &lt;img src=&quot;assets/img/cat.png&quot; alt=&quot;Cat&quot;/&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+
 &lt;br/&gt;
-  &lt;div class=&quot;inline-img-container&quot;&gt;
+
+&lt;div class=&quot;grid-item explanation&quot; id=&quot;mount&quot;&gt;
+&lt;p&gt;No matter what played out, know that High Street is on the road to recovery, and we are &lt;span class=&quot;accent&quot;&gt;Stronger Together&lt;/span&gt;. &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;Thanks for playing! &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;For more information on how to prepare for emergencies, please find information about the UK Government’s Prepare Campaign at the link &lt;a href=&quot;https://prepare.campaign.gov.uk/&quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot;&gt;&lt;button&gt;here&lt;/button&gt;&lt;/a&gt; &lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;This game was developed by Mod for Blue Heart. &lt;/p&gt;
+&lt;p&gt;This project is funded by Defra as part of the £200 million Flood and Coastal Innovation Programmes which is managed by the Environment Agency. The programmes will drive innovation in flood and coastal resilience and adaptation to a changing climate.&lt;/p&gt;
+&lt;p&gt;You can read more about the programmes &lt;a href=&quot;https://engageenvironmentagency.uk.engagementhq.com/innovation-programme &quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot;&gt;&lt;button&gt;here&lt;/button&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;div class=&quot;inline-img-container wildcards&quot;&gt;
   &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
-    &lt;img src=&quot;assets/img/cat.png&quot; alt=&quot;Cat&quot;/&gt;
-&lt;/div&gt;&lt;/div&gt;
+    &lt;a href=&quot;https://www.blueheart.org.uk&quot; target=&quot;_blank&quot; rel=&quot;noreferrer&quot;&gt;
+      &lt;img src=&quot;assets/img/blue-heart-logo.png&quot; alt=&quot;Blue Heart Logo&quot;/&gt;
+      &lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
+      &lt;img src=&quot;assets/img/blue-heart-logo.png&quot; alt=&quot;Blue Heart Logo&quot;/&gt;
+  &lt;/div&gt;
+    &lt;/div&gt;
+
+&lt;br/&gt;
+&lt;p&gt;&lt;i&gt;Please note that no data will be saved from your playthrough of this game.&lt;/i&gt; &lt;/p&gt;
+
 &lt;br/&gt;
 &lt;&lt;button &quot;Restart&quot;&gt;&gt;
      &lt;&lt;script&gt;&gt;Engine.restart()&lt;&lt;/script&gt;&gt;
     &lt;&lt;/button&gt;&gt;
+    &lt;/div&gt;
 &lt;/main&gt;
 &lt;&lt;include &quot;footerend&quot;&gt;&gt;</tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">

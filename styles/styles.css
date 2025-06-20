@@ -474,17 +474,32 @@ padding: 1rem;
     gap:1rem;
 }
 
-.actions-item{
+.actions-item-wrapper{
   width: 48%;
+}
+
+.actions-item{
+  width: 100%;
     border: solid white 2px;
     padding: 1rem;
     font-size: 1.5rem;
   background-color: lavender;
-  color:black
+  color:black;
+  display: flex;
+    gap: 2rem;
+    align-items: center;
 }
 
 .actions-item > h3{
   text-transform: uppercase;
+  font-size: 3.3rem;
+
+
+}
+.actions-item > div> h4{
+  font-size: 1.8rem;
+  margin-block-end: 1.5rem;
+
 }
 
 .actions-item > a{
@@ -694,7 +709,7 @@ main.grid-wrapper.split{
   grid-area: explanation;
   display: flex;
   justify-content: center;
-  align-items: left;
+  align-items: start;
   flex-direction: column;
 }
 
@@ -704,6 +719,10 @@ main.grid-wrapper.split{
   align-items: center;
   justify-content: center;
   gap: 2rem
+}
+
+.grid-item.cards.finalcat{
+  align-items: start;
 }
 
 .info-container{
@@ -741,6 +760,11 @@ main.grid-wrapper.split{
  .story-line-container > .inline-img-wrapper {
     max-width: 20%;
  }
+ .actions-item > div> h4{
+
+  max-width: inherit;
+
+}
 }
 
 .fortunetrans{
