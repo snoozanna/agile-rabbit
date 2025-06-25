@@ -430,12 +430,12 @@ setup.chooseImpactsAudio = () => {
 <<set $pass to "intro1b">>
 <<set $nextpass to "intro2">>
 <<audio ":all" "stop">>
-<audio src="assets/voiceover/strongertogethervo_0_2.mp3" autoplay>Audio is not supported on your device</audio>
+<audio src="assets/voiceover/strongertogethervo_0_3.mp3" autoplay>Audio is not supported on your device</audio>
 <<include "_templateIntro">>
 
 
 :: intro1b-text [nobr]
-<p>Turn the volume on your device up. </p>
+<p>Turn the volume up on your device.</p>
 <br/>
 <p>Stronger Together has a voiceover which reads out the text on the screen. </p>
 <br/>
@@ -877,7 +877,7 @@ setup.chooseImpactsAudio = () => {
 <<set $nextpass to "monstercards-preintrob">>
 <<if $withVoiceover is true>>
     <<timed 0.2s>>
-    <audio src="assets/voiceover/strongertogethervo_2_6+7.mp3" autoplay>Audio is not supported on your device</audio>
+    <audio src="assets/voiceover/strongertogethervo_2_6.mp3" autoplay>Audio is not supported on your device</audio>
     <</timed>>
 <</if>>
 <main class="">
@@ -905,14 +905,14 @@ setup.chooseImpactsAudio = () => {
 <<set $nextpass to "monstercards-intro">>
 <<if $withVoiceover is true>>
     <<timed 0.2s>>
-    <audio src="assets/voiceover/strongertogethervo_2_6+7.mp3" autoplay>Audio is not supported on your device</audio>
+    <audio src="assets/voiceover/strongertogethervo_2_7.mp3" autoplay>Audio is not supported on your device</audio>
     <</timed>>
 <</if>>
 <main class="">
     <div class="explanation">
 
 <p>You have chosen to be this representative.</p>
-<p>And let’s be honest... you’re the representatives because you’re the people who turned up to the community planning meeting. </p>
+<p>Actually, let’s be honest... you’re the representatives because you’re the people who turned up to the community planning meeting. </p>
 
 <p>There are other people on High Street too, doors not yet opened. </p>
 <p>Any choice you make will impact your neighbours as much as it impacts all of you. </p>
@@ -1709,7 +1709,7 @@ console.log(State.variables)
 <p><i>Facilitator, shuffle the two Monster cards and hold them out upside down.</i> </p>
 <p>One player, choose a card to reveal the Monster you will face.   </p>
 <br/>
-<p><span class="accent">Now, select this Monster below. </span> </p>
+<p><span class="accent">Then, select this Monster below. </span> </p>
 </div>
 <<include "choosefinalmonster">>
 <br/>
@@ -3614,13 +3614,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <h2>Together, you will decide how to use your skills, resources and talents to build morale and put High Street on the road to recovery. </h2>
 <br/>
 <p>Your plan could be practical: putting together a team to mend broken windows. </p>
-<p>or fantastical: hosting an immersive unicorn party. </p>
+<p>Or fantastical: hosting an immersive unicorn party. </p>
 <p>Or a bit of both!</p>
 <br/>
 <p><i>Facilitator, spend three minutes on this discussion.</i> </p>
 <p>We recommend doing this by inviting everyone to share their pitch for an event, action or activity. </p>
 <p>Use your skills on your <span class="accent">Neighbour Cards</span></p>
-<p>When you’ve done that click ‘Move On’</p>
+<p>When you’ve done that click ‘Move On’.</p>
 
 
 </main>
@@ -3663,7 +3663,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 :: record [nobr]
 <<set $prevpass to "outro">>
 <<set $pass to "record">>
-<<set $nextpass to "postrecord">>
+<<set $nextpass to "recordttrans">>
 <<if $withVoiceover is true>>
     <<timed 0.1s>>
     <audio src="assets/voiceover/strongertogethervo_8_5.mp3" autoplay>Audio is not supported on your device</audio>
@@ -3671,8 +3671,10 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <</if>>
 <main>
  
-<p>Now you have your pitch, we want you to record it.</p>
+<p>Now you have your pitch, we want you to summarise it.</p>
 <p>When you’re ready, press ‘Start Recording’ below, speak into the microphone and describe the action you will take for your High Street. </p>
+<p>It’s time to begin to recover. </p>
+
 
 
 <br/>
@@ -3686,7 +3688,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     </div>
 
 
-<<timed 3s>>
+<<timed 6s>>
     <<replace "#nextButtonContainer">>
     <<button "I've finished recording">>
             <<goto $nextpass>>
@@ -3717,13 +3719,37 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 	<</repeat>>
 <</silently>>
 
+:: recordttrans [nobr]
+<<set $prevpass to "record">>
+<<set $pass to "recordttrans">>
+<<set $nextpass to "postrecord">>
+<<audio ":all" stop>>
+<<if $withVoiceover is true>>    
+     <<audio "success3" "play">>
+<<else>>
+    <<audio "success3" "play">>
+<</if>>
 
+<main class="cards-selection">
+ <div class="info-container grid-item cards fadeIn3 fortunetrans">
+  <div class="inline-img-container">
+    <div class="inline-img-wrapper arcardbig">
+     <img src="assets/img/epilogue.png" alt="Epilogue card"/>
+    </div>
+    </div>
+    </div>
+</main>
+
+
+ <<timed 5s>>
+ <<goto $nextpass>>
+<</timed>>
 
 
 :: postrecord [nobr]
 <<set $prevpass to "record">>
 <<set $pass to "postrecord">>
-<<set $nextpass to "postrecord2">>
+<<set $nextpass to "postrecordb">>
 <<set $improvement to 100- $playerchoices.percentage>>
 <<if $withVoiceover is true>>
     <<timed 0.1s>>
@@ -3736,14 +3762,32 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <br/>
 <p>You watch the practical and fantastical events unfold and reflect on all you have been through</p>
 <p>Dot is impressed.</p>
-<br/>
+
+<<timed 3s>>
+    <<replace "#nextButtonContainer">>
+    <<button "Move on">>
+            <<goto $nextpass>>
+        <</button>>
+    <</replace>>
+<</timed>>
+</main>
+<<include "footeroptionappears">>
+
+:: postrecordb [nobr]
+<<set $prevpass to "postrecord">>
+<<set $pass to "postrecordb">>
+<<set $nextpass to "postrecord2">>
+<<set $improvement to 100- $playerchoices.percentage>>
+<<if $withVoiceover is true>>
+    <<timed 0.1s>>
+    <audio src="assets/voiceover/strongertogethervo_8_7.mp3" autoplay>Audio is not supported on your device</audio>
+    <</timed>>
+<</if>>
+<main>
+ 
 <p>You made some good choices. </p>
-<p>You could have made some better ones.</p>
-<p>Every action was helpful. </p>
-<p>For each Monster, some actions are more useful than others.</p>
-
-
-
+<p>But for each Monster, some actions are more useful than others.</p>
+<p>Every action was helpful though. </p>
 
 <<timed 3s>>
     <<replace "#nextButtonContainer">>
@@ -3756,13 +3800,13 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<include "footeroptionappears">>
 
 :: postrecord2 [nobr]
-<<set $prevpass to "postrecord">>
+<<set $prevpass to "postrecordb">>
 <<set $pass to "postrecord2">>
 <<set $nextpass to "outro2">>
 
 <<if $withVoiceover is true>>
     <<timed 0.1s>>
-    <audio src="assets/voiceover/strongertogethervo_8_6.mp3" autoplay>Audio is not supported on your device</audio>
+    <audio src="assets/voiceover/strongertogethervo_8_8.mp3" autoplay>Audio is not supported on your device</audio>
     <</timed>>
 <</if>>
 <main>
@@ -3793,7 +3837,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<set $nextpass to "outro3">>
 <<if $withVoiceover is true>>
     <<timed 0.1s>>
-    <audio src="assets/voiceover/strongertogethervo_8_7.mp3" autoplay>Audio is not supported on your device</audio>
+    <audio src="assets/voiceover/strongertogethervo_8_9.mp3" autoplay>Audio is not supported on your device</audio>
     <</timed>>
 <</if>>
 <main>
@@ -3825,7 +3869,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<if $withVoiceover is true>>
     <<timed 0.1s>>
    <div id="audioMount">     
-    <audio src="assets/voiceover/strongertogethervo_8_8.mp3" autoplay>Audio is not supported on your device</audio>
+    <audio src="assets/voiceover/strongertogethervo_8_10.mp3" autoplay>Audio is not supported on your device</audio>
     </div>
     <</timed>>
 <</if>>
@@ -3989,11 +4033,11 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
               <<timed 0.2s>>
             <audio src="assets/voiceover/strongertogethervo_10.mp3" autoplay>Audio is not supported on your device</audio>
              <</timed>>
-             <<timed 3.5s>>
+             /* <<timed 3.5s>>
             <<audio "meow" "play">>
-            <</timed>>
+            <</timed>> */
              <<else>>
-            <<audio "meow" "play" >>
+            /* <<audio "meow" "play" >> */
         <</if>>
     <</timed>>
 <main class="grid-wrapper">
@@ -4025,7 +4069,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
       </a>
   </div>
   <div class="inline-img-wrapper arcard">
-      <img src="assets/img/blue-heart-logo.png" alt="Blue Heart Logo"/>
+      <img src="assets/img/ModLogoTrans.png" alt="Mod Logo"/>
   </div>
     </div>
 

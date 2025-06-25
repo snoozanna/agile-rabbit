@@ -786,3 +786,7 @@ main.grid-wrapper.split{
 .fadeIn10{
  animation: fadeIn 10s;
 }
+
+.fadeIn3{
+  animation: fadeIn 6s;
+ }
