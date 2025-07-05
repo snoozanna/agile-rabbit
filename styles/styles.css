@@ -476,6 +476,8 @@ padding: 1rem;
 
 .actions-item-wrapper{
   width: 48%;
+  flex-grow: 1;
+  display: flex;
 }
 
 .actions-item{

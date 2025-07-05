@@ -1201,8 +1201,9 @@ setup.chooseImpactsAudio = () => {
     <div class=" grid-item explanation">
 <p><i>Facilitator, lay out the <span class="accent">Prepare</span> and <span class="accent">Connect</span> actions on the table.</i></p>
 <p>You need to choose FIVE actions to prepare for the Monster attack. </p>
+<p>A reminder of the Monsters that might strike...</p>
 <br/>
- <<timed 5s>>
+ <<timed 10s>>
     <p>The clock is ticking.</p>
     <p>You’ve got five minutes to choose your actions.</p>
     <</timed>>
@@ -2045,7 +2046,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <<if $playerchoices.diceroll == 3 or $playerchoices.diceroll == 4>>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <h2>Your fortune also provides an additional benefit! </h2>
+    <h2>Let's see how your good fortune plays out. </h2>
     <p>You get a Good Fortune Token: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
@@ -2062,7 +2063,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<timed 0.1s>>
  <<replace "#mount">>
 
-    <h2>Your fortune also provides additional benefits! </h2>
+    <h2>Let's see how your good fortune plays out. </h2>
     <p>You get two Good Fortune Tokens: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
@@ -2114,7 +2115,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 
 <main class="">
     <div class="explanation">
-<p>Unfortunately, not everything goes quite as well. </p>
+<p>Unfortunately, not everything goes as well. </p>
 <p>Due to the choices you made, there are some challenges you have to face.</p> 
 <p>Here are Gale’s impacts you’re left to contend with...</p>
 
@@ -2456,7 +2457,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<if $playerchoices.diceroll == 3 or $playerchoices.diceroll == 4>>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <h2>Your fortune also provides an additional benefit! </h2>
+    <h2>Let's see how your good fortune plays out. </h2>
     <p>You get a Good Fortune Token: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
@@ -2473,7 +2474,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<timed 0.1s>>
  <<replace "#mount">>
 
-    <h2>Your fortune also provides additional benefits! </h2>
+    <h2>Let's see how your good fortune plays out. </h2>
     <p>You get two Good Fortune Tokens: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
@@ -2853,7 +2854,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<if $playerchoices.diceroll === 3 or $playerchoices.diceroll === 4>>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <h2>Your fortune also provides an additional benefit! </h2>
+    <h2>Let's see how your good fortune plays out. </h2>
     <p>You get a Good Fortune Token: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
@@ -2868,7 +2869,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<if $playerchoices.diceroll == 5 or $playerchoices.diceroll == 6>>
  <<timed 0.1s>>
  <<replace "#mount">>
-    <h2>Your fortune also provides additional benefits! </h2>
+    <h2>Let's see how your good fortune plays out. </h2>
     <p>You get two Good Fortune Tokens: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
@@ -3251,7 +3252,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <<timed 0.1s>>
     <<replace "#mount">>
 
-    <h2>Your fortune also provides an additional benefit! </h2>
+    <h2>Let's see how your good fortune plays out. </h2>
     <p>You get a Good Fortune Token: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
@@ -3268,7 +3269,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<timed 0.1s>>
  <<replace "#mount">>
 
-    <h2>Your fortune also provides additional benefits! </h2>
+    <h2>Let's see how your good fortune plays out. </h2>
     <p>You get two Good Fortune Tokens: </p>
     <div class="inline-img-container wildcards">
             <div class="inline-img-wrapper arcard">
@@ -3605,7 +3606,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     <audio src="assets/voiceover/strongertogethervo_8_3.mp3" autoplay>Audio is not supported on your device</audio>
     <</timed>>
 <</if>>
- <<timed 7s>>
+ <<timed 25s>>
         <<include "3headertimer">>
         <</timed>>
 
@@ -3664,6 +3665,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<set $prevpass to "outro">>
 <<set $pass to "record">>
 <<set $nextpass to "recordttrans">>
+<<audio ":all" 'stop'>>
 <<if $withVoiceover is true>>
     <<timed 0.1s>>
     <audio src="assets/voiceover/strongertogethervo_8_5.mp3" autoplay>Audio is not supported on your device</audio>
@@ -3674,6 +3676,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <p>Now you have your pitch, we want you to summarise it.</p>
 <p>When you’re ready, press ‘Start Recording’ below, speak into the microphone and describe the action you will take for your High Street. </p>
 <p>It’s time to begin to recover. </p>
+
 
 
 
@@ -3723,7 +3726,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<set $prevpass to "record">>
 <<set $pass to "recordttrans">>
 <<set $nextpass to "postrecord">>
-<<audio ":all" stop>>
+
 <<if $withVoiceover is true>>    
      <<audio "success3" "play">>
 <<else>>
@@ -3751,16 +3754,21 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 <<set $pass to "postrecord">>
 <<set $nextpass to "postrecordb">>
 <<set $improvement to 100- $playerchoices.percentage>>
-<<if $withVoiceover is true>>
+
+
+  <<if $withVoiceover is true>>
+      <<audio "aftermath" volume 1 fadeoverto 2 $reducedVol loop>>
     <<timed 0.1s>>
     <audio src="assets/voiceover/strongertogethervo_8_6.mp3" autoplay>Audio is not supported on your device</audio>
     <</timed>>
+    <<else>>
+<<audio "aftermath" volume 1 fadeoverto 2 $reducedVol loop>>
 <</if>>
 <main>
  
 <p>On High Street, your plan is put into action. </p>
 <br/>
-<p>You watch the practical and fantastical events unfold and reflect on all you have been through</p>
+<p>You watch the practical and fantastical events unfold and reflect on all you have been through.</p>
 <p>Dot is impressed.</p>
 
 <<timed 3s>>
@@ -3889,7 +3897,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <h2> Now for the final part of the game: the debrief. </h2>
 <p>There are several questions for you to reflect on and discuss together. </p>
 <br/>
-    
+
     <p><i>Facilitator, we recommend five minutes for this discussion.</i> </p>
 </div>
     

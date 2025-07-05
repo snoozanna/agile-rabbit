@@ -1152,8 +1152,9 @@ setup.chooseImpactsAudio = () => {
     &lt;div class=&quot; grid-item explanation&quot;&gt;
 &lt;p&gt;&lt;i&gt;Facilitator, lay out the &lt;span class=&quot;accent&quot;&gt;Prepare&lt;/span&gt; and &lt;span class=&quot;accent&quot;&gt;Connect&lt;/span&gt; actions on the table.&lt;/i&gt;&lt;/p&gt;
 &lt;p&gt;You need to choose FIVE actions to prepare for the Monster attack. &lt;/p&gt;
+&lt;p&gt;A reminder of the Monsters that might strike...&lt;/p&gt;
 &lt;br/&gt;
- &lt;&lt;timed 5s&gt;&gt;
+ &lt;&lt;timed 10s&gt;&gt;
     &lt;p&gt;The clock is ticking.&lt;/p&gt;
     &lt;p&gt;You’ve got five minutes to choose your actions.&lt;/p&gt;
     &lt;&lt;/timed&gt;&gt;
@@ -1886,7 +1887,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;if $playerchoices.diceroll == 3 or $playerchoices.diceroll == 4&gt;&gt;
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
-    &lt;h2&gt;Your fortune also provides an additional benefit! &lt;/h2&gt;
+    &lt;h2&gt;Let&#39;s see how your good fortune plays out. &lt;/h2&gt;
     &lt;p&gt;You get a Good Fortune Token: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
@@ -1903,7 +1904,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
 
-    &lt;h2&gt;Your fortune also provides additional benefits! &lt;/h2&gt;
+    &lt;h2&gt;Let&#39;s see how your good fortune plays out. &lt;/h2&gt;
     &lt;p&gt;You get two Good Fortune Tokens: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
@@ -1951,7 +1952,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 
 &lt;main class=&quot;&quot;&gt;
     &lt;div class=&quot;explanation&quot;&gt;
-&lt;p&gt;Unfortunately, not everything goes quite as well. &lt;/p&gt;
+&lt;p&gt;Unfortunately, not everything goes as well. &lt;/p&gt;
 &lt;p&gt;Due to the choices you made, there are some challenges you have to face.&lt;/p&gt; 
 &lt;p&gt;Here are Gale’s impacts you’re left to contend with...&lt;/p&gt;
 
@@ -2275,7 +2276,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;if $playerchoices.diceroll == 3 or $playerchoices.diceroll == 4&gt;&gt;
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
-    &lt;h2&gt;Your fortune also provides an additional benefit! &lt;/h2&gt;
+    &lt;h2&gt;Let&#39;s see how your good fortune plays out. &lt;/h2&gt;
     &lt;p&gt;You get a Good Fortune Token: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
@@ -2292,7 +2293,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
 
-    &lt;h2&gt;Your fortune also provides additional benefits! &lt;/h2&gt;
+    &lt;h2&gt;Let&#39;s see how your good fortune plays out. &lt;/h2&gt;
     &lt;p&gt;You get two Good Fortune Tokens: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
@@ -2653,7 +2654,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;if $playerchoices.diceroll === 3 or $playerchoices.diceroll === 4&gt;&gt;
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
-    &lt;h2&gt;Your fortune also provides an additional benefit! &lt;/h2&gt;
+    &lt;h2&gt;Let&#39;s see how your good fortune plays out. &lt;/h2&gt;
     &lt;p&gt;You get a Good Fortune Token: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
@@ -2668,7 +2669,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;if $playerchoices.diceroll == 5 or $playerchoices.diceroll == 6&gt;&gt;
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
-    &lt;h2&gt;Your fortune also provides additional benefits! &lt;/h2&gt;
+    &lt;h2&gt;Let&#39;s see how your good fortune plays out. &lt;/h2&gt;
     &lt;p&gt;You get two Good Fortune Tokens: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
@@ -3031,7 +3032,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;&lt;timed 0.1s&gt;&gt;
     &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
 
-    &lt;h2&gt;Your fortune also provides an additional benefit! &lt;/h2&gt;
+    &lt;h2&gt;Let&#39;s see how your good fortune plays out. &lt;/h2&gt;
     &lt;p&gt;You get a Good Fortune Token: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
@@ -3048,7 +3049,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;&lt;timed 0.1s&gt;&gt;
  &lt;&lt;replace &quot;#mount&quot;&gt;&gt;
 
-    &lt;h2&gt;Your fortune also provides additional benefits! &lt;/h2&gt;
+    &lt;h2&gt;Let&#39;s see how your good fortune plays out. &lt;/h2&gt;
     &lt;p&gt;You get two Good Fortune Tokens: &lt;/p&gt;
     &lt;div class=&quot;inline-img-container wildcards&quot;&gt;
             &lt;div class=&quot;inline-img-wrapper arcard&quot;&gt;
@@ -3360,7 +3361,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
     &lt;audio src=&quot;assets/voiceover/strongertogethervo_8_3.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
     &lt;&lt;/timed&gt;&gt;
 &lt;&lt;/if&gt;&gt;
- &lt;&lt;timed 7s&gt;&gt;
+ &lt;&lt;timed 25s&gt;&gt;
         &lt;&lt;include &quot;3headertimer&quot;&gt;&gt;
         &lt;&lt;/timed&gt;&gt;
 
@@ -3412,6 +3413,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;include &quot;footeroptionappears&quot;&gt;&gt;</tw-passagedata><tw-passagedata pid="89" name="record" tags="nobr" position="1100,1100" size="100,100">&lt;&lt;set $prevpass to &quot;outro&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;record&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;recordttrans&quot;&gt;&gt;
+&lt;&lt;audio &quot;:all&quot; &#39;stop&#39;&gt;&gt;
 &lt;&lt;if $withVoiceover is true&gt;&gt;
     &lt;&lt;timed 0.1s&gt;&gt;
     &lt;audio src=&quot;assets/voiceover/strongertogethervo_8_5.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
@@ -3422,6 +3424,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;p&gt;Now you have your pitch, we want you to summarise it.&lt;/p&gt;
 &lt;p&gt;When you’re ready, press ‘Start Recording’ below, speak into the microphone and describe the action you will take for your High Street. &lt;/p&gt;
 &lt;p&gt;It’s time to begin to recover. &lt;/p&gt;
+
 
 
 
@@ -3464,7 +3467,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="91" name="recordttrans" tags="nobr" position="100,1225" size="100,100">&lt;&lt;set $prevpass to &quot;record&quot;&gt;&gt;
 &lt;&lt;set $pass to &quot;recordttrans&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;postrecord&quot;&gt;&gt;
-&lt;&lt;audio &quot;:all&quot; stop&gt;&gt;
+
 &lt;&lt;if $withVoiceover is true&gt;&gt;    
      &lt;&lt;audio &quot;success3&quot; &quot;play&quot;&gt;&gt;
 &lt;&lt;else&gt;&gt;
@@ -3488,16 +3491,21 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
 &lt;&lt;set $pass to &quot;postrecord&quot;&gt;&gt;
 &lt;&lt;set $nextpass to &quot;postrecordb&quot;&gt;&gt;
 &lt;&lt;set $improvement to 100- $playerchoices.percentage&gt;&gt;
-&lt;&lt;if $withVoiceover is true&gt;&gt;
+
+
+  &lt;&lt;if $withVoiceover is true&gt;&gt;
+      &lt;&lt;audio &quot;aftermath&quot; volume 1 fadeoverto 2 $reducedVol loop&gt;&gt;
     &lt;&lt;timed 0.1s&gt;&gt;
     &lt;audio src=&quot;assets/voiceover/strongertogethervo_8_6.mp3&quot; autoplay&gt;Audio is not supported on your device&lt;/audio&gt;
     &lt;&lt;/timed&gt;&gt;
+    &lt;&lt;else&gt;&gt;
+&lt;&lt;audio &quot;aftermath&quot; volume 1 fadeoverto 2 $reducedVol loop&gt;&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;main&gt;
  
 &lt;p&gt;On High Street, your plan is put into action. &lt;/p&gt;
 &lt;br/&gt;
-&lt;p&gt;You watch the practical and fantastical events unfold and reflect on all you have been through&lt;/p&gt;
+&lt;p&gt;You watch the practical and fantastical events unfold and reflect on all you have been through.&lt;/p&gt;
 &lt;p&gt;Dot is impressed.&lt;/p&gt;
 
 &lt;&lt;timed 3s&gt;&gt;
@@ -3613,7 +3621,7 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  &lt;h2&gt; Now for the final part of the game: the debrief. &lt;/h2&gt;
 &lt;p&gt;There are several questions for you to reflect on and discuss together. &lt;/p&gt;
 &lt;br/&gt;
-    
+
     &lt;p&gt;&lt;i&gt;Facilitator, we recommend five minutes for this discussion.&lt;/i&gt; &lt;/p&gt;
 &lt;/div&gt;
     
