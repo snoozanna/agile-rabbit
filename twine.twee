@@ -412,7 +412,7 @@ setup.chooseImpactsAudio = () => {
   <div class="inline-img-wrapper arcardhor">
         <h3>Game Board</h3><img src="assets/img/board.png" alt="Demo Game Board"/>
 </div></div>
-<br/>
+
 <p>Choose someone to play your <span class="accent">facilitator</span>, they’ll lead you through the game.</p>
 <p>The facilitator can play, or sit on the outside, totally up to you. </p>
 
