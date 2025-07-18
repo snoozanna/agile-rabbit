@@ -409,7 +409,7 @@ setup.chooseImpactsAudio = () => {
 <p>Lay out your cards as below.</p>
 
   <div class="inline-img-container">
-  <div class="inline-img-wrapper arcardhor">
+  <div class="inline-img-wrapper arcardhor board">
         <h3>Game Board</h3><img src="assets/img/board.png" alt="Demo Game Board"/>
 </div></div>
 

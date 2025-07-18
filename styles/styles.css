@@ -739,6 +739,11 @@ main.grid-wrapper.split{
   .arcardhor{
     max-width: 400px;
   }
+
+  .arcardhor.board{
+    max-width: 600px;
+  }
+
   .inline-img-container{
     justify-content: left;
   }
