@@ -330,7 +330,7 @@ setup.chooseImpactsAudio = () => {
 <<set $withVoiceover to false>>
 <<set $playerchoices to {
     chosenmonsters: [],
-    finalmonster: [],
+    finalmonster: "",
     originalactions: [],
     chosenactions: [],
     diceroll:0,
@@ -1837,16 +1837,20 @@ Then for each monster there are 6 optimal choices. For each of these selected, 1
  <<if $withVoiceover is true>>
     <<audio ":all" stop>>
     <<audio "forecast" volume 1 fadeoverto 4 $reducedVol loop>>
-    <<timed 1s>> 
+    <<if $playerchoices.finalmonster != "">>
+         <<timed 1s>> 
            <<audio $audioMonster "play">>  
-        <</timed>>     
+        <</timed>>  
+        <</if>>   
     <<timed 3s>>
       <audio src="assets/voiceover/strongertogethervo_6_2.mp3" autoplay >Audio is not supported on your device</audio> 
       <</timed>>
       <<else>>
         <<audio ":all" stop>>
     <<audio "forecast" "play">> 
+    <<if $playerchoices.finalmonster != "">>
       <<audio $audioMonster "play">>
+      <</if>>
         <</if>>
         <</timed>>
 <<set $imgfinalmonster to "assets/img/" + "Demo_" + $playerchoices.finalmonster + ".png">>
